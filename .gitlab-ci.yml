@@ -1,4 +1,9 @@
-# https://hub.docker.com/r/library/node/tags/
+before_script:
+    - date
+    - uname -a
+    - printenv | sort
+
+#https://hub.docker.com/r/library/node/tags/
 image: node:latest
 # This folder is cached between builds
 # http://docs.gitlab.com/ce/ci/yaml/README.html#cache
@@ -35,10 +40,19 @@ test:
     - echo "Running React test suite......"
 
 deploy_production:
+  only:
+    - '$CI_COMMIT_BRANCH == "master"'
   stage: deploy
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   script:
-    - ls -al
     - cd front-end
-    - ls -al
     - aws s3 cp --recursive ./build s3://fitsbits-front-end
+
+deploy_development:
+  only:
+    - '$CI_COMMIT_BRANCH == "stage"'
+  stage: deploy
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  script:
+    - cd front-end
+    - aws s3 cp --recursive ./build s3://fitsbits-front-end-dev
