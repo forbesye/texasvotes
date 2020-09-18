@@ -14,9 +14,9 @@ stages:
   - test
   - deploy
   
-cache:
-  paths:
-    - /front-end/node_modules/
+# cache:
+#   paths:
+#     - front-end/node_modules/
 
 build:
   stage: build
