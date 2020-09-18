@@ -23,14 +23,22 @@ build:
     - cd front-end
     - npm install
     - npm run-script build
+    - cd ..
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - front-end/build
 
 test:
   stage: test
   script:
     - echo "Running React test suite......"
 
-deploy:
+deploy_production:
   stage: deploy
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   script:
+    - ls -al
     - cd front-end
-    - npm run-script deploy
+    - ls -al
+    - aws s3 cp --recursive ./build s3://fitsbits-front-end
