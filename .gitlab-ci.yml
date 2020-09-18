@@ -52,7 +52,7 @@ deploy_development:
   only:
     - '$CI_COMMIT_BRANCH == "stage"'
   stage: deploy
-    image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
-    script:
-      - cd front-end
-      - aws s3 cp --recursive ./build s3://fitsbits-front-end-dev
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  script:
+    - cd front-end
+    - aws s3 cp --recursive ./build s3://fitsbits-front-end-dev
