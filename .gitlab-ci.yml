@@ -10,7 +10,7 @@ variables:
   #This declares the pipeline stages  
 
 stages:
-#  - build
+  - build
   - test
   - deploy
   
