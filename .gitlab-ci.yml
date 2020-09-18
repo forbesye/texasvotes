@@ -1,5 +1,6 @@
 # https://hub.docker.com/r/library/node/tags/
-image: node:latest# This folder is cached between builds
+image: node:latest
+# This folder is cached between builds
 # http://docs.gitlab.com/ce/ci/yaml/README.html#cache
 
 #AWS access keys stored as secret variables 
