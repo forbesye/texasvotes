@@ -36,7 +36,8 @@ test:
 
 deploy_production:
   only:
-    - '$CI_COMMIT_BRANCH == "master"'
+    variables:
+      - $CI_COMMIT_BRANCH == "master"
   stage: deploy
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   script:
@@ -45,7 +46,8 @@ deploy_production:
 
 deploy_development:
   only:
-    - '$CI_COMMIT_BRANCH == "stage"'
+    variables:
+      - $CI_COMMIT_BRANCH == "stage"
   stage: deploy
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   script:
