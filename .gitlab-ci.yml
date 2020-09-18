@@ -10,7 +10,7 @@ variables:
   #This declares the pipeline stages  
 
 stages:
-  - build
+#  - build
   - test
   - deploy
   
@@ -37,4 +37,6 @@ deploy:
     - ls -al
     - cd front-end
     - ls -al
+    - npm install
+    - npm build
     - aws s3 cp --recursive build s3://fitsbits-front-end
