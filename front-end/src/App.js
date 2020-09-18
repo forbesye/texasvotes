@@ -1,25 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Navbar from "components/Navbar.js"
+import {Switch, Route} from "react-router-dom";
+import Splash from "components/Splash.js"
+import About from "components/About.js"
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Fitsbits!!!
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <Navbar />
+      <Switch>
+        <Route exact path="/" component={Splash} />
+        <Route path="/about" component={About} />
+      </Switch>
+    </React.Fragment>
   );
 }
 
