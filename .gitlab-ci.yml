@@ -7,16 +7,15 @@ image: node:latest
 variables:
   AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID 
   AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-  #This declares the pipeline stages  
 
 stages:
   - build
   - test
   - deploy
   
-# cache:
-#   paths:
-#     - front-end/node_modules/
+cache:
+  paths:
+    - front-end/node_modules/
 
 build:
   stage: build
@@ -28,15 +27,10 @@ build:
 test:
   stage: test
   script:
-    - echo "Running react test suite......"
+    - echo "Running React test suite......"
 
 deploy:
   stage: deploy
-  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest  
   script:
-    - ls -al
     - cd front-end
-    - ls -al
-    - npm install
-    - npm build
-    - aws s3 cp --recursive build s3://fitsbits-front-end
+    - npm run-script deploy
