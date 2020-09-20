@@ -1,3 +1,16 @@
+@import '~antd/dist/antd.css';
+
+.logo{
+  width: 150px;
+  float: left;
+}
+.logo a{
+  display: inline-block;
+  font-size: 20px;
+  padding: 19px 20px;
+  text-transform: capitalize;
+}
+
 .App {
   text-align: center;
 }
