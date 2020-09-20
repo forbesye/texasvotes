@@ -1,0 +1,16 @@
+.circle_headshot {
+    border-radius: 50% !important;
+}
+
+.wrapper {
+    width: 90%;
+    max-width: 1000px;
+    margin: 16px auto;
+}
+
+.flexbox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
