@@ -28,7 +28,7 @@ const About = () => {
                 />
                 <DevBio 
                     name="Jefferson Ye" 
-                    bio="ayy lmao" 
+                    bio="ayy lmao." 
                     picture_path="https://image.shutterstock.com/image-vector/male-default-avatar-profile-gray-260nw-362901362.jpg" 
                 />
                 <DevBio 
