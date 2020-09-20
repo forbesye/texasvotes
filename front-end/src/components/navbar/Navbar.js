@@ -1,34 +1,36 @@
 import React, { useState } from 'react';
 import { Drawer, Button } from 'antd';
-// import { Box, Typography, Button, IconButton , Hidden} from "@material-ui/core";
-// import MenuIcon from "@material-ui/icons/Menu";
+import Icon, { MenuOutlined } from '@ant-design/icons';
 import NavContent from './NavContent';
 
+import styles from "./Navbar.module.css"
+console.log(styles)
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <nav>
-      <div className="menuCon">
-        <div className="leftMenu">
-          <NavContent />
-        </div>
-        <Button className="barsMenu" type="primary" onClick={() => setOpen(true)} >
-          <span className="barsBtn" />
-        </Button>
-        <Drawer 
-          placement="right"
-          closable={false}
-          onClose={() => setOpen(false)}
-          visible={open}
-        >
-          <NavContent />
-        </Drawer>
-      </div>
-    </nav>
-  )
+	const [open, setOpen] = useState(false);
+	return (
+		<nav className={styles.nav}>
+			<div className={styles.leftNav}>
+				<NavContent />
+			</div>
+			<div className={styles.rightNav}>
+				<Button className={styles.hamburger} type="primary" onClick={() => setOpen(true)} >
+					<Icon component={MenuOutlined} />
+				</Button>
+			</div>
+			<Drawer 
+				placement="right"
+				closable={false}
+				onClose={() => setOpen(false)}
+                visible={open}
+                headerStyle={{ padding: 12, height: 12, width: 12, background: "pink" }}
+                bodyStyle={{ padding: 0 }}
+			>
+				<NavContent orientation="vertical" />
+			</Drawer>
+		</nav>
+	)
 }
 
-  export default Navbar;
-  
+export default Navbar;
+	
