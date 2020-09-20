@@ -11,8 +11,8 @@
   text-transform: capitalize;
 }
 .menuCon{
-  width: calc(100% - 150px);
-  float: left;
+  /* width: calc(100% - 150px);
+  float: left; */
 }
 .menuCon .ant-menu-item{
   padding: 0px 5px;

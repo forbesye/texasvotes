@@ -1,8 +1,8 @@
 import React from 'react';
 import Navbar from "components/navbar/Navbar.js"
 import {Switch, Route} from "react-router-dom";
-import Splash from "components/Splash.js"
-import About from "components/About.js"
+import Splash from "views/Splash/Splash.js"
+import About from "views/About/About.js"
 import { Layout } from 'antd';
 import './App.css'
 
