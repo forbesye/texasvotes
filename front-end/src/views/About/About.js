@@ -1,7 +1,6 @@
 import React from 'react';
 import DevBio from 'components/cards/DevBio.js'
 import styles from 'views/About/About.module.css'
-import { Row, Col } from 'antd';
 
 const About = () => {
     return(
