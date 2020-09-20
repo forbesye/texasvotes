@@ -1,31 +1,25 @@
 import React from 'react';
-import Navbar from "components/navbar/Navbar.js"
-import {Switch, Route} from "react-router-dom";
-import Splash from "views/Splash/Splash.js"
-import About from "views/About/About.js"
-import { Layout } from 'antd';
-import './App.css'
+import logo from './logo.svg';
+import './App.css';
 
-const { Header, Footer, Content } = Layout; 
-
-const App = () => {
+function App() {
   return (
-    <React.Fragment>
-      <Layout className="layout">
-        <Header>
-          <Navbar />
-        </Header>
-        <Content>
-          <Switch>
-            <Route exact path="/" component={Splash} />
-            <Route path="/about" component={About} />
-          </Switch>
-        </Content>
-        <Footer>
-          Footer
-        </Footer>
-      </Layout>
-    </React.Fragment>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Fitsbits!!!
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
   );
 }
 
