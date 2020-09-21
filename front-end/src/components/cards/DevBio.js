@@ -47,7 +47,7 @@ const Tests = (n) => {
 }
 
 const DevBio = (props) => {
-    const { name, bio, picture_path } = props;
+    const { name, bio, picture_path, commits, issues, tests } = props;
 
     return (
         <Card
@@ -55,9 +55,9 @@ const DevBio = (props) => {
             cover={<img className={styles.circle_headshot} alt={name} src={picture_path} />}
             style={{ width: 300, margin: 16 }}
             actions={[
-                Commits(200),
-                Issues(200),
-                Tests(200)
+                Commits(commits),
+                Issues(issues),
+                Tests(tests)
             ]}
             hoverable={true}
         >
