@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import DevBio from 'components/cards/DevBio.js'
 import styles from 'views/About/About.module.css'
+import JeffersonYeImg from 'views/About/images/JeffersonYeImg.png'
+import JenniferSuriadinataImg from 'views/About/images/JenniferSuriadinataImg.jpg'
+import LarryWinImg from 'views/About/images/LarryWinImg.jpg'
+import SydneyOwenImg from 'views/About/images/SydneyOwenImg.jpg'
 
 const getGitlabInfo = async () => {
     const teamInfo = new Map(
@@ -8,8 +12,8 @@ const getGitlabInfo = async () => {
             "Larry Win",
             {
                 name: "Larry Win",
-                picture_path: "https://image.shutterstock.com/image-vector/male-default-avatar-profile-gray-260nw-362901362.jpg",
-                bio: "",
+                picture_path: LarryWinImg,
+                bio: "I’m a third year CS major at UT Austin. I grew up and am currently living in Belton, Texas. In my free time, I cook and maintain a food instagram, play video games, keep up with the 2020 election season, and obsess over the Avatar universe.                ",
                 commits: 0,
                 issues: 0,
                 tests: 0
@@ -19,8 +23,8 @@ const getGitlabInfo = async () => {
             "jsuriadinata",
             {
                 name: "Jennifer Suriadinata",
-                picture_path: "https://image.shutterstock.com/image-vector/male-default-avatar-profile-gray-260nw-362901362.jpg",
-                bio: "",
+                picture_path: JenniferSuriadinataImg,
+                bio: "I’m a third year CS major here at UT Austin. I’m from Dallas, Texas and spend my free time playing video games and practice piano. I definitely spend too much time working on projects and school :(",
                 commits: 0,
                 issues: 0,
                 tests: 0
@@ -30,8 +34,8 @@ const getGitlabInfo = async () => {
             "Jefferson Ye",
             {
                 name: "Jefferson Ye",
-                picture_path: "https://image.shutterstock.com/image-vector/male-default-avatar-profile-gray-260nw-362901362.jpg",
-                bio: "",
+                picture_path: JeffersonYeImg,
+                bio: "I’m a third year CS major at UT Austin. I’m from Dallas, Texas and in my free time I enjoy exercising, cooking, reading, playing video games, and listening to podcasts!",
                 commits: 0,
                 issues: 0,
                 tests: 0
@@ -41,8 +45,8 @@ const getGitlabInfo = async () => {
             "Sydney Owen",
             {
                 name: "Sydney Owen",
-                picture_path: "https://image.shutterstock.com/image-vector/male-default-avatar-profile-gray-260nw-362901362.jpg",
-                bio: "",
+                picture_path: SydneyOwenImg,
+                bio: "I’m a fourth-year CS major at UT Austin. I grew up in a small town called Llano, Texas. I spend my free time reading sci-fi/fantasy novels, playing video games, and spoiling my cat",
                 commits: 0,
                 issues: 0,
                 tests: 0
@@ -92,7 +96,6 @@ const getGitlabInfo = async () => {
         .then(res => {
             console.log(res)
             res.forEach(element => {
-                //console.log(element)
                 const { assignees } = element;
                 // Todo: Check out what to do for multiple assignees
                 assignees.forEach(a => {
@@ -128,21 +131,17 @@ const About = () => {
                 setTotalTests(gitlabInfo.totalTests);
     
                 let tempList = []
+                // Need to turn map to array for map function in jsx
                 gitlabInfo.teamInfo.forEach(member => {
                     tempList.push(member);
-                    // setTeamList(teamList.concat(member));
-                    // console.log(member)
                 })
                 setTeamList(tempList);
             }
         }
-
         fetchData();
     })
 
-
     return(
-
         <div className={styles.wrapper}>
             <div className={styles.flexbox}>
                 {teamList.map(member => {

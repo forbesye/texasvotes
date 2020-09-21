@@ -1,5 +1,10 @@
 .circle_headshot {
+    object-fit: cover !important;
+    width: 250px !important;
+    height: 250px !important;
     border-radius: 50% !important;
+    margin: 25px !important;
+    display: block !important;
 }
 
 .wrapper {
