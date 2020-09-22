@@ -27,3 +27,13 @@
     justify-content: center;
     align-items: center;
 }
+
+.logo {
+    width: 300px;
+    height: 300px;
+    margin: 16px;
+    text-align: center;
+    box-shadow: 5px 5px 15px rgba(0,0,0,.2);
+    background-color: white;
+    padding: 25px;
+}

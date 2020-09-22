@@ -3,7 +3,7 @@ import DevBio from 'components/cards/DevBio.js'
 import RepoCard from 'components/cards/RepoCard.js'
 import ToolCard from 'components/cards/ToolCard.js'
 import styles from 'views/About/About.module.css'
-import { toolsInfo, teamInfo } from "./AboutInfo.js"
+import { toolsInfo, teamInfo, apiInfo, repoAndAPI } from "./AboutInfo.js"
 
 const getGitlabInfo = async () => {
     let totalCommits = 0, totalIssues = 0, totalTests = 0;
@@ -53,7 +53,6 @@ const About = () => {
                 setTotalCommits(gitlabInfo.totalCommits);
                 setTotalIssues(gitlabInfo.totalIssues);
                 setTotalTests(gitlabInfo.totalTests);
-    
                 
                 let tempList = []
                 // Need to turn map to array for map function in jsx
@@ -96,7 +95,7 @@ const About = () => {
                 <RepoCard type="issues" number={totalIssues}/>
                 <RepoCard type="tests" number={totalTests}/>
             </div>
-            <h1 className={styles.title}>Development tools</h1>
+            <h1 className={styles.title}>Development Tools</h1>
             <div className={styles.flexbox}>
                 {toolsInfo.map(tool => {
                     const { title, img, description, link} = tool;
@@ -108,6 +107,33 @@ const About = () => {
                             description={description}
                             link={link}
                         />
+                    )
+                })}
+            </div>
+            <h1 className={styles.title}>APIs Utilized</h1>
+            <div className={styles.flexbox}>
+                {apiInfo.map(api => {
+                    const { title, img, description, link} = api;
+
+                    return (
+                        <ToolCard 
+                            title={title}
+                            img={img}
+                            description={description}
+                            link={link}
+                        />
+                    )
+                })}
+            </div>
+            <h1 className={styles.title}>GitLab Repository and Postman API</h1>
+            <div className={styles.flexbox}>
+                {repoAndAPI.map(tool => {
+                    const {img, link} = tool;
+
+                    return (
+                        <a href={link}>
+                            <img className = {styles.logo} alt={link} src={img} />
+                        </a>
                     )
                 })}
             </div>

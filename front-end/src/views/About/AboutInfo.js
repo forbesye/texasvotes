@@ -37,16 +37,48 @@ const toolsInfo = [
         link: "https://docker.com/"
     },
     {
+        title: "GitLab",
+        img: GitLabLogo,
+        description: "Git repository and CI/CD platform",
+        link: "https://gitlab.com/"
+    },
+    {
         title: "Postman",
         img: PostmanLogo,
         description: "Tool for designing and testing APIs",
         link: "https://postman.com/"
     },
+]
+
+const apiInfo = [
     {
-        title: "GitLab",
+        title: "React",
+        img: ReactLogo,
+        description: "JavaScript library for front-end development",
+        link: "https://reactjs.org/"
+    },
+    {
+        title: "Ant Design",
+        img: AntDesignLogo,
+        description: "React UI design library",
+        link: "https://ant.design/"
+    },
+    {
+        title: "AWS",
+        img: AWSLogo,
+        description: "Cloud hosting platform",
+        link: "https://aws.amazon.com/"
+    }
+]
+
+const repoAndAPI = [
+    {
         img: GitLabLogo,
-        description: "Git repository and CI/CD platform",
-        link: "https://gitlab.com/"
+        link: "https://gitlab.com/forbesye/fitsbits/"
+    },
+    {
+        img: PostmanLogo,
+        link: "https://postman.com/"
     }
 ]
 
@@ -125,7 +157,11 @@ const teamInfo = new Map(
     ]]
 );
 
+
+
 export {
     toolsInfo, 
-    teamInfo
+    teamInfo,
+    apiInfo,
+    repoAndAPI
 }
