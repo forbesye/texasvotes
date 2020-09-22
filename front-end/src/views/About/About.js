@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Row, Col } from 'antd'
 import DevBio from 'components/cards/DevBio.js'
 import RepoCard from 'components/cards/RepoCard.js'
 import ToolCard from 'components/cards/ToolCard.js'
