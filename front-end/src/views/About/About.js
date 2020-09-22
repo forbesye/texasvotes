@@ -15,7 +15,8 @@ const getGitlabInfo = async () => {
             {
                 name: "Larry Win",
                 picture_path: LarryWinImg,
-                bio: "I’m a third year CS major at UT Austin. I grew up and am currently living in Belton, Texas. In my free time, I cook and maintain a food instagram, play video games, keep up with the 2020 election season, and obsess over the Avatar universe.",
+                role: "Front-end",
+                bio: "I’m a third year CS major at UT Austin. I grew up and am currently living in Belton, Texas. In my free time, I cook and maintain a food Instagram, play video games, keep up with the 2020 election season, and obsess over the Avatar universe.",
                 commits: 0,
                 issues: 0,
                 tests: 0
@@ -26,7 +27,8 @@ const getGitlabInfo = async () => {
             {
                 name: "Jennifer Suriadinata",
                 picture_path: JenniferSuriadinataImg,
-                bio: "I’m a third year CS major here at UT Austin. I’m from Dallas, Texas and spend my free time playing video games and practice piano. I definitely spend too much time working on projects and school :(",
+                role: "Front-end",
+                bio: "I’m a third year CS major at UT Austin. I’m from Dallas, Texas and spend my free time playing video games and practicing piano. I definitely spend too much time working on projects and school :(",
                 commits: 0,
                 issues: 0,
                 tests: 0
@@ -37,6 +39,7 @@ const getGitlabInfo = async () => {
             {
                 name: "Jefferson Ye",
                 picture_path: JeffersonYeImg,
+                role: "Front-end",
                 bio: "I’m a third year CS major at UT Austin. I’m from Dallas, Texas and in my free time I enjoy exercising, cooking, reading, playing video games, and listening to podcasts!",
                 commits: 0,
                 issues: 0,
@@ -48,7 +51,8 @@ const getGitlabInfo = async () => {
             {
                 name: "Sydney Owen",
                 picture_path: SydneyOwenImg,
-                bio: "I’m a fourth-year CS major at UT Austin. I grew up in a small town called Llano, Texas. I spend my free time reading sci-fi/fantasy novels, playing video games, and spoiling my cat",
+                role: "Back-end",
+                bio: "I’m a fourth year CS major at UT Austin. I grew up in a small town called Llano, Texas. I spend my free time reading sci-fi/fantasy novels, playing video games, and spoiling my cat.",
                 commits: 0,
                 issues: 0,
                 tests: 0
@@ -59,7 +63,8 @@ const getGitlabInfo = async () => {
             {
                 name: "Ivan Romero",
                 picture_path: IvanRomeroImg,
-                bio: "I am a fourth year CS major at UT Austin. I am from Houston, TX and I spend most of my time cooking or watching and participating in combat sports like boxing or Brazilian-Jiu-Jitsu.",
+                role: "Back-end",
+                bio: "I'm a fourth year CS major at UT Austin. I'm from Houston, TX and I spend most of my time cooking or watching and participating in combat sports like boxing or Brazilian-Jiu-Jitsu.",
                 commits: 0,
                 issues: 0,
                 tests: 0
@@ -70,20 +75,20 @@ const getGitlabInfo = async () => {
             {
                 name: "Kevin Li",
                 picture_path: KevinLiImg,
-                bio: "I’m a third year CS major here at UT Austin. I’m from Austin, Texas and spend my free time playing chess and camping. I definitely have spent too much time playing Among Us lately.",
+                role: "Back-end",
+                bio: "I’m a third year CS major at UT Austin. I’m from Austin, Texas and spend my free time playing chess and camping. I definitely have spent too much time playing Among Us lately.",
                 commits: 0,
                 issues: 0,
                 tests: 0
             }
         ]]
-    )
+    );
 
     let totalCommits = 0, totalIssues = 0, totalTests = 0;
 
     await fetch("https://gitlab.com/api/v4/projects/21177395/repository/contributors")
         .then(res => res.json())
         .then(res => {
-            console.log(res)
             res.forEach(element => {
                 const { name, commits } = element;
                 if(teamInfo.has(name)) {
@@ -96,7 +101,6 @@ const getGitlabInfo = async () => {
     await fetch("https://gitlab.com/api/v4/projects/21177395/issues")
         .then(res => res.json())
         .then(res => {
-            console.log(res)
             res.forEach(element => {
                 const { assignees } = element;
                 // Todo: Check out what to do for multiple assignees
@@ -147,11 +151,12 @@ const About = () => {
         <div className={styles.wrapper}>
             <div className={styles.flexbox}>
                 {teamList.map(member => {
-                    const { name, bio, picture_path, commits, issues, tests} = member;
+                    const { name, bio, role, picture_path, commits, issues, tests} = member;
                     return (
                         <DevBio 
                             key={name}
                             name={name}
+                            role={role}
                             bio={bio}
                             picture_path={picture_path}
                             commits={commits}

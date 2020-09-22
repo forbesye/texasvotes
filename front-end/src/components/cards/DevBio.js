@@ -47,13 +47,13 @@ const Tests = (n) => {
 }
 
 const DevBio = (props) => {
-    const { name, bio, picture_path, commits, issues, tests } = props;
+    const { name, bio, role, picture_path, commits, issues, tests } = props;
 
     return (
         <Card
             bordered={true}
             cover={<img className={styles.circle_headshot} alt={name} src={picture_path} />}
-            style={{ width: 300, margin: 16 }}
+            style={{ width: 300, margin: 16, textAlign: "center" }}
             actions={[
                 Commits(commits),
                 Issues(issues),
@@ -61,7 +61,8 @@ const DevBio = (props) => {
             ]}
             hoverable={true}
         >
-            <Meta title={name} description={bio} style={{ textAlign: "center" }}/>
+            <b><font size="+2">{name}</font></b>
+            <Meta title={role} description={bio} style={{ textAlign: "center" }}/>
         </Card>
     )
 }
