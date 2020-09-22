@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import DevBio from 'components/cards/DevBio.js'
+import RepoCard from 'components/cards/RepoCard.js'
 import styles from 'views/About/About.module.css'
 import JeffersonYeImg from 'views/About/images/JeffersonYeImg.png'
 import JenniferSuriadinataImg from 'views/About/images/JenniferSuriadinataImg.jpg'
@@ -146,6 +147,11 @@ const About = () => {
 
     return(
         <div className={styles.wrapper}>
+            <h1 className={styles.title} >About Us</h1>
+                <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            <h1 className={styles.title}>Our Team</h1>
             <div className={styles.flexbox}>
                 {teamList.map(member => {
                     const { name, bio, role, picture_path, commits, issues, tests} = member;
@@ -163,10 +169,11 @@ const About = () => {
                     )
                 })}
             </div>
-            <div>
-            Total commits = {totalCommits} <br />
-            Total issues = {totalIssues} <br />
-            Total tests = {totalTests}
+            <h1 className={styles.title}>Repository Statistics</h1>
+            <div className={styles.flexbox}>
+                <RepoCard type="commits" number={totalCommits}/>
+                <RepoCard type="issues" number={totalIssues}/>
+                <RepoCard type="tests" number={totalTests}/>
             </div>
         </div>
     );

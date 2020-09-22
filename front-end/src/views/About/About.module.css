@@ -7,6 +7,14 @@
     display: block !important;
 }
 
+.title {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 3em;
+    font-weight: bold;
+}
+
 .wrapper {
     width: 90%;
     max-width: 1000px;
