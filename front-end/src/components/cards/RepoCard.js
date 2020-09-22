@@ -1,6 +1,7 @@
 import React from 'react';
-import { Card } from 'antd';
+import { Card, Typography } from 'antd';
 import { BranchesOutlined, ProfileOutlined, CheckCircleOutlined, QuestionOutlined } from '@ant-design/icons'
+import styles from "./Card.module.css"
 
 const RepoCard = (props) => {
     const { type, number } = props;
@@ -25,14 +26,13 @@ const RepoCard = (props) => {
     }
     
     return (
-        <Card
-            style={{ width: "300px", margin: 16, textAlign: "center", boxShadow: "5px 5px 15px rgba(0,0,0,.2)" }}
+        <Card className={styles.card}
         >
             {icon}
             <br />
-            <font size="+2">
+            <Typography.Title level={3}>
                 {`Total ${type}: ${number}`}
-            </font>
+            </Typography.Title>
         </Card>
     )
 }

@@ -8,8 +8,8 @@ import { toolsInfo, teamInfo, apiInfo, repoAndAPI } from "./AboutInfo.js"
 const getGitlabInfo = async () => {
     let totalCommits = 0, totalIssues = 0, totalTests = 0;
 
-    const commitList = await fetch("https://gitlab.com/api/v4/projects/21177395/repository/contributors")
-        .then(res => res.json())
+    let commitList = await fetch("https://gitlab.com/api/v4/projects/21177395/repository/contributors")
+    commitList = await commitList.json()
     commitList.forEach(element => {
         const { name, commits } = element;
         if(teamInfo.has(name)) {
@@ -18,8 +18,8 @@ const getGitlabInfo = async () => {
         totalCommits += commits;
     });
 
-    const issueList = await fetch("https://gitlab.com/api/v4/projects/21177395/issues")
-        .then(res => res.json());
+    let issueList = await fetch("https://gitlab.com/api/v4/projects/21177395/issues")
+    issueList = await issueList.json()
     
     issueList.forEach(element => {
         const { assignees } = element;
@@ -74,7 +74,7 @@ const About = () => {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
             <h1 className={styles.title}>Our Team</h1>
-            <div className={styles.flexbox}>
+            <div className={`${styles.gridLayout} ${styles.team}`}>
                 {teamList.map(member => {
                     const { name, bio, role, picture_path, commits, issues, tests} = member;
                     return (
@@ -92,13 +92,13 @@ const About = () => {
                 })}
             </div>
             <h1 className={styles.title}>Repository Statistics</h1>
-            <div className={styles.flexbox}>
+            <div className={`${styles.gridLayout} ${styles.repoStats}`}>
                 <RepoCard type="commits" number={totalCommits}/>
                 <RepoCard type="issues" number={totalIssues}/>
                 <RepoCard type="tests" number={totalTests}/>
             </div>
             <h1 className={styles.title}>Development Tools</h1>
-            <div className={styles.flexbox}>
+            <div className={`${styles.gridLayout} ${styles.devTools}`}>
                 {toolsInfo.map(tool => {
                     const { title, img, description, link} = tool;
 
@@ -114,7 +114,7 @@ const About = () => {
                 })}
             </div>
             <h1 className={styles.title}>APIs Utilized</h1>
-            <div className={styles.flexbox}>
+            <div className={`${styles.gridLayout} ${styles.devTools}`}>
                 {apiInfo.map(api => {
                     const { title, img, description, link} = api;
 
