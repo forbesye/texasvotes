@@ -13,7 +13,7 @@ const getGitlabInfo = async () => {
             {
                 name: "Larry Win",
                 picture_path: LarryWinImg,
-                bio: "I’m a third year CS major at UT Austin. I grew up and am currently living in Belton, Texas. In my free time, I cook and maintain a food instagram, play video games, keep up with the 2020 election season, and obsess over the Avatar universe.                ",
+                bio: "I’m a third year CS major at UT Austin. I grew up and am currently living in Belton, Texas. In my free time, I cook and maintain a food instagram, play video games, keep up with the 2020 election season, and obsess over the Avatar universe.",
                 commits: 0,
                 issues: 0,
                 tests: 0
@@ -78,7 +78,7 @@ const getGitlabInfo = async () => {
 
     let totalCommits = 0, totalIssues = 0, totalTests = 0;
 
-    await fetch("https://gitlab.com/api/v4/projects/21177395/repository/contributors")
+    fetch("https://gitlab.com/api/v4/projects/21177395/repository/contributors")
         .then(res => res.json())
         .then(res => {
             console.log(res)
@@ -91,7 +91,7 @@ const getGitlabInfo = async () => {
             });
         })
     
-    await fetch("https://gitlab.com/api/v4/projects/21177395/issues")
+    fetch("https://gitlab.com/api/v4/projects/21177395/issues")
         .then(res => res.json())
         .then(res => {
             console.log(res)
