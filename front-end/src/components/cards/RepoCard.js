@@ -8,7 +8,8 @@ const RepoCard = (props) => {
         fontSize: "3em",
         margin: 16
     }
-    let icon = <QuestionOutlined />;
+    
+    let icon;
     switch(type) {
         case "commits":
             icon = <BranchesOutlined style={iconStyle} />
@@ -19,13 +20,13 @@ const RepoCard = (props) => {
         case "tests":
             icon = <CheckCircleOutlined style={iconStyle}/>
             break;
+        default:
+            icon = <QuestionOutlined style={iconStyle}/>;
     }
     
     return (
         <Card
-            bordered={true}
-            style={{ width: "300px", margin: 16, textAlign: "center" }}
-            hoverable={true}
+            style={{ width: "300px", margin: 16, textAlign: "center", boxShadow: "5px 5px 15px rgba(0,0,0,.2)" }}
         >
             {icon}
             <br />

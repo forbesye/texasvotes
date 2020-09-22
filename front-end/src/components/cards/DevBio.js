@@ -53,13 +53,12 @@ const DevBio = (props) => {
         <Card
             bordered={true}
             cover={<img className={styles.circle_headshot} alt={name} src={picture_path} />}
-            style={{ width: 300, margin: 16, textAlign: "center" }}
+            style={{ width: 300, margin: 16, textAlign: "center", boxShadow: "5px 5px 15px rgba(0,0,0,.2)"}}
             actions={[
                 Commits(commits),
                 Issues(issues),
                 Tests(tests)
             ]}
-            hoverable={true}
         >
             <b><font size="+2">{name}</font></b>
             <Meta title={role} description={bio} style={{ textAlign: "center" }}/>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import DevBio from 'components/cards/DevBio.js'
 import RepoCard from 'components/cards/RepoCard.js'
+import ToolCard from 'components/cards/ToolCard.js'
 import styles from 'views/About/About.module.css'
 import JeffersonYeImg from 'views/About/images/JeffersonYeImg.png'
 import JenniferSuriadinataImg from 'views/About/images/JenniferSuriadinataImg.jpg'
@@ -8,6 +9,13 @@ import LarryWinImg from 'views/About/images/LarryWinImg.jpg'
 import SydneyOwenImg from 'views/About/images/SydneyOwenImg.jpg'
 import KevinLiImg from 'views/About/images/KevinLiImg.png'
 import IvanRomeroImg from 'views/About/images/IvanRomeroImg.jpg'
+import ReactLogo from 'views/About/images/ReactLogo.png'
+import AntDesignLogo from 'views/About/images/AntDesignLogo.png'
+import AWSLogo from 'views/About/images/AWSLogo.png'
+import DockerLogo from 'views/About/images/DockerLogo.png'
+import PostmanLogo from 'views/About/images/PostmanLogo.png'
+import GitLabLogo from 'views/About/images/GitLabLogo.png'
+
 
 const getGitlabInfo = async () => {
     const teamInfo = new Map(
@@ -175,8 +183,62 @@ const About = () => {
                 <RepoCard type="issues" number={totalIssues}/>
                 <RepoCard type="tests" number={totalTests}/>
             </div>
+            <h1 className={styles.title}>Development tools</h1>
+            <div className={styles.flexbox}>
+                {toolsInfo.map(tool => {
+                    const { title, img, description, link} = tool;
+
+                    return (
+                        <ToolCard 
+                            title={title}
+                            img={img}
+                            description={description}
+                            link={link}
+                        />
+                    )
+                })}
+            </div>
         </div>
     );
 }
+
+const toolsInfo = [
+    {
+        title: "React",
+        img: ReactLogo,
+        description: "JavaScript library for front-end development",
+        link: "https://reactjs.org/"
+    },
+    {
+        title: "Ant Design",
+        img: AntDesignLogo,
+        description: "React UI design library",
+        link: "https://ant.design/"
+    },
+    {
+        title: "AWS",
+        img: AWSLogo,
+        description: "Cloud hosting platform",
+        link: "https://aws.amazon.com/"
+    },
+    {
+        title: "Docker",
+        img: DockerLogo,
+        description: "Containerization tool for consistent runtime environments",
+        link: "https://docker.com/"
+    },
+    {
+        title: "Postman",
+        img: PostmanLogo,
+        description: "Tool for designing and testing APIs",
+        link: "https://postman.com/"
+    },
+    {
+        title: "GitLab",
+        img: GitLabLogo,
+        description: "Git repository and CI/CD platform",
+        link: "https://gitlab.com/"
+    }
+]
 
 export default About
