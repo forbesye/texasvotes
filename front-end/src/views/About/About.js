@@ -5,6 +5,8 @@ import JeffersonYeImg from 'views/About/images/JeffersonYeImg.png'
 import JenniferSuriadinataImg from 'views/About/images/JenniferSuriadinataImg.jpg'
 import LarryWinImg from 'views/About/images/LarryWinImg.jpg'
 import SydneyOwenImg from 'views/About/images/SydneyOwenImg.jpg'
+import KevinLiImg from 'views/About/images/KevinLiImg.png'
+import IvanRomeroImg from 'views/About/images/IvanRomeroImg.jpg'
 
 const getGitlabInfo = async () => {
     const teamInfo = new Map(
@@ -56,8 +58,8 @@ const getGitlabInfo = async () => {
             "Ivan Romero",
             {
                 name: "Ivan Romero",
-                picture_path: "https://image.shutterstock.com/image-vector/male-default-avatar-profile-gray-260nw-362901362.jpg",
-                bio: "",
+                picture_path: IvanRomeroImg,
+                bio: "I am a fourth year CS major at UT Austin. I am from Houston, TX and I spend most of my time cooking or watching and participating in combat sports like boxing or Brazilian-Jiu-Jitsu.",
                 commits: 0,
                 issues: 0,
                 tests: 0
@@ -67,8 +69,8 @@ const getGitlabInfo = async () => {
             "Kevin Li",
             {
                 name: "Kevin Li",
-                picture_path: "https://image.shutterstock.com/image-vector/male-default-avatar-profile-gray-260nw-362901362.jpg",
-                bio: "",
+                picture_path: KevinLiImg,
+                bio: "I’m a third year CS major here at UT Austin. I’m from Austin, Texas and spend my free time playing chess and camping. I definitely have spent too much time playing Among Us lately.",
                 commits: 0,
                 issues: 0,
                 tests: 0
@@ -78,7 +80,7 @@ const getGitlabInfo = async () => {
 
     let totalCommits = 0, totalIssues = 0, totalTests = 0;
 
-    fetch("https://gitlab.com/api/v4/projects/21177395/repository/contributors")
+    await fetch("https://gitlab.com/api/v4/projects/21177395/repository/contributors")
         .then(res => res.json())
         .then(res => {
             console.log(res)
@@ -91,7 +93,7 @@ const getGitlabInfo = async () => {
             });
         })
     
-    fetch("https://gitlab.com/api/v4/projects/21177395/issues")
+    await fetch("https://gitlab.com/api/v4/projects/21177395/issues")
         .then(res => res.json())
         .then(res => {
             console.log(res)
