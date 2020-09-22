@@ -86,33 +86,29 @@ const getGitlabInfo = async () => {
 
     let totalCommits = 0, totalIssues = 0, totalTests = 0;
 
-    await fetch("https://gitlab.com/api/v4/projects/21177395/repository/contributors")
+    const commitList = await fetch("https://gitlab.com/api/v4/projects/21177395/repository/contributors")
         .then(res => res.json())
-        .then(res => {
-            res.forEach(element => {
-                const { name, commits } = element;
-                if(teamInfo.has(name)) {
-                    teamInfo.get(name).commits = commits;
-                }
-                totalCommits += commits;
-            });
-        })
-    
-    await fetch("https://gitlab.com/api/v4/projects/21177395/issues")
-        .then(res => res.json())
-        .then(res => {
-            res.forEach(element => {
-                const { assignees } = element;
-                // Todo: Check out what to do for multiple assignees
-                assignees.forEach(a => {
-                    const { name } = a;
-                    if(teamInfo.has(name)) {
-                        teamInfo.get(name).issues += 1;
-                    }
-                });
-            totalIssues += 1;
-            })
-        })
+    commitList.forEach(element => {
+        const { name, commits } = element;
+        if(teamInfo.has(name)) {
+            teamInfo.get(name).commits = commits;
+        }
+        totalCommits += commits;
+    });
+
+    const issueList = await fetch("https://gitlab.com/api/v4/projects/21177395/issues")
+        .then(res => res.json());
+    issueList.forEach(element => {
+        const { assignees } = element;
+        // Todo: Check out what to do for multiple assignees
+        assignees.forEach(a => {
+            const { name } = a;
+            if(teamInfo.has(name)) {
+                teamInfo.get(name).issues += 1;
+            }
+        });
+    totalIssues += 1;
+    })
     
     return {
         totalCommits: totalCommits,
@@ -136,6 +132,7 @@ const About = () => {
                 setTotalIssues(gitlabInfo.totalIssues);
                 setTotalTests(gitlabInfo.totalTests);
     
+                
                 let tempList = []
                 // Need to turn map to array for map function in jsx
                 gitlabInfo.teamInfo.forEach(member => {
