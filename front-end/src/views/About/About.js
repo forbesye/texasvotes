@@ -20,6 +20,7 @@ const getGitlabInfo = async () => {
 
     const issueList = await fetch("https://gitlab.com/api/v4/projects/21177395/issues")
         .then(res => res.json());
+    
     issueList.forEach(element => {
         const { assignees } = element;
         // Todo: Check out what to do for multiple assignees
@@ -47,6 +48,7 @@ const About = () => {
     const [totalTests, setTotalTests] = useState(0);
 
     useEffect(() => {
+        console.log("useEffect");
         const fetchData = async () => {
             const gitlabInfo = await getGitlabInfo();
             if(teamList === undefined || teamList.length === 0) {
@@ -63,7 +65,7 @@ const About = () => {
             }
         }
         fetchData();
-    })
+    }, [teamList])
 
     return(
         <div className={styles.wrapper}>
@@ -101,7 +103,8 @@ const About = () => {
                     const { title, img, description, link} = tool;
 
                     return (
-                        <ToolCard 
+                        <ToolCard
+                            key={title} 
                             title={title}
                             img={img}
                             description={description}
@@ -116,7 +119,8 @@ const About = () => {
                     const { title, img, description, link} = api;
 
                     return (
-                        <ToolCard 
+                        <ToolCard
+                            key={title}
                             title={title}
                             img={img}
                             description={description}
@@ -131,7 +135,7 @@ const About = () => {
                     const {img, link} = tool;
 
                     return (
-                        <a href={link}>
+                        <a href={link} key={link}>
                             <img className = {styles.logo} alt={link} src={img} />
                         </a>
                     )
