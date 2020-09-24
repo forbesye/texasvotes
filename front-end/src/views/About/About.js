@@ -1,41 +1,150 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import DevBio from 'components/cards/DevBio.js'
+import RepoCard from 'components/cards/RepoCard.js'
+import ToolCard from 'components/cards/ToolCard.js'
 import styles from 'views/About/About.module.css'
+import { toolsInfo, teamInfo, apiInfo, repoAndAPI } from "./AboutInfo.js"
+
+const getGitlabInfo = async () => {
+    let totalCommitCount = 0, totalIssueCount = 0, totalTestCount = 0;
+
+    // Need to wipe member issues before calling again and calculate total tests
+    teamInfo.forEach(member => {
+        totalTestCount += member.tests;
+        member.issues = 0;
+    });
+
+    let commitList = await fetch("https://gitlab.com/api/v4/projects/21177395/repository/contributors")
+    commitList = await commitList.json()
+    commitList.forEach(element => {
+        const { name, commits } = element;
+        if(teamInfo.has(name)) {
+            teamInfo.get(name).commits = commits;
+        }
+        totalCommitCount += commits;
+    });
+
+    let issueList = await fetch("https://gitlab.com/api/v4/projects/21177395/issues")
+    issueList = await issueList.json()
+    
+    issueList.forEach(element => {
+        const { assignees } = element;
+        // Todo: Check out what to do for multiple assignees
+        assignees.forEach(a => {
+            const { name } = a;
+            if(teamInfo.has(name)) {
+                teamInfo.get(name).issues += 1;
+            }
+        });
+        totalIssueCount += 1;
+    })
+
+    return {
+        totalCommits: totalCommitCount,
+        totalIssues: totalIssueCount,
+        totalTests: totalTestCount,
+        teamInfo: teamInfo
+    }
+}
 
 const About = () => {
+    const [teamList, setTeamList] = useState([]);
+    const [totalCommits, setTotalCommits] = useState(0);
+    const [totalIssues, setTotalIssues] = useState(0);
+    const [totalTests, setTotalTests] = useState(0);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const gitlabInfo = await getGitlabInfo();
+            if(teamList === undefined || teamList.length === 0) {
+                setTotalCommits(gitlabInfo.totalCommits);
+                setTotalIssues(gitlabInfo.totalIssues);
+                setTotalTests(gitlabInfo.totalTests);
+                
+                let tempList = []
+                // Need to turn map to array for map function in jsx
+                gitlabInfo.teamInfo.forEach(member => {
+                    tempList.push(member);
+                })
+                setTeamList(tempList);
+            }
+        }
+        fetchData();
+    }, [teamList])
+
     return(
         <div className={styles.wrapper}>
+            <h1 className={styles.title} >About Us</h1>
+                <p style={{fontSize: 20}}>
+                TexasVotes is a website that allows users to quickly look up their representatives, the districts they live in, and state/federal elections they're slated to participate in within the state of Texas. We hope to increase governmental transparency and decrease the difficulty for the voting process in order to promote a more democratic society.
+                </p>
+            <h1 className={styles.title}>Our Team</h1>
+            <div className={`${styles.gridLayout} ${styles.team}`}>
+                {teamList.map(member => {
+                    const { name, bio, role, picture_path, commits, issues, tests} = member;
+                    return (
+                        <DevBio 
+                            key={name}
+                            name={name}
+                            role={role}
+                            bio={bio}
+                            picture_path={picture_path}
+                            commits={commits}
+                            issues={issues}
+                            tests={tests}
+                        />
+                    )
+                })}
+            </div>
+            <h1 className={styles.title}>Repository Statistics</h1>
+            <div className={`${styles.gridLayout} ${styles.repoStats}`}>
+                <RepoCard type="commits" number={totalCommits}/>
+                <RepoCard type="issues" number={totalIssues}/>
+                <RepoCard type="tests" number={totalTests}/>
+            </div>
+            <h1 className={styles.title}>Development Tools</h1>
+            <div className={`${styles.gridLayout} ${styles.devTools}`}>
+                {toolsInfo.map(tool => {
+                    const { title, img, description, link} = tool;
+
+                    return (
+                        <ToolCard
+                            key={title} 
+                            title={title}
+                            img={img}
+                            description={description}
+                            link={link}
+                        />
+                    )
+                })}
+            </div>
+            <h1 className={styles.title}>APIs Utilized</h1>
+            <div className={`${styles.gridLayout} ${styles.devTools}`}>
+                {apiInfo.map(api => {
+                    const { title, img, description, link} = api;
+
+                    return (
+                        <ToolCard
+                            key={title}
+                            title={title}
+                            img={img}
+                            description={description}
+                            link={link}
+                        />
+                    )
+                })}
+            </div>
+            <h1 className={styles.title}>GitLab Repository and Postman API</h1>
             <div className={styles.flexbox}>
-                <DevBio
-                    name="Jefferson Ye" 
-                    bio="ayy lmao" 
-                    picture_path="https://image.shutterstock.com/image-vector/male-default-avatar-profile-gray-260nw-362901362.jpg" 
-                />
-                <DevBio 
-                    name="Jefferson Ye" 
-                    bio="ayy lmao" 
-                    picture_path="https://image.shutterstock.com/image-vector/male-default-avatar-profile-gray-260nw-362901362.jpg" 
-                />
-                <DevBio 
-                    name="Jefferson Ye" 
-                    bio="ayy lmao" 
-                    picture_path="https://image.shutterstock.com/image-vector/male-default-avatar-profile-gray-260nw-362901362.jpg" 
-                />
-                <DevBio 
-                    name="Jefferson Ye" 
-                    bio="ayy lmao" 
-                    picture_path="https://image.shutterstock.com/image-vector/male-default-avatar-profile-gray-260nw-362901362.jpg" 
-                />
-                <DevBio 
-                    name="Jefferson Ye" 
-                    bio="ayy lmao." 
-                    picture_path="https://image.shutterstock.com/image-vector/male-default-avatar-profile-gray-260nw-362901362.jpg" 
-                />
-                <DevBio 
-                    name="Jefferson Ye" 
-                    bio="ayy lmao" 
-                    picture_path="https://image.shutterstock.com/image-vector/male-default-avatar-profile-gray-260nw-362901362.jpg" 
-                />
+                {repoAndAPI.map(tool => {
+                    const {img, link} = tool;
+
+                    return (
+                        <a href={link} key={link}>
+                            <img className = {styles.logo} alt={link} src={img} />
+                        </a>
+                    )
+                })}
             </div>
         </div>
     );
