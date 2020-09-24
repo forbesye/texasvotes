@@ -24,6 +24,7 @@ const DevBio = (props) => {
             bordered={true}
             cover={<img className={styles.circle_headshot} alt={name} src={picture_path} />}
             className={styles.card}
+            bodyStyle={{alignItems: "stretch", height: "100%", display: "flex", flexDirection: "column"}}
         >
             <Typography.Title level={3}>{name}</Typography.Title>
             <Meta title={role} description={bio} className={styles.meta}/>
