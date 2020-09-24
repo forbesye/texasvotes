@@ -3,11 +3,6 @@ image: node:latest
 # This folder is cached between builds
 # http://docs.gitlab.com/ce/ci/yaml/README.html#cache
 
-#AWS access keys stored as secret variables 
-variables:
-  AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID 
-  AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-
 stages:
   - build
   - test
@@ -23,33 +18,8 @@ build:
     - cd front-end
     - npm install
     - npm run-script build
-    - cd ..
-  # artifacts:
-  #   expire_in: 1 hour
-  #   paths:
-  #     - front-end/build
 
 test:
   stage: test
   script:
     - echo "Running React test suite......"
-
-# deploy_production:
-#   only:
-#     variables:
-#       - $CI_COMMIT_BRANCH == "master"
-#   stage: deploy
-#   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
-#   script:
-#     - cd front-end
-#     - aws s3 cp --recursive ./build s3://fitsbits-front-end
-
-# deploy_development:
-#   only:
-#     variables:
-#       - $CI_COMMIT_BRANCH == "stage"
-#   stage: deploy
-#   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
-#   script:
-#     - cd front-end
-#     - aws s3 cp --recursive ./build s3://fitsbits-front-end-dev
