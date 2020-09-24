@@ -10,6 +10,9 @@ import AWSLogo from 'views/About/images/AWSLogo.png'
 import DockerLogo from 'views/About/images/DockerLogo.png'
 import PostmanLogo from 'views/About/images/PostmanLogo.png'
 import GitLabLogo from 'views/About/images/GitLabLogo.png'
+import GoogleDevLogo from 'views/About/images/GoogleDevLogo.png'
+import OpenSecretsLogo from 'views/About/images/OpenSecretsLogo.png'
+import OpenStatesLogo from 'views/About/images/OpenStatesLogo.png'
 
 const toolsInfo = [
     {
@@ -52,22 +55,22 @@ const toolsInfo = [
 
 const apiInfo = [
     {
-        title: "React",
-        img: ReactLogo,
-        description: "JavaScript library for front-end development",
-        link: "https://reactjs.org/"
+        title: "Google Civic API",
+        img: GoogleDevLogo,
+        description: "Used to find representatives and their relevant information",
+        link: "https://developers.google.com/civic-information"
     },
     {
-        title: "Ant Design",
-        img: AntDesignLogo,
-        description: "React UI design library",
-        link: "https://ant.design/"
+        title: "OpenSecrets API",
+        img: OpenSecretsLogo,
+        description: "Used to find information about funding and lobbying",
+        link: "https://www.opensecrets.org/open-data/api"
     },
     {
-        title: "AWS",
-        img: AWSLogo,
-        description: "Cloud hosting platform",
-        link: "https://aws.amazon.com/"
+        title: "OpenStates API",
+        img: OpenStatesLogo,
+        description: "Used to find information about legislators and voting within state legislatures",
+        link: "https://docs.openstates.org/en/latest/api/v3/"
     }
 ]
 
