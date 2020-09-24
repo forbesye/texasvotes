@@ -27,7 +27,8 @@ const getGitlabInfo = async () => {
         totalCommitCount += commits;
     });
 
-    let issueList = await fetch("https://gitlab.com/api/v4/projects/21177395/issues")
+    // Todo: When over 100 issues, implement pagination support to get all issues
+    let issueList = await fetch("https://gitlab.com/api/v4/projects/21177395/issues?per_page=100")
     issueList = await issueList.json()
     
     issueList.forEach(element => {
