@@ -3,6 +3,7 @@
     justify-content: space-between;
     background-image: url("./images/light_blue_background.jpg");
     height: 80vh;
+    background-size: 100%;
     /* margin-top: 10vh; */
     /* background-color: red; */
 }
