@@ -8,10 +8,9 @@ import { toolsInfo, teamInfo, apiInfo, repoAndAPI } from "./AboutInfo.js"
 const getGitlabInfo = async () => {
     let totalCommitCount = 0, totalIssueCount = 0, totalTestCount = 0;
 
-    // Need to wipe member info before calling again and calculate total tests
+    // Need to wipe member issues before calling again and calculate total tests
     teamInfo.forEach(member => {
         totalTestCount += member.tests;
-        member.commits = 0;
         member.issues = 0;
     });
 
@@ -72,7 +71,7 @@ const About = () => {
             }
         }
         fetchData();
-    }, [teamList])
+    })
 
     return(
         <div className={styles.wrapper}>
