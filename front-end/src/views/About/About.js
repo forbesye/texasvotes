@@ -75,8 +75,8 @@ const About = () => {
     return(
         <div className={styles.wrapper}>
             <h1 className={styles.title} >About Us</h1>
-                <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                <p style={{fontSize: 20}}>
+                TexasVotes is a website that allows users to quickly look up their representatives, the districts they live in, and state/federal elections they're slated to participate in within the state of Texas. We hope to increase governmental transparency and decrease the difficulty for the voting process in order to promote a more democratic society.
                 </p>
             <h1 className={styles.title}>Our Team</h1>
             <div className={`${styles.gridLayout} ${styles.team}`}>
