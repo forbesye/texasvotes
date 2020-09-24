@@ -24,10 +24,10 @@ build:
     - npm install
     - npm run-script build
     - cd ..
-  artifacts:
-    expire_in: 1 hour
-    paths:
-      - front-end/build
+  # artifacts:
+  #   expire_in: 1 hour
+  #   paths:
+  #     - front-end/build
 
 test:
   stage: test
