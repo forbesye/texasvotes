@@ -92,7 +92,7 @@ const teamInfo = new Map(
             name: "Larry Win",
             picture_path: LarryWinImg,
             role: "Front-end",
-            bio: "I’m a third year CS major at UT Austin. I grew up and am currently living in Belton, Texas. In my free time, I cook and maintain a food Instagram, play video games, keep up with the 2020 election season, and obsess over the Avatar universe.",
+            bio: "I’m a third year CS major at UT Austin. I grew up and am currently living in Belton, Texas. In my free time, I cook and maintain a food Instagram, keep up with the 2020 election season, and obsess over the Avatar universe.",
             commits: 0,
             issues: 0,
             tests: 0
@@ -140,7 +140,7 @@ const teamInfo = new Map(
             name: "Ivan Romero",
             picture_path: IvanRomeroImg,
             role: "Back-end",
-            bio: "I'm a fourth year CS major at UT Austin. I'm from Houston, TX and I spend most of my time cooking or watching and participating in combat sports like boxing or Brazilian-Jiu-Jitsu.",
+            bio: "I'm a fourth year CS major at UT Austin. I'm from Houston, Texas and I spend most of my time cooking or watching and participating in combat sports like boxing or Brazilian-Jiu-Jitsu.",
             commits: 0,
             issues: 0,
             tests: 0

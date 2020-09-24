@@ -22,7 +22,6 @@ const App = () => {
           </Switch>
         </Content>
         <Footer>
-          Footer
         </Footer>
       </Layout>
     </React.Fragment>
