@@ -1,8 +1,32 @@
 .flexContainer {
     display: flex;
     justify-content: space-between;
-    margin-top: 10vh;
+    background-image: url("./images/light_blue_background.jpg");
+    height: 80vh;
+    /* margin-top: 10vh; */
     /* background-color: red; */
+}
+
+.headerText {
+    margin-left: 15vw;
+    margin-top: 20vh;
+    height: 60vh;
+}
+
+.headerImage {
+    margin-right: 20vw;
+    margin-top: 15vh;
+    height: 50vh;
+    width: 50vh;
+}
+
+.title {
+    font-size: 5em;
+}
+
+.about {
+    font-size: 1.5em;
+    max-width: 80vh;
 }
 
 .cardFlexContainer {
