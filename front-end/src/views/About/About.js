@@ -6,7 +6,14 @@ import styles from 'views/About/About.module.css'
 import { toolsInfo, teamInfo, apiInfo, repoAndAPI } from "./AboutInfo.js"
 
 const getGitlabInfo = async () => {
-    let totalCommits = 0, totalIssues = 0, totalTests = 0;
+    let totalCommitCount = 0, totalIssueCount = 0, totalTestCount = 0;
+
+    // Need to wipe member info before calling again and calculate total tests
+    teamInfo.forEach(member => {
+        totalTestCount += member.tests;
+        member.commits = 0;
+        member.issues = 0;
+    });
 
     let commitList = await fetch("https://gitlab.com/api/v4/projects/21177395/repository/contributors")
     commitList = await commitList.json()
@@ -15,7 +22,7 @@ const getGitlabInfo = async () => {
         if(teamInfo.has(name)) {
             teamInfo.get(name).commits = commits;
         }
-        totalCommits += commits;
+        totalCommitCount += commits;
     });
 
     let issueList = await fetch("https://gitlab.com/api/v4/projects/21177395/issues")
@@ -30,13 +37,13 @@ const getGitlabInfo = async () => {
                 teamInfo.get(name).issues += 1;
             }
         });
-    totalIssues += 1;
+        totalIssueCount += 1;
     })
-    
+
     return {
-        totalCommits: totalCommits,
-        totalIssues: totalIssues,
-        totalTests: totalTests,
+        totalCommits: totalCommitCount,
+        totalIssues: totalIssueCount,
+        totalTests: totalTestCount,
         teamInfo: teamInfo
     }
 }
