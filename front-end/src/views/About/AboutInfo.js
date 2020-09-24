@@ -85,71 +85,61 @@ const repoAndAPI = [
     }
 ]
 
-const teamInfo = new Map(
-    [[
-        "Larry Win",
+const teamInfo =
+    [
         {
             name: "Larry Win",
+            username: "lawrencewin",
             picture_path: LarryWinImg,
             role: "Front-end",
             bio: "I’m a third year CS major at UT Austin. I grew up and am currently living in Belton, Texas. In my free time, I cook and maintain a food Instagram, keep up with the 2020 election season, and obsess over the Avatar universe.",
             commits: 0,
             issues: 0,
             tests: 0
-        }
-    ],
-    [
-        "jsuriadinata",
+        },
         {
             name: "Jennifer Suriadinata",
+            username: "jsuriadinata",
             picture_path: JenniferSuriadinataImg,
             role: "Front-end",
             bio: "I’m a third year CS major at UT Austin. I’m from Dallas, Texas and spend my free time playing video games and practicing piano. I definitely spend too much time working on projects and school :(",
             commits: 0,
             issues: 0,
             tests: 0
-        }
-    ],
-    [
-        "Jefferson Ye",
+        },
         {
             name: "Jefferson Ye",
+            username: "forbesye",
             picture_path: JeffersonYeImg,
             role: "Front-end",
             bio: "I’m a third year CS major at UT Austin. I’m from Dallas, Texas and in my free time I enjoy exercising, cooking, reading, playing video games, and listening to podcasts!",
             commits: 0,
             issues: 0,
             tests: 0
-        }
-    ],
-    [
-        "Sydney Owen",
+        },
         {
             name: "Sydney Owen",
+            username: "seowen99",
             picture_path: SydneyOwenImg,
             role: "Back-end",
             bio: "I’m a fourth year CS major at UT Austin. I grew up in a small town called Llano, Texas. I spend my free time reading sci-fi/fantasy novels, playing video games, and spoiling my cat.",
             commits: 0,
             issues: 0,
             tests: 0
-        }
-    ],
-    [
-        "Ivan Romero",
+        },
         {
             name: "Ivan Romero",
+            username: "ivanromero1000",
             picture_path: IvanRomeroImg,
             role: "Back-end",
             bio: "I'm a fourth year CS major at UT Austin. I'm from Houston, Texas and I spend most of my time cooking or watching and participating in combat sports like boxing or Brazilian-Jiu-Jitsu.",
             commits: 0,
             issues: 0,
             tests: 0
-        }
-    ],
-    [
-        "Kevin Li",
+        },
         {
             name: "Kevin Li",
+            username: "Catalystic",
             picture_path: KevinLiImg,
             role: "Back-end",
             bio: "I’m a third year CS major at UT Austin. I’m from Austin, Texas and spend my free time playing chess and camping. I definitely have spent too much time playing Among Us lately.",
@@ -157,10 +147,7 @@ const teamInfo = new Map(
             issues: 0,
             tests: 0
         }
-    ]]
-);
-
-
+    ];
 
 export {
     toolsInfo, 

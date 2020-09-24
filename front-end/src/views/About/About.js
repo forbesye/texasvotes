@@ -14,13 +14,16 @@ const getGitlabInfo = async () => {
         member.issues = 0;
     });
 
+    // Can't use a map cause Gitlab's API returns are weird :/
     let commitList = await fetch("https://gitlab.com/api/v4/projects/21177395/repository/contributors")
     commitList = await commitList.json()
     commitList.forEach(element => {
         const { name, commits } = element;
-        if(teamInfo.has(name)) {
-            teamInfo.get(name).commits = commits;
-        }
+        teamInfo.forEach(member => {
+            if(member.name === name || member.username === name) {
+                member.commits = commits;
+            }
+        })
         totalCommitCount += commits;
     });
 
@@ -32,9 +35,15 @@ const getGitlabInfo = async () => {
         // Todo: Check out what to do for multiple assignees
         assignees.forEach(a => {
             const { name } = a;
-            if(teamInfo.has(name)) {
-                teamInfo.get(name).issues += 1;
-            }
+            teamInfo.forEach(member => {
+                if(member.name === name || member.username === name) {
+                    member.issues += 1;
+                }
+            })
+
+            // if(teamInfo.has(name)) {
+            //     teamInfo.get(name).issues += 1;
+            // }
         });
         totalIssueCount += 1;
     })
@@ -60,13 +69,7 @@ const About = () => {
                 setTotalCommits(gitlabInfo.totalCommits);
                 setTotalIssues(gitlabInfo.totalIssues);
                 setTotalTests(gitlabInfo.totalTests);
-                
-                let tempList = []
-                // Need to turn map to array for map function in jsx
-                gitlabInfo.teamInfo.forEach(member => {
-                    tempList.push(member);
-                })
-                setTeamList(tempList);
+                setTeamList(gitlabInfo.teamInfo);
             }
         }
         fetchData();
