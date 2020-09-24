@@ -30,22 +30,41 @@ const Splash = () => {
             </div>
             <div className={styles.cardFlexContainer}>
                 <Card
-                    style={{margin: 15}}
-                    cover={<img style={{width: 300, margin: 10}} src={politician}></img>}    
+                    bordered={true}
+                    className={styles.card}
+                    style={{borderRadius: 50}}
+                    cover={<img style={{width: "20vw", margin: 30}} src={politician}></img>}   
+                    hoverable={true}
                 >
-                    <Button type="primary">Politicians</Button>
+                    <Typography.Title>Politicians</Typography.Title>
+                    <p style={{width: "20vw"}}>
+                        Want to learn more about your politicians?
+                    </p>
                 </Card>
                 <Card
-                    style={{margin: 15}}
-                    cover={<img style={{width: 300}}src={texas}></img>}    
+                    bordered={true}
+                    className={styles.card}
+                    style={{borderRadius: 50}}
+                    cover={<img style={{width: "20vw", margin: 30}} src={texas}></img>}     
+                    hoverable={true}
                 >
-                    <Button type="primary">Districts</Button>
+                    <Typography.Title>Districts</Typography.Title>
+                    <p style={{width: "20vw"}}>
+                        Which district are you in? Learn about the different districts across Texas!
+                    </p>
                 </Card>
                 <Card
-                    style={{margin: 15}}
-                    cover={<img style={{width: 300}}src={vote}></img>}    
+                    bordered={true}
+                    className={styles.card}
+                    style={{borderRadius: 50}}
+                    cover={<img style={{width: "20vw", margin: 30}} src={vote}></img>}    
+                    hoverable={true}
                 >
-                    <Button type="primary">Elections</Button>
+                    <Typography.Title>Elections</Typography.Title>
+                    <p style={{width: "20vw"}}>
+                        What are some of the upcoming elections? Keep track of the elections and mark your calendars to vote!
+                    </p>
+
                 </Card>
             </div>
 

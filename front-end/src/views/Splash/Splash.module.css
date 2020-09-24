@@ -16,8 +16,8 @@
 .headerImage {
     margin-right: 20vw;
     margin-top: 15vh;
-    height: 50vh;
-    width: 50vh;
+    height: 20vw;
+    width: 20vw;
 }
 
 .title {
@@ -26,11 +26,27 @@
 
 .about {
     font-size: 1.5em;
-    max-width: 80vh;
+    max-width: 35vw;
 }
 
 .cardFlexContainer {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+    margin-top: 5vh;
+}
+
+.card {
+    margin: 15;
+    /* border-radius: 25px; */
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: space-around; */
+    /* box-shadow: 5px 5px 15px rgba(0,0,0,.2); */
+    text-align: center;
+    /* height: 100%; */
 }
