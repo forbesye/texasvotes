@@ -34,22 +34,22 @@ test:
   script:
     - echo "Running React test suite......"
 
-deploy_production:
-  only:
-    variables:
-      - $CI_COMMIT_BRANCH == "master"
-  stage: deploy
-  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
-  script:
-    - cd front-end
-    - aws s3 cp --recursive ./build s3://fitsbits-front-end
+# deploy_production:
+#   only:
+#     variables:
+#       - $CI_COMMIT_BRANCH == "master"
+#   stage: deploy
+#   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+#   script:
+#     - cd front-end
+#     - aws s3 cp --recursive ./build s3://fitsbits-front-end
 
-deploy_development:
-  only:
-    variables:
-      - $CI_COMMIT_BRANCH == "stage"
-  stage: deploy
-  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
-  script:
-    - cd front-end
-    - aws s3 cp --recursive ./build s3://fitsbits-front-end-dev
+# deploy_development:
+#   only:
+#     variables:
+#       - $CI_COMMIT_BRANCH == "stage"
+#   stage: deploy
+#   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+#   script:
+#     - cd front-end
+#     - aws s3 cp --recursive ./build s3://fitsbits-front-end-dev
