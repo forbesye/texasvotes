@@ -1,67 +1,38 @@
-import React from 'react';
-import { Card } from 'antd';
-import styles from "views/About/About.module.css"
+import React from 'react'
+import { Card, Typography } from 'antd'
+import styles from "./Card.module.css"
 import { BranchesOutlined, ProfileOutlined, CheckCircleOutlined } from '@ant-design/icons'
 const { Meta } = Card;
 
-const Commits = (n) => {
+const statIcons = { "commits": BranchesOutlined, "issues": ProfileOutlined, "tests": CheckCircleOutlined }
+const GitStat = ({ type, n }) => {
+    const Icon = statIcons[type]
     return (
-        <React.Fragment>
-            <div>
-                Commits
-            </div>
-            <BranchesOutlined />
-            <div>
-                {n}
-            </div>
-        </React.Fragment>
-    )
-}
-
-const Issues = (n) => {
-    return (
-        <React.Fragment>
-            <div>
-                Issues
-            </div>
-            <ProfileOutlined />
-            <div>
-                {n}
-            </div>
-        </React.Fragment>
-    )
-}
-
-const Tests = (n) => {
-    return (
-        <React.Fragment>
-            <div>
-                Tests
-            </div>
-            <CheckCircleOutlined />
-            <div>
-                {n}
-            </div>
-        </React.Fragment>
+        <div className={styles.gitStat}>
+            <div>{type}</div>
+            <Icon />
+            <div>{n}</div>
+        </div>
     )
 }
 
 const DevBio = (props) => {
-    const { name, bio, picture_path } = props;
+    const { name, bio, role, picture_path, commits, issues, tests } = props;
 
     return (
         <Card
             bordered={true}
             cover={<img className={styles.circle_headshot} alt={name} src={picture_path} />}
-            style={{ width: 300, margin: 16 }}
-            actions={[
-                Commits(200),
-                Issues(200),
-                Tests(200)
-            ]}
-            hoverable={true}
+            className={styles.card}
+            bodyStyle={{alignItems: "stretch", height: "100%", display: "flex", flexDirection: "column"}}
         >
-            <Meta title={name} description={bio} style={{ textAlign: "center" }}/>
+            <Typography.Title level={3}>{name}</Typography.Title>
+            <Meta title={role} description={bio} className={styles.meta}/>
+            <div className={styles.gitStats}>
+                <GitStat type="commits" n={commits} />
+                <GitStat type="issues" n={issues} />
+                <GitStat type="tests" n={tests} />
+            </div>
         </Card>
     )
 }

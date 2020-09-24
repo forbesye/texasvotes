@@ -1,0 +1,53 @@
+.flexContainer {
+    display: flex;
+    justify-content: space-between;
+    background-image: url("./images/light_blue_background.jpg");
+    height: 80vh;
+    background-size: 100%;
+    /* margin-top: 10vh; */
+    /* background-color: red; */
+}
+
+.headerText {
+    margin-left: 15vw;
+    margin-top: 20vh;
+    height: 60vh;
+}
+
+.headerImage {
+    margin-right: 20vw;
+    margin-top: 15vh;
+    height: 20vw;
+    width: 20vw;
+}
+
+.title {
+    font-size: 5em;
+}
+
+.about {
+    font-size: 1.5em;
+    max-width: 35vw;
+}
+
+.cardFlexContainer {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 5vh;
+}
+
+.card {
+    margin: 15;
+    /* border-radius: 25px; */
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: space-around; */
+    /* box-shadow: 5px 5px 15px rgba(0,0,0,.2); */
+    text-align: center;
+    /* height: 100%; */
+}
