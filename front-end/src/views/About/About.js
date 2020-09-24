@@ -54,7 +54,6 @@ const About = () => {
     const [totalTests, setTotalTests] = useState(0);
 
     useEffect(() => {
-        console.log("useEffect");
         const fetchData = async () => {
             const gitlabInfo = await getGitlabInfo();
             if(teamList === undefined || teamList.length === 0) {
@@ -71,7 +70,7 @@ const About = () => {
             }
         }
         fetchData();
-    })
+    }, [teamList])
 
     return(
         <div className={styles.wrapper}>
