@@ -6,7 +6,13 @@ import styles from 'views/About/About.module.css'
 import { toolsInfo, teamInfo, apiInfo, repoAndAPI } from "./AboutInfo.js"
 
 const getGitlabInfo = async () => {
-    let totalCommits = 0, totalIssues = 0, totalTests = 0;
+    let totalCommitCount = 0, totalIssueCount = 0, totalTestCount = 0;
+
+    // Need to wipe member issues before calling again and calculate total tests
+    teamInfo.forEach(member => {
+        totalTestCount += member.tests;
+        member.issues = 0;
+    });
 
     let commitList = await fetch("https://gitlab.com/api/v4/projects/21177395/repository/contributors")
     commitList = await commitList.json()
@@ -15,7 +21,7 @@ const getGitlabInfo = async () => {
         if(teamInfo.has(name)) {
             teamInfo.get(name).commits = commits;
         }
-        totalCommits += commits;
+        totalCommitCount += commits;
     });
 
     let issueList = await fetch("https://gitlab.com/api/v4/projects/21177395/issues")
@@ -30,13 +36,13 @@ const getGitlabInfo = async () => {
                 teamInfo.get(name).issues += 1;
             }
         });
-    totalIssues += 1;
+        totalIssueCount += 1;
     })
-    
+
     return {
-        totalCommits: totalCommits,
-        totalIssues: totalIssues,
-        totalTests: totalTests,
+        totalCommits: totalCommitCount,
+        totalIssues: totalIssueCount,
+        totalTests: totalTestCount,
         teamInfo: teamInfo
     }
 }
@@ -48,7 +54,6 @@ const About = () => {
     const [totalTests, setTotalTests] = useState(0);
 
     useEffect(() => {
-        console.log("useEffect");
         const fetchData = async () => {
             const gitlabInfo = await getGitlabInfo();
             if(teamList === undefined || teamList.length === 0) {
@@ -70,8 +75,8 @@ const About = () => {
     return(
         <div className={styles.wrapper}>
             <h1 className={styles.title} >About Us</h1>
-                <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                <p style={{fontSize: 20}}>
+                TexasVotes is a website that allows users to quickly look up their representatives, the districts they live in, and state/federal elections they're slated to participate in within the state of Texas. We hope to increase governmental transparency and decrease the difficulty for the voting process in order to promote a more democratic society.
                 </p>
             <h1 className={styles.title}>Our Team</h1>
             <div className={`${styles.gridLayout} ${styles.team}`}>
