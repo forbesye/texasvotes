@@ -23,3 +23,19 @@ test:
   stage: test
   script:
     - echo "Running React test suite......"
+
+deploy_development:
+  only:
+    variables:
+      - $CI_COMMIT_BRANCH == "stage"
+  stage: deploy
+  script:
+    - $AWS_DEV_DEPLOY
+
+deploy_production:
+  only:
+    variables:
+      - $CI_COMMIT_BRANCH == "master"
+  stage: deploy
+  script:
+    - $AWS_PROD_DEPLOY
