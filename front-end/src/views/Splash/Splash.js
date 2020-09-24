@@ -1,7 +1,5 @@
 import React from 'react';
-import { Button, Row, Col, Card, Typography } from 'antd'
-
-import election_icons from 'views/Splash/images/election_icons.jpg';
+import { Card, Typography } from 'antd'
 
 // Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a> 
 import texas from 'views/Splash/images/texas.svg'; 
@@ -26,14 +24,14 @@ const Splash = () => {
                     </p>
 
                 </div>
-                <img className={styles.headerImage} src={politicians}></img>
+                <img className={styles.headerImage} alt={"Politicians"} src={politicians}></img>
             </div>
             <div className={styles.cardFlexContainer}>
                 <Card
                     bordered={true}
                     className={styles.card}
                     style={{borderRadius: 50}}
-                    cover={<img style={{width: "20vw", margin: 30}} src={politician}></img>}   
+                    cover={<img style={{width: "20vw", margin: 30}} alt={"Politician"} src={politician}></img>}   
                     hoverable={true}
                 >
                     <Typography.Title>Politicians</Typography.Title>
@@ -45,7 +43,7 @@ const Splash = () => {
                     bordered={true}
                     className={styles.card}
                     style={{borderRadius: 50}}
-                    cover={<img style={{width: "20vw", margin: 30}} src={texas}></img>}     
+                    cover={<img style={{width: "20vw", margin: 30}} alt={"Texas"} src={texas}></img>}     
                     hoverable={true}
                 >
                     <Typography.Title>Districts</Typography.Title>
@@ -57,7 +55,7 @@ const Splash = () => {
                     bordered={true}
                     className={styles.card}
                     style={{borderRadius: 50}}
-                    cover={<img style={{width: "20vw", margin: 30}} src={vote}></img>}    
+                    cover={<img style={{width: "20vw", margin: 30}} alt={"Vote"} src={vote}></img>}    
                     hoverable={true}
                 >
                     <Typography.Title>Elections</Typography.Title>

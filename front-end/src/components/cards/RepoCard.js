@@ -26,7 +26,8 @@ const RepoCard = (props) => {
     }
     
     return (
-        <Card className={styles.card}
+        <Card 
+            className={styles.card}
         >
             {icon}
             <br />

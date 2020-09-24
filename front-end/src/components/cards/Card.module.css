@@ -7,6 +7,7 @@
     box-shadow: 5px 5px 15px rgba(0,0,0,.2);
     text-align: center;
     height: 100%;
+    border-radius: 50px !important;
 }
 
 .circle_headshot {
@@ -16,6 +17,29 @@
     border-radius: 50% !important;
     margin: 25px !important;
     display: block !important;
+}
+
+.tool_image {
+    /* object-fit: cover !important; */
+    /* width: calc(100% - 0.2rem) !important; */
+    /* width: 100% !important; */
+    /* height: 100% !important; */
+    /* margin: 25px !important; */
+
+    max-width: 100%;
+    max-height: 100%;
+    display: flex !important;
+    align-self: center;
+    align-content: center;
+}
+
+.cardCover{
+    width: 250px !important;
+    height: 250px !important;
+    margin: 25px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
 }
 
 .meta {

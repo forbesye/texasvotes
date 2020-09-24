@@ -10,9 +10,10 @@ const ToolCard = (props) => {
             <Card 
                 className={styles.card}
                 hoverable={true}
+                cover={<div className={styles.cardCover}><img className={styles.tool_image} alt={title} src={img} width="85%" margin="16px"/></div>}
+                bodyStyle={{alignItems: "stretch", height: "100%", display: "flex", flexDirection: "column", paddingTop: 0}}
             >
-                <img alt={title} src={img} width="85%" margin="16px"/>
-                <Typography.Title style={{ marginTop: 24}} level={3}>{title}</Typography.Title>
+                <Typography.Title level={3}>{title}</Typography.Title>
                 <p>{description}</p>
             </Card>
         </a>
