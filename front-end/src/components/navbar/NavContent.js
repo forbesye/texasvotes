@@ -2,20 +2,18 @@ import React from 'react';
 import PropTypes from "prop-types"
 import { Menu } from 'antd';
 import {Link} from "react-router-dom";
+import routes from "../../Routes"
 
 const NavContent = ({ orientation }) => {
     return (
         <Menu theme={ orientation === "horizontal" ? "dark" : "light"} mode={orientation}>
-            <Menu.Item key="home">
-                <Link to="/">
-                    Home
-                </Link>
-            </Menu.Item>
-            <Menu.Item key="about">
-                <Link to="/about">
-                    About
-                </Link>
-            </Menu.Item>
+            { routes.map(({ linkPath, path, title }, i) => {
+                return (
+                    <Menu.Item key={i}>
+                        <Link to={linkPath || path}>{title}</Link>
+                    </Menu.Item>
+                )
+            })}
         </Menu>
     )
 }
