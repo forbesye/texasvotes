@@ -4,12 +4,12 @@ import { Menu } from 'antd';
 import {Link} from "react-router-dom";
 import routes from "../../Routes"
 
-const NavContent = ({ orientation, setOpen }) => {
+const NavContent = ({ orientation }) => {
     return (
         <Menu theme={ orientation === "horizontal" ? "dark" : "light"} mode={orientation}>
             { routes.map(({ linkPath, path, title }, i) => {
                 return (
-                    <Menu.Item key={i} onClick={() => setOpen(false)}>
+                    <Menu.Item key={i} >
                         <Link to={linkPath || path}>{title}</Link>
                     </Menu.Item>
                 )

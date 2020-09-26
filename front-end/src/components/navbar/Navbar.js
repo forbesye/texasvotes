@@ -22,11 +22,12 @@ const Navbar = () => {
 				placement="right"
 				closable={false}
 				onClose={() => setOpen(false)}
+				onClick={() => setOpen(false)}
                 visible={open}
                 headerStyle={{ padding: 12, height: 12, width: 12, background: "pink" }}
                 bodyStyle={{ padding: 0 }}
 			>
-				<NavContent orientation="vertical" setOpen={setOpen}/>
+				<NavContent orientation="vertical"/>
 			</Drawer>
 		</nav>
 	)
