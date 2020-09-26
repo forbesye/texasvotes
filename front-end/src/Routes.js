@@ -12,11 +12,6 @@ const Routes = [
         Component: Splash
     },
     {
-        title: "About",
-        path: "/about",
-        Component: About
-    },
-    {
         title: "Politicians",
         path: "/politicians",
         linkPath: "/politicians/view",
@@ -31,6 +26,11 @@ const Routes = [
         title: "Elections",
         path: "/elections",
         Component: Elections
+    },
+    {
+        title: "About",
+        path: "/about",
+        Component: About
     }
 ]
 
