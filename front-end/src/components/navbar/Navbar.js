@@ -26,7 +26,7 @@ const Navbar = () => {
                 headerStyle={{ padding: 12, height: 12, width: 12, background: "pink" }}
                 bodyStyle={{ padding: 0 }}
 			>
-				<NavContent orientation="vertical" />
+				<NavContent orientation="vertical" setOpen={setOpen}/>
 			</Drawer>
 		</nav>
 	)
