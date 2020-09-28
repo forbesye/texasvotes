@@ -3,14 +3,16 @@ import { Drawer, Button } from 'antd';
 import Icon, { MenuOutlined } from '@ant-design/icons';
 import NavContent from './NavContent';
 import TexasVotesLogo from './TexasVotesLogo.png'
-
+import { Link } from 'react-router-dom'
 import styles from "./Navbar.module.css"
 
 const Navbar = () => {
 	const [open, setOpen] = useState(false);
 	return (
 		<nav className={styles.nav}>
-			<img src={TexasVotesLogo} alt="Texas Votes Logo" className={styles.logo} />
+			<Link to="/" className={styles.logoRef}>
+				<img src={TexasVotesLogo} alt="Texas Votes Logo" className={styles.logo}/>
+			</Link>
 			<div className={styles.leftNav}>
 				<NavContent />
 			</div>

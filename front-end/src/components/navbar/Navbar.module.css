@@ -17,6 +17,10 @@
 	height: 100%;
 }
 
+.logoRef {
+	flex: 0;
+}
+
 @media (min-width: 576px) {
 
 }
