@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import { Drawer, Button } from 'antd';
 import Icon, { MenuOutlined } from '@ant-design/icons';
 import NavContent from './NavContent';
+import TexasVotesLogo from './TexasVotesLogo.png'
 
 import styles from "./Navbar.module.css"
-console.log(styles)
 
 const Navbar = () => {
 	const [open, setOpen] = useState(false);
 	return (
 		<nav className={styles.nav}>
+			<img src={TexasVotesLogo} alt="Texas Votes Logo" className={styles.logo} />
 			<div className={styles.leftNav}>
 				<NavContent />
 			</div>

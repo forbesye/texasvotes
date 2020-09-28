@@ -1,5 +1,6 @@
 .nav {
 	display: flex;
+	height: 64px;
 }
 
 .leftNav {
@@ -10,6 +11,10 @@
 .rightNav {
 	flex: 1;
 	text-align: right;
+}
+
+.logo {
+	height: 100%;
 }
 
 @media (min-width: 576px) {

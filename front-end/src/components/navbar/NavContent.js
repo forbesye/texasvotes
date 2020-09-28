@@ -7,6 +7,7 @@ import routes from "../../Routes"
 const NavContent = ({ orientation }) => {
     return (
         <Menu theme={ orientation === "horizontal" ? "dark" : "light"} mode={orientation}>
+            
             { routes.map(({ linkPath, path, title }, i) => {
                 return (
                     <Menu.Item key={i} >
