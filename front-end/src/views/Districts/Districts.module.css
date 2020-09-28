@@ -7,3 +7,8 @@
 .header {
     padding: 32px 0;
 }
+
+.content {
+    margin: auto;
+    max-width: 800px;
+}
