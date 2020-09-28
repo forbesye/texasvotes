@@ -11,7 +11,7 @@ const App = () => {
   	return (
   	  	<React.Fragment>
   	  	  	<Layout className="layout">
-  	  	  	  	<Header>
+  	  	  	  	<Header className="nav">
   	  	  	  	  	<Navbar />
   	  	  	  	</Header>
   	  	  	  	<Content>
