@@ -9,10 +9,11 @@ import districtData from "./DefaultDistricts"
 
 const ListView = () => {
     const data = districtData.map(district => {
-        console.log(district.elected_official.name)
+        // console.log(district.elected_official.name)
         return {
             key: district.id,
-            official_name: district.elected_official.name,
+            official_name: district.elected_officials[0].name, // TODO: API call will be diff
+            population: district.demographics.total_population,
             ...district
         }
     })
