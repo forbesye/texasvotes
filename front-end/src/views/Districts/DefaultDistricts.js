@@ -1,24 +1,36 @@
 const districtData = [
     {
-        key: '1',
+        id: 0,
         name: "TX-25",
         type: "us_house",
         party: "R",
-        population: 818807
+        population: 818807,
+        elected_official: {
+            name: "Roger Williams",
+            id: 0
+        }
     },
     {
-        key: '2',
+        id: 1,
         name: "TX-25",
         type: "us_house",
         party: "R",
-        population: 818807
+        population: 818807,
+        elected_official: {
+            name: "Roger Williams",
+            id: 0
+        }
     },
     {
-        key: '3',
+        id: 2,
         name: "TX-25",
         type: "us_house",
         party: "R",
-        population: 818807
+        population: 818807,
+        elected_official: {
+            name: "Roger Williams",
+            id: 0
+        }
     }
 ]
 

@@ -24,7 +24,8 @@ const Routes = [
     },
     {
         title: "Districts",
-        path: "/districts/view",
+        path: "/districts",
+        linkPath: "/districts/view",
         Component: Districts
     },
     {

@@ -18,6 +18,11 @@ const columns = [
         title: 'Population',
         dataIndex: 'population',
         key: 'population'
+    },
+    {
+        title: "Elected Official",
+        dataIndex: 'official_name',
+        key: 'official_name'
     }
 ]
 // Elected official column, link to search query in politicians

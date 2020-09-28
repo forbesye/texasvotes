@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react"
 import { Typography, Divider, Card, Table } from "antd"
+import { useHistory } from 'react-router-dom'
 import styles from "./Districts.module.css"
 import politicians from "./DefaultDistricts"
 import columns from "./Lib"
@@ -7,9 +8,31 @@ import districtData from "./DefaultDistricts"
 //import { description } from "./Lib"
 
 const ListView = () => {
+    const data = districtData.map(district => {
+        console.log(district.elected_official.name)
+        return {
+            key: district.id,
+            official_name: district.elected_official.name,
+            ...district
+        }
+    })
+
+    const history = useHistory();
+
     return (
         <div>
-            <Table dataSource={districtData} columns={columns} />
+            <Table 
+                dataSource={data} 
+                columns={columns} 
+                onRow={record => {
+                    return {
+                        onClick: event => {
+                            const { id } = record;
+                            history.push(`/districts/view/${id}`);
+                        }
+                    }
+                }}
+            />
         </div>
     )
 }

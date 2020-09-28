@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react"
 import { Typography, Divider, Tabs, Input } from "antd"
-import { Route, useLocation, useHistory } from "react-router-dom"
+import { Route, useLocation, useHistory, Switch } from "react-router-dom"
 import styles from "./Districts.module.css"
 import ListView from "./ListView"
 import SearchView from "./SearchView" // Do we need seperate ones?
-
+import Details from "./Details"
 const { TabPane } = Tabs
 // const { Search } = Input
 
@@ -35,9 +35,14 @@ const Districts = () => {
                         </Route>
                     </TabPane>
                     <TabPane tab="View All" key="view">
-                        <Route path="/districts/view">
-                            <ListView />
-                        </Route>
+                        <Switch>
+                            <Route exact path="/districts/view">
+                                <ListView />
+                            </Route>
+                            <Route path="/districts/view/:id">
+                                <Details />
+                            </Route>
+                        </Switch>
                     </TabPane>
                 </Tabs>
             </div>
