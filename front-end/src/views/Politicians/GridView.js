@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react"
 import { Typography, Divider, Card } from "antd"
+import { Link } from "react-router-dom"
 import styles from "./Politicians.module.css"
 import politicians from "./DefaultPoliticians"
 import { description } from "./Lib"
@@ -17,16 +18,19 @@ export default function GridView () {
             </section>
             <Divider />
             <section className={styles.grid}>
-                { items.map(item => (
-                    <Card
-                        hoverable
-                        cover={<img className={styles.croppedImage} alt={item.name} src={item.image} />}
-                    >
-                        <Meta 
-                            title={item.name}
-                            description={<Text>{description(item)}</Text>}
-                        />
-                    </Card>
+                { items.map((item, i) => (
+                    <Link to={`/politicians/view/${item.id}`}>
+                        <Card
+                            className={styles.card}
+                            hoverable
+                            cover={<img className={styles.croppedImage} alt={item.name} src={item.image} />}
+                        >
+                            <Meta 
+                                title={item.name}
+                                description={<Text>{description(item)}</Text>}
+                            />
+                        </Card>
+                    </Link>
                 ))}
             </section>
         </Fragment>

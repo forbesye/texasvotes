@@ -16,13 +16,21 @@ export default [
             name: "TX-25",
             id: 1
         },
+        description: [
+            "Roger Williams is a Christian, conservative, pro-life and second amendment supporter fighting to take our Texas values to Washington, D.C.",
+            "Roger is running for Congress not to be something, but to do something. He wants to continue to use his business experience to create economic growth and jobs. And he wants to provide real leadership for our country in these challenging times.",
+            "As a small business owner, Roger understands how difficult an overbearing government can be to main street America. In his small business, Roger dealt with the impact of the Obama administration, which made businesses more dependent on the government, including high taxes, rising energy prices and soaring health care costs. Since 2016, Roger has worked alongside President Trump to reverse the devastating course our country had been on for the past eight years and to make America great again.",
+            "Roger’s passion for principled, conservative leadership has led him to assist the political efforts of Republican candidates from the White House to the county courthouse. He served as Regional Finance Chairman for Governor Bush in 1994 and 1998 before he went on to serve as the North Texas Chairman for the Bush/Cheney 2000 campaign, as well as the North Texas Finance Chairman and National Grassroots Fundraising Chairman for Bush/Cheney ’04, Inc. Williams was appointed by President George W. Bush in 2001 as the Chairman of the Republican National Finance Committee’s Eagles Program. He has also served as State Finance Chair for John Cornyn for U.S. Senate, Inc., in 2002 and as the National Director of the “Patriots” program for Senator Cornyn.",
+            "Roger Williams’ civic activities include serving on the Board of Trustees for the Bush School of Government and Public Service at Texas A&M University. Williams is also a member of the Texas Christian University Board of Trustees, his alma mater. He also serves on the National Football Foundation and College Football Hall of Fame Board of Directors.",
+            "Roger has been a small business owner in Texas for over 45 years. He and his wife, Patty, have two adult daughters."
+        ],
         image: "https://williams.house.gov/sites/williams.house.gov/files/wysiwyg_uploaded/CRW%20Official_0_0.jpg",
         socials: {
             facebook: "http://www.facebook.com/RepRogerWilliams",
             twitter: "http://twitter.com/RepRWilliams",
             youtube: "http://www.youtube.com/channel/UCBtfmMMQarjtLB9U_pWMOhw"
         },
-        website: "https://williams.house.gov/",
+        website: "https://www.rogerforcongress.com/",
         elections: {
             upcoming: {
                 id: 1
@@ -83,6 +91,7 @@ export default [
             twitter: "https://twitter.com/julieolivertx",
             instagram: "https://www.instagram.com/julieolivertx"
         },
+        description: "Julie Oliver is running for Congress because Austin and Central Texas deserve a representative who will show up, listen to those she serves, and work for all of us. She's running a bold campaign for Medicare for All, a Green New Deal, a pathway to citizenship, and an economy that works for everyone, not just corporations and the wealthy few.",
         website: "https://www.julieoliver.org/",
         elections: {
             upcoming: {

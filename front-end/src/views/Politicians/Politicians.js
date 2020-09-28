@@ -1,8 +1,9 @@
 import React, { Fragment, useState, useEffect } from "react"
-import { Route, useLocation, useHistory } from "react-router-dom"
+import { Route, Switch, useLocation, useHistory } from "react-router-dom"
 import { Typography, Divider, Tabs, Input } from "antd"
 import SearchView from "./SearchView"
 import GridView from "./GridView"
+import Details from "./Details"
 import styles from "./Politicians.module.css"
 
 const { TabPane } = Tabs
@@ -18,9 +19,10 @@ export default function Politicians () {
     }
     useEffect(() => {
         const path = location.pathname
-        const initialKey = path.split("/").filter(el => el !== "").pop()
-        setCurrKey(initialKey)
-    }, [])
+        const parts = path.split("/").filter(el => el !== "")
+        parts.shift()
+        setCurrKey(parts.shift())
+    }, [location.pathname])
 
     return (
         <main className={styles.wrapper}>
@@ -35,9 +37,14 @@ export default function Politicians () {
                         </Route>
                     </TabPane>
                     <TabPane tab="View All" key="view">
-                        <Route path="/politicians/view">
-                            <GridView />
-                        </Route>
+                        <Switch>
+                            <Route exact path="/politicians/view">
+                                <GridView />
+                            </Route>
+                            <Route path="/politicians/view/:id">
+                                <Details />
+                            </Route>
+                        </Switch>
                     </TabPane>
                 </Tabs>
             </div>
