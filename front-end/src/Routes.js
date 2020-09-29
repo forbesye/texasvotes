@@ -31,6 +31,7 @@ const Routes = [
     {
         title: "Elections",
         path: "/elections",
+        linkPath: "/elections/view",
         Component: Elections
     }
 ]
