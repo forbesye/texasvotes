@@ -19,6 +19,18 @@ function description (district) {
     return `${ELECTED_OFFICE_NAMES[district.type]} ${district.party}`
 }
 
+const percentageString = (key, obj) => {
+    let sum = 0.0;
+    let keyVal = obj[key];
+    for (const val in obj) {
+        sum += parseInt(obj[val]);
+        console.log([sum, val, obj[val]])
+    }
+    keyVal = (keyVal / sum) * 100;
+    
+    return `(${keyVal.toFixed(2)}%)`;
+}
+
 const Details = () => {
     const { id } = useParams()
     const [ district, setDistrict ] = useState({})
@@ -50,6 +62,29 @@ const Details = () => {
         "50_000": "$50,000 - $100,000",
         "100_000": "$100,000 - $200,000",
         "200_000": "$200,000+"
+    }
+
+    const race_mappings = {
+        "white": "White",
+        "black": "Black",
+        "asian": "Asian",
+        "indigenous": "Indigenous",
+        "pacific_islander": "Pacific Islander",
+        "other": "Other"
+    }
+
+    const ethnicity_mappings = {
+        "hispanic": "Hispanic",
+        "non_hispanic": "Non-Hispanic"
+    }
+
+    const educational_mappings = {
+        "preschool": "Preschool",
+        "primary": "Primary",
+        "university": "University",
+        "high_school": "High School",
+        "some_college": "Some College",
+        "bachelors": "Bachelors"
     }
 
     const {
@@ -130,7 +165,7 @@ const Details = () => {
                                         dataSource = {Object.keys(district.demographics.age)}
                                         renderItem = {key => (
                                             <List.Item>
-                                                <Text strong>{age_mappings[key]}: </Text><Text>{district.demographics.age[key]}</Text>
+                                                <Text strong>{age_mappings[key]}: </Text><Text>{district.demographics.age[key]} {percentageString(key, district.demographics.age)}</Text>
                                             </List.Item>
                                         )}
                                     />
@@ -142,7 +177,7 @@ const Details = () => {
                                         dataSource = {Object.keys(district.demographics.race)}
                                         renderItem = {key => (
                                             <List.Item>
-                                                <Text strong>{key}: </Text><Text>{district.demographics.race[key]}</Text>
+                                                <Text strong>{race_mappings[key]}: </Text><Text>{district.demographics.race[key]} {percentageString(key, district.demographics.race)}</Text>
                                             </List.Item>
                                         )}
                                     />
@@ -154,7 +189,7 @@ const Details = () => {
                                         dataSource = {Object.keys(district.demographics.ethnicity)}
                                         renderItem = {key => (
                                             <List.Item>
-                                                <Text strong>{key}: </Text><Text>{district.demographics.ethnicity[key]}</Text>
+                                                <Text strong>{ethnicity_mappings[key]}: </Text><Text>{district.demographics.ethnicity[key]} {percentageString(key, district.demographics.ethnicity)}</Text>
                                             </List.Item>
                                         )}
                                     />
@@ -167,7 +202,7 @@ const Details = () => {
                                         dataSource = {Object.keys(district.demographics.educational_attainment.enrollment)}
                                         renderItem = {key => (
                                             <List.Item>
-                                                <Text strong>{key}: </Text><Text>{district.demographics.educational_attainment.enrollment[key]}</Text>
+                                                <Text strong>{educational_mappings[key]}: </Text><Text>{district.demographics.educational_attainment.enrollment[key]} {percentageString(key, district.demographics.educational_attainment.enrollment)}</Text>
                                             </List.Item>
                                         )}
                                     />
@@ -177,7 +212,7 @@ const Details = () => {
                                         dataSource = {Object.keys(district.demographics.educational_attainment.attainment)}
                                         renderItem = {key => (
                                             <List.Item>
-                                                <Text strong>{key}: </Text><Text>{district.demographics.educational_attainment.attainment[key]}</Text>
+                                                <Text strong>{educational_mappings[key]}: </Text><Text>{district.demographics.educational_attainment.attainment[key]} {percentageString(key, district.demographics.educational_attainment.attainment)}</Text>
                                             </List.Item>
                                         )}
                                     />
@@ -189,7 +224,7 @@ const Details = () => {
                                         dataSource = {Object.keys(district.demographics.income)}
                                         renderItem = {key => (
                                             <List.Item>
-                                                <Text strong>{income_mappings[key]}: </Text><Text>{district.demographics.income[key]}</Text>
+                                                <Text strong>{income_mappings[key]}: </Text><Text>{district.demographics.income[key]} {percentageString(key, district.demographics.income)}</Text>
                                             </List.Item>
                                         )}
                                     />
