@@ -1,8 +1,14 @@
 .nav {
 	display: flex;
+	height: 64px;
 }
 
 .leftNav {
+	flex: 0;
+	display: block;
+}
+
+.centerNav {
 	display: none;
 	flex: 0;
 }
@@ -12,14 +18,30 @@
 	text-align: right;
 }
 
+.logo {
+	width: 192px;
+}
+
+.menu {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
 @media (min-width: 576px) {
 
 }
 
 @media (min-width: 768px) {
 	.leftNav {
+		flex: 0;
+	}
+
+	.centerNav {
 		display: block;
 		flex: 1;
+		align-items: flex-end;
+
 	}
 
 	.rightNav {
