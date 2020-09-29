@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1601343904 "d:/Repos/fitsbits/report/report.tex" "d:/Repos/fitsbits/report/report.pdf" "report" 1601343906
+["pdflatex"] 1601344300 "d:/Repos/fitsbits/report/report.tex" "d:/Repos/fitsbits/report/report.pdf" "report" 1601344302
   "C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233955448 1004 54797486969f23fa377b128694d548df ""
   "C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1233955448 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
   "C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1233955454 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -144,15 +144,15 @@
   "C:/Program Files/MiKTeX 2.9/tex/latex/xcolor/xcolor.sty" 1463135581 57049 34128738f682d033422ca125f82e5d62 ""
   "C:/Users/Kevin/AppData/Local/MiKTeX/2.9/miktex/data/le/pdftex/pdflatex.fmt" 1567655139 4235383 0a1c38879076cb565b339b597aaa0652 ""
   "C:/Users/Kevin/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map" 1567654432 80453 73224248f0a73acd005b5611945eaaa6 ""
-  "d:/Repos/fitsbits/report/report.aux" 1601343906 1707 77e6d685b2efc0a9d725c9a515459147 ""
-  "d:/Repos/fitsbits/report/report.tex" 1601343902 6901 393066c9b3b1ebff0b02de2deaa84a70 ""
-  "report.aux" 1601343906 1707 77e6d685b2efc0a9d725c9a515459147 "pdflatex"
-  "report.out" 1601343906 444 c857666e15cdec7108b7141880a02d2f "pdflatex"
-  "report.tex" 1601343902 6901 393066c9b3b1ebff0b02de2deaa84a70 ""
+  "d:/Repos/fitsbits/report/report.aux" 1601344302 1707 77e6d685b2efc0a9d725c9a515459147 ""
+  "d:/Repos/fitsbits/report/report.tex" 1601344300 6889 563a73f65cb04b6ec504e4c3cc0c0b5b ""
+  "report.aux" 1601344302 1707 77e6d685b2efc0a9d725c9a515459147 "pdflatex"
+  "report.out" 1601344302 444 c857666e15cdec7108b7141880a02d2f "pdflatex"
+  "report.tex" 1601344300 6889 563a73f65cb04b6ec504e4c3cc0c0b5b ""
   (generated)
   "report.aux"
+  "report.log"
+  "report.out"
   "report.pdf"
   "d:/Repos/fitsbits/report/report.log"
-  "report.out"
-  "report.log"
   "d:/Repos/fitsbits/report/report.pdf"
