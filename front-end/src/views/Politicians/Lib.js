@@ -13,6 +13,17 @@ const CHALLENGER_OFFICE_NAMES = {
     us_senate: "Candidate for US Senate Seat"
 }
 
+export function subtitle (name, elected=true) {
+    if (elected) {
+        return ELECTED_OFFICE_NAMES[name]
+    }
+    return CHALLENGER_OFFICE_NAMES[name]
+}
+
+export function officeName (name) {
+    return ELECTED_OFFICE_NAMES[name]
+}
+
 export function description (politician) {
     if (politician.elected) {
         return `${ELECTED_OFFICE_NAMES[politician.offices.current]} (${politician.party}) | ${politician.district.name}`

@@ -105,7 +105,8 @@ const Details = () => {
                         </Panel>
                     </Collapse>
                 </article>
-                <article className={styles.districtDetails}>
+                
+                { results ? (<article className={styles.districtDetails}>
                     <Collapse ghost>
                         <Panel header="Results">
                             <Table 
@@ -114,7 +115,7 @@ const Details = () => {
                             />
                         </Panel>
                     </Collapse>
-                </article>
+                </article>) : null }
             </Fragment>
         )
     }

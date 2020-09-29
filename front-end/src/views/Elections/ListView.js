@@ -12,8 +12,8 @@ const ListView = () => {
             ...election,
             key: election.id,
             district: election.district.name,
-            winner: election.results.winner.name,
-            totalVoters: election.results.total_voters,
+            winner: election.results ? election.results.winner.name : "",
+            totalVoters: election.results ? election.results.total_voters : undefined,
         }
     })
 

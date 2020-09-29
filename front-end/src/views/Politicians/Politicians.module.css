@@ -1,6 +1,6 @@
 .wrapper {
     display: block;
-    width: 80%;
+    width: 90%;
     margin: auto;
 }
 
@@ -27,6 +27,10 @@
     gap: 16px;
 }
 
+.card {
+    height: 100%;
+}
+
 .croppedImage {
     display: block;
     min-width: 270px;
@@ -37,4 +41,64 @@
 .searchResults {
     display: flex;
     flex-direction: column;
+}
+
+.politicianPage {
+    margin: auto;
+    max-width: 900px;
+    padding: 16px 8px;
+    background: #ffffff;
+    border-radius: 2px;
+}
+
+.politicianDescription {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.politicianDetails {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    margin: 16px 0;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.politicianImage {
+    width: 90%;
+    max-width: 400px;
+    flex: 0;
+}
+
+.politicianGeneralInfo, .politicianSocials {
+    padding: 4px 16px;
+}
+
+.electionDetails, .districtDetails, .politicianBio {
+    width: 90%;
+}
+
+.electionSection {
+    margin: 32px auto;
+}
+
+.electionTable {
+    margin: 16px auto;
+}
+
+@media (min-width: 768px) {
+    .wrapper {
+        width: 80%;
+    }
+
+    .politicianDetails {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-evenly; 
+        text-align: left;
+    }
 }

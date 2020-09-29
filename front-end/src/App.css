@@ -1,5 +1,7 @@
 @import '~antd/dist/antd.css';
 
+* { box-sizing: border-box; }
+
 .logo{
   width: 150px;
   float: left;
