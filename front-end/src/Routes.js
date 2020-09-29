@@ -25,11 +25,13 @@ const Routes = [
     {
         title: "Districts",
         path: "/districts",
+        linkPath: "/districts/view",
         Component: Districts
     },
     {
         title: "Elections",
         path: "/elections",
+        linkPath: "/elections/view",
         Component: Elections
     }
 ]

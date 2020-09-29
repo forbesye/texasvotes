@@ -1,7 +1,4 @@
-# https://hub.docker.com/r/library/node/tags/
 image: node:latest
-# This folder is cached between builds
-# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
 
 stages:
   - build
@@ -17,7 +14,7 @@ build:
   script:
     - cd front-end
     - npm install
-    - npm run-script build
+    - CI=false npm run-script build
 
 test:
   stage: test
