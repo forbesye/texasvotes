@@ -1,0 +1,140 @@
+\documentclass[11t]{article}
+\usepackage[letterpaper, portrait, margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,scrextend}
+\usepackage{graphicx} %package to manage images
+\graphicspath{ {images/} }
+\usepackage{hyperref}
+\usepackage{tabu}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{mathtools} 
+\usepackage[utf8]{inputenc}
+
+\linespread{1.6}
+\setlength\parindent{0pt}
+
+\title{Phase I Technical Report}
+\author{Kevin Li, Sydney owen, Ivan Romero, Jennifer Suriadinata, Larry Win, Jefferson Ye}
+\date{September 28, 2020}
+
+\begin{document}
+
+\begin{titlepage}
+    \maketitle
+\end{titlepage}
+
+\section{Motivation}
+Texas Votes was designed to refute the idea that one vote makes no difference in American democracy. Many resources exist which effectively track federal elections, but few exist dedicated to state politicians of Texas. Our website will shed light on the American bi-annual horse race — giving users demographic data, fundraising information, district electoral history, and even more. With a clean UI and a clear view of the upcoming election season, we hope to give people the information and the motivation to definitively cast their ballots on November 3.
+\begin{enumerate}
+    \item What will my ballot look like? (ideally, a person coming here can look up their personalized ballot)
+    \item What is the current state of an election? (is one candidate out-fundraising another? can the challenger win, given the way a district has voted in the past?)
+    \item What does this election really mean? (who supports what candidates? is this election one I can sit out?)
+\end{enumerate}
+
+\section{User Stories}
+\begin{enumerate}
+    \item Healthcare Plans for Politicians
+    \begin{enumerate}
+        \item Story: Elderly voters are concerned about the security of their healthcare and would like to be able to easily determine which politicians have which stance on healthcare.
+        \item We will hardcode this information on the Politician Detail page for now but will need to find and add this data to our API. 
+        \item Estimated: 0:05
+        \item Actual:
+    \end{enumerate}
+    \item District Based on Address
+    \begin{enumerate}
+        \item Story: New voters want to know what district they are located in to be able to understand how to vote. They would also like information about voting. 
+        \item We will implement this next phase when we create a functioning search bar for the model pages.
+        \item Estimated: Unable to do during this phase
+        \item Actual: Unable to do during this phase
+    \end{enumerate}
+    \item Tax Rates for Politicians
+    \begin{enumerate}
+        \item Story: Wealthy and Conservative voters would like to be able to find out politicians’ stances on tax breaks to determine which politicians would provide them with the most tax breaks.process as they are inexperienced.
+        \item We will hardcode this information on the Politician Detail page for now but will need to find and add this data to our API. 
+        \item Estimated: 0:05
+        \item Actual:
+    \end{enumerate}
+    \item Address to where to go vote
+    \begin{enumerate}
+        \item Story: Voters who have just recently moved would like to know where they can vote based on their new location.
+        \item We will need to find out how to get the polling locations, and if possible, will add this data to our API.
+        \item Estimated: Unable to do during this phase
+        \item Actual: Unable to do during this phase
+    \end{enumerate}
+    \item When and Where to Vote by Address
+    \begin{enumerate}
+        \item Story: Busy voters would like a quick and easy way to determine the best polling location and time to fit their busy schedules.
+        \item We will add Early Voting dates to the Election Detail pages. We will need to find out how to get the polling locations, and if possible, will add this data to our API.
+        \item Estimated: 0:10
+        \item Actual:
+    \end{enumerate}
+\end{enumerate}
+
+\section{RESTful API}
+We made a RESTful API as a preliminary backbone for our website with Postman. We defined paths for politicians, districts, and elections, and created schemas for them as well. For each of the features we wanted, we created subpaths and ensured that our schema incorporated the data as well. 
+
+\section{Tools}
+We utilized React and Ant Design for the front-end development of our website and Postman for back-end API design and documentation. We utilized Git flow to ensure proper development of features, minimization of merge conflicts, and to ensure that development and production deployments occur smoothly. Docker and GitLab pipelines were used for the automatic deployment of our websites on target branches, as well as setting up development environments.
+
+\section{Models}
+The three models used for this website are politicians, districts, and elections. Each model has 10 attributes with some attributes being used to filter the data. Each model is tightly intertwined. A politician serves their constituents in a district and runs in an election. A district’s demographics and electoral history can explain whether a politician can win or lose in an upcoming election. And an election decides which politician keeps or loses their job in their district.
+
+\subsection{Politicians}
+\begin{itemize}
+    \item Filters:
+    \begin{itemize}
+        \item Name
+        \item Party 
+        \item District
+        \item Current office 
+        \item Incumbent/Not incumbent
+    \end{itemize}
+    \item ID
+    \item Terms 
+    \item Offices (what office do they currently hold and previously held)
+    \item Biography 
+    \item Image
+    \item Upcoming and past elections
+    \item Socials (social media websites like Facebook)
+    \item Fundraising (How much money they raised and spent)
+\end{itemize}
+
+\subsection{Districts}
+\begin{itemize}
+    \item Filters:
+    \begin{itemize}
+        \item Type
+        \item Party
+        \item County
+        \item Number
+    \end{itemize}
+    \item ID
+    \item Type
+    \item Party
+    \item County
+    \item Number
+\end{itemize}
+
+\subsection{Elections}
+\begin{itemize}
+    \item Filters:
+    \begin{itemize}
+        \item Type
+        \item District
+        \item Office
+        \item Winner
+    \end{itemize}
+    \item ID
+    \item Type
+    \item Candidates
+    \item District
+    \item Winner (if past election)
+    \item Office
+\end{itemize}
+
+\section{Tools}
+
+We utilized React and Ant Design for the front-end development of our website and Postman for back-end API design and documentation. We utilized Git flow to ensure proper development of features, minimization of merge conflicts, and to ensure that development and production deployments occur smoothly. Docker and GitLab pipelines were used for the automatic deployment of our websites on target branches, as well as setting up development environments.
+
+ 
+\end{document}
