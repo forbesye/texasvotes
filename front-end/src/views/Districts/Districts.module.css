@@ -1,0 +1,45 @@
+.wrapper {
+    display: block;
+    width: 80%;
+    margin: auto;
+}
+
+.header {
+    padding: 32px 0;
+}
+
+.content {
+    margin: auto;
+    max-width: 800px;
+}
+
+.districtPage {
+    margin: auto;
+    max-width: 900px;
+    padding: 16px 8px;
+    background: #ffffff;
+    border-radius: 2px;
+}
+
+.districtDescription {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.districtDetails {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    margin: 16px 0;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.districtImage {
+    width: 90%;
+    max-width: 400px;
+    flex: 0;
+}
