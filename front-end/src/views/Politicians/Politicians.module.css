@@ -78,8 +78,16 @@
     padding: 4px 16px;
 }
 
-.politicianBio {
-    width: 100%;
+.electionDetails, .districtDetails, .politicianBio {
+    width: 90%;
+}
+
+.electionSection {
+    margin: 32px auto;
+}
+
+.electionTable {
+    margin: 16px auto;
 }
 
 @media (min-width: 768px) {
