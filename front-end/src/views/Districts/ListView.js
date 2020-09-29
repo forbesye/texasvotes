@@ -5,11 +5,9 @@ import styles from "./Districts.module.css"
 import politicians from "./DefaultDistricts"
 import columns from "./Lib"
 import districtData from "./DefaultDistricts"
-//import { description } from "./Lib"
 
 const ListView = () => {
     const data = districtData.map(district => {
-        // console.log(district.elected_official.name)
         return {
             key: district.id,
             official_name: district.elected_officials[0].name, // TODO: API call will be diff

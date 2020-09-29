@@ -24,7 +24,6 @@ const percentageString = (key, obj) => {
     let keyVal = obj[key];
     for (const val in obj) {
         sum += parseInt(obj[val]);
-        console.log([sum, val, obj[val]])
     }
     keyVal = (keyVal / sum) * 100;
     
