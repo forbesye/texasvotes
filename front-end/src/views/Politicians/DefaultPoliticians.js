@@ -193,6 +193,7 @@ export default [
         fundraising: {
             raised: 1501689.00,
             spent: 1156825.00,
+            remaining_cash: 1268552,
             contributors: [
                 {
                     type: "small_individual",

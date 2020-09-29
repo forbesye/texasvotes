@@ -185,8 +185,8 @@ export default function Details () {
                         <Title style={{ textAlign: "center" }} level={3}>Election Information</Title>
                         <section className={styles.electionSection}>
                             <Title level={5}>2019-2020 Fundraising Information</Title>
-                            <Paragraph>{name} has raised {formatAsMoney(fundraising.raised)} for her current campaign.</Paragraph>
-                            <Paragraph>{name} has spent {formatAsMoney(fundraising.spent)} on her current campaign.</Paragraph>
+                            <Paragraph>{name} has raised {formatAsMoney(fundraising.raised)} for their current campaign.</Paragraph>
+                            <Paragraph>{name} has spent {formatAsMoney(fundraising.spent)} on their current campaign.</Paragraph>
                             <Paragraph>{name} currently has {formatAsMoney(fundraising.remaining_cash)} on hand.</Paragraph>
                             <List 
                                 header={<Text strong>{name}'s Contribution Categories</Text>}
