@@ -272,6 +272,10 @@ export default [
             past: ["tx_secretary_of_state"]
         },
         district: tx25,
+        issues: [
+            { type: "Taxes", stance: "Roger Williams has championed himself as a small business owner and supports tax cuts for businesses. He voted yes for the Tax Cuts and Jobs Act (HR1) in 2017." },
+            { type: "Healthcare", stance: "Roger Williams positions himself against the Affordable Care Act (ACA). He voted to repeal major provisions of the ACA in 2013 and 2015, and he voted for the American Health Care Act, the Republican skinny repeal of the ACA, in 2017. " }
+        ],
         biography: [
             "Roger Williams is a Christian, conservative, pro-life and second amendment supporter fighting to take our Texas values to Washington, D.C.",
             "Roger is running for Congress not to be something, but to do something. He wants to continue to use his business experience to create economic growth and jobs. And he wants to provide real leadership for our country in these challenging times.",
@@ -332,7 +336,11 @@ export default [
             twitter: "https://twitter.com/julieolivertx",
             instagram: "https://www.instagram.com/julieolivertx"
         },
-        biography: "Julie Oliver is running for Congress because Austin and Central Texas deserve a representative who will show up, listen to those she serves, and work for all of us. She's running a bold campaign for Medicare for All, a Green New Deal, a pathway to citizenship, and an economy that works for everyone, not just corporations and the wealthy few.",
+        biography: ["Julie Oliver is running for Congress because Austin and Central Texas deserve a representative who will show up, listen to those she serves, and work for all of us. She's running a bold campaign for Medicare for All, a Green New Deal, a pathway to citizenship, and an economy that works for everyone, not just corporations and the wealthy few."],
+        issues: [
+            { type: "Taxes", stance: "Julie has stated that she wants to revert corporate Tax breaks from the Trump and Obama administration. She also wants to go further and add a 70-90% tax on corporate PACs to reverse the decision of Citizen's United. " },
+            { type: "Healthcare", stance: "Julie has centered her campaign around the Bernie Sanders \"Medicare For All\" plan which would end private insurance in the US and create a single payer system. She pledges to vote for the Medicare For All Act of 2019 (HR 1384) and allow Medicare to negotiate the cost of prescriptions with HR275." }
+        ],
         website: "https://www.julieoliver.org/",
         elections: {
             upcoming: smolElections[2], 
@@ -380,8 +388,12 @@ export default [
         },
         district: tx14,
         biography: [
-            "Sarah Eckhardt was honored to have been re-elected to a second term as Travis County Judge in 2018. As County Judge, she proudly represented 1.3 million county residents and presided over the Commissioners Court.            ",
+            "Sarah Eckhardt was honored to have been re-elected to a second term as Travis County Judge in 2018. As County Judge, she proudly represented 1.3 million county residents and presided over the Commissioners Court.",
             "With deep roots in Austin and Travis County, Judge Eckhardt has dedicated her life to public service for 20 years. She looks forward to continuing this service and asks for your support to become our next State Senator.",
+        ],
+        issues: [
+            { type: "Taxes", stance: "Senator Eckhardt supports new taxes to fund state social programs. She proposes an expanded sales tax on professional services like accounting and legal representation, increased gasoline and diesel tax based off of fuel consumption, cap the local homestead exemption to a flat rate to increase revenue from expensive properties, and remove tax breaks for large corporations." },
+            { type: "Healthcare", stance: "Senator Eckhardt wants to lead the effort to make healthcare more accessible in Texas. She proposes this through making Medicaid, SNAP, and CHIP accessible by Venmo or Apple Pay, expanded telehealth options by universal broadband, and a centralized exchange of healthcare information." }
         ],
         image: "https://lbj.utexas.edu/sites/default/files/Eckhardt%2C%20Sarah%20headshot.jpg",
         socials: {

@@ -11,6 +11,7 @@ const NavContent = ({ orientation }) => {
             className={ orientation === "horizontal" ? styles.menu : undefined }
             theme={ orientation === "horizontal" ? "dark" : "light"} 
             mode={orientation}
+            selectable={false}
         >    
             { routes.map(({ linkPath, path, title }, i) => {
                 return (

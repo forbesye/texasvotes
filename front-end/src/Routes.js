@@ -3,6 +3,7 @@ import About from "./views/About/About"
 import Politicians from "./views/Politicians/Politicians"
 import Districts from "./views/Districts/Districts"
 import Elections from "./views/Elections/Elections"
+import VoterFAQ from "./views/VoterFAQ/VoterFAQ"
 
 const Routes = [
     {
@@ -33,6 +34,11 @@ const Routes = [
         path: "/elections",
         linkPath: "/elections/view",
         Component: Elections
+    },
+    {
+        title: "Voting FAQ",
+        path: "/voting",
+        Component: VoterFAQ
     }
 ]
 

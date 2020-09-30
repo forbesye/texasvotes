@@ -110,7 +110,14 @@ export default function Details () {
                                             <Text strong>Current Office: </Text><Text>{`${officeName(offices.current)} (${terms.current} terms)`}</Text>
                                         </div>
                                         <div>
-                                            <Text strong>Past Offices: </Text><Text>{offices.past.map((o, i) => (i !== 0 ? ", " : "") + officeName(o))}</Text>
+                                            {
+                                                offices.past && offices.past.length > 0 ? (
+                                                    <Fragment>
+                                                        <Text strong>Past Offices: </Text><Text>{offices.past.map((o, i) => (i !== 0 ? ", " : "") + officeName(o))}</Text>
+                                                    </Fragment>
+                                                ) : null
+                                            }
+                                            
                                         </div>
                                     </Fragment>
                                 ) : null
@@ -161,6 +168,19 @@ export default function Details () {
                                     }
                                 </Panel>
                             </Collapse>
+                            {
+                                politician.issues ? (
+                                    <Collapse ghost>
+                                        <Panel header="Issues">
+                                            {
+                                                politician.issues.map((issue, i) => (
+                                                    <Paragraph key={i}><Text strong>{issue.type}: </Text>{issue.stance}</Paragraph>
+                                                ))
+                                            }
+                                        </Panel>
+                                    </Collapse>
+                                ) : null
+                            }
                         </article>
                     ) : null }
                     <Divider />
