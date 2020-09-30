@@ -22,6 +22,7 @@ const App = () => {
   	  	  	  	  	  	  	  	  	<Route 
 										exact={exact}
 										path={path}
+										key={path}
 										component={Component}
   	  	  	  	  	  	  	  	  	/>
   	  	  	  	  	  	  	  	)

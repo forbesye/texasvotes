@@ -25,7 +25,7 @@ const columns = [
         key: 'totalVoters'
     },
     {
-        title: 'Election Day',
+        title: 'Election Date',
         dataIndex: 'election_date',
         key: 'election_date'
     }

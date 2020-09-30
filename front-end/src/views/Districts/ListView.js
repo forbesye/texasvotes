@@ -1,11 +1,12 @@
 import React from "react"
-import { Table } from "antd"
+import { Table, Divider, Typography } from "antd"
 import { useHistory } from 'react-router-dom'
 import styles from "./Districts.module.css"
 import columns from "./Lib"
 import districtData from "./DefaultDistricts"
 import { party_mappings, elected_office_mappings } from "library/Mappings"
 // import { numberStringWithCommas } from "lib/Functions"
+const { Title, Paragraph } = Typography
 
 const ListView = () => {
     const data = districtData.map(district => {
@@ -23,6 +24,11 @@ const ListView = () => {
 
     return (
         <div>
+            <section className={styles.content}>
+                <Title level={3}>View All</Title>
+                <Paragraph>Have you ever wondered what all Texas districts look like in a list view? Probably not, but we've got you covered here. The list can also be filtered and sorted by different properties to make your viewing experience more customizable (soon™).</Paragraph>
+            </section>
+            <Divider />
             <Table 
                 dataSource={data} 
                 columns={columns} 
