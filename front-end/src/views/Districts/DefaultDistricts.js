@@ -68,64 +68,64 @@ const districtData = [
         }
     },
     {
-        name: "TX-14",
-        type: "tx_senate",
-        id: 1,
-        party: "D",
-        counties: ["Bastrop", "Travis"],
-        elections: {
-            current: null,
-            past: [
+        "name": "TX-14",
+        "type": "tx_senate",
+        "id": 1,
+        "party": "D",
+        "counties": ["Bastrop", "Travis"],
+        "elections": {
+            "current": null,
+            "past": [
                 {
-                    id: 3
+                    "id": 3
                 }
             ]
         },
-        elected_officials: [
+        "elected_officials": [
             {
-                name: "Sarah Eckhardt",
-                id: 3
+                "name": "Sarah Eckhardt",
+                "id": 3
             }
         ],
-        demographics: {
-            total_population: 970_392,
-            age: {
+        "demographics": {
+            "total_population": 970_392,
+            "age": {
               0: 63781,
               5: 150057,
               18: 663268,
               65: 93286
             },
-            race: {
-              white: 491907,
-              black: 98760,
-              asian: 79702,
-              indigenous: 0,
-              pacific_islander: 0,
-              other: 302768
+            "race": {
+              "white": 491907,
+              "black": 98760,
+              "asian": 79702,
+              "indigenous": 0,
+              "pacific_islander": 0,
+              "other": 302768
             },
-            ethnicity: {
-              hispanic: 302768,
-              non_hispanic: 665993
+            "ethnicity": {
+              "hispanic": 302768,
+              "non_hispanic": 665993
             },
-            educational_attainment: {
-              enrollment: {
-                preschool: 17297,
-                primary: 149965,
-                university: 83991
+            "educational_attainment": {
+              "enrollment": {
+                "preschool": 17297,
+                "primary": 149965,
+                "university": 83991
               },
-              attainment: {
-                high_school: 71266,
-                some_college: 0,
-                bachelors: 320157
+              "attainment": {
+                "high_school": 71266,
+                "some_college": 0,
+                "bachelors": 320157
               }
             },
-            income: {
-              0: 20411,
-              10_000: 36928,
-              25_000: 70750,
-              50_000: 111267,
-              100_000: 90599,
-              200_000: 39878
+            "income": {
+              "0": 20411,
+              "10_000": 36928,
+              "25_000": 70750,
+              "50_000": 111267,
+              "100_000": 90599,
+              "200_000": 39878
             }
         }
     },
