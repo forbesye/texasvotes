@@ -53,7 +53,7 @@ const smolElections = [
                 {
                     name: "Heidi Sloan",
                     party: "D",
-                    id: 2,
+                    id: 3,
                     vote_total: 24512,
                     vote_percentage: 30.4
                 }
@@ -91,10 +91,65 @@ const smolElections = [
             election_day: "2020-11-03T00:00:00-0600"
         }
     },
+    {
+        id: 3,
+        type: "special",
+        dates: {
+            election_day: "2020-07-14T00:00:00-0600"
+        },
+        results: {
+            winner: {
+                name: "Sarah Eckhardt",
+                party: "D",
+                id: 2
+            },
+            vote_counts: [
+                {
+                    name: "Sarah Eckhardt",
+                    party: "D",
+                    id: 2,
+                    vote_total: 59267,
+                    vote_percentage: 49.7
+                },
+                {
+                    name: "Eddie Rodriguez",
+                    party: "D",
+                    vote_total: 40384,
+                    vote_percentage: 33.8
+                },
+                {
+                    name: "Donald Zimmerman",
+                    party: "R",
+                    vote_total: 15565,
+                    vote_percentage: 13.0
+                },
+                {
+                    name: "Waller Thomas Burns II",
+                    party: "R",
+                    vote_total: 1442,
+                    vote_percentage: 1.2
+                },
+                {
+                    name: "Jeff Ridgeway",
+                    party: "I",
+                    vote_total: 1386,
+                    vote_percentage: 1.2
+                },
+                {
+                    name: "Pat Dixon",
+                    party: "L",
+                    vote_total: 1306,
+                    vote_percentage: 1.1
+                }
+            ],
+            total_voters: 119350
+        }
+    }
 ]
 
 const tx25 = {
     name: "TX-25",
+    type: "us_house",
     id: 1,
     counties: [
         "Bosque",
@@ -151,7 +206,55 @@ const tx25 = {
           100_000: 81659,
           200_000: 37207
         }
-      }
+    }
+}
+
+const tx14 = {
+    name: "TX-14",
+    type: "tx_senate",
+    id: 2,
+    counties: ["Bastrop", "Travis"],
+    demographics: {
+        total_population: 970_392,
+        age: {
+          0: 63781,
+          5: 150057,
+          18: 663268,
+          65: 93286
+        },
+        race: {
+          white: 491907,
+          black: 98760,
+          asian: 79702,
+          indigenous: 0,
+          pacific_islander: 0,
+          other: 302768
+        },
+        ethnicity: {
+          hispanic: 302768,
+          non_hispanic: 665993
+        },
+        educational_attainment: {
+          enrollment: {
+            preschool: 17297,
+            primary: 149965,
+            university: 83991
+          },
+          attainment: {
+            high_school: 71266,
+            some_college: 0,
+            bachelors: 320157
+          }
+        },
+        income: {
+          0: 20411,
+          10_000: 36928,
+          25_000: 70750,
+          50_000: 111267,
+          100_000: 90599,
+          200_000: 39878
+        }
+    }
 }
 
 export default [
@@ -259,6 +362,38 @@ export default [
                     type: "other",
                     amount: -4_434.0
                 }
+            ]
+        }
+    },
+    {
+        id: 2,
+        name: "Sarah Eckhardt",
+        elected: true,
+        party: "D",
+        terms: {
+            current: 1,
+            total: 3
+        },
+        offices: {
+            current: "tx_senate",
+            past: []
+        },
+        district: tx14,
+        biography: [
+            "Sarah Eckhardt was honored to have been re-elected to a second term as Travis County Judge in 2018. As County Judge, she proudly represented 1.3 million county residents and presided over the Commissioners Court.            ",
+            "With deep roots in Austin and Travis County, Judge Eckhardt has dedicated her life to public service for 20 years. She looks forward to continuing this service and asks for your support to become our next State Senator.",
+        ],
+        image: "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/SarahEckhardt.jpg",
+        socials: {
+            facebook: "https://www.facebook.com/SarahEckhardtAustin",
+            twitter: "https://saraheckhardt.com/?nosplash#twitterModal",
+            instagram: "https://www.instagram.com/saraheckhardtaustin/"
+        },
+        website: "https://saraheckhardt.com/",
+        elections: {
+            upcoming: null,
+            past: [
+                smolElections[3]
             ]
         }
     }

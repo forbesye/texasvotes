@@ -77,10 +77,24 @@ const Details = () => {
                     <article className={styles.districtDetails}>
                         <Row justify="space-around">
                             <Col>
-                                <Text strong>Past Elections: </Text><Text>{district.elections.past[0].id}</Text>
+                                {
+                                    district.elections.past.length > 0 ?  (
+                                        <Fragment>
+                                            <Text strong>Past Election IDs: </Text>
+                                            <Text>{district.elections.past.map((e, i) => (i > 0 ? ", " : "") + e.id)}</Text>
+                                        </Fragment>
+                                    ) : null
+                                }
                             </Col>
                             <Col>
-                                <Text strong>Current Elections: </Text><Text>{district.elections.current.id}</Text>
+                                {
+                                    district.elections.current ? (
+                                        <Fragment>
+                                            <Text strong>Current Election ID: </Text>
+                                            <Text>{district.elections.current.id}</Text>
+                                        </Fragment>
+                                    ) : null
+                                }
                             </Col>
                         </Row>
                         <Row justify="space-around">
