@@ -38,7 +38,7 @@ Texas Votes was designed to refute the idea that one vote makes no difference in
         \item Story: Elderly voters are concerned about the security of their healthcare and would like to be able to easily determine which politicians have which stance on healthcare.
         \item We will hardcode this information on the Politician Detail page for now but will need to find and add this data to our API. 
         \item Estimated: 0:05
-        \item Actual:
+        \item Actual: 0:10
     \end{enumerate}
     \item District Based on Address
     \begin{enumerate}
@@ -52,7 +52,7 @@ Texas Votes was designed to refute the idea that one vote makes no difference in
         \item Story: Wealthy and Conservative voters would like to be able to find out politicians’ stances on tax breaks to determine which politicians would provide them with the most tax breaks.process as they are inexperienced.
         \item We will hardcode this information on the Politician Detail page for now but will need to find and add this data to our API. 
         \item Estimated: 0:05
-        \item Actual:
+        \item Actual: 0:10
     \end{enumerate}
     \item Address to where to go vote
     \begin{enumerate}
@@ -66,15 +66,9 @@ Texas Votes was designed to refute the idea that one vote makes no difference in
         \item Story: Busy voters would like a quick and easy way to determine the best polling location and time to fit their busy schedules.
         \item We will add Early Voting dates to the Election Detail pages. We will need to find out how to get the polling locations, and if possible, will add this data to our API.
         \item Estimated: 0:10
-        \item Actual:
+        \item Actual: 0:10
     \end{enumerate}
 \end{enumerate}
-
-\section{RESTful API}
-We made a RESTful API as a preliminary backbone for our website with Postman. We defined paths for politicians, districts, and elections, and created schemas for them as well. For each of the features we wanted, we created subpaths and ensured that our schema incorporated the data as well. 
-
-\section{Tools}
-We utilized React and Ant Design for the front-end development of our website and Postman for back-end API design and documentation. We utilized Git flow to ensure proper development of features, minimization of merge conflicts, and to ensure that development and production deployments occur smoothly. Docker and GitLab pipelines were used for the automatic deployment of our websites on target branches, as well as setting up development environments.
 
 \section{Models}
 The three models used for this website are politicians, districts, and elections. Each model has 10 attributes with some attributes being used to filter the data. Each model is tightly intertwined. A politician serves their constituents in a district and runs in an election. A district’s demographics and electoral history can explain whether a politician can win or lose in an upcoming election. And an election decides which politician keeps or loses their job in their district.
@@ -132,9 +126,13 @@ The three models used for this website are politicians, districts, and elections
     \item Office
 \end{itemize}
 
-\section{Tools}
+\section{RESTful API}
+We made a RESTful API as a preliminary backbone for our website with Postman. We defined paths for politicians, districts, and elections, and created schemas for them as well. For each of the features we wanted, we created subpaths and ensured that our schema incorporated the data as well. 
 
+\section{Tools}
 We utilized React and Ant Design for the front-end development of our website and Postman for back-end API design and documentation. We utilized Git flow to ensure proper development of features, minimization of merge conflicts, and to ensure that development and production deployments occur smoothly. Docker and GitLab pipelines were used for the automatic deployment of our websites on target branches, as well as setting up development environments.
 
- 
+\section{Hosting}
+We originally used AWS S3 with AWS CloudFront for our static website hosting, but switched over to AWS Amplify. AWS Amplify automatically includes a TLS/SSL certificate in the domain registration process, while AWS CloudFront requires a more hands-on approach for manual registration and verification (Amplify looks like it actually uses CloudFront for this as well). NameCheap was used to register and configure our domain name, and to verify ownership with AWS services in order to register a TLS/SSL certificate. We will need to probably use AWS Elastic Beanstalk and RDS in future phases for back-end hosting.
+
 \end{document}
