@@ -26,9 +26,9 @@ https://texasvotes.me
 ## Completion Times
 | Name | Estimated | Actual |
 |------|-----------|--------|
-|Jefferson Ye|0|0|
-|Larry Win|0|0|
-|Jennifer Suriadinata|0|0|
-|Sydney Owen|0|0|
-|Ivan Romero|0|0|
-|Kevin Li|0|0|
+|Jefferson Ye|10|14|
+|Larry Win|10|13|
+|Jennifer Suriadinata|5|8|
+|Sydney Owen|6|7|
+|Ivan Romero|5|6|
+|Kevin Li|6|6|

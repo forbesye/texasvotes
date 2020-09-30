@@ -18,7 +18,7 @@ export default function VoterFAQ () {
             <Title level={4}>Registering to Vote</Title>
             <Paragraph>The deadline to register in Texas is October 5. Your application must be received or postmarked 30 days before the election. You must be at least 17 years and 10 months old to vote, and you at least one of the following forms of identification to register:</Paragraph>
             <ul>
-                <li>Drivers Lisence number</li>
+                <li>Drivers License number</li>
                 <li>Personal Identification number issued by the Texas Department of Public Safety (DPS)</li>
                 <li>Last four digits of your social security number</li>
                 <li>Texas driver license issued by the Texas DPS</li>
