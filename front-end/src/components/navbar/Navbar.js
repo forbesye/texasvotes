@@ -10,9 +10,9 @@ const Navbar = () => {
 	const [open, setOpen] = useState(false);
 	return (
 		<nav className={styles.nav}>
-			<a href="/" className={styles.leftNav}>
+			<Link to="/" className={styles.leftNav}>
 				<img src={TexasVotesLogo} alt="Texas Votes Logo" className={styles.logo}/>
-			</a>
+			</Link>
 			<div className={styles.centerNav}>
 				<NavContent />
 			</div>

@@ -40,12 +40,18 @@
     font-size: 1.5em;
 }
 
+.descriptionContainer {
+    width: 90%;
+    max-width: 800px;
+    margin: 32px auto;
+}
+
 .cardFlexContainer {
     max-width: 1200px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin: 5vh auto 0;
+    margin: 32px auto 0;
     flex-direction: column;
 }
 
@@ -62,7 +68,7 @@
 
 .cardImage {
     width: 200px !important;
-    margin: 16px 0;
+    margin: 40px 0;
     object-fit: contain;
 }
 
