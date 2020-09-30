@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import styles from "./Districts.module.css"
 import columns from "./Lib"
 import districtData from "./DefaultDistricts"
-import { party_mappings, elected_office_mappings } from "lib/Mappings"
+import { party_mappings, elected_office_mappings } from "library/Mappings"
 // import { numberStringWithCommas } from "lib/Functions"
 
 const ListView = () => {

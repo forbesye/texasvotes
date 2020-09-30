@@ -3,8 +3,8 @@ import { PageHeader, Typography, Spin, Divider, Row, Col, Collapse, List } from 
 import { useParams, useHistory } from 'react-router-dom'
 import districts from './DefaultDistricts'
 import styles from './Districts.module.css'
-import { percentageString } from "lib/Functions"
-import  { age_mappings, income_mappings, race_mappings, ethnicity_mappings, educational_mappings, elected_office_mappings, party_mappings } from "lib/Mappings"
+import { percentageString } from "library/Functions"
+import  { age_mappings, income_mappings, race_mappings, ethnicity_mappings, educational_mappings, elected_office_mappings, party_mappings } from "library/Mappings"
 const { Title, Paragraph, Text, Link } = Typography
 const { Panel } = Collapse
 

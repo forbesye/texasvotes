@@ -4,8 +4,8 @@ import { useHistory } from 'react-router-dom'
 import columns from "./Lib"
 import electionData from "./DefaultElections"
 import styles from "./Elections.module.css"
-import { election_type_mappings, elected_office_mappings } from "lib/Mappings"
-import { monthDayYearParse } from "lib/Functions"
+import { election_type_mappings, elected_office_mappings } from "library/Mappings"
+import { monthDayYearParse } from "library/Functions"
 //import { description } from "./Lib"
 
 const ListView = () => {
