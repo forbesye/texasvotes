@@ -18,7 +18,9 @@ const Districts = () => {
     }
     useEffect(() => {
         const path = location.pathname
-        const initialKey = path.split("/").filter(el => el !== "").pop()
+        const splitted = path.split("/").filter(el => el !== "")
+        splitted.shift()
+        const initialKey = splitted.shift()
         setCurrKey(initialKey)
     }, [])
 

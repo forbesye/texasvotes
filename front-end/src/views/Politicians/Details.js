@@ -183,43 +183,59 @@ export default function Details () {
                     <Divider />
                     <article className={styles.electionDetails}>
                         <Title style={{ textAlign: "center" }} level={3}>Election Information</Title>
-                        <section className={styles.electionSection}>
-                            <Title level={5}>2019-2020 Fundraising Information</Title>
-                            <Paragraph>{name} has raised {formatAsMoney(fundraising.raised)} for their current campaign.</Paragraph>
-                            <Paragraph>{name} has spent {formatAsMoney(fundraising.spent)} on their current campaign.</Paragraph>
-                            <Paragraph>{name} currently has {formatAsMoney(fundraising.remaining_cash)} on hand.</Paragraph>
-                            <List 
-                                header={<Text strong>{name}'s Contribution Categories</Text>}
-                                bordered
-                                dataSource={fundraising.contributors}
-                                renderItem={item => {
-                                    const titles = {
-                                        small_individual: "Donataions Under $250",
-                                        large_individual: "Donations Above $250",
-                                        self_finance: "Self Financing",
-                                        pac: "PAC Donations",
-                                        other: "Other Sources"
-                                    }
-                                    return (
-                                    <List.Item><Text>From {titles[item.type]}: {formatAsMoney(item.amount)}</Text></List.Item>
-                                    )
-                                }}
-                            />
-                        </section>
+                        {
+                            fundraising ? (
+                                <section className={styles.electionSection}>
+                                    <Title level={5}>2019-2020 Fundraising Information</Title>
+                                    <Paragraph>{name} has raised {formatAsMoney(fundraising.raised)} for their current campaign.</Paragraph>
+                                    <Paragraph>{name} has spent {formatAsMoney(fundraising.spent)} on their current campaign.</Paragraph>
+                                    <Paragraph>{name} currently has {formatAsMoney(fundraising.remaining_cash)} on hand.</Paragraph>
+                                    <List 
+                                        header={<Text strong>{name}'s Contribution Categories</Text>}
+                                        bordered
+                                        dataSource={fundraising.contributors}
+                                        renderItem={item => {
+                                            const titles = {
+                                                small_individual: "Donataions Under $250",
+                                                large_individual: "Donations Above $250",
+                                                self_finance: "Self Financing",
+                                                pac: "PAC Donations",
+                                                other: "Other Sources"
+                                            }
+                                            return (
+                                            <List.Item><Text>From {titles[item.type]}: {formatAsMoney(item.amount)}</Text></List.Item>
+                                            )
+                                        }}
+                                    />
+                                </section>
+                            ) : (
+                                <section>
+                                    <Title level={5}>2019-2020 Fundraising Information</Title>
+                                    <Paragraph>{name} doesn't have any fundraising information on file.</Paragraph>
+                                </section>
+                            )
+                        }
                         <section className={styles.electionSection}>
                             <Title level={5}>Participating Elections</Title>
-                            <Paragraph>{name} is running in an upcoming election.</Paragraph>
-                            <div className={styles.electionTable}>
-                                <Text strong>{tableTitle(elections.upcoming)}</Text>
-                                <Table 
-                                    columns={[
-                                        { title: "Name", dataIndex: "name", key: "name", render: (text, record) => <div>{text} {record.incumbent ? <Text strong>(incumbent)</Text> : null}</div> }, 
-                                        { title: "Party", dataIndex: "party", key: "party "}
-                                    ]}
-                                    dataSource={elections.upcoming.candidates}
-                                    pagination={false}
-                                />
-                            </div>
+                            {
+                                elections.upcoming ? (
+                                    <Fragment>
+                                        <Paragraph>{name} is running in an upcoming election.</Paragraph>
+                                        <div className={styles.electionTable}>
+                                            <Text strong>{tableTitle(elections.upcoming)}</Text>
+                                            <Table 
+                                                columns={[
+                                                    { title: "Name", dataIndex: "name", key: "name", render: (text, record) => <div>{text} {record.incumbent ? <Text strong>(incumbent)</Text> : null}</div> }, 
+                                                    { title: "Party", dataIndex: "party", key: "party "}
+                                                ]}
+                                                dataSource={elections.upcoming.candidates}
+                                                pagination={false}
+                                            />
+                                        </div>
+                                    </Fragment>
+                                ) : <Paragraph>{name} is not up for re-election.</Paragraph>
+                            }
+                            
                             {
                                 elections.past.length > 0 ? (
                                     <Fragment>
