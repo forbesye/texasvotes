@@ -13,6 +13,10 @@
   text-transform: capitalize;
 }
 
+.footer {
+  text-align: center;
+}
+
 .nav {
   padding-left: 16px;
   padding-right: 16px;

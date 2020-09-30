@@ -29,8 +29,8 @@ const App = () => {
   	  	  	  	  	  	}
   	  	  	  	  	</Switch>
   	  	  	  	</Content>
-  	  	  	  	<Footer>
-					Copyright 2020 - Texas Votes
+  	  	  	  	<Footer className="footer">
+					Copyright © 2020 Texas Votes
   	  	  	  	</Footer>
   	  	  	</Layout>
   	  	</React.Fragment>

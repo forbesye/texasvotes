@@ -81,7 +81,7 @@ const repoAndAPI = [
     },
     {
         img: PostmanLogo,
-        link: "https://postman.com/"
+        link: "https://documenter.getpostman.com/view/6920111/TVKJxZu3"
     }
 ]
 
