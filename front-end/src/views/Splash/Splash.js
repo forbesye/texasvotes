@@ -32,40 +32,46 @@ const Splash = () => {
                 </div>
             </div>
             <div className={styles.cardFlexContainer}>
-                <Card
-                    bordered={true}
-                    className={styles.card}
-                    cover={<img className={styles.cardImage} alt={"Politician"} src={politician}></img>}   
-                    hoverable={true}
-                >
-                    <Title style={{ textAlign: "center" }}>Politicians</Title>
-                    <p>
-                        Want to learn more about your politicians?
-                    </p>
-                </Card>
-                <Card
-                    bordered={true}
-                    className={styles.card}
-                    cover={<img className={styles.cardImage} alt={"Texas"} src={texas}></img>}     
-                    hoverable={true}
-                >
-                    <Title style={{ textAlign: "center" }}>Districts</Title>
-                    <p>
-                        Which district are you in? Learn about the different districts across Texas!
-                    </p>
-                </Card>
-                <Card
-                    bordered={true}
-                    className={styles.card}
-                    cover={<img className={styles.cardImage} alt={"Vote"} src={vote}></img>}    
-                    hoverable={true}
-                >
-                    <Title style={{ textAlign: "center" }}>Elections</Title>
-                    <p>
-                        What are some of the upcoming elections? Keep track of the elections and mark your calendars to vote!
-                    </p>
+                <Link to="/politicians/view" className={styles.card}>
+                    <Card
+                        bordered={true}
+                        className={styles.card}
+                        cover={<img className={styles.cardImage} alt={"Politician"} src={politician}></img>}   
+                        hoverable={true}
+                    >
+                        <Title style={{ textAlign: "center" }}>Politicians</Title>
+                        <p>
+                            Want to learn more about your politicians?
+                        </p>
+                    </Card>
+                </Link>
+                <Link to="/districts/view" className={styles.card}>
+                    <Card
+                        bordered={true}
+                        className={styles.card}
+                        cover={<img className={styles.cardImage} alt={"Texas"} src={texas}></img>}     
+                        hoverable={true}
+                    >
+                        <Title style={{ textAlign: "center" }}>Districts</Title>
+                        <p>
+                            Which district are you in? Learn about the different districts across Texas!
+                        </p>
+                    </Card>
+                </Link>
+                <Link to="/elections/view" className={styles.card}>
+                    <Card
+                        bordered={true}
+                        className={styles.card}
+                        cover={<img className={styles.cardImage} alt={"Vote"} src={vote}></img>}    
+                        hoverable={true}
+                    >
+                        <Title style={{ textAlign: "center" }}>Elections</Title>
+                        <p>
+                            What are some of the upcoming elections? Keep track of the elections and mark your calendars to vote!
+                        </p>
 
-                </Card>
+                    </Card>
+                </Link>
             </div>
         </div>
     );
