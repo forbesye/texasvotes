@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom'
 import columns from "./Lib"
 import electionData from "./DefaultElections"
 import styles from "./Elections.module.css"
+import { election_type_mappings, elected_office_mappings } from "lib/Mappings"
+import { monthDayYearParse } from "lib/Functions"
 //import { description } from "./Lib"
 
 const ListView = () => {
@@ -13,8 +15,11 @@ const ListView = () => {
             ...election,
             key: election.id,
             district: election.district.name,
-            winner: election.results ? election.results.winner.name : "",
-            totalVoters: election.results ? election.results.total_voters : undefined,
+            type: election_type_mappings[election.type],
+            office: elected_office_mappings[election.office],
+            winner: election.results ? election.results.winner.name : "TBD",
+            totalVoters: election.results ? election.results.total_voters : "TBD",
+            election_date: monthDayYearParse(election.dates.election_day)
         }
     })
 

@@ -15,14 +15,19 @@ const columns = [
         key: 'office'
     },
     {
-        title: "Winner",
+        title: 'Winner',
         dataIndex: 'winner',
         key: 'winner'
     },
     {
-        title: "Total Voters",
+        title: 'Total Voters',
         dataIndex: 'totalVoters',
         key: 'totalVoters'
+    },
+    {
+        title: 'Election Day',
+        dataIndex: 'election_date',
+        key: 'election_date'
     }
 ]
 

@@ -1,18 +1,21 @@
-import React, { useState, useEffect, Fragment } from "react"
-import { Typography, Divider, Card, Table } from "antd"
+import React from "react"
+import { Table } from "antd"
 import { useHistory } from 'react-router-dom'
 import styles from "./Districts.module.css"
-import politicians from "./DefaultDistricts"
 import columns from "./Lib"
 import districtData from "./DefaultDistricts"
+import { party_mappings, elected_office_mappings } from "lib/Mappings"
+// import { numberStringWithCommas } from "lib/Functions"
 
 const ListView = () => {
     const data = districtData.map(district => {
         return {
+            ...district,
             key: district.id,
+            type: elected_office_mappings[district.type],
+            party: party_mappings[district.party],
             official_name: district.elected_officials[0].name, // TODO: API call will be diff
-            population: district.demographics.total_population,
-            ...district
+            population: district.demographics.total_population
         }
     })
 
