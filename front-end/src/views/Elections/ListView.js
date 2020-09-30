@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Table, Divider, Typography } from "antd"
 import { useHistory } from 'react-router-dom'
 import columns from "./Lib"
@@ -9,21 +9,27 @@ import { monthDayYearParse } from "library/Functions"
 const { Title, Paragraph } = Typography
 
 const ListView = () => {
-    const data = electionData.map(election => {
-        // console.log(district.elected_official.name)
-        return {
-            ...election,
-            key: election.id,
-            district: election.district.name,
-            type: election_type_mappings[election.type],
-            office: elected_office_mappings[election.office],
-            winner: election.results ? election.results.winner.name : "TBD",
-            totalVoters: election.results ? election.results.total_voters : "TBD",
-            election_date: monthDayYearParse(election.dates.election_day)
-        }
-    })
-
     const history = useHistory();
+    const [loading, setLoading] = useState(true);
+    const [listData, setListData] = useState([])
+
+    useEffect(() => {
+        const data = electionData.map(election => {
+            return {
+                ...election,
+                key: election.id,
+                district: election.district.name,
+                type: election_type_mappings[election.type],
+                office: elected_office_mappings[election.office],
+                winner: election.results ? election.results.winner.name : "TBD",
+                totalVoters: election.results ? election.results.total_voters : "TBD",
+                election_date: monthDayYearParse(election.dates.election_day)
+            }
+        })
+        // Todo: Retrieve data from API here
+        setListData(data);
+        setLoading(false); 
+    }, [])
 
     return (
         <div>
@@ -33,7 +39,7 @@ const ListView = () => {
             </section>
             <Divider />
             <Table 
-                dataSource={data} 
+                dataSource={listData}
                 columns={columns} 
                 onRow={record => {
                     return {
@@ -43,6 +49,7 @@ const ListView = () => {
                         }
                     }
                 }}
+                loading={loading}
                 rowClassName={styles.cursor}
             />
         </div>

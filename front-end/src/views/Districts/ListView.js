@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Table, Divider, Typography } from "antd"
 import { useHistory } from 'react-router-dom'
 import styles from "./Districts.module.css"
@@ -9,18 +9,25 @@ import { party_mappings, elected_office_mappings } from "library/Mappings"
 const { Title, Paragraph } = Typography
 
 const ListView = () => {
-    const data = districtData.map(district => {
-        return {
-            ...district,
-            key: district.id,
-            type: elected_office_mappings[district.type],
-            party: party_mappings[district.party],
-            official_name: district.elected_officials[0].name, // TODO: API call will be diff
-            population: district.demographics.total_population
-        }
-    })
-
     const history = useHistory();
+    const [loading, setLoading] = useState(true);
+    const [listData, setListData] = useState([])
+
+    useEffect(() => {
+        const data = districtData.map(district => {
+            return {
+                ...district,
+                key: district.id,
+                type: elected_office_mappings[district.type],
+                party: party_mappings[district.party],
+                official_name: district.elected_officials[0].name, // TODO: API call will be diff
+                population: district.demographics.total_population
+            }
+        })
+        // Todo: Retrieve data from API here
+        setListData(data);
+        setLoading(false); 
+    }, [])
 
     return (
         <div>
@@ -30,7 +37,7 @@ const ListView = () => {
             </section>
             <Divider />
             <Table 
-                dataSource={data} 
+                dataSource={listData}
                 columns={columns} 
                 onRow={record => {
                     return {
@@ -41,6 +48,7 @@ const ListView = () => {
                     }
                 }}
                 rowClassName={styles.cursor}
+                loading={loading}
             />
         </div>
     )
