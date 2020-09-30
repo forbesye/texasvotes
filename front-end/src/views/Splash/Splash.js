@@ -14,52 +14,50 @@ import styles from './Splash.module.css';
 const Splash = () => {
     return(
         <div>
-            <div className={styles.flexContainer}>
-                <div className={styles.headerText}>
-                    <h1 className={styles.title}>
-                        Texas Votes
-                    </h1>
-                    <p className={styles.about}>
-                        Search for your representatives, your district, and your state and federal elections within the state of Texas!
-                    </p>
-
+            <div className={styles.splash}>
+                <div className={styles.splashContent}>
+                    <div className={styles.headerText}>
+                        <Typography.Title level={1} className={styles.title}>
+                            Texas Votes
+                        </Typography.Title>
+                        <Typography.Paragraph className={styles.about}>
+                            Search for your representatives, your district, and your state and federal elections within the state of Texas!
+                        </Typography.Paragraph>
+                    </div>
+                    <img className={styles.headerImage} alt={"Politicians"} src={politicians}></img>
                 </div>
-                <img className={styles.headerImage} alt={"Politicians"} src={politicians}></img>
             </div>
             <div className={styles.cardFlexContainer}>
                 <Card
                     bordered={true}
                     className={styles.card}
-                    style={{borderRadius: 50}}
-                    cover={<img style={{width: "20vw", margin: 30}} alt={"Politician"} src={politician}></img>}   
+                    cover={<img className={styles.cardImage} alt={"Politician"} src={politician}></img>}   
                     hoverable={true}
                 >
-                    <Typography.Title>Politicians</Typography.Title>
-                    <p style={{width: "20vw"}}>
+                    <Typography.Title style={{ textAlign: "center" }}>Politicians</Typography.Title>
+                    <p>
                         Want to learn more about your politicians?
                     </p>
                 </Card>
                 <Card
                     bordered={true}
                     className={styles.card}
-                    style={{borderRadius: 50}}
-                    cover={<img style={{width: "20vw", margin: 30}} alt={"Texas"} src={texas}></img>}     
+                    cover={<img className={styles.cardImage} alt={"Texas"} src={texas}></img>}     
                     hoverable={true}
                 >
-                    <Typography.Title>Districts</Typography.Title>
-                    <p style={{width: "20vw"}}>
+                    <Typography.Title style={{ textAlign: "center" }}>Districts</Typography.Title>
+                    <p>
                         Which district are you in? Learn about the different districts across Texas!
                     </p>
                 </Card>
                 <Card
                     bordered={true}
                     className={styles.card}
-                    style={{borderRadius: 50}}
-                    cover={<img style={{width: "20vw", margin: 30}} alt={"Vote"} src={vote}></img>}    
+                    cover={<img className={styles.cardImage} alt={"Vote"} src={vote}></img>}    
                     hoverable={true}
                 >
-                    <Typography.Title>Elections</Typography.Title>
-                    <p style={{width: "20vw"}}>
+                    <Typography.Title style={{ textAlign: "center" }}>Elections</Typography.Title>
+                    <p>
                         What are some of the upcoming elections? Keep track of the elections and mark your calendars to vote!
                     </p>
 
