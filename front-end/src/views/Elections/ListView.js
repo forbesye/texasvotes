@@ -3,6 +3,7 @@ import { Table } from "antd"
 import { useHistory } from 'react-router-dom'
 import columns from "./Lib"
 import electionData from "./DefaultElections"
+import styles from "./Elections.module.css"
 //import { description } from "./Lib"
 
 const ListView = () => {
@@ -32,6 +33,7 @@ const ListView = () => {
                         }
                     }
                 }}
+                rowClassName={styles.cursor}
             />
         </div>
     )

@@ -31,6 +31,7 @@ const ListView = () => {
                         }
                     }
                 }}
+                rowClassName={styles.cursor}
             />
         </div>
     )
