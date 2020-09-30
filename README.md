@@ -12,7 +12,7 @@
 |Kevin Li|kl29424 |Catalystic|
 
 ## Git SHA
-Phase 1:
+Phase 1: c8bbdbbcee676cb57f7533beb84f47de784289de
 
 ## Project Leader
 Phase 1: Jefferson Ye
