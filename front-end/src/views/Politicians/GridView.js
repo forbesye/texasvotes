@@ -14,7 +14,7 @@ export default function GridView () {
         <Fragment>
             <section className={styles.content}>
                 <Title level={3}>View All</Title>
-                <Paragraph>Have you ever wondered what all Texas officials and candidates look like in a grid view? Probably not, but we've got you covered here. The grid can also be filtered and sorted by different properties to make viewing experience more customizable.</Paragraph>
+                <Paragraph>Have you ever wondered what all Texas officials and candidates look like in a grid view? Probably not, but we've got you covered here. The grid can also be filtered and sorted by different properties to make your viewing experience more customizable (soon™).</Paragraph>
             </section>
             <Divider />
             <section className={styles.grid}>

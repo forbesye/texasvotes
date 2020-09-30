@@ -383,7 +383,7 @@ export default [
             "Sarah Eckhardt was honored to have been re-elected to a second term as Travis County Judge in 2018. As County Judge, she proudly represented 1.3 million county residents and presided over the Commissioners Court.            ",
             "With deep roots in Austin and Travis County, Judge Eckhardt has dedicated her life to public service for 20 years. She looks forward to continuing this service and asks for your support to become our next State Senator.",
         ],
-        image: "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/SarahEckhardt.jpg",
+        image: "https://lbj.utexas.edu/sites/default/files/Eckhardt%2C%20Sarah%20headshot.jpg",
         socials: {
             facebook: "https://www.facebook.com/SarahEckhardtAustin",
             twitter: "https://saraheckhardt.com/?nosplash#twitterModal",

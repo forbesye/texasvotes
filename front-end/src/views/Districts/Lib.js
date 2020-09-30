@@ -20,7 +20,7 @@ const columns = [
         key: 'population'
     },
     {
-        title: "Elected Official",
+        title: 'Elected Official',
         dataIndex: 'official_name',
         key: 'official_name'
     }

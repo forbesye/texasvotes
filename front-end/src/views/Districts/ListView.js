@@ -1,29 +1,43 @@
-import React, { useState, useEffect, Fragment } from "react"
-import { Typography, Divider, Card, Table } from "antd"
+import React, { useState, useEffect } from "react"
+import { Table, Divider, Typography } from "antd"
 import { useHistory } from 'react-router-dom'
 import styles from "./Districts.module.css"
-import politicians from "./DefaultDistricts"
 import columns from "./Lib"
 import districtData from "./DefaultDistricts"
-//import { description } from "./Lib"
+import { party_mappings, elected_office_mappings } from "library/Mappings"
+// import { numberStringWithCommas } from "lib/Functions"
+const { Title, Paragraph } = Typography
 
 const ListView = () => {
-    const data = districtData.map(district => {
-        // console.log(district.elected_official.name)
-        return {
-            key: district.id,
-            official_name: district.elected_officials[0].name, // TODO: API call will be diff
-            population: district.demographics.total_population,
-            ...district
-        }
-    })
-
     const history = useHistory();
+    const [loading, setLoading] = useState(true);
+    const [listData, setListData] = useState([])
+
+    useEffect(() => {
+        const data = districtData.map(district => {
+            return {
+                ...district,
+                key: district.id,
+                type: elected_office_mappings[district.type],
+                party: party_mappings[district.party],
+                official_name: district.elected_officials[0].name, // TODO: API call will be diff
+                population: district.demographics.total_population
+            }
+        })
+        // Todo: Retrieve data from API here
+        setListData(data);
+        setLoading(false); 
+    }, [])
 
     return (
         <div>
+            <section className={styles.content}>
+                <Title level={3}>View All</Title>
+                <Paragraph>Have you ever wondered what all Texas districts look like in a list view? Probably not, but we've got you covered here. The list can also be filtered and sorted by different properties to make your viewing experience more customizable (soon™).</Paragraph>
+            </section>
+            <Divider />
             <Table 
-                dataSource={data} 
+                dataSource={listData}
                 columns={columns} 
                 onRow={record => {
                     return {
@@ -33,6 +47,8 @@ const ListView = () => {
                         }
                     }
                 }}
+                rowClassName={styles.cursor}
+                loading={loading}
             />
         </div>
     )

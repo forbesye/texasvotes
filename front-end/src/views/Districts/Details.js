@@ -3,20 +3,13 @@ import { PageHeader, Typography, Spin, Divider, Row, Col, Collapse, List } from 
 import { useParams, useHistory } from 'react-router-dom'
 import districts from './DefaultDistricts'
 import styles from './Districts.module.css'
-
+import { percentageString } from "library/Functions"
+import  { age_mappings, income_mappings, race_mappings, ethnicity_mappings, educational_mappings, elected_office_mappings, party_mappings } from "library/Mappings"
 const { Title, Paragraph, Text, Link } = Typography
 const { Panel } = Collapse
 
-// TODO: refactor this
-const ELECTED_OFFICE_NAMES = {
-    us_house: "House of Representatives",
-    us_senate: "US Senate",
-    tx_house: "Texas House of Representatives",
-    tx_senate: "Texas Senate",
-}
-
-function description (district) {
-    return `${ELECTED_OFFICE_NAMES[district.type]} ${district.party}`
+const description = (district) => {
+    return `${elected_office_mappings[district.type]} ${party_mappings[district.party]}`
 }
 
 const Details = () => {
@@ -34,22 +27,6 @@ const Details = () => {
 
     const handleBack = () => {
         history.push("/districts/view")
-    }
-
-    const age_mappings = {
-        "0": "0 - 5",
-        "5": "5 - 18",
-        "18": "18 - 65",
-        "65": "65+",
-    }
-
-    const income_mappings = {
-        "0": "$0 - $10,000",
-        "10_000": "$10,000 - $25,000",
-        "25_000": "$25,000 - $50,000",
-        "50_000": "$50,000 - $100,000",
-        "100_000": "$100,000 - $200,000",
-        "200_000": "$200,000+"
     }
 
     const {
@@ -78,20 +55,20 @@ const Details = () => {
                         <Row justify="space-around">
                             <Col>
                                 {
-                                    district.elections.past.length > 0 ?  (
+                                    elections.past.length > 0 ?  (
                                         <Fragment>
                                             <Text strong>Past Election IDs: </Text>
-                                            <Text>{district.elections.past.map((e, i) => (i > 0 ? ", " : "") + e.id)}</Text>
+                                            <Text>{elections.past.map((e, i) => (i > 0 ? ", " : "") + e.id)}</Text>
                                         </Fragment>
                                     ) : null
                                 }
                             </Col>
                             <Col>
                                 {
-                                    district.elections.current ? (
+                                    elections.current ? (
                                         <Fragment>
                                             <Text strong>Current Election ID: </Text>
-                                            <Text>{district.elections.current.id}</Text>
+                                            <Text>{elections.current.id}</Text>
                                         </Fragment>
                                     ) : null
                                 }
@@ -99,10 +76,10 @@ const Details = () => {
                         </Row>
                         <Row justify="space-around">
                             <Col>
-                                <Text strong>Past Official: </Text><Text>{district.elected_officials[0].name}</Text>
+                                <Text strong>Past Official: </Text><Text>{elected_officials[0].name}</Text>
                             </Col>
                             <Col>
-                                <Text strong>Current Official: </Text><Text>{district.elected_officials[0].name}</Text>
+                                <Text strong>Current Official: </Text><Text>{elected_officials[0].name}</Text>
                             </Col>
                         </Row>
                     </article>
@@ -110,7 +87,7 @@ const Details = () => {
                         <Collapse ghost>
                             <Panel header="Counties">
                                 <List 
-                                    dataSource = {district.counties}
+                                    dataSource = {counties}
                                     renderItem = {item => (
                                         <List.Item>
                                             <Text>{item}</Text>
@@ -127,10 +104,10 @@ const Details = () => {
                                     <Text strong>Age</Text>
                                     <br />
                                     <List 
-                                        dataSource = {Object.keys(district.demographics.age)}
+                                        dataSource = {Object.keys(demographics.age)}
                                         renderItem = {key => (
                                             <List.Item>
-                                                <Text strong>{age_mappings[key]}: </Text><Text>{district.demographics.age[key]}</Text>
+                                                <Text strong>{age_mappings[key]}: </Text><Text>{demographics.age[key]} {percentageString(key, demographics.age)}</Text>
                                             </List.Item>
                                         )}
                                     />
@@ -139,10 +116,10 @@ const Details = () => {
                                     <Text strong>Race</Text>
                                     <br />
                                     <List 
-                                        dataSource = {Object.keys(district.demographics.race)}
+                                        dataSource = {Object.keys(demographics.race)}
                                         renderItem = {key => (
                                             <List.Item>
-                                                <Text strong>{key}: </Text><Text>{district.demographics.race[key]}</Text>
+                                                <Text strong>{race_mappings[key]}: </Text><Text>{demographics.race[key]} {percentageString(key, demographics.race)}</Text>
                                             </List.Item>
                                         )}
                                     />
@@ -151,10 +128,10 @@ const Details = () => {
                                     <Text strong>Ethnicity</Text>
                                     <br />
                                     <List 
-                                        dataSource = {Object.keys(district.demographics.ethnicity)}
+                                        dataSource = {Object.keys(demographics.ethnicity)}
                                         renderItem = {key => (
                                             <List.Item>
-                                                <Text strong>{key}: </Text><Text>{district.demographics.ethnicity[key]}</Text>
+                                                <Text strong>{ethnicity_mappings[key]}: </Text><Text>{demographics.ethnicity[key]} {percentageString(key, demographics.ethnicity)}</Text>
                                             </List.Item>
                                         )}
                                     />
@@ -164,20 +141,20 @@ const Details = () => {
                                     <br />
                                     <Text strong>Enrolled</Text>
                                     <List 
-                                        dataSource = {Object.keys(district.demographics.educational_attainment.enrollment)}
+                                        dataSource = {Object.keys(demographics.educational_attainment.enrollment)}
                                         renderItem = {key => (
                                             <List.Item>
-                                                <Text strong>{key}: </Text><Text>{district.demographics.educational_attainment.enrollment[key]}</Text>
+                                                <Text strong>{educational_mappings[key]}: </Text><Text>{demographics.educational_attainment.enrollment[key]} {percentageString(key, demographics.educational_attainment.enrollment)}</Text>
                                             </List.Item>
                                         )}
                                     />
                                     <br />
                                     <Text strong>Attainment</Text>
                                     <List 
-                                        dataSource = {Object.keys(district.demographics.educational_attainment.attainment)}
+                                        dataSource = {Object.keys(demographics.educational_attainment.attainment)}
                                         renderItem = {key => (
                                             <List.Item>
-                                                <Text strong>{key}: </Text><Text>{district.demographics.educational_attainment.attainment[key]}</Text>
+                                                <Text strong>{educational_mappings[key]}: </Text><Text>{demographics.educational_attainment.attainment[key]} {percentageString(key, demographics.educational_attainment.attainment)}</Text>
                                             </List.Item>
                                         )}
                                     />
@@ -186,10 +163,10 @@ const Details = () => {
                                     <Text strong>Income</Text>
                                     <br />
                                     <List 
-                                        dataSource = {Object.keys(district.demographics.income)}
+                                        dataSource = {Object.keys(demographics.income)}
                                         renderItem = {key => (
                                             <List.Item>
-                                                <Text strong>{income_mappings[key]}: </Text><Text>{district.demographics.income[key]}</Text>
+                                                <Text strong>{income_mappings[key]}: </Text><Text>{demographics.income[key]} {percentageString(key, demographics.income)}</Text>
                                             </List.Item>
                                         )}
                                     />

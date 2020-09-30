@@ -21,6 +21,10 @@
     border-radius: 2px;
 }
 
+.cursor {
+    cursor: pointer;
+}
+
 .districtDescription {
     display: flex;
     flex-direction: column;

@@ -3,6 +3,8 @@ import { PageHeader, Typography, Spin, Divider, Row, Col, Collapse, List, Table 
 import { useParams, useHistory } from 'react-router-dom'
 import electionData from "./DefaultElections"
 import styles from './Elections.module.css'
+import { monthDayYearParse } from "library/Functions"
+import { election_date_mappings } from "library/Mappings"
 
 const { Title, Paragraph, Text, Link } = Typography
 const { Panel } = Collapse
@@ -52,10 +54,9 @@ const resultColumns = [
 
 function title (election) {
     if(election.type == "general")
-        return `2020 General Election for ${election.district.name}`
+        return `General Election for ${election.district.name}`
     else
         return `${OFFICE_NAMES[election.office]} ${election.district.name}`
-
 }
 
 const Details = () => {
@@ -78,7 +79,8 @@ const Details = () => {
     const {
         district,
         candidates,
-        results
+        results,
+        dates
     } = election
     let content = null
     if(loaded) {
@@ -94,6 +96,23 @@ const Details = () => {
                     <img src={"https://www.txdot.gov/content/dam/txdot/asset_collection/local_information/texas.jpg"} alt={district} className={styles.districtImage} />
                 
                 </div>
+
+                <article className={styles.districtDetails}>
+                    <Collapse ghost>
+                        <Panel header="Election Dates">
+                            <List 
+                                dataSource = {Object.keys(dates)}
+                                renderItem = {key => {
+                                    return (
+                                        <List.Item>
+                                            <Text strong>{election_date_mappings[key]}: </Text><Text>{monthDayYearParse(dates[key])}</Text>
+                                        </List.Item>
+                                    )
+                                }}
+                            />
+                        </Panel>
+                    </Collapse>
+                </article>
 
                 <article className={styles.districtDetails}>
                     <Collapse ghost>
