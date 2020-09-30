@@ -80,7 +80,8 @@ export default function Details () {
         offices,
         terms,
         fundraising,
-        elections
+        elections,
+        video
     } = politician
     let content = null
     if (loaded) {
@@ -95,6 +96,9 @@ export default function Details () {
                 <div className={styles.politicianDescription}>
                     <Title style={{ textAlign: "center" }} level={3}>General Information</Title>
                     <img src={image} alt={name} className={styles.politicianImage} />
+                    <Divider />
+                    <iframe width="90%" height="400px" src={video} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                    <Divider />
                     <article className={styles.politicianDetails}>
                         <div className={styles.politicianGeneralInfo}>
                             <div>

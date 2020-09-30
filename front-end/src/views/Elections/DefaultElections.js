@@ -28,6 +28,7 @@ const electionData = [
             "early_end": "2018-11-02T00:00:00-0500",
             "election_day": "2018-11-06T00:00:00-0500"
         },
+        "map": "https://www.statesman.com/storyimage/TX/20200303/NEWS/200309589/AR/0/AR-200309589.jpg",
         "office": "us_house",
         "results": {
             "winner": {
@@ -64,6 +65,7 @@ const electionData = [
     {
         "id": 1,
         "type": "primary",
+        "map": "https://www.statesman.com/storyimage/TX/20200303/NEWS/200309589/AR/0/AR-200309589.jpg",
         "candidates": [
             {
                 "name": "Julie Oliver",
@@ -85,6 +87,7 @@ const electionData = [
             "name": "TX-25",
             "id": 0
         },
+
         "office": "us_house",
         "results": {
             "winner": {
@@ -114,6 +117,7 @@ const electionData = [
     {
         "id": 2,
         "type": "general",
+        "map": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/TxSen2018Comp.svg/1000px-TxSen2018Comp.svg.png",
         "candidates": [
             {
                 "name": "Roger Williams",

@@ -12,6 +12,27 @@ const description = (district) => {
     return `${elected_office_mappings[district.type]} ${party_mappings[district.party]}`
 }
 
+// VERY temporary
+const getMap = (district) => {
+    if(district === 14) {
+        return (
+            <iframe style={{width: "90%", height: "400px"}}
+            src="https://www.govtrack.us/congress/members/embed/mapframe?state=tx&district=14&bounds=-95.253,30.283,-93.974,28.176"></iframe>
+        )
+    }
+    else if(district === 25) {
+        return (
+            <iframe style={{width: "90%", height: "400px"}}
+            src="https://www.govtrack.us/congress/members/embed/mapframe?state=tx&district=25&bounds=-99.175,31.378,-97.694,28.961"></iframe>
+        )
+    }
+    else {
+        return (
+            <iframe style={{width: "90%", height: "400px"}} src="https://www.govtrack.us/congress/members/embed/mapframe?state=TX&footer=0"> </iframe>
+        )
+    }
+}
+
 const Details = () => {
     const { id } = useParams()
     const [ district, setDistrict ] = useState({})
@@ -32,11 +53,14 @@ const Details = () => {
     const {
         name,
         type,
+        number,
         party,
         counties,
         elections,
         elected_officials,
         demographics,
+        map,
+        current_incumbent
     } = district
     let content = null
     if(loaded) {
@@ -49,8 +73,12 @@ const Details = () => {
                 />
                 <Divider />
                 <div className={styles.districtDescription}>
-                    <Title style={{ textAlign: "center" }} level={3}>General Information</Title>
-                    <img src={"https://www.txdot.gov/content/dam/txdot/asset_collection/local_information/texas.jpg"} alt={name} className={styles.districtImage} />
+                    <Title style={{ textAlign: "center" }} level={3}>Current Incumbent</Title>
+                    <img src={current_incumbent.src} alt={current_incumbent.name} className={styles.districtImage} />
+                    <Title style={{ textAlign: "center" }} level={4}>{current_incumbent.name}</Title>
+                    <Divider />
+                    <Title style={{ textAlign: "center" }} level={3}>District Map</Title>
+                    {getMap(number)}
                     <article className={styles.districtDetails}>
                         <Row justify="space-around">
                             <Col>

@@ -291,6 +291,7 @@ export default [
             youtube: "http://www.youtube.com/channel/UCBtfmMMQarjtLB9U_pWMOhw"
         },
         website: "https://www.rogerforcongress.com/",
+        video: "https://www.youtube.com/embed/JInEd3KuqTM",
         elections: {
             upcoming: smolElections[2],
             past: [
@@ -330,6 +331,7 @@ export default [
             running_for: "us_house"
         },
         district: tx25,
+        video: "https://www.youtube.com/embed/3K3YJPPsxIU",
         image: "https://scontent-dfw5-2.xx.fbcdn.net/v/t1.0-9/104668585_707039289860202_5103079548330835955_o.jpg?_nc_cat=109&_nc_sid=09cbfe&_nc_ohc=tjiJ60NeU1QAX8310M8&_nc_ht=scontent-dfw5-2.xx&oh=aed9bf79758644386c129b1be1dc0db7&oe=5F92597A",
         socials: {
             facebook: "https://www.facebook.com/JulieForTexas/",
@@ -387,6 +389,7 @@ export default [
             past: []
         },
         district: tx14,
+        video: "https://www.youtube.com/embed/w_ZLKhfjtlI",
         biography: [
             "Sarah Eckhardt was honored to have been re-elected to a second term as Travis County Judge in 2018. As County Judge, she proudly represented 1.3 million county residents and presided over the Commissioners Court.",
             "With deep roots in Austin and Travis County, Judge Eckhardt has dedicated her life to public service for 20 years. She looks forward to continuing this service and asks for your support to become our next State Senator.",
