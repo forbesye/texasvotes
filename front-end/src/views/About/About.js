@@ -12,28 +12,34 @@ const getGitlabInfo = async () => {
     teamInfo.forEach(member => {
         totalTestCount += member.tests;
         member.issues = 0;
+        member.commits = 0;
     });
 
     // Can't use a map cause Gitlab's API returns are weird :/
     let commitList = await fetch("https://gitlab.com/api/v4/projects/21177395/repository/contributors")
     commitList = await commitList.json()
     commitList.forEach(element => {
-        const { name, commits } = element;
+        const { name, email, commits } = element;
         teamInfo.forEach(member => {
-            if(member.name === name || member.username === name) {
-                member.commits = commits;
+            if(member.name === name || member.username === name || member.email === email) {
+                member.commits += commits;
             }
         })
         totalCommitCount += commits;
     });
 
     // Todo: When over 100 issues, implement pagination support to get all issues
-    let issueList = await fetch("https://gitlab.com/api/v4/projects/21177395/issues?per_page=100")
+    const issuePaginationLength = 100;
+    let issueList = await fetch(`https://gitlab.com/api/v4/projects/21177395/issues?per_page=${issuePaginationLength}`)
     issueList = await issueList.json()
-    
+
+
+    // while (issueList.length === issuePaginationLength) {
+        // Implement this later     
+    // }
+
     issueList.forEach(element => {
         const { assignees } = element;
-        // Todo: Check out what to do for multiple assignees
         assignees.forEach(a => {
             const { name } = a;
             teamInfo.forEach(member => {
@@ -41,14 +47,11 @@ const getGitlabInfo = async () => {
                     member.issues += 1;
                 }
             })
-
-            // if(teamInfo.has(name)) {
-            //     teamInfo.get(name).issues += 1;
-            // }
         });
         totalIssueCount += 1;
     })
 
+    
     return {
         totalCommits: totalCommitCount,
         totalIssues: totalIssueCount,
