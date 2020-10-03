@@ -9,17 +9,24 @@ cache:
   paths:
     - front-end/node_modules/
 
-build:
+build_front_end:
   stage: build
   script:
     - cd front-end
     - npm install
     - CI=false npm run-script build
 
-test:
+test_front_end:
   stage: test
   script:
     - echo "Running React test suite......"
+
+test_back_end:
+  image: python:3.6-stretch
+  before_script:
+    - pip install -r back-end/requirements.txt
+  test:
+    - python unittests.py -v
 
 deploy_development:
   only:
