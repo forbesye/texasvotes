@@ -1,6 +1,6 @@
 To build the docker image, cd into the back-end directory (where this README is) and run this command:
 
-	sudo docker build --tag flask-docker
+	sudo docker build --tag flask-docker .
 
 Note that the name "flask-docker" can be anything and was chosen arbitrarilly.
 
