@@ -1,16 +1,12 @@
 To build the docker image, cd into the back-end directory (where this README is) and run this command:
 
-	```
 	sudo docker build --tag flask-docker
-	```
 
 Note that the name "flask-docker" can be anything and was chosen arbitrarilly.
 
 To run the created docker image after building, run this command:
 	
-	```
 	docker run -it -v `pwd`:/usr/backend -w /usr/backend flask-docker
-	```
 
 Note that "flask-docker" must be the same as whatever was put after the "--tag" in the build command above.
 
@@ -23,8 +19,6 @@ If you want to change the name of the directory that Docker puts you into, chang
 
 The command to run the docker image on Windows may look something more like:
 
-	```
 	docker run -it -v /Users/<username>/:/usr/backend -w /usr/backend flask-docker
-	```
 
 The specifics of the command, beyond that, will require some trial and error.
