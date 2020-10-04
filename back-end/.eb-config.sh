@@ -3,9 +3,9 @@ set -x
 set -e
 
 {
-    AWS_CONFIG_FILE=~/.aws/config
+    AWS_CONFIG_FILE=~/back-end/.aws/config
 
-    mkdir ~/.aws
+    mkdir ~/back-end/.aws
     touch $AWS_CONFIG_FILE
     chmod 600 $AWS_CONFIG_FILE
 

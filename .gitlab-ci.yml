@@ -19,7 +19,7 @@ build_front_end:
 test_front_end:
   stage: test
   script:
-    - echo "Running React test suite......"
+    - make front-end-tests
 
 test_back_end:
   image: python:3.6-stretch
@@ -27,7 +27,7 @@ test_back_end:
   before_script:
     - pip install -r back-end/requirements.txt
   script:
-    - python back-end/unittests.py -v
+    - make back-end-tests
 
 deploy_development:
   image: python:3.6-stretch
@@ -42,6 +42,7 @@ deploy_development:
     - git checkout stage
   script:
     - $AWS_DEV_DEPLOY
+    - cd back-end
     - /root/.local/bin/eb deploy back-end-dev
 
 deploy_production:
@@ -57,4 +58,5 @@ deploy_production:
     - git checkout master
   script:
     - $AWS_PROD_DEPLOY
+    - cd back-end
     - /root/.local/bin/eb deploy back-end-prod
