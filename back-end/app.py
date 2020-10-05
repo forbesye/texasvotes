@@ -19,6 +19,9 @@ application = app # This is for AWS Elastic Beanstalk, pls don't remove!!!
 #     def __repr__(self):
 #         return '<User %r>' % self.first_name
 
+
+# going to start making routes
+
 @app.route('/')
 def hello_world():
     return 'Hello World 2.0!'
