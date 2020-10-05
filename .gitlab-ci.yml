@@ -11,6 +11,9 @@ cache:
 
 build_front_end:
   stage: build
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "stage"'
+    - if: '$CI_COMMIT_BRANCH == "master"'
   script:
     - cd front-end
     - npm install
@@ -18,12 +21,18 @@ build_front_end:
 
 test_front_end:
   stage: test
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "stage"'
+    - if: '$CI_COMMIT_BRANCH == "master"'
   script:
     - make front-end-tests
 
 test_back_end:
   image: python:3.6-stretch
   stage: test
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "stage"'
+    - if: '$CI_COMMIT_BRANCH == "master"'
   before_script:
     - pip install -r back-end/requirements.txt
   script:
@@ -37,9 +46,6 @@ deploy_development:
   stage: deploy
   before_script:
     - pip install awsebcli --upgrade --user
-    #- cd back-end
-    #- chmod +x .eb-config.sh
-    #- ./back-end/.eb-config.sh
     - git checkout stage
   script:
     - $AWS_DEV_DEPLOY
@@ -54,8 +60,6 @@ deploy_production:
   stage: deploy
   before_script:
     - pip install awsebcli --upgrade --user
-    #- chmod +x ./back-end/.eb-config.sh
-    #- ./back-end/.eb-config.sh
     - git checkout master
   script:
     - $AWS_PROD_DEPLOY
