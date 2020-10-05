@@ -9,30 +9,54 @@ cache:
   paths:
     - front-end/node_modules/
 
-build:
+build_front_end:
   stage: build
   script:
     - cd front-end
     - npm install
     - CI=false npm run-script build
 
-test:
+test_front_end:
   stage: test
   script:
-    - echo "Running React test suite......"
+    - make front-end-tests
+
+test_back_end:
+  image: python:3.6-stretch
+  stage: test
+  before_script:
+    - pip install -r back-end/requirements.txt
+  script:
+    - make back-end-tests
 
 deploy_development:
+  image: python:3.6-stretch
   only:
     variables:
       - $CI_COMMIT_BRANCH == "stage"
   stage: deploy
+  before_script:
+    - pip install awsebcli --upgrade --user
+    - chmod +x ./back-end/.eb-config.sh
+    - ./back-end/.eb-config.sh
+    - git checkout stage
   script:
     - $AWS_DEV_DEPLOY
+    - cd back-end
+    - /root/.local/bin/eb deploy back-end-dev
 
 deploy_production:
+  image: python:3.6-stretch
   only:
     variables:
       - $CI_COMMIT_BRANCH == "master"
   stage: deploy
+  before_script:
+    - pip install awsebcli --upgrade --user
+    - chmod +x ./back-end/.eb-config.sh
+    - ./back-end/.eb-config.sh
+    - git checkout master
   script:
     - $AWS_PROD_DEPLOY
+    - cd back-end
+    - /root/.local/bin/eb deploy back-end-prod
