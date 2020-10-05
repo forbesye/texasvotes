@@ -37,8 +37,9 @@ deploy_development:
   stage: deploy
   before_script:
     - pip install awsebcli --upgrade --user
-    - chmod +x ./back-end/.eb-config.sh
-    - ./back-end/.eb-config.sh
+    #- cd back-end
+    #- chmod +x .eb-config.sh
+    #- ./back-end/.eb-config.sh
     - git checkout stage
   script:
     - $AWS_DEV_DEPLOY
@@ -53,8 +54,8 @@ deploy_production:
   stage: deploy
   before_script:
     - pip install awsebcli --upgrade --user
-    - chmod +x ./back-end/.eb-config.sh
-    - ./back-end/.eb-config.sh
+    #- chmod +x ./back-end/.eb-config.sh
+    #- ./back-end/.eb-config.sh
     - git checkout master
   script:
     - $AWS_PROD_DEPLOY
