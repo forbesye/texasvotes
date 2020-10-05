@@ -6,6 +6,7 @@ import os
 # from flask_sqlalchemy import SQLAlchemy
 #load_dotenv()
 app = Flask(__name__)
+application = app # This is for AWS Elastic Beanstalk, pls don't remove!!!
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'some env var'
 # db = SQLAlchemy(app)
 
