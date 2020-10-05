@@ -38,6 +38,10 @@ def politicians():
     # return name
     return json.dumps(l)
 
+@app.route('/politician/<int:id>', methods=['GET'])
+def politician_id(id):
+    return str(id)
+
 @app.route('/district', methods=['GET'])
 def districts():
     dist_type = request.args.get('type')
@@ -51,6 +55,10 @@ def districts():
     # return name
     return json.dumps(l)
 
+@app.route('/district/<int:id>', methods=['GET'])
+def district_id(id):
+    return str(id)
+
 @app.route('/election', methods=['GET'])
 def elections():
     election_type = request.args.get('type')
@@ -63,6 +71,10 @@ def elections():
     print(l)
     # return name
     return json.dumps(l)
+
+@app.route('/election/<int:id>', methods=['GET'])
+def election_id(id):
+    return str(id)
 
 @app.route('/')
 def hello_world():
