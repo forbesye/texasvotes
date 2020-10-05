@@ -1,13 +1,13 @@
 from flask import Flask
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 import os
 #from sqlalchemy import create_engine
 # import mysql.connector
 # from flask_sqlalchemy import SQLAlchemy
-load_dotenv()
-application = Flask(__name__)
-# application.config['SQLALCHEMY_DATABASE_URI'] = 'some env var'
-# db = SQLAlchemy(application)
+#load_dotenv()
+app = Flask(__name__)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'some env var'
+# db = SQLAlchemy(app)
 
 # class About(db.Model):
 #     __tablename__ = "about"
@@ -18,10 +18,10 @@ application = Flask(__name__)
 #     def __repr__(self):
 #         return '<User %r>' % self.first_name
 
-@application.route('/')
+@app.route('/')
 def hello_world():
-    return 'Hello, World 2.0!'
+    return 'Hello World 2.0!'
 
 if __name__ == '__main__':
-    print(os.getenv("AWS_DEV_DB"))
-    application.run(debug=True, port=8080)
+    #print(os.getenv("AWS_DEV_DB"))
+    app.run(port=8080, debug=True)
