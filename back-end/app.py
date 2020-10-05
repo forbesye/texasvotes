@@ -27,20 +27,42 @@ application = app # This is for AWS Elastic Beanstalk, pls don't remove!!!
 
 @app.route('/politician', methods=['GET'])
 def politicians():
-    print(request.query_string)
     name = request.args.get('name')
     party = request.args.get('party')
     district = request.args.get('district')
     current_office = request.args.get('current_office')
-    incubment = request.args.get('incubment')
-    # print(name)
-    # print(party)
-    # print(district)
-    # print(current_office)
-    # print(incubment)
-    # l = {name, party, district, current_office, incubment}
-    # print(l)
-    # return name  
+    incumbent = request.args.get('incumbent')
+    
+    l = [name, party, district, current_office, incumbent]
+    print(l)
+    # return name
+    return json.dumps(l)
+
+@app.route('/district', methods=['GET'])
+def districts():
+    dist_type = request.args.get('type')
+    party = request.args.get('party')
+    county = request.args.get('county')
+    number = request.args.get('number')
+    address = request.args.get('address')
+    
+    l = [dist_type, party, county, number, address]
+    print(l)
+    # return name
+    return json.dumps(l)
+
+@app.route('/election', methods=['GET'])
+def elections():
+    election_type = request.args.get('type')
+    candidates = request.args.get('candidates')
+    district = request.args.get('district')
+    winner = request.args.get('winner')
+    office = request.args.get('office')
+    
+    l = [election_type, candidates, district, winner, office]
+    print(l)
+    # return name
+    return json.dumps(l)
 
 @app.route('/')
 def hello_world():
