@@ -8,18 +8,18 @@ const BottomBar = () => {
 	return (
         <div className={styles.footer}>
             <Row className={styles.container}>
-                <Col span={12} className={styles.footerData}>
+                <Col span={11} className={styles.footerData}>
                     <h1 className={styles.siteName}>Texas Votes</h1> <br/>
                     <div className={styles.siteText}>Search for your representatives, your district, 
                     and your state and federal elections within the state of Texas!</div>
                 </Col>
-                <Col span={6}>
+                <Col span={5} className={styles.footerData}>
                     <h1 className={styles.modelHeader}>Models</h1>
 			        <Link to="/politicians">Politicians</Link> <br/>
 			        <Link to="/districts">Districts</Link> <br/>
 			        <Link to="/elections">Elections</Link> <br/>
                 </Col>
-                <Col span={6}>
+                <Col span={5} className={styles.footerData}>
                     <h1 className={styles.otherLinksHeader}>Other Links</h1>
 			        <Link to="/">Home</Link> <br/>
 			        <Link to="/about">About</Link> <br/>
