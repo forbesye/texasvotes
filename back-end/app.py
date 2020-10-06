@@ -2,7 +2,7 @@ from flask import Flask
 from db import init_db
 app = Flask(__name__)
 application = app # This is for AWS Elastic Beanstalk, pls don't remove!!!
-db = init_db("DEVELOPMENT", app)
+db = init_db(app)
 
 class About(db.Model):
     __tablename__ = "about"
@@ -18,5 +18,4 @@ def hello_world():
     return 'Hello World 2.0!'
 
 if __name__ == '__main__':
-    # db.Query.all()
     app.run(host='0.0.0.0', port=5000, debug=True)
