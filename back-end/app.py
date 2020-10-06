@@ -1,10 +1,9 @@
 from flask import Flask
 #from dotenv import load_dotenv
-from flask import request, make_response
+from flask import request, make_response, jsonify
 import os
 import requests
 import json
-import jsonify
 #from sqlalchemy import create_engine
 # import mysql.connector
 # from flask_sqlalchemy import SQLAlchemy
@@ -329,7 +328,7 @@ def elections():
     office = request.args.get('office')
 
     # TODO might have to change later
-    page = request.args.get('page')
+    page = int(request.args.get('page'))
     if page != None:
         return get_pages(page)
 
