@@ -4,6 +4,7 @@ from flask import request, make_response
 import os
 import requests
 import json
+import jsonify
 #from sqlalchemy import create_engine
 # import mysql.connector
 # from flask_sqlalchemy import SQLAlchemy
@@ -24,6 +25,9 @@ application = app # This is for AWS Elastic Beanstalk, pls don't remove!!!
 
 
 # going to start making routes
+
+# TODO make classes from db. Can reference 90mininone
+# TODO more of an idea but maybe we can run filter on objects multiple times
 
 politician_test_json = {
  "id": 0,
@@ -287,7 +291,7 @@ def politicians():
     l = [name, party, district, current_office, incumbent]
     print(l)
     # return name
-    return json.dumps(l)
+    return politician_test_json
 
 @app.route('/politician/<int:id>', methods=['GET'])
 def politician_id(id):
@@ -305,9 +309,9 @@ def districts():
     address = request.args.get('address')
     
     l = [dist_type, party, county, number, address]
-    print(l)
+    # print(l)
     # return name
-    return json.dumps(l)
+    return district_test_json
 
 @app.route('/district/<int:id>', methods=['GET'])
 def district_id(id):
@@ -323,11 +327,32 @@ def elections():
     district = request.args.get('district')
     winner = request.args.get('winner')
     office = request.args.get('office')
+
+    # TODO might have to change later
+    page = request.args.get('page')
+    if page != None:
+        return get_pages(page)
+
+    
     
     l = [election_type, candidates, district, winner, office]
-    print(l)
+    # print(l)
     # return name
-    return json.dumps(l)
+    return election_test_json
+
+
+# currently hardcoded kinda
+def get_pages(page):
+    dic = {'pages': 2}
+    if page == 1:
+        dic.update({'page': [election_test_json] * 20})
+        return dic
+    elif page == 2:
+        dic.update({'page': [election_primary_test_json] * 15})
+        return dic
+    else:
+       return make_response("Error: page not found", 404) 
+        
 
 @app.route('/election/<int:id>', methods=['GET'])
 def election_id(id):
