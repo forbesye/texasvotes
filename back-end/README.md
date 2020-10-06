@@ -1,12 +1,24 @@
 To build the docker image, cd into the back-end directory (where this README is) and run this command:
 
+Linux:
+
 	sudo docker build --tag flask-docker .
+
+Windows:
+
+    docker build --tag flask-docker .
 
 Note that the name "flask-docker" can be anything and was chosen arbitrarilly.
 
 To run the created docker image after building, run this command:
 	
+Linux:
+
 	docker run -it -v `pwd`:/usr/backend -w /usr/backend flask-docker
+
+Windows:
+
+	docker run -it -v ${pwd}:/usr/backend -w /usr/backend flask-docker
 
 Note that "flask-docker" must be the same as whatever was put after the "--tag" in the build command above.
 
@@ -28,12 +40,3 @@ In order to access the api locally from outside of docker, you will also need to
 	python3 app.py
 
 The api is coded to run on 0.0.0.0 when you run main. If you run it through flask, you will need to specify "--host=0.0.0.0" when calling "flask run".
-
-
-**NOTE**: These commands assume that you are running docker on an Ubuntu OS. The commands to build and run this docker image on Windows are likely to be substantially different.
-
-The command to run the docker image on Windows may look something more like:
-
-	docker run -it -v /Users/<username>/:/usr/backend -w /usr/backend flask-docker
-
-The specifics of the command, beyond that, will require some trial and error.
