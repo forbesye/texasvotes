@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react"
+import React, { useState, Fragment } from "react"
 import { Typography, Divider, Card } from "antd"
 import { Link } from "react-router-dom"
 import styles from "./Politicians.module.css"
@@ -9,7 +9,8 @@ const { Title, Paragraph, Text } = Typography
 const { Meta } = Card
 
 export default function GridView () {
-    const [items, setItems] = useState(politicians)
+    // const [items, setItems] = useState(politicians)
+    const [items] = useState(politicians)
     return (
         <Fragment>
             <section className={styles.content}>
