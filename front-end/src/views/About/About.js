@@ -4,6 +4,7 @@ import RepoCard from 'components/cards/RepoCard.js'
 import ToolCard from 'components/cards/ToolCard.js'
 import styles from 'views/About/About.module.css'
 import { toolsInfo, teamInfo, apiInfo, repoAndAPI } from "./AboutInfo.js"
+import { Spin } from 'antd'
 
 const getGitlabInfo = async () => {
     let totalCommitCount = 0, totalIssueCount = 0, totalTestCount = 0;
@@ -62,6 +63,7 @@ const About = () => {
     const [totalCommits, setTotalCommits] = useState(0);
     const [totalIssues, setTotalIssues] = useState(0);
     const [totalTests, setTotalTests] = useState(0);
+    const [ loaded, setLoaded ] = useState(false)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -71,6 +73,7 @@ const About = () => {
                 setTotalIssues(gitlabInfo.totalIssues);
                 setTotalTests(gitlabInfo.totalTests);
                 setTeamList(gitlabInfo.teamInfo);
+                setLoaded(true);
             }
         }
         fetchData();
@@ -83,7 +86,10 @@ const About = () => {
                 TexasVotes is a website that allows users to quickly look up their representatives, the districts they live in, and state/federal elections they're slated to participate in within the state of Texas. We hope to increase governmental transparency and decrease the difficulty for the voting process in order to promote a more democratic society.
                 </p>
             <h1 className={styles.title}>Our Team</h1>
-            <div className={`${styles.gridLayout} ${styles.team}`}>
+            {
+                loaded ?
+
+                <div className={`${styles.gridLayout} ${styles.team}`}>
                 {teamList.map(member => {
                     const { name, bio, role, picture_path, commits, issues, tests} = member;
                     return (
@@ -99,7 +105,11 @@ const About = () => {
                         />
                     )
                 })}
-            </div>
+                </div>
+
+                : 
+                <Spin className={styles.loading} tip="Looking for the fabled Blue wave..." />
+            }
             <h1 className={styles.title}>Repository Statistics</h1>
             <div className={`${styles.gridLayout} ${styles.repoStats}`}>
                 <RepoCard type="commits" number={totalCommits}/>
@@ -152,6 +162,7 @@ const About = () => {
             </div>
         </div>
     );
+
 }
 
 export default About
