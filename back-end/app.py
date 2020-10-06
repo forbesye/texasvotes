@@ -18,9 +18,5 @@ def hello_world():
     return 'Hello World 2.0!'
 
 if __name__ == '__main__':
-<<<<<<< HEAD
     # db.Query.all()
-=======
-    db.Query.all()
->>>>>>> 4e80894f99f526fae5e50fa8cd62cd253d0acc1c
     app.run(host='0.0.0.0', port=5000, debug=True)
