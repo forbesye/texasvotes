@@ -51,7 +51,6 @@ const getGitlabInfo = async () => {
         totalIssueCount += 1;
     })
 
-    
     return {
         totalCommits: totalCommitCount,
         totalIssues: totalIssueCount,
