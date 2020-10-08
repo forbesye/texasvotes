@@ -288,8 +288,8 @@ def politicians():
     incumbent = request.args.get('incumbent')
     
     l = [name, party, district, current_office, incumbent]
-    print(l)
-    # return name
+    # print(l)
+
     return politician_test_json
 
 @app.route('/politician/<int:id>', methods=['GET'])
@@ -309,7 +309,7 @@ def districts():
     
     l = [dist_type, party, county, number, address]
     # print(l)
-    # return name
+
     return district_test_json
 
 @app.route('/district/<int:id>', methods=['GET'])
@@ -336,7 +336,7 @@ def elections():
     
     l = [election_type, candidates, district, winner, office]
     # print(l)
-    # return name
+
     return election_test_json
 
 
@@ -365,6 +365,4 @@ def hello_world():
     return 'Hello World 2.0!'
 
 if __name__ == '__main__':
-    #print(os.getenv("AWS_DEV_DB"))
-    # app.run(port=8080, debug=True)
     app.run(host = "0.0.0.0", port = 5000, debug = True)
