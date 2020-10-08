@@ -1,13 +1,7 @@
-from flask import Flask
-#from dotenv import load_dotenv
-from flask import request, make_response, jsonify
-import os
+from flask import Flask, request, make_response, jsonify
+from db import init_db
 import requests
 import json
-#from sqlalchemy import create_engine
-# import mysql.connector
-# from flask_sqlalchemy import SQLAlchemy
-#load_dotenv()
 app = Flask(__name__)
 application = app # This is for AWS Elastic Beanstalk, pls don't remove!!!
 db = init_db(app)
