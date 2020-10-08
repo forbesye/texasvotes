@@ -5,6 +5,7 @@ import { useParams, useHistory } from "react-router-dom"
 import styles from "./Politicians.module.css"
 import politicians from "./DefaultPoliticians"
 import { subtitle, officeName } from "./Lib"
+import randomLoadingMessage from 'library/LoadingMessage.js'
 
 const { Title, Paragraph, Text, Link } = Typography
 const { Panel } = Collapse
@@ -292,7 +293,7 @@ export default function Details () {
 
     return (
         <div className={styles.politicianPage}>
-            { loaded ? content : <Spin tip="Looking for the fabled Blue wave..." /> }
+            { loaded ? content : <Spin tip={randomLoadingMessage()} /> }
         </div>
     )
 }

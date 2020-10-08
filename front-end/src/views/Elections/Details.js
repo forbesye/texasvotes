@@ -5,6 +5,8 @@ import electionData from "./DefaultElections"
 import styles from './Elections.module.css'
 import { monthDayYearParse } from "library/Functions"
 import { election_date_mappings } from "library/Mappings"
+import randomLoadingMessage from 'library/LoadingMessage'
+
 
 const { Title, Text } = Typography
 const { Panel } = Collapse
@@ -146,7 +148,7 @@ const Details = () => {
     
     return (
         <div className={styles.electionPage}>
-            { loaded ? content : <Spin tip="Looking for the fabled Blue wave..." /> }
+            { loaded ? content : <Spin tip={randomLoadingMessage()} /> }
         </div>
     )
 }

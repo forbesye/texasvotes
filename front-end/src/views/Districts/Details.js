@@ -5,6 +5,7 @@ import districts from './DefaultDistricts'
 import styles from './Districts.module.css'
 import { percentageString } from "library/Functions"
 import  { age_mappings, income_mappings, race_mappings, ethnicity_mappings, educational_mappings, elected_office_mappings, party_mappings } from "library/Mappings"
+import randomLoadingMessage from 'library/LoadingMessage.js'
 const { Title, Text } = Typography
 const { Panel } = Collapse
 
@@ -212,7 +213,7 @@ const Details = () => {
 
     return (
         <div className={styles.districtPage}>
-            { loaded ? content : <Spin tip="Looking for the fabled Blue wave..." /> }
+            { loaded ? content : <Spin tip={randomLoadingMessage()} /> }
         </div>
     )
 }
