@@ -14,4 +14,6 @@ WORKDIR /usr/src/backend
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 
-# ENTRYPOINT [ "python3" ]
+EXPOSE 5000
+
+CMD ["python3", "app.py"]
