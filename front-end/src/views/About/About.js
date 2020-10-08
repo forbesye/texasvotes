@@ -67,8 +67,8 @@ const About = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const gitlabInfo = await getGitlabInfo();
             if(teamList === undefined || teamList.length === 0) {
+                const gitlabInfo = await getGitlabInfo();
                 setTotalCommits(gitlabInfo.totalCommits);
                 setTotalIssues(gitlabInfo.totalIssues);
                 setTotalTests(gitlabInfo.totalTests);
