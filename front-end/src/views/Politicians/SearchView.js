@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react"
+import React, { Fragment } from "react"
 import { Typography, Input, Divider } from "antd"
 import styles from "./Politicians.module.css"
 
