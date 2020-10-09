@@ -1,5 +1,5 @@
 import React, {useState, useEffect, Fragment} from 'react'
-import { PageHeader, Typography, Divider, Row, Col, Collapse, List, Table } from "antd"
+import { PageHeader, Typography, Divider, Collapse, List, Table } from "antd"
 import { useParams, useHistory } from 'react-router-dom'
 import Spinner from "components/ui/Spinner"
 import electionData from "./DefaultElections"
