@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import DevBio from 'components/cards/DevBio.js'
-import RepoCard from 'components/cards/RepoCard.js'
-import ToolCard from 'components/cards/ToolCard.js'
+import DevBio from 'components/cards/DevBio'
+import RepoCard from 'components/cards/RepoCard'
+import ToolCard from 'components/cards/ToolCard'
+import Spinner from 'components/ui/Spinner'
 import styles from 'views/About/About.module.css'
-import { toolsInfo, teamInfo, apiInfo, repoAndAPI } from "./AboutInfo.js"
-import { Spin } from 'antd'
+import { toolsInfo, teamInfo, apiInfo, repoAndAPI } from "./AboutInfo"
 
 const getGitlabInfo = async () => {
     let totalCommitCount = 0, totalIssueCount = 0, totalTestCount = 0;
@@ -108,7 +108,7 @@ const About = () => {
                 </div>
 
                 : 
-                <Spin className={styles.loading} tip="Looking for the fabled Blue wave..." />
+                <Spinner />
             }
             <h1 className={styles.title}>Repository Statistics</h1>
             <div className={`${styles.gridLayout} ${styles.repoStats}`}>

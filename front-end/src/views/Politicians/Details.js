@@ -1,7 +1,8 @@
 import React, { useState, useEffect, Fragment } from "react"
-import { PageHeader, Typography, Spin, Divider, Collapse, List, Table } from "antd"
+import { PageHeader, Typography, Divider, Collapse, List, Table } from "antd"
 import { FacebookOutlined, TwitterOutlined, InstagramOutlined, YoutubeOutlined, GlobalOutlined } from "@ant-design/icons"
 import { useParams, useHistory } from "react-router-dom"
+import Spinner from "components/ui/Spinner"
 import styles from "./Politicians.module.css"
 import politicians from "./DefaultPoliticians"
 import { subtitle, officeName } from "./Lib"
@@ -292,7 +293,7 @@ export default function Details () {
 
     return (
         <div className={styles.politicianPage}>
-            { loaded ? content : <Spin tip="Looking for the fabled Blue wave..." /> }
+            { loaded ? content : <Spinner /> }
         </div>
     )
 }
