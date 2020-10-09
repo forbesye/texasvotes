@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Typography, Divider, Tabs, Input } from "antd"
+import { Typography, Tabs } from "antd"
 import { Route, useLocation, useHistory, Switch } from "react-router-dom"
 import styles from "./Districts.module.css"
 import ListView from "./ListView"
@@ -22,7 +22,7 @@ const Districts = () => {
         splitted.shift()
         const initialKey = splitted.shift()
         setCurrKey(initialKey)
-    }, [])
+    }, [location.pathname])
 
     return (
         <main className={styles.wrapper}>

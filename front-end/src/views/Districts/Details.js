@@ -6,7 +6,7 @@ import styles from './Districts.module.css'
 import { percentageString } from "library/Functions"
 import  { age_mappings, income_mappings, race_mappings, ethnicity_mappings, educational_mappings, elected_office_mappings, party_mappings } from "library/Mappings"
 import Spinner from "components/ui/Spinner"
-const { Title, Paragraph, Text, Link } = Typography
+const { Title, Text } = Typography
 const { Panel } = Collapse
 
 const description = (district) => {
@@ -17,19 +17,23 @@ const description = (district) => {
 const getMap = (district) => {
     if(district === 14) {
         return (
-            <iframe style={{width: "90%", height: "400px"}}
+            <iframe style={{width: "90%", height: "400px"}} 
+            title="district14"
             src="https://www.govtrack.us/congress/members/embed/mapframe?state=tx&district=14&bounds=-95.253,30.283,-93.974,28.176"></iframe>
         )
     }
     else if(district === 25) {
         return (
             <iframe style={{width: "90%", height: "400px"}}
+            title="district25"
             src="https://www.govtrack.us/congress/members/embed/mapframe?state=tx&district=25&bounds=-99.175,31.378,-97.694,28.961"></iframe>
         )
     }
     else {
         return (
-            <iframe style={{width: "90%", height: "400px"}} src="https://www.govtrack.us/congress/members/embed/mapframe?state=TX&footer=0"> </iframe>
+            <iframe style={{width: "90%", height: "400px"}} 
+            title="otherdistrict"
+            src="https://www.govtrack.us/congress/members/embed/mapframe?state=TX&footer=0"> </iframe>
         )
     }
 }
@@ -45,7 +49,7 @@ const Details = () => {
         const data = districts.find(p => p.id === parseInt(id))
         setDistrict(data)
         setLoaded(true)
-    }, [district])
+    }, [district, id])
 
     const handleBack = () => {
         history.push("/districts/view")
@@ -53,14 +57,11 @@ const Details = () => {
 
     const {
         name,
-        type,
         number,
-        party,
         counties,
         elections,
         elected_officials,
         demographics,
-        map,
         current_incumbent
     } = district
     let content = null

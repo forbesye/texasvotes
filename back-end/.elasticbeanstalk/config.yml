@@ -1,11 +1,12 @@
 branch-defaults:
   default:
-    environment: back-end
+    environment: null
+    group_suffix: null
 global:
-  application_name: back-end
+  application_name: TexasVotes
   branch: null
   default_ec2_keyname: null
-  default_platform: Python 3.6
+  default_platform: Docker running on 64bit Amazon Linux 2
   default_region: us-east-2
   include_git_submodules: true
   instance_profile: null

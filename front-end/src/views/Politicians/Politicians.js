@@ -1,13 +1,13 @@
-import React, { Fragment, useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { Route, Switch, useLocation, useHistory } from "react-router-dom"
-import { Typography, Divider, Tabs, Input } from "antd"
+import { Typography, Tabs } from "antd"
 import SearchView from "./SearchView"
 import GridView from "./GridView"
 import Details from "./Details"
 import styles from "./Politicians.module.css"
 
 const { TabPane } = Tabs
-const { Search } = Input
+// const { Search } = Input
 
 export default function Politicians () {
     const [currKey, setCurrKey] = useState("search")
