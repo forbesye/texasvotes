@@ -6,7 +6,7 @@ import styles from './Districts.module.css'
 import { percentageString } from "library/Functions"
 import  { age_mappings, income_mappings, race_mappings, ethnicity_mappings, educational_mappings, elected_office_mappings, party_mappings } from "library/Mappings"
 import Spinner from "components/ui/Spinner"
-const { Title, Paragraph, Text, Link } = Typography
+const { Title, Text } = Typography
 const { Panel } = Collapse
 
 const description = (district) => {
