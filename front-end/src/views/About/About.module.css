@@ -47,5 +47,12 @@
     box-shadow: 5px 5px 15px rgba(0,0,0,.2);
     background-color: white;
     padding: 50px;
-    border-radius: 50px;
+    /* border-radius: 50px; */
+}
+
+.loading {
+    margin-top: 10px !important;
+    margin-left: 50% !important;
+    margin-right: -50% !important;
+    transform: translate(-50%, -50%) !important;
 }

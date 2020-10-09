@@ -1,6 +1,7 @@
 import React, {useState, useEffect, Fragment} from 'react'
-import { PageHeader, Typography, Spin, Divider, Collapse, List, Table } from "antd"
+import { PageHeader, Typography, Divider, Row, Col, Collapse, List, Table } from "antd"
 import { useParams, useHistory } from 'react-router-dom'
+import Spinner from "components/ui/Spinner"
 import electionData from "./DefaultElections"
 import styles from './Elections.module.css'
 import { monthDayYearParse } from "library/Functions"
@@ -146,7 +147,7 @@ const Details = () => {
     
     return (
         <div className={styles.electionPage}>
-            { loaded ? content : <Spin tip="Looking for the fabled Blue wave..." /> }
+            { loaded ? content : <Spinner /> }
         </div>
     )
 }
