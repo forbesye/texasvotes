@@ -321,9 +321,9 @@ def elections():
     office = request.args.get('office')
 
     # TODO might have to change later
-    page = int(request.args.get('page'))
+    page = request.args.get('page')
     if page != None:
-        return get_pages(page)
+        return get_pages(int(page))
 
     
     
