@@ -39,7 +39,6 @@ const ListView = () => {
                     election_date: monthDayYearParse(election.dates.election_day)
                 }
             });
-            // Todo: Retrieve data from API here
             setListData(data);
             setLoading(false);
         }

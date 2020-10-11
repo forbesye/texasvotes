@@ -2,7 +2,6 @@ import React, {useState, useEffect, Fragment} from 'react'
 import { PageHeader, Typography, Divider, Collapse, List, Table } from "antd"
 import { useParams, useHistory } from 'react-router-dom'
 import Spinner from "components/ui/Spinner"
-// import electionData from "./DefaultElections"
 import styles from './Elections.module.css'
 import { monthDayYearParse } from "library/Functions"
 import { election_date_mappings } from "library/Mappings"
@@ -69,8 +68,6 @@ const Details = () => {
     const history = useHistory()
     
     useEffect(() => {
-        // const data = electionData.find(p => p.id === parseInt(id))
-        // Need to call API here? Think so...
         const fetchData = async () => {
             setLoaded(false);
             const data = await getAPI({
@@ -81,7 +78,7 @@ const Details = () => {
             setElection(data);
             setLoaded(true);
         }
-        fetchData()
+        fetchData();
     }, [id])
 
     const handleBack = () => {

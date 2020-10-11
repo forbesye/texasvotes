@@ -1,41 +1,18 @@
 import React, {useState, useEffect, Fragment} from 'react'
 import { PageHeader, Typography, Divider, Row, Col, Collapse, List } from "antd"
 import { useParams, useHistory } from 'react-router-dom'
-import districts from './DefaultDistricts'
+// import districts from './DefaultDistricts'
 import styles from './Districts.module.css'
 import { percentageString } from "library/Functions"
 import  { age_mappings, income_mappings, race_mappings, ethnicity_mappings, educational_mappings, elected_office_mappings, party_mappings } from "library/Mappings"
 import Spinner from "components/ui/Spinner"
+import { getAPI } from "library/APIClient"
+
 const { Title, Text } = Typography
 const { Panel } = Collapse
 
 const description = (district) => {
     return `${elected_office_mappings[district.type]} ${party_mappings[district.party]}`
-}
-
-// VERY temporary
-const getMap = (district) => {
-    if(district === 14) {
-        return (
-            <iframe style={{width: "90%", height: "400px"}} 
-            title="district14"
-            src="https://www.govtrack.us/congress/members/embed/mapframe?state=tx&district=14&bounds=-95.253,30.283,-93.974,28.176"></iframe>
-        )
-    }
-    else if(district === 25) {
-        return (
-            <iframe style={{width: "90%", height: "400px"}}
-            title="district25"
-            src="https://www.govtrack.us/congress/members/embed/mapframe?state=tx&district=25&bounds=-99.175,31.378,-97.694,28.961"></iframe>
-        )
-    }
-    else {
-        return (
-            <iframe style={{width: "90%", height: "400px"}} 
-            title="otherdistrict"
-            src="https://www.govtrack.us/congress/members/embed/mapframe?state=TX&footer=0"> </iframe>
-        )
-    }
 }
 
 const Details = () => {
@@ -46,10 +23,19 @@ const Details = () => {
     const history = useHistory()
     
     useEffect(() => {
-        const data = districts.find(p => p.id === parseInt(id))
-        setDistrict(data)
-        setLoaded(true)
-    }, [district, id])
+        // const data = districts.find(p => p.id === parseInt(id))
+        const fetchData = async () => {
+            setLoaded(false);
+            const data = await getAPI({
+                model: "district",
+                path: id,
+                params: {}
+            })
+            setDistrict(data);
+            setLoaded(true);
+        }
+        fetchData();
+    }, [id])
 
     const handleBack = () => {
         history.push("/districts/view")
@@ -57,12 +43,12 @@ const Details = () => {
 
     const {
         name,
-        number,
+        // number,
         counties,
         elections,
         elected_officials,
         demographics,
-        current_incumbent
+        // current_incumbent
     } = district
     let content = null
     if(loaded) {
@@ -75,12 +61,11 @@ const Details = () => {
                 />
                 <Divider />
                 <div className={styles.districtDescription}>
-                    <Title style={{ textAlign: "center" }} level={3}>Current Incumbent</Title>
-                    <img src={current_incumbent.src} alt={current_incumbent.name} className={styles.districtImage} />
-                    <Title style={{ textAlign: "center" }} level={4}>{current_incumbent.name}</Title>
+                    {/* <Title style={{ textAlign: "center" }} level={3}>Current Incumbent</Title> */}
+                    {/* <img src={current_incumbent.src} alt={current_incumbent.name} className={styles.districtImage} /> */}
+                    {/* <Title style={{ textAlign: "center" }} level={4}>{current_incumbent.name}</Title> */}
                     <Divider />
                     <Title style={{ textAlign: "center" }} level={3}>District Map</Title>
-                    {getMap(number)}
                     <article className={styles.districtDetails}>
                         <Row justify="space-around">
                             <Col>

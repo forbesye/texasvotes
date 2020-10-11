@@ -4,8 +4,9 @@ import { FacebookOutlined, TwitterOutlined, InstagramOutlined, YoutubeOutlined, 
 import { useParams, useHistory } from "react-router-dom"
 import Spinner from "components/ui/Spinner"
 import styles from "./Politicians.module.css"
-import politicians from "./DefaultPoliticians"
 import { subtitle, officeName } from "./Lib"
+import { getAPI } from "library/APIClient"
+
 
 const { Title, Paragraph, Text, Link } = Typography
 const { Panel } = Collapse
@@ -60,11 +61,25 @@ export default function Details () {
     const [ loaded, setLoaded ] = useState(false)
     const history = useHistory()
 
+    // useEffect(() => {
+    //     // const data = politicians.find(p => p.id === parseInt(id))
+    //     setPolitician(data)
+    //     setLoaded(true)
+    // }, [politician, id])
+
     useEffect(() => {
-        const data = politicians.find(p => p.id === parseInt(id))
-        setPolitician(data)
-        setLoaded(true)
-    }, [politician, id])
+        const fetchData = async () => {
+            setLoaded(false);
+            const data = await getAPI({
+                model: "politician",
+                path: id,
+                params: {}
+            })
+            setPolitician(data);
+            setLoaded(true);
+        }
+        fetchData();
+    }, [id])
 
     const handleBack = () => {
         history.push("/politicians/view")

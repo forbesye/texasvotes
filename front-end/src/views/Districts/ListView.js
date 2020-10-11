@@ -5,6 +5,7 @@ import styles from "./Districts.module.css"
 import columns from "./Lib"
 import districtData from "./DefaultDistricts"
 import { party_mappings, elected_office_mappings } from "library/Mappings"
+// import { getAPI } from "library/APIClient"
 // import { numberStringWithCommas } from "lib/Functions"
 const { Title, Paragraph } = Typography
 
@@ -12,6 +13,7 @@ const ListView = () => {
     const history = useHistory();
     const [loading, setLoading] = useState(true);
     const [listData, setListData] = useState([])
+
 
     useEffect(() => {
         const data = districtData.map(district => {
