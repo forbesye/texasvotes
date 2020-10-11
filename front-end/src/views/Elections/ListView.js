@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react"
 import { Table, Divider, Typography } from "antd"
 import { useHistory } from 'react-router-dom'
 import columns from "./Lib"
-// import electionData from "./DefaultElections"
 import { getAPI } from "library/APIClient"
 import styles from "./Elections.module.css"
 import { election_type_mappings, elected_office_mappings } from "library/Mappings"
@@ -28,7 +27,6 @@ const ListView = () => {
                         page: pagination.current
                     }
             });
-            console.log(page)
             const data = page.map(election => {
                 return {
                     ...election,
