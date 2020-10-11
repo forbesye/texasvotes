@@ -283,6 +283,10 @@ def politicians():
     l = [name, party, district, current_office, incumbent]
     # print(l)
 
+    page = request.args.get('page')
+    if page != None:
+        return get_pages(int(page), "politician")
+
     return politician_test_json
 
 @app.route('/politician/<int:id>', methods=['GET'])
@@ -303,6 +307,10 @@ def districts():
     l = [dist_type, party, county, number, address]
     # print(l)
 
+    page = request.args.get('page')
+    if page != None:
+        return get_pages(int(page), "district")
+
     return district_test_json
 
 @app.route('/district/<int:id>', methods=['GET'])
@@ -321,11 +329,9 @@ def elections():
     office = request.args.get('office')
 
     # TODO might have to change later
-    page = int(request.args.get('page'))
+    page = request.args.get('page')
     if page != None:
-        return get_pages(page)
-
-    
+        return get_pages(int(page), "election")
     
     l = [election_type, candidates, district, winner, office]
     # print(l)
@@ -334,13 +340,23 @@ def elections():
 
 
 # currently hardcoded kinda
-def get_pages(page):
-    dic = {'pages': 2}
+def get_pages(page, model):
+    dic = {'total': 35}
     if page == 1:
-        dic.update({'page': [election_test_json] * 20})
+        if model == "election":
+            dic.update({'page': [election_test_json] * 20})
+        elif model == "district":
+            dic.update({'page': [district_test_json] * 20})
+        elif model == "politician":
+            dic.update({'page': [district_test_json] * 20})
         return dic
     elif page == 2:
-        dic.update({'page': [election_primary_test_json] * 15})
+        if model == "election":
+            dic.update({'page': [election_test_json] * 15})
+        elif model == "district":
+            dic.update({'page': [district_test_json] * 15})
+        elif model == "politician":
+            dic.update({'page': [district_test_json] * 15})
         return dic
     else:
        return make_response("Error: page not found", 404) 

@@ -1,16 +1,41 @@
-import React, { useState, Fragment } from "react"
-import { Typography, Divider, Card } from "antd"
+import React, { useState, useEffect, Fragment } from "react"
+import { Typography, Divider, Card, Pagination } from "antd"
 import { Link } from "react-router-dom"
 import styles from "./Politicians.module.css"
-import politicians from "./DefaultPoliticians"
 import { description } from "./Lib"
+import { getAPI } from "library/APIClient"
 
 const { Title, Paragraph, Text } = Typography
 const { Meta } = Card
 
 export default function GridView () {
     // const [items, setItems] = useState(politicians)
-    const [items] = useState(politicians)
+    const [loading, setLoading] = useState(true);
+    const [gridData, setGridData] = useState([]);
+    const [currPage, setCurrPage] = useState(1);
+    const [total, setTotal] = useState(20);
+
+    const handlePaginationChange = (page) => {
+        setCurrPage(page);
+    }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true);
+            const { page, total } = await getAPI({
+                    model: "politician",
+                    params: {
+                        page: currPage
+                    }
+            });
+            setTotal(total);
+            setGridData(page);
+            console.log(page);
+            setLoading(false);
+        }
+        fetchData()
+    }, [currPage]);
+
     return (
         <Fragment>
             <section className={styles.content}>
@@ -19,7 +44,7 @@ export default function GridView () {
             </section>
             <Divider />
             <section className={styles.grid}>
-                { items.map((item, i) => (
+                { gridData.map((item, i) => (
                     <Link to={`/politicians/view/${item.id}`}>
                         <Card
                             className={styles.card}
@@ -28,12 +53,19 @@ export default function GridView () {
                         >
                             <Meta 
                                 title={item.name}
-                                description={<Text>{description(item)}</Text>}
+                                // description={<Text>{description(item)}</Text>}
                             />
                         </Card>
                     </Link>
                 ))}
             </section>
+            <Pagination
+                total={total}
+                defaultCurrent={1}
+                defaultPageSize={20}
+                onChange={handlePaginationChange}
+            />
+
         </Fragment>
     )
 }

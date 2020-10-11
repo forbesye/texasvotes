@@ -12,19 +12,16 @@ const ListView = () => {
     const history = useHistory();
     const [loading, setLoading] = useState(true);
     const [listData, setListData] = useState([]);
-    const [pagination, setPagination] = useState({
-        current: 1,
-        pageSize: 20,
-        total: 35
-    });
+    const [currPage, setCurrPage] = useState(1);
+    const [total, setTotal] = useState(20);
 
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            const { page } = await getAPI({
+            const { page, total } = await getAPI({
                     model: "election",
                     params: {
-                        page: pagination.current
+                        page: currPage
                     }
             });
             const data = page.map(election => {
@@ -39,19 +36,17 @@ const ListView = () => {
                     election_date: monthDayYearParse(election.dates.election_day)
                 }
             });
+            setTotal(total);
             setListData(data);
             setLoading(false);
         }
         fetchData()
-    }, [pagination]);
+    }, [currPage]);
 
     // Todo: Add filtering and sorting
-    const handleTableChange = (updatePagination) => {
-        setPagination({
-            current: updatePagination.current,
-            pageSize: updatePagination.pageSize,
-            total: updatePagination.total
-        })
+    const handleTableChange = ({current, total}) => {
+        setCurrPage(current);
+        setTotal(total);
     }
 
     return (
@@ -74,7 +69,11 @@ const ListView = () => {
                 }}
                 loading={loading}
                 rowClassName={styles.cursor}
-                pagination={pagination}
+                pagination={{
+                    total: total,
+                    defaultPageSize: 20,
+                    defaultCurrent: 1
+                }}
                 onChange={handleTableChange}
             />
         </div>

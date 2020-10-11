@@ -3,9 +3,9 @@ import { Table, Divider, Typography } from "antd"
 import { useHistory } from 'react-router-dom'
 import styles from "./Districts.module.css"
 import columns from "./Lib"
-import districtData from "./DefaultDistricts"
+// import districtData from "./DefaultDistricts"
 import { party_mappings, elected_office_mappings } from "library/Mappings"
-// import { getAPI } from "library/APIClient"
+import { getAPI } from "library/APIClient"
 // import { numberStringWithCommas } from "lib/Functions"
 const { Title, Paragraph } = Typography
 
@@ -13,23 +13,40 @@ const ListView = () => {
     const history = useHistory();
     const [loading, setLoading] = useState(true);
     const [listData, setListData] = useState([])
-
+    const [currPage, setCurrPage] = useState(1);
+    const [total, setTotal] = useState(20);
 
     useEffect(() => {
-        const data = districtData.map(district => {
-            return {
-                ...district,
-                key: district.id,
-                type: elected_office_mappings[district.type],
-                party: party_mappings[district.party],
-                official_name: district.elected_officials[0].name, // TODO: API call will be diff
-                population: district.demographics.total_population
-            }
-        })
-        // Todo: Retrieve data from API here
-        setListData(data);
-        setLoading(false); 
-    }, [])
+        const fetchData = async () => {
+            setLoading(true);
+            const { page, total } = await getAPI({
+                    model: "district",
+                    params: {
+                        page: currPage
+                    }
+            });
+            const data = page.map(district => {
+                return {
+                    ...district,
+                    key: district.id,
+                    type: elected_office_mappings[district.type],
+                    party: party_mappings[district.party],
+                    official_name: district.elected_officials[0].name, // TODO: API call will be diff
+                    population: district.demographics.total_population
+                }
+            })
+            setTotal(total);
+            setListData(data);
+            setLoading(false);
+        }
+        fetchData()
+    }, [currPage]);
+
+    // Todo: Add filtering and sorting
+    const handleTableChange = ({current, total}) => {
+        setCurrPage(current);
+        setTotal(total);
+    }
 
     return (
         <div>
@@ -51,6 +68,12 @@ const ListView = () => {
                 }}
                 rowClassName={styles.cursor}
                 loading={loading}
+                pagination={{
+                    total: total,
+                    defaultPageSize: 20,
+                    defaultCurrent: 1
+                }}
+                onChange={handleTableChange}
             />
         </div>
     )
