@@ -69,6 +69,7 @@ const Details = () => {
     
     useEffect(() => {
         const data = electionData.find(p => p.id === parseInt(id))
+        // Need to call API here? Think so...
         setElection(data)
         setLoaded(true)
     }, [election, id])

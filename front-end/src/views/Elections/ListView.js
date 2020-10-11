@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react"
 import { Table, Divider, Typography } from "antd"
 import { useHistory } from 'react-router-dom'
 import columns from "./Lib"
-import electionData from "./DefaultElections"
+// import electionData from "./DefaultElections"
+import { getAPI } from "library/APIClient"
 import styles from "./Elections.module.css"
 import { election_type_mappings, elected_office_mappings } from "library/Mappings"
 import { monthDayYearParse } from "library/Functions"
@@ -11,25 +12,50 @@ const { Title, Paragraph } = Typography
 const ListView = () => {
     const history = useHistory();
     const [loading, setLoading] = useState(true);
-    const [listData, setListData] = useState([])
+    const [listData, setListData] = useState([]);
+    const [pagination, setPagination] = useState({
+        current: 1,
+        pageSize: 20,
+        total: 35
+    });
 
     useEffect(() => {
-        const data = electionData.map(election => {
-            return {
-                ...election,
-                key: election.id,
-                district: election.district.name,
-                type: election_type_mappings[election.type],
-                office: elected_office_mappings[election.office],
-                winner: election.results ? election.results.winner.name : "TBD",
-                totalVoters: election.results ? election.results.total_voters : "TBD",
-                election_date: monthDayYearParse(election.dates.election_day)
-            }
+        const fetchData = async () => {
+            setLoading(true);
+            const { page } = await getAPI({
+                    model: "election",
+                    params: {
+                        page: pagination.current
+                    }
+            });
+            console.log(page)
+            const data = page.map(election => {
+                return {
+                    ...election,
+                    key: election.id,
+                    district: election.district.name,
+                    type: election_type_mappings[election.type],
+                    office: elected_office_mappings[election.office],
+                    winner: election.results ? election.results.winner.name : "TBD",
+                    totalVoters: election.results ? election.results.total_voters : "TBD",
+                    election_date: monthDayYearParse(election.dates.election_day)
+                }
+            });
+            // Todo: Retrieve data from API here
+            setListData(data);
+            setLoading(false);
+        }
+        fetchData()
+    }, [pagination]);
+
+    // Todo: Add filtering and sorting
+    const handleTableChange = (updatePagination) => {
+        setPagination({
+            current: updatePagination.current,
+            pageSize: updatePagination.pageSize,
+            total: updatePagination.total
         })
-        // Todo: Retrieve data from API here
-        setListData(data);
-        setLoading(false); 
-    }, [])
+    }
 
     return (
         <div>
@@ -51,6 +77,8 @@ const ListView = () => {
                 }}
                 loading={loading}
                 rowClassName={styles.cursor}
+                pagination={pagination}
+                onChange={handleTableChange}
             />
         </div>
     )
