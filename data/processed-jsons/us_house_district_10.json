@@ -1,0 +1,64 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:10": {
+            "name": "Texas's 10th congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:10",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "2001 Rayburn House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "michaeltmccaul",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "repmccaul",
+                    "type": "Twitter"
+                },
+                {
+                    "id": "MichaelTMcCaul",
+                    "type": "YouTube"
+                },
+                {
+                    "id": "UCFTcskOT4na97M00Vpu_oZw",
+                    "type": "YouTube"
+                }
+            ],
+            "name": "Michael T. McCaul",
+            "party": "Republican Party",
+            "phones": [
+                "(202) 225-2401"
+            ],
+            "photoUrl": "http://bioguide.congress.gov/bioguide/photo/M/M001157.jpg",
+            "urls": [
+                "https://mccaul.house.gov/"
+            ]
+        }
+    ]
+}

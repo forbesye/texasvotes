@@ -1,0 +1,60 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:34": {
+            "name": "Texas's 34th congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:34",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "307 Cannon House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "UsCongressmanFilemonVela",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "RepFilemonVela",
+                    "type": "Twitter"
+                },
+                {
+                    "id": "RepFilemonVela",
+                    "type": "YouTube"
+                }
+            ],
+            "name": "Filemon Vela",
+            "party": "Democratic Party",
+            "phones": [
+                "(202) 225-9901"
+            ],
+            "photoUrl": "http://bioguide.congress.gov/bioguide/photo/V/V000132.jpg",
+            "urls": [
+                "https://vela.house.gov/"
+            ]
+        }
+    ]
+}

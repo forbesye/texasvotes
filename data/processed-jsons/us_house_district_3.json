@@ -1,0 +1,55 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:3": {
+            "name": "Texas's 3rd congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:3",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "1404 Longworth House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "RepVanTaylor",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "repvantaylor",
+                    "type": "Twitter"
+                }
+            ],
+            "name": "Van Taylor",
+            "party": "Republican Party",
+            "phones": [
+                "(202) 225-4201"
+            ],
+            "urls": [
+                "https://vantaylor.house.gov"
+            ]
+        }
+    ]
+}

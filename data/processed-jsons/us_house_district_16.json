@@ -1,0 +1,55 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:16": {
+            "name": "Texas's 16th congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:16",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "1505 Longworth House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "RepEscobar",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "repescobar",
+                    "type": "Twitter"
+                }
+            ],
+            "name": "Veronica Escobar",
+            "party": "Democratic Party",
+            "phones": [
+                "(202) 225-4831"
+            ],
+            "urls": [
+                "https://escobar.house.gov/"
+            ]
+        }
+    ]
+}

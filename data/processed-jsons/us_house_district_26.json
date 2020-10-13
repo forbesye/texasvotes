@@ -1,0 +1,60 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:26": {
+            "name": "Texas's 26th congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:26",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "2161 Rayburn House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "michaelcburgess",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "michaelcburgess",
+                    "type": "Twitter"
+                },
+                {
+                    "id": "MichaelCBurgessMD",
+                    "type": "YouTube"
+                }
+            ],
+            "name": "Michael Burgess",
+            "party": "Republican Party",
+            "phones": [
+                "(202) 225-7772"
+            ],
+            "photoUrl": "http://bioguide.congress.gov/bioguide/photo/B/B001248.jpg",
+            "urls": [
+                "https://burgess.house.gov/"
+            ]
+        }
+    ]
+}

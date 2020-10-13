@@ -1,0 +1,55 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:29": {
+            "name": "Texas's 29th congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:29",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "1620 Longworth House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "RepSylviaGarcia",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "RepSylviaGarcia",
+                    "type": "Twitter"
+                }
+            ],
+            "name": "Sylvia Garcia",
+            "party": "Democratic Party",
+            "phones": [
+                "(202) 225-1688"
+            ],
+            "urls": [
+                "https://sylviagarcia.house.gov/"
+            ]
+        }
+    ]
+}

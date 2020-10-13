@@ -1,0 +1,60 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:13": {
+            "name": "Texas's 13th congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:13",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "2208 Rayburn House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "repmacthornberry",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "MacTXPress",
+                    "type": "Twitter"
+                },
+                {
+                    "id": "RepMacThornberry",
+                    "type": "YouTube"
+                }
+            ],
+            "name": "Mac Thornberry",
+            "party": "Republican Party",
+            "phones": [
+                "(202) 225-3706"
+            ],
+            "photoUrl": "http://bioguide.congress.gov/bioguide/photo/T/T000238.jpg",
+            "urls": [
+                "https://thornberry.house.gov/"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,60 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:28": {
+            "name": "Texas's 28th congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:28",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "2372 Rayburn House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "repcuellar",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "RepCuellar",
+                    "type": "Twitter"
+                },
+                {
+                    "id": "henrycuellar",
+                    "type": "YouTube"
+                }
+            ],
+            "name": "Henry Cuellar",
+            "party": "Democratic Party",
+            "phones": [
+                "(202) 225-1640"
+            ],
+            "photoUrl": "http://bioguide.congress.gov/bioguide/photo/C/C001063.jpg",
+            "urls": [
+                "https://cuellar.house.gov/"
+            ]
+        }
+    ]
+}

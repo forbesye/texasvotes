@@ -1,0 +1,60 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:1": {
+            "name": "Texas's 1st congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:1",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "2267 Rayburn House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "RepLouieGohmert",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "replouiegohmert",
+                    "type": "Twitter"
+                },
+                {
+                    "id": "GohmertTX01",
+                    "type": "YouTube"
+                }
+            ],
+            "name": "Louie Gohmert",
+            "party": "Republican Party",
+            "phones": [
+                "(202) 225-3035"
+            ],
+            "photoUrl": "http://bioguide.congress.gov/bioguide/photo/G/G000552.jpg",
+            "urls": [
+                "https://gohmert.house.gov/"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,55 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:21": {
+            "name": "Texas's 21st congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:21",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "1319 Longworth House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "RepChipRoy",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "RepChipRoy",
+                    "type": "Twitter"
+                }
+            ],
+            "name": "Chip Roy",
+            "party": "Republican Party",
+            "phones": [
+                "(202) 225-4236"
+            ],
+            "urls": [
+                "https://roy.house.gov/"
+            ]
+        }
+    ]
+}

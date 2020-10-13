@@ -1,0 +1,55 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:7": {
+            "name": "Texas's 7th congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:7",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "1429 Longworth House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "RepFletcher",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "repfletcher",
+                    "type": "Twitter"
+                }
+            ],
+            "name": "Lizzie Fletcher",
+            "party": "Democratic Party",
+            "phones": [
+                "(202) 225-2571"
+            ],
+            "urls": [
+                "https://fletcher.house.gov/"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,59 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:23": {
+            "name": "Texas's 23rd congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:23",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "317 Cannon House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "HurdOnTheHill",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "HurdOnTheHill",
+                    "type": "Twitter"
+                },
+                {
+                    "id": "UCjWcn2lgGCZbwPs6lKxlziQ",
+                    "type": "YouTube"
+                }
+            ],
+            "name": "Will Hurd",
+            "party": "Republican Party",
+            "phones": [
+                "(202) 225-4511"
+            ],
+            "urls": [
+                "https://hurd.house.gov/"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,60 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:18": {
+            "name": "Texas's 18th congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:18",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "2079 Rayburn House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "CongresswomanSheilaJacksonLee",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "JacksonLeeTX18",
+                    "type": "Twitter"
+                },
+                {
+                    "id": "RepJacksonLee",
+                    "type": "YouTube"
+                }
+            ],
+            "name": "Sheila Jackson Lee",
+            "party": "Democratic Party",
+            "phones": [
+                "(202) 225-3816"
+            ],
+            "photoUrl": "http://bioguide.congress.gov/bioguide/photo/J/J000032.jpg",
+            "urls": [
+                "https://jacksonlee.house.gov/"
+            ]
+        }
+    ]
+}

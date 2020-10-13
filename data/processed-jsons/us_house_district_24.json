@@ -1,0 +1,60 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:24": {
+            "name": "Texas's 24th congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:24",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "2304 Rayburn House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "RepKennyMarchant",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "repkenmarchant",
+                    "type": "Twitter"
+                },
+                {
+                    "id": "RepKennyMarchant",
+                    "type": "YouTube"
+                }
+            ],
+            "name": "Kenny Marchant",
+            "party": "Republican Party",
+            "phones": [
+                "(202) 225-6605"
+            ],
+            "photoUrl": "http://bioguide.congress.gov/bioguide/photo/M/M001158.jpg",
+            "urls": [
+                "https://marchant.house.gov/"
+            ]
+        }
+    ]
+}

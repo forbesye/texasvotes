@@ -1,0 +1,60 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:12": {
+            "name": "Texas's 12th congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:12",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "1026 Longworth House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "RepKayGranger",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "RepKayGranger",
+                    "type": "Twitter"
+                },
+                {
+                    "id": "RepKayGranger",
+                    "type": "YouTube"
+                }
+            ],
+            "name": "Kay Granger",
+            "party": "Republican Party",
+            "phones": [
+                "(202) 225-5071"
+            ],
+            "photoUrl": "http://bioguide.congress.gov/bioguide/photo/G/G000377.jpg",
+            "urls": [
+                "https://kaygranger.house.gov/"
+            ]
+        }
+    ]
+}

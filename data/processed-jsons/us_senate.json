@@ -1,0 +1,484 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx": {
+            "name": "Texas",
+            "officeIndices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Senator",
+            "officialIndices": [
+                0,
+                1
+            ],
+            "roles": [
+                "legislatorUpperBody"
+            ]
+        },
+        {
+            "divisionId": "ocd-division/country:us/state:tx",
+            "levels": [
+                "administrativeArea1"
+            ],
+            "name": "Governor of Texas",
+            "officialIndices": [
+                2
+            ],
+            "roles": [
+                "headOfGovernment"
+            ]
+        },
+        {
+            "divisionId": "ocd-division/country:us/state:tx",
+            "levels": [
+                "administrativeArea1"
+            ],
+            "name": "Lieutenant Governor of Texas",
+            "officialIndices": [
+                3
+            ],
+            "roles": [
+                "deputyHeadOfGovernment"
+            ]
+        },
+        {
+            "divisionId": "ocd-division/country:us/state:tx",
+            "levels": [
+                "administrativeArea1"
+            ],
+            "name": "TX Attorney General",
+            "officialIndices": [
+                4
+            ]
+        },
+        {
+            "divisionId": "ocd-division/country:us/state:tx",
+            "levels": [
+                "administrativeArea1"
+            ],
+            "name": "TX Commissioner of Agriculture",
+            "officialIndices": [
+                5
+            ]
+        },
+        {
+            "divisionId": "ocd-division/country:us/state:tx",
+            "levels": [
+                "administrativeArea1"
+            ],
+            "name": "TX Supreme Court Chief Justice",
+            "officialIndices": [
+                6
+            ]
+        },
+        {
+            "divisionId": "ocd-division/country:us/state:tx",
+            "levels": [
+                "administrativeArea1"
+            ],
+            "name": "TX Comptroller of Public Accounts",
+            "officialIndices": [
+                7
+            ]
+        },
+        {
+            "divisionId": "ocd-division/country:us/state:tx",
+            "levels": [
+                "administrativeArea1"
+            ],
+            "name": "TX Commissioner of General Land Office",
+            "officialIndices": [
+                8
+            ]
+        },
+        {
+            "divisionId": "ocd-division/country:us/state:tx",
+            "levels": [
+                "administrativeArea1"
+            ],
+            "name": "TX Supreme Court Associate Justice",
+            "officialIndices": [
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+            ]
+        },
+        {
+            "divisionId": "ocd-division/country:us/state:tx",
+            "levels": [
+                "administrativeArea1"
+            ],
+            "name": "TX Railroad Commissioner",
+            "officialIndices": [
+                17,
+                18,
+                19
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "517 Hart Senate Office Building",
+                    "state": "DC",
+                    "zip": "20510"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "Sen.JohnCornyn",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "JohnCornyn",
+                    "type": "Twitter"
+                },
+                {
+                    "id": "SenJohnCornyn",
+                    "type": "YouTube"
+                }
+            ],
+            "name": "John Cornyn",
+            "party": "Republican Party",
+            "phones": [
+                "(202) 224-2934"
+            ],
+            "photoUrl": "http://bioguide.congress.gov/bioguide/photo/C/C001056.jpg",
+            "urls": [
+                "https://www.cornyn.senate.gov/"
+            ]
+        },
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "127A",
+                    "state": "DC",
+                    "zip": "20510"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "SenatorTedCruz",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "SenTedCruz",
+                    "type": "Twitter"
+                },
+                {
+                    "id": "TedCruzforSenate",
+                    "type": "YouTube"
+                },
+                {
+                    "id": "SenTedCruz",
+                    "type": "YouTube"
+                }
+            ],
+            "name": "Ted Cruz",
+            "party": "Republican Party",
+            "phones": [
+                "(202) 224-5922"
+            ],
+            "photoUrl": "http://www.cruz.senate.gov/files/images/OfficialPortrait.jpg",
+            "urls": [
+                "https://www.cruz.senate.gov/"
+            ]
+        },
+        {
+            "address": [
+                {
+                    "city": "Austin",
+                    "line1": "Office of the Governor",
+                    "line2": "P.O. Box 12428",
+                    "line3": "",
+                    "state": "TX",
+                    "zip": "78711-2428"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "TexasGovernor",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "GovAbbott",
+                    "type": "Twitter"
+                },
+                {
+                    "id": "UCqTttg2CGGqDmMYR1S0q5Hw",
+                    "type": "YouTube"
+                }
+            ],
+            "name": "Greg Abbott",
+            "party": "Republican Party",
+            "phones": [
+                "(512) 463-2000"
+            ],
+            "urls": [
+                "https://gov.texas.gov/"
+            ]
+        },
+        {
+            "address": [
+                {
+                    "city": "Austin",
+                    "line1": "Lieutenant Governor's Office",
+                    "line2": "P.O. Box 12068",
+                    "line3": "",
+                    "state": "TX",
+                    "zip": "78711"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "ltgovtx",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "LtGovTX",
+                    "type": "Twitter"
+                }
+            ],
+            "emails": [
+                "LTGConstituent.Affairs@ltgov.texas.gov"
+            ],
+            "name": "Dan Patrick",
+            "party": "Republican Party",
+            "phones": [
+                "(512) 463-0001"
+            ],
+            "urls": [
+                "http://www.danpatrick.org/"
+            ]
+        },
+        {
+            "channels": [
+                {
+                    "id": "TexasAttorneyGeneral",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "TXAG",
+                    "type": "Twitter"
+                }
+            ],
+            "name": "Ken Paxton",
+            "party": "Republican Party",
+            "phones": [
+                "(512) 463-2100"
+            ],
+            "urls": [
+                "https://www.texasattorneygeneral.gov/"
+            ]
+        },
+        {
+            "channels": [
+                {
+                    "id": "61660747672",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "TexasDeptofAg",
+                    "type": "Twitter"
+                }
+            ],
+            "name": "Sid Miller",
+            "party": "Republican Party",
+            "phones": [
+                "(512) 463-7476"
+            ],
+            "urls": [
+                "https://www.texasagriculture.gov/"
+            ]
+        },
+        {
+            "name": "Nathan L. Hecht",
+            "party": "Republican Party",
+            "phones": [
+                "(512) 463-1312"
+            ],
+            "urls": [
+                "http://www.txcourts.gov/supreme/"
+            ]
+        },
+        {
+            "channels": [
+                {
+                    "id": "txcomptroller",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "txcomptroller",
+                    "type": "Twitter"
+                }
+            ],
+            "name": "Glenn Hegar",
+            "party": "Republican Party",
+            "phones": [
+                "(512) 463-4444"
+            ],
+            "urls": [
+                "https://comptroller.texas.gov/"
+            ]
+        },
+        {
+            "channels": [
+                {
+                    "id": "txglo",
+                    "type": "Twitter"
+                }
+            ],
+            "name": "George P. Bush",
+            "party": "Republican Party",
+            "phones": [
+                "(800) 998-4456"
+            ],
+            "urls": [
+                "https://www.glo.texas.gov/"
+            ]
+        },
+        {
+            "name": "Jimmy Blacklock",
+            "party": "Republican Party",
+            "phones": [
+                "(512) 463-1312"
+            ],
+            "urls": [
+                "http://www.txcourts.gov/supreme/"
+            ]
+        },
+        {
+            "name": "Paul W. Green",
+            "party": "Republican Party",
+            "phones": [
+                "(512) 463-1312"
+            ],
+            "urls": [
+                "http://www.txcourts.gov/supreme/"
+            ]
+        },
+        {
+            "name": "Jeffrey S. Boyd",
+            "party": "Republican Party",
+            "phones": [
+                "(512) 463-1312"
+            ],
+            "urls": [
+                "http://www.txcourts.gov/supreme/"
+            ]
+        },
+        {
+            "name": "Eva Guzman",
+            "party": "Republican Party",
+            "phones": [
+                "(512) 463-1312"
+            ],
+            "urls": [
+                "http://www.txcourts.gov/supreme/"
+            ]
+        },
+        {
+            "name": "Debra Lehrmann",
+            "party": "Republican Party",
+            "phones": [
+                "(512) 463-1312"
+            ],
+            "urls": [
+                "http://www.txcourts.gov/supreme/"
+            ]
+        },
+        {
+            "name": "Brett Busby",
+            "party": "Republican Party",
+            "phones": [
+                "(512) 463-1312"
+            ],
+            "urls": [
+                "http://www.txcourts.gov/supreme/"
+            ]
+        },
+        {
+            "name": "John Phillip Devine",
+            "party": "Republican Party",
+            "phones": [
+                "(512) 463-1312"
+            ],
+            "urls": [
+                "http://www.txcourts.gov/supreme/"
+            ]
+        },
+        {
+            "name": "Jane Bland",
+            "party": "Republican Party",
+            "phones": [
+                "(512) 463-1312"
+            ],
+            "urls": [
+                "http://www.txcourts.gov/supreme/"
+            ]
+        },
+        {
+            "emails": [
+                "christi.craddick@rrc.state.tx.us"
+            ],
+            "name": "Christi Craddick",
+            "party": "Republican Party",
+            "phones": [
+                "(512) 463-7140"
+            ],
+            "urls": [
+                "https://www.rrc.state.tx.us/"
+            ]
+        },
+        {
+            "emails": [
+                "Ryan.Sitton@rrc.texas.gov"
+            ],
+            "name": "Ryan Sitton",
+            "party": "Republican Party",
+            "phones": [
+                "(512) 463-7144"
+            ],
+            "urls": [
+                "https://www.rrc.state.tx.us/"
+            ]
+        },
+        {
+            "emails": [
+                "wayne.christian@rrc.texas.gov"
+            ],
+            "name": "Wayne Christian",
+            "party": "Republican Party",
+            "phones": [
+                "(512) 463-7131"
+            ],
+            "urls": [
+                "https://www.rrc.state.tx.us/"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,55 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:19": {
+            "name": "Texas's 19th congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:19",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "1029 Longworth House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "JodeyArrington",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "RepArrington",
+                    "type": "Twitter"
+                }
+            ],
+            "name": "Jodey Arrington",
+            "party": "Republican Party",
+            "phones": [
+                "(202) 225-4005"
+            ],
+            "urls": [
+                "https://arrington.house.gov/"
+            ]
+        }
+    ]
+}

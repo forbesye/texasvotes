@@ -1,0 +1,55 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:32": {
+            "name": "Texas's 32nd congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:32",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "328 Cannon House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "RepColinAllred",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "RepColinAllred",
+                    "type": "Twitter"
+                }
+            ],
+            "name": "Colin Allred",
+            "party": "Democratic Party",
+            "phones": [
+                "(202) 225-2231"
+            ],
+            "urls": [
+                "https://allred.house.gov/"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,60 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:30": {
+            "name": "Texas's 30th congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:30",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "2306 Rayburn House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "CongresswomanEBJtx30",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "RepEBJ",
+                    "type": "Twitter"
+                },
+                {
+                    "id": "RepEddieBJohnson",
+                    "type": "YouTube"
+                }
+            ],
+            "name": "Eddie Bernice Johnson",
+            "party": "Democratic Party",
+            "phones": [
+                "(202) 225-8885"
+            ],
+            "photoUrl": "http://bioguide.congress.gov/bioguide/photo/J/J000126.jpg",
+            "urls": [
+                "https://ebjohnson.house.gov/"
+            ]
+        }
+    ]
+}

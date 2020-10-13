@@ -1,0 +1,55 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:6": {
+            "name": "Texas's 6th congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:6",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "428 Cannon House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "Congressman-Ron-Wright-594717754318936",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "RepRonWright",
+                    "type": "Twitter"
+                }
+            ],
+            "name": "Ron Wright",
+            "party": "Republican Party",
+            "phones": [
+                "(202) 225-2002"
+            ],
+            "urls": [
+                "https://wright.house.gov/"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,64 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:25": {
+            "name": "Texas's 25th congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:25",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "1708 Longworth House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "RepRogerWilliams",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "RepRWilliams",
+                    "type": "Twitter"
+                },
+                {
+                    "id": "UCBtfmMMQarjtLB9U_pWMOhw",
+                    "type": "YouTube"
+                },
+                {
+                    "id": "RogerWilliamsTX",
+                    "type": "YouTube"
+                }
+            ],
+            "name": "Roger Williams",
+            "party": "Republican Party",
+            "phones": [
+                "(202) 225-9896"
+            ],
+            "photoUrl": "http://bioguide.congress.gov/bioguide/photo/W/W000816.jpg",
+            "urls": [
+                "https://williams.house.gov/"
+            ]
+        }
+    ]
+}

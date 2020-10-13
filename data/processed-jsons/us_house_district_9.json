@@ -1,0 +1,60 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:9": {
+            "name": "Texas's 9th congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:9",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "2347 Rayburn House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "repalgreen",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "RepAlGreen",
+                    "type": "Twitter"
+                },
+                {
+                    "id": "RepAlGreen",
+                    "type": "YouTube"
+                }
+            ],
+            "name": "Al Green",
+            "party": "Democratic Party",
+            "phones": [
+                "(202) 225-7508"
+            ],
+            "photoUrl": "http://bioguide.congress.gov/bioguide/photo/G/G000553.jpg",
+            "urls": [
+                "https://algreen.house.gov/"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,60 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:20": {
+            "name": "Texas's 20th congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:20",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "2241 Rayburn House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "JoaquinCastroTX",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "JoaquinCastrotx",
+                    "type": "Twitter"
+                },
+                {
+                    "id": "JoaquinCastroTX",
+                    "type": "YouTube"
+                }
+            ],
+            "name": "Joaqu\u00edn Castro",
+            "party": "Democratic Party",
+            "phones": [
+                "(202) 225-3236"
+            ],
+            "photoUrl": "http://bioguide.congress.gov/bioguide/photo/C/C001091.jpg",
+            "urls": [
+                "https://castro.house.gov/"
+            ]
+        }
+    ]
+}

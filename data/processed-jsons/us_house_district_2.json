@@ -1,0 +1,55 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:2": {
+            "name": "Texas's 2nd congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:2",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "413 Cannon House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "RepDanCrenshaw",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "repdancrenshaw",
+                    "type": "Twitter"
+                }
+            ],
+            "name": "Dan Crenshaw",
+            "party": "Republican Party",
+            "phones": [
+                "(202) 225-6565"
+            ],
+            "urls": [
+                "https://crenshaw.house.gov/"
+            ]
+        }
+    ]
+}

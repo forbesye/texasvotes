@@ -1,0 +1,60 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:33": {
+            "name": "Texas's 33rd congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:33",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "2348 Rayburn House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "CongressmanMarcVeasey",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "RepVeasey",
+                    "type": "Twitter"
+                },
+                {
+                    "id": "marcveasey",
+                    "type": "YouTube"
+                }
+            ],
+            "name": "Marc Veasey",
+            "party": "Democratic Party",
+            "phones": [
+                "(202) 225-9897"
+            ],
+            "photoUrl": "http://bioguide.congress.gov/bioguide/photo/V/V000131.jpg",
+            "urls": [
+                "https://veasey.house.gov/"
+            ]
+        }
+    ]
+}

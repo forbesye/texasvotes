@@ -1,0 +1,64 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:31": {
+            "name": "Texas's 31st congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:31",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "2110 Rayburn House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "judgecarter",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "judgecarter",
+                    "type": "Twitter"
+                },
+                {
+                    "id": "RepJohnCarter",
+                    "type": "YouTube"
+                },
+                {
+                    "id": "UCJO-i9iopbo3-lxa5MEH7hQ",
+                    "type": "YouTube"
+                }
+            ],
+            "name": "John Carter",
+            "party": "Republican Party",
+            "phones": [
+                "(202) 225-3864"
+            ],
+            "photoUrl": "http://bioguide.congress.gov/bioguide/photo/C/C001051.jpg",
+            "urls": [
+                "https://carter.house.gov/"
+            ]
+        }
+    ]
+}

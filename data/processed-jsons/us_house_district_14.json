@@ -1,0 +1,60 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:14": {
+            "name": "Texas's 14th congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:14",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "107 Cannon House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "TXRandy14",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "TXRandy14",
+                    "type": "Twitter"
+                },
+                {
+                    "id": "TXRandy14",
+                    "type": "YouTube"
+                }
+            ],
+            "name": "Randy Weber",
+            "party": "Republican Party",
+            "phones": [
+                "(202) 225-2831"
+            ],
+            "photoUrl": "http://bioguide.congress.gov/bioguide/photo/W/W000814.jpg",
+            "urls": [
+                "https://weber.house.gov/"
+            ]
+        }
+    ]
+}

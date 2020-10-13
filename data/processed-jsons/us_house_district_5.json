@@ -1,0 +1,55 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:5": {
+            "name": "Texas's 5th congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:5",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "425 Cannon House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "RepGooden",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "replancegooden",
+                    "type": "Twitter"
+                }
+            ],
+            "name": "Lance Gooden",
+            "party": "Republican Party",
+            "phones": [
+                "(202) 225-3484"
+            ],
+            "urls": [
+                "https://gooden.house.gov/"
+            ]
+        }
+    ]
+}

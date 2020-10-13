@@ -1,0 +1,60 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:11": {
+            "name": "Texas's 11th congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:11",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "2469 Rayburn House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "mike.conaway",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "ConawayTX11",
+                    "type": "Twitter"
+                },
+                {
+                    "id": "mikeconaway11",
+                    "type": "YouTube"
+                }
+            ],
+            "name": "K. Michael Conaway",
+            "party": "Republican Party",
+            "phones": [
+                "(202) 225-3605"
+            ],
+            "photoUrl": "http://bioguide.congress.gov/bioguide/photo/C/C001062.jpg",
+            "urls": [
+                "https://conaway.house.gov/"
+            ]
+        }
+    ]
+}

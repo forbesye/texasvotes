@@ -1,0 +1,55 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:15": {
+            "name": "Texas's 15th congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:15",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "113 Cannon House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "USCongressmanVicenteGonzalez",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "RepGonzalez",
+                    "type": "Twitter"
+                }
+            ],
+            "name": "Vicente Gonz\u00e1lez",
+            "party": "Democratic Party",
+            "phones": [
+                "(202) 225-2531"
+            ],
+            "urls": [
+                "https://gonzalez.house.gov/"
+            ]
+        }
+    ]
+}

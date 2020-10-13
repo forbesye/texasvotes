@@ -1,0 +1,60 @@
+{
+    "divisions": {
+        "ocd-division/country:us/state:tx/cd:8": {
+            "name": "Texas's 8th congressional district",
+            "officeIndices": [
+                0
+            ]
+        }
+    },
+    "offices": [
+        {
+            "divisionId": "ocd-division/country:us/state:tx/cd:8",
+            "levels": [
+                "country"
+            ],
+            "name": "U.S. Representative",
+            "officialIndices": [
+                0
+            ],
+            "roles": [
+                "legislatorLowerBody"
+            ]
+        }
+    ],
+    "officials": [
+        {
+            "address": [
+                {
+                    "city": "Washington",
+                    "line1": "1011 Longworth House Office Building",
+                    "state": "DC",
+                    "zip": "20515"
+                }
+            ],
+            "channels": [
+                {
+                    "id": "kevinbrady",
+                    "type": "Facebook"
+                },
+                {
+                    "id": "RepKevinBrady",
+                    "type": "Twitter"
+                },
+                {
+                    "id": "KBrady8",
+                    "type": "YouTube"
+                }
+            ],
+            "name": "Kevin Brady",
+            "party": "Republican Party",
+            "phones": [
+                "(202) 225-4901"
+            ],
+            "photoUrl": "http://bioguide.congress.gov/bioguide/photo/B/B000755.jpg",
+            "urls": [
+                "https://kevinbrady.house.gov/"
+            ]
+        }
+    ]
+}
