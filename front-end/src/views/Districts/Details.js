@@ -3,7 +3,6 @@ import { PageHeader, Typography, Divider, Row, Col, Collapse, List } from "antd"
 import { useParams, useHistory, Link } from 'react-router-dom'
 // import districts from './DefaultDistricts'
 import styles from './Districts.module.css'
-// import { percentageString } from "library/Functions"
 import  { age_mappings, income_mappings, race_mappings, ethnicity_mappings, educational_mappings, elected_office_mappings, party_mappings } from "library/Mappings"
 import Spinner from "components/ui/Spinner"
 import { getAPI } from "library/APIClient"

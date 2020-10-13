@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Chart from "chart.js";
+import { numberStringWithCommas } from "library/Functions"
 
 export default class PieChart extends Component {
     chartRef = React.createRef();
@@ -37,7 +38,7 @@ export default class PieChart extends Component {
                         });
                         var currentValue = dataset.data[tooltipItem.index];
                         var percentage = Math.floor(((currentValue/total) * 100)+0.5);         
-                        return currentValue + " (" + percentage + "%)";
+                        return numberStringWithCommas(currentValue) + " (" + percentage + "%)";
                       }
                     }
                   }

@@ -64,6 +64,7 @@ export default function GridView () {
                 defaultCurrent={1}
                 defaultPageSize={20}
                 onChange={handlePaginationChange}
+                style={{margin: "16px 0", display: "flex", justifyContent:"flex-end"}}
             />
 
         </Fragment>
