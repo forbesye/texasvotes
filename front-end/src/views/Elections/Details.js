@@ -1,7 +1,7 @@
 import React, {useState, useEffect, Fragment} from 'react'
 import { PageHeader, Typography, Divider, Collapse, List, Table, Timeline } from "antd"
 import { ClockCircleOutlined } from '@ant-design/icons';
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, Link } from 'react-router-dom'
 import Spinner from "components/ui/Spinner"
 import styles from './Elections.module.css'
 import { monthDayYearParse } from "library/Functions"
@@ -23,6 +23,8 @@ const candidateColumns = [
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
+        // TODO: Link to correct politicitian di
+        render: text => <Link to={`/politicians/view/0`}>{text}</Link> 
     },
     {
         title: 'Party',
@@ -99,8 +101,6 @@ const Details = () => {
     } = election
     let content = null
     if(loaded) {
-        
-
         content = (
             <Fragment>
                 <PageHeader
