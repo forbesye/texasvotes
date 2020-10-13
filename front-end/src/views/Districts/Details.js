@@ -1,6 +1,6 @@
 import React, {useState, useEffect, Fragment} from 'react'
 import { PageHeader, Typography, Divider, Row, Col, Collapse, List } from "antd"
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, Link } from 'react-router-dom'
 // import districts from './DefaultDistricts'
 import styles from './Districts.module.css'
 // import { percentageString } from "library/Functions"
@@ -23,7 +23,6 @@ const Details = () => {
     const history = useHistory()
     
     useEffect(() => {
-        console.log("use effect")
         const fetchData = async () => {
             const data = await getAPI({
                 model: "district",
@@ -72,7 +71,12 @@ const Details = () => {
                                     elections.past.length > 0 ?  (
                                         <Fragment>
                                             <Text strong>Past Election IDs: </Text>
-                                            <Text>{elections.past.map((e, i) => (i > 0 ? ", " : "") + e.id)}</Text>
+                                            {
+                                                elections.past.map((e, i) => {
+                                                    // TODO change /0 to actual past election id
+                                                    return <Link to={`/elections/view/0`}>{(i > 0 ? ", " : "") + e.id}</Link>
+                                                })
+                                            }
                                         </Fragment>
                                     ) : null
                                 }
@@ -82,7 +86,8 @@ const Details = () => {
                                     elections.current ? (
                                         <Fragment>
                                             <Text strong>Current Election ID: </Text>
-                                            <Text>{elections.current.id}</Text>
+                                            {/* TODO change /0 to actual current election id */}
+                                            <Link to={`/elections/view/0`}>{elections.current.id}</Link>
                                         </Fragment>
                                     ) : null
                                 }
@@ -90,10 +95,14 @@ const Details = () => {
                         </Row>
                         <Row justify="space-around">
                             <Col>
-                                <Text strong>Past Official: </Text><Text>{elected_officials[0].name}</Text>
+                                <Text strong>Past Official: </Text>
+                                {/* TODO modify /0 to be the elected official's id */}
+                                <Link to={`/politicians/view/0`}>{elected_officials[0].name}</Link> 
                             </Col>
                             <Col>
-                                <Text strong>Current Official: </Text><Text>{elected_officials[0].name}</Text>
+                                <Text strong>Current Official: </Text>
+                                {/* TODO modify /0 to be the elected official's id */}
+                                <Link to={`/politicians/view/0`}>{elected_officials[0].name}</Link>
                             </Col>
                         </Row>
                     </article>
