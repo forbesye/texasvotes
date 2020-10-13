@@ -53,7 +53,7 @@ export default function GridView () {
                         >
                             <Meta 
                                 title={item.name}
-                                // description={<Text>{description(item)}</Text>}
+                                description={<Text>{description(item)}</Text>}
                             />
                         </Card>
                     </Link>

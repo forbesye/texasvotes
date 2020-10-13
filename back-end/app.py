@@ -348,7 +348,7 @@ def get_pages(page, model):
         elif model == "district":
             dic.update({'page': [district_test_json] * 20})
         elif model == "politician":
-            dic.update({'page': [district_test_json] * 20})
+            dic.update({'page': [politician_test_json] * 20})
         return dic
     elif page == 2:
         if model == "election":
@@ -356,7 +356,7 @@ def get_pages(page, model):
         elif model == "district":
             dic.update({'page': [district_test_json] * 15})
         elif model == "politician":
-            dic.update({'page': [district_test_json] * 15})
+            dic.update({'page': [politician_test_json] * 15})
         return dic
     else:
        return make_response("Error: page not found", 404) 
