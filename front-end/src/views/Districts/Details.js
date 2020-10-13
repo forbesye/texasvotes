@@ -3,10 +3,11 @@ import { PageHeader, Typography, Divider, Row, Col, Collapse, List } from "antd"
 import { useParams, useHistory } from 'react-router-dom'
 // import districts from './DefaultDistricts'
 import styles from './Districts.module.css'
-import { percentageString } from "library/Functions"
+// import { percentageString } from "library/Functions"
 import  { age_mappings, income_mappings, race_mappings, ethnicity_mappings, educational_mappings, elected_office_mappings, party_mappings } from "library/Mappings"
 import Spinner from "components/ui/Spinner"
 import { getAPI } from "library/APIClient"
+import PieChart from "./../../components/charts/PieChart"
 
 const { Title, Text } = Typography
 const { Panel } = Collapse
@@ -19,13 +20,11 @@ const Details = () => {
     const { id } = useParams()
     const [ district, setDistrict ] = useState({})
     const [ loaded, setLoaded ] = useState(false)
-
     const history = useHistory()
     
     useEffect(() => {
-        // const data = districts.find(p => p.id === parseInt(id))
+        console.log("use effect")
         const fetchData = async () => {
-            setLoaded(false);
             const data = await getAPI({
                 model: "district",
                 path: id,
@@ -118,72 +117,50 @@ const Details = () => {
                                 <div>
                                     <Text strong>Age</Text>
                                     <br />
-                                    <List 
-                                        dataSource = {Object.keys(demographics.age)}
-                                        renderItem = {key => (
-                                            <List.Item>
-                                                <Text strong>{age_mappings[key]}: </Text><Text>{demographics.age[key]} {percentageString(key, demographics.age)}</Text>
-                                            </List.Item>
-                                        )}
+                                    <PieChart 
+                                        data={Object.keys(demographics.age).map(key => demographics.age[key])}
+                                        labels={Object.keys(demographics.age).map(key => age_mappings[key])}
                                     />
                                 </div>
-                                <div>
+                                <div style={{marginTop: "40px"}}>
                                     <Text strong>Race</Text>
                                     <br />
-                                    <List 
-                                        dataSource = {Object.keys(demographics.race)}
-                                        renderItem = {key => (
-                                            <List.Item>
-                                                <Text strong>{race_mappings[key]}: </Text><Text>{demographics.race[key]} {percentageString(key, demographics.race)}</Text>
-                                            </List.Item>
-                                        )}
+                                    <PieChart 
+                                        data={Object.keys(demographics.race).map(key => demographics.race[key])}
+                                        labels={Object.keys(demographics.race).map(key => race_mappings[key])}
                                     />
                                 </div>
-                                <div>
+                                <div style={{marginTop: "40px"}}>
                                     <Text strong>Ethnicity</Text>
                                     <br />
-                                    <List 
-                                        dataSource = {Object.keys(demographics.ethnicity)}
-                                        renderItem = {key => (
-                                            <List.Item>
-                                                <Text strong>{ethnicity_mappings[key]}: </Text><Text>{demographics.ethnicity[key]} {percentageString(key, demographics.ethnicity)}</Text>
-                                            </List.Item>
-                                        )}
+                                    <PieChart 
+                                        data={Object.keys(demographics.ethnicity).map(key => demographics.ethnicity[key])}
+                                        labels={Object.keys(demographics.ethnicity).map(key => ethnicity_mappings[key])}
                                     />
                                 </div>
                                 <div>
                                     <Text strong>Educational Attainment</Text>
                                     <br />
                                     <Text strong>Enrolled</Text>
-                                    <List 
-                                        dataSource = {Object.keys(demographics.educational_attainment.enrollment)}
-                                        renderItem = {key => (
-                                            <List.Item>
-                                                <Text strong>{educational_mappings[key]}: </Text><Text>{demographics.educational_attainment.enrollment[key]} {percentageString(key, demographics.educational_attainment.enrollment)}</Text>
-                                            </List.Item>
-                                        )}
+                                    <br />
+                                    <PieChart 
+                                        data={Object.keys(demographics.educational_attainment.enrollment).map(key => demographics.educational_attainment.enrollment[key])}
+                                        labels={Object.keys(demographics.educational_attainment.enrollment).map(key => educational_mappings[key])}
                                     />
                                     <br />
                                     <Text strong>Attainment</Text>
-                                    <List 
-                                        dataSource = {Object.keys(demographics.educational_attainment.attainment)}
-                                        renderItem = {key => (
-                                            <List.Item>
-                                                <Text strong>{educational_mappings[key]}: </Text><Text>{demographics.educational_attainment.attainment[key]} {percentageString(key, demographics.educational_attainment.attainment)}</Text>
-                                            </List.Item>
-                                        )}
+                                    <br />
+                                    <PieChart 
+                                        data={Object.keys(demographics.educational_attainment.attainment).map(key => demographics.educational_attainment.attainment[key])}
+                                        labels={Object.keys(demographics.educational_attainment.attainment).map(key => educational_mappings[key])}
                                     />
                                 </div>
-                                <div>
+                                <div style={{marginTop: "40px"}}>
                                     <Text strong>Income</Text>
                                     <br />
-                                    <List 
-                                        dataSource = {Object.keys(demographics.income)}
-                                        renderItem = {key => (
-                                            <List.Item>
-                                                <Text strong>{income_mappings[key]}: </Text><Text>{demographics.income[key]} {percentageString(key, demographics.income)}</Text>
-                                            </List.Item>
-                                        )}
+                                    <PieChart 
+                                        data={Object.keys(demographics.income).map(key => demographics.income[key])}
+                                        labels={Object.keys(demographics.income).map(key => income_mappings[key])}
                                     />
                                 </div>
                                 

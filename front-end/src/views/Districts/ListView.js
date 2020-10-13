@@ -18,7 +18,6 @@ const ListView = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            setLoading(true);
             const { page, total } = await getAPI({
                     model: "district",
                     params: {

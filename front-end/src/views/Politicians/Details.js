@@ -206,8 +206,8 @@ export default function Details () {
                     <Divider />
                     <article className={styles.districtDetails}>
                         <Title style={{ textAlign: "center" }} level={3}>District Information</Title>
-                        <Paragraph>{name} is running in {district.name} which spans {district.counties.length} counties.</Paragraph>
-                        <Paragraph>If {name} were to win, they would be representing {district.demographics.total_population} constituents in total. {district.name}'s demographics are below.</Paragraph>
+                        {/* <Paragraph>{name} is running in {district.name} which spans {district.counties.length} counties.</Paragraph> */}
+                        {/* <Paragraph>If {name} were to win, they would be representing {district.demographics.total_population} constituents in total. {district.name}'s demographics are below.</Paragraph> */}
                         <br/>
                         <Text strong>Racial Makeup</Text>
                         <Table 
@@ -215,9 +215,9 @@ export default function Details () {
                                 { title: "Race", dataIndex: "race", key: "race" }, 
                                 { title: "Population", dataIndex: "population", key: "population" }
                             ]}
-                            dataSource={Object.keys(district.demographics.race).map(k => {
-                                return { race: formatKey(k), population: district.demographics.race[k] }
-                            })}
+                            // dataSource={Object.keys(district.demographics.race).map(k => {
+                            //     return { race: formatKey(k), population: district.demographics.race[k] }
+                            // })}
                         />
                     </article>
                     <Divider />
@@ -262,7 +262,7 @@ export default function Details () {
                                     <Fragment>
                                         <Paragraph>{name} is running in an upcoming election.</Paragraph>
                                         <div className={styles.electionTable}>
-                                            <Text strong>{tableTitle(elections.upcoming)}</Text>
+                                            {/* <Text strong>{tableTitle(elections.upcoming)}</Text> */}
                                             <Table 
                                                 columns={[
                                                     { title: "Name", dataIndex: "name", key: "name", render: (text, record) => <div>{text} {record.incumbent ? <Text strong>(incumbent)</Text> : null}</div> }, 
@@ -276,7 +276,7 @@ export default function Details () {
                                 ) : <Paragraph>{name} is not up for re-election.</Paragraph>
                             }
                             
-                            {
+                            {/* {
                                 elections.past.length > 0 ? (
                                     <Fragment>
                                         <Paragraph>{name} has also ran in past elections.</Paragraph>
@@ -298,7 +298,7 @@ export default function Details () {
                                     </Fragment>
                                 ) : null
                             }
-                            
+                             */}
                         </section>
                     </article>
                 </div>
