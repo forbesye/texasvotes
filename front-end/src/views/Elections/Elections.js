@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Typography, Divider, Tabs, Input } from "antd"
+import { Typography, Tabs } from "antd"
 import { Route, useLocation, useHistory, Switch } from "react-router-dom"
 import styles from "./Elections.module.css"
 import ListView from "./ListView"
@@ -17,9 +17,11 @@ const Elections = () => {
     }
     useEffect(() => {
         const path = location.pathname
-        const initialKey = path.split("/").filter(el => el !== "").pop()
+        const splitted = path.split("/").filter(el => el !== "")
+        splitted.shift()
+        const initialKey = splitted.shift()
         setCurrKey(initialKey)
-    }, [])
+    }, [location.pathname])
 
     return (
         <main className={styles.wrapper}>

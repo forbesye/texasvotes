@@ -16,6 +16,7 @@ Phase 1: c8bbdbbcee676cb57f7533beb84f47de784289de
 
 ## Project Leader
 Phase 1: Jefferson Ye
+Phase 2: Larry Win
 
 ## Gitlab Pipelines
 https://gitlab.com/forbesye/fitsbits/-/pipelines

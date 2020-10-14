@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Typography, Divider, List } from 'antd'
+import { Card, Typography} from 'antd'
 import { Link } from "react-router-dom"
 
 // Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a> 

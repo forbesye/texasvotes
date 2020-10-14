@@ -1,5 +1,6 @@
 import React from 'react'
 import Navbar from "components/navbar/Navbar.js"
+import BottomBar from 'components/footer/BottomBar.js'
 import {Switch, Route} from "react-router-dom"
 import routes from "./Routes"
 import { Layout } from 'antd'
@@ -30,8 +31,8 @@ const App = () => {
   	  	  	  	  	  	}
   	  	  	  	  	</Switch>
   	  	  	  	</Content>
-  	  	  	  	<Footer className="footer">
-					Copyright © 2020 Texas Votes
+  	  	  	  	<Footer className="footer" style={{padding: "0px"}}>
+                    <BottomBar />
   	  	  	  	</Footer>
   	  	  	</Layout>
   	  	</React.Fragment>
