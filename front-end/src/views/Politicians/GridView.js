@@ -47,7 +47,7 @@ export default function GridView () {
                 { gridData.map((item, i) => (
                     <Link to={`/politicians/view/${item.id}`}>
                         <Card
-                            className={styles.card}
+                            className={item.party == "R" ? styles.cardRep : styles.cardDem}
                             hoverable
                             cover={<img className={styles.croppedImage} alt={item.name} src={item.image} />}
                         >

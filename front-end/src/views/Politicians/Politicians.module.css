@@ -27,8 +27,18 @@
     gap: 16px;
 }
 
-.card {
+.cardRep {
     height: 100%;
+    border-style: solid !important;
+    border-width: 4px !important;
+    border-color: red !important;
+}
+
+.cardDem {
+    height: 100%;
+    border-style: solid !important;
+    border-width: 4px !important;
+    border-color: blue !important;
 }
 
 .croppedImage {
