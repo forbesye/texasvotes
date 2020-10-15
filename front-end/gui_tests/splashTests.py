@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-PATH = "./chromedriver.exe"
+PATH = "./front-end/gui_tests/chromedriver.exe"
 
 class TestSplash(unittest.TestCase):
 

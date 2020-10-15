@@ -7,13 +7,13 @@ from selenium.webdriver.support import expected_conditions as EC
 
 PATH = "./front-end/gui_tests/chromedriver.exe"
 
-class Test(unittest.TestCase):
+class TestPoliticians(unittest.TestCase):
 
     # Get drivers and run website before all tests
     @classmethod
     def setUpClass(cls):
         cls.driver = webdriver.Chrome(PATH)
-        cls.driver.get("http://localhost:3000/")
+        cls.driver.get("http://localhost:3000/politicians/view")
         # self.driver.get("https://www.texasvotes.me/")
 
     # Close browser and quit after all tests
@@ -21,6 +21,9 @@ class Test(unittest.TestCase):
     def tearDownClass(cls):
         cls.driver.quit()
 
+    def testPage(self):
+        element = self.driver.find_element_by_tag_name('h1')
+        assert element.text == 'Texas Politicians'
 
 if __name__ == "__main__":
     unittest.main()
