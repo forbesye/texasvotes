@@ -32,7 +32,7 @@ const Splash = () => {
                 </div>
             </div>
             <div className={styles.cardFlexContainer}>
-                <Link to="/politicians/view" className={styles.card}>
+                <Link id="politicianCard" to="/politicians/view" className={styles.card}>
                     <Card
                         bordered={true}
                         className={styles.card}
@@ -45,7 +45,7 @@ const Splash = () => {
                         </p>
                     </Card>
                 </Link>
-                <Link to="/districts/view" className={styles.card}>
+                <Link id="districtCard" to="/districts/view" className={styles.card}>
                     <Card
                         bordered={true}
                         className={styles.card}
@@ -58,7 +58,7 @@ const Splash = () => {
                         </p>
                     </Card>
                 </Link>
-                <Link to="/elections/view" className={styles.card}>
+                <Link id="electionCard" to="/elections/view" className={styles.card}>
                     <Card
                         bordered={true}
                         className={styles.card}
