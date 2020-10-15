@@ -6,6 +6,7 @@ import Spinner from "components/ui/Spinner"
 import styles from "./Politicians.module.css"
 import { subtitle, officeName } from "./Lib"
 import { getAPI } from "library/APIClient"
+import { numberStringWithCommas } from "library/Functions"
 
 
 const { Title, Paragraph, Text, Link } = Typography
@@ -19,7 +20,8 @@ const partyMap = {
 }
 
 function formatAsMoney (num) {
-    return `$${num.toFixed(2)}`
+    // return `$${num.toFixed(2)}`
+    return numberStringWithCommas(num.toFixed(2))
 }
 
 function formatKey (str) {
@@ -60,13 +62,7 @@ export default function Details () {
     const [ politician, setPolitician ] = useState({})
     const [ loaded, setLoaded ] = useState(false)
     const history = useHistory()
-
-    // useEffect(() => {
-    //     // const data = politicians.find(p => p.id === parseInt(id))
-    //     setPolitician(data)
-    //     setLoaded(true)
-    // }, [politician, id])
-
+    
     useEffect(() => {
         const fetchData = async () => {
             setLoaded(false);

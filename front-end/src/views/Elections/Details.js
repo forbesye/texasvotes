@@ -4,7 +4,7 @@ import { ClockCircleOutlined } from '@ant-design/icons';
 import { useParams, useHistory, Link } from 'react-router-dom'
 import Spinner from "components/ui/Spinner"
 import styles from './Elections.module.css'
-import { monthDayYearParse } from "library/Functions"
+import { monthDayYearParse, numberStringWithCommas } from "library/Functions"
 import { election_date_mappings } from "library/Mappings"
 import { getAPI } from "library/APIClient"
 
@@ -48,11 +48,13 @@ const resultColumns = [
         title: 'Vote Total',
         dataIndex: 'vote_total',
         key: 'vote_total',
+        render: text => numberStringWithCommas(text)
     },
     {
         title: 'Vote Percentage',
         dataIndex: 'vote_percentage',
         key: 'vote_percentage',
+        render: text => text + "%"
     },
 ]
 
