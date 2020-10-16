@@ -44,7 +44,6 @@ function tableTitle (election) {
     const upcoming = electionDay - new Date() > 0
     if (election.type === "primary" || election.type === "runoff") {
         const participants = upcoming ? election.candidates : election.results.vote_counts
-        console.log(upcoming)
         const party = participants[0].party
         return `${electionYear} ${partyMap[party]} ${capitalize(election.type.class)} Election`
     } else {
@@ -193,31 +192,64 @@ export default function Details () {
                     <Divider />
                     <article className={styles.districtDetails}>
                         <Title style={{ textAlign: "center" }} level={3}>District Information</Title>
-                        {/* <Paragraph>{name} is running in {district.name} which spans {district.counties.length} counties.</Paragraph> */}
-                        {/* <Paragraph>If {name} were to win, they would be representing {district.demographics.total_population} constituents in total. {district.name}'s demographics are below.</Paragraph> */}
+                        <Paragraph>{name} is running in <Link to={`/districts/view/${district.id}`}>TX-{district.number}</Link> which spans {district.counties.length} counties. Here are the counties {name} would represent: </Paragraph>
                         <br/>
-                        <Text strong>Racial Makeup</Text>
-                        <Table 
-                            columns={[
-                                { title: "Race", dataIndex: "race", key: "race" }, 
-                                { title: "Population", dataIndex: "population", key: "population" }
-                            ]}
-                            // dataSource={Object.keys(district.demographics.race).map(k => {
-                            //     return { race: formatKey(k), population: district.demographics.race[k] }
-                            // })}
+                        <List 
+                            dataSource = {district.counties}
+                            renderItem = {item => (
+                                <List.Item>
+                                    <Text>{item}</Text>
+                                </List.Item>
+                            )}
+                            grid = {{gutter: 16, column: 3}}
                         />
                     </article>
                     <Divider />
                     <article className={styles.electionDetails}>
                         <Title style={{ textAlign: "center" }} level={3}>Election Information</Title>
-                        {/* {
+                        {
                             fundraising ? (
                                 <section className={styles.electionSection}>
-                                    <Title level={5}>2019-2020 Fundraising Information</Title>
+                                    <Title level={4}>2019-2020 Fundraising Information</Title>
                                     <Paragraph>{name} has raised {formatAsMoney(fundraising.raised)} for their current campaign.</Paragraph>
                                     <Paragraph>{name} has spent {formatAsMoney(fundraising.spent)} on their current campaign.</Paragraph>
                                     <Paragraph>{name} currently has {formatAsMoney(fundraising.remaining_cash)} on hand.</Paragraph>
-                                    <List 
+                                    <List
+                                        header={<Text strong style={{fontSize: "18px"}}>{name}'s Contribution by Industry</Text>}
+                                        bordered
+                                        dataSource={fundraising.industries}
+                                        renderItem={item => {
+                                            console.log(item)
+                                            return (
+                                                <List.Item>
+                                                    <Text strong style={{fontSize: "18px"}}>{item.type}</Text> <br/>
+                                                    <Text style={{fontSize: "16px"}}>Individual Donations: {formatAsMoney(item.individual)}</Text> <br/>
+                                                    <Text style={{fontSize: "16px"}}>PAC Donations: {formatAsMoney(item.pacs)}</Text> <br/>
+                                                    <Text style={{fontSize: "16px"}}>Total: {formatAsMoney(item.total)}</Text>
+                                                </List.Item>
+                                            )
+                                        }}
+                                    />
+                                    <br/>
+                                    <List
+                                    header={<Text strong style={{fontSize: "18px"}}>{name}'s Contributors</Text>}
+                                    bordered
+                                    dataSource={fundraising.contributors}
+                                    renderItem={item => {
+                                        console.log(item)
+                                        return (
+                                            <List.Item>
+                                                <Text strong style={{fontSize: "18px"}}>{item.name}</Text> <br/>
+                                                <Text style={{fontSize: "16px"}}>Individual Donations: {formatAsMoney(item.individual)}</Text> <br/>
+                                                <Text style={{fontSize: "16px"}}>PAC Donations: {formatAsMoney(item.pacs)}</Text> <br/>
+                                                <Text style={{fontSize: "16px"}}>Total: {formatAsMoney(item.total)}</Text>
+                                            </List.Item>
+                                        )
+                                    }}
+                                />
+                                        
+                                    
+                                    {/* <List 
                                         header={<Text strong style={{fontSize: "18px"}}>{name}'s Contribution Categories</Text>}
                                         bordered
                                         dataSource={fundraising.contributors}
@@ -233,52 +265,33 @@ export default function Details () {
                                             <List.Item><Text style={{fontSize: "18px"}}>From {titles[item.type]}: {formatAsMoney(item.amount)}</Text></List.Item>
                                             )
                                         }}
-                                    />
+                                    /> */}
                                 </section>
                             ) : (
                                 <section>
-                                    <Title level={5}>2019-2020 Fundraising Information</Title>
+                                    <Title level={4}>2019-2020 Fundraising Information</Title>
                                     <Paragraph>{name} doesn't have any fundraising information on file.</Paragraph>
                                 </section>
                             )
-                        } */}
+                        }
                         <section className={styles.electionSection}>
-                            <Title level={5}>Participating Elections</Title>
-                            {/* {
+                            <Title level={4}>Participating Elections</Title>
+                            {
                                 elections.upcoming ? (
                                     <Fragment>
                                         <Paragraph>{name} is running in an upcoming election.</Paragraph>
-                                        <div className={styles.electionTable}>
-                                            <Text strong>{tableTitle(elections.upcoming)}</Text>
-                                            <Table 
-                                                columns={[
-                                                    { title: "Name", dataIndex: "name", key: "name", render: (text, record) => <div>{text} {record.incumbent ? <Text strong>(incumbent)</Text> : null}</div> }, 
-                                                    { title: "Party", dataIndex: "party", key: "party "}
-                                                ]}
-                                                dataSource={elections.upcoming.candidates}
-                                                pagination={false}
-                                            />
+                                        <div className={styles.electionTable}> 
+			                                <Link to={`/elections/view/${elections.upcoming.id}`}>{tableTitle(elections.upcoming)}</Link>
                                         </div>
                                     </Fragment>
                                 ) : <Paragraph>{name} is not up for re-election.</Paragraph>
-                            } */}
-                            
-                            {/* {
-                                elections.upcoming ? (
-                                    <Fragment>
-                                        <Paragraph>{name} is running in an upcoming election.</Paragraph>
-                                        <div className={styles.electionTable}> */}
-                                            {/* TODO: dynamic election id */}
-			                                {/* <Link to="/elections/view/0">{tableTitle(elections.upcoming)}</Link>
-                                        </div>
-                                    </Fragment>
-                                ) : <Paragraph>{name} is not up for re-election.</Paragraph>
-                            } */}
-                            
+                            }
+
+                            {/* TODO: format for past elections */}
                             {/* {
                                 elections.past.length > 0 ? (
                                     <Fragment>
-                                        <Paragraph>{name} has also ran in past elections.</Paragraph>
+                                        <Paragraph>{name} has ran in past elections.</Paragraph>
                                         { elections.past.map(e => (
                                             <div className={styles.electionTable}>
                                                 <Text strong>{tableTitle(e)}</Text>
@@ -295,7 +308,7 @@ export default function Details () {
                                         )) }
                                         
                                     </Fragment>
-                                ) : null
+                                ) : <Paragraph>{name} is has not run for any past elections</Paragraph>
                             } */}
                             
                         </section>
