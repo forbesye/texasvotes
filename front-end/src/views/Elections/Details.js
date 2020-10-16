@@ -23,7 +23,7 @@ const candidateColumns = [
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
-        // TODO: Link to correct politicitian di
+        // TODO: Link to correct politicitian id
         render: text => <Link to={`/politicians/view/0`}>{text}</Link> 
     },
     {
@@ -60,7 +60,8 @@ const resultColumns = [
 
 function title (election) {
     if(election.type === "general")
-        return `General Election for ${election.district.name}`
+    // TODO: Dynamic district id
+        return <div>{`General Election for `} <Link to={`/districts/view/0`}>{`${election.district.name}`}</Link></div>
     else
         return `${OFFICE_NAMES[election.office]} ${election.district.name}`
 }
@@ -120,9 +121,9 @@ const Details = () => {
                     {/* <Title style={{ textAlign: "center" }} level={3}>General Information</Title> */}
                 
                 </div>
-                <article className={styles.districtDetails}>
+                <article className={styles.electionDetails}>
                     <Title style={{ textAlign: "center" }} level={3}>Election Dates</Title>
-                    <Timeline style={{paddingTop: "20px", width: "225px", margin: "auto"}}>
+                    <Timeline style={{paddingTop: "20px", width: "225px", margin: "auto", fontSize: 18}}>
                         {
                             // Object.keys(dates).map(key => {
                             electionDate.map(key => {
@@ -170,7 +171,7 @@ const Details = () => {
                     </Timeline>
                 </article>
 
-                <article className={styles.districtDetails}>
+                <article className={styles.electionDetails}>
                     <Title style={{ textAlign: "center" }} level={3}>Candidates</Title>
                     <Table 
                         dataSource = {candidates}
@@ -178,7 +179,7 @@ const Details = () => {
                     />
                 </article>
                 
-                { results ? (<article className={styles.districtDetails}>
+                { results ? (<article className={styles.electionDetails}>
                     
                     <Title style={{ textAlign: "center" }} level={3}>Results</Title>
                     <Table 

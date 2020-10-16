@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { Table, Divider, Typography } from "antd"
 import { useHistory } from 'react-router-dom'
 import columns from "./Lib"
@@ -14,6 +14,7 @@ const ListView = () => {
     const [listData, setListData] = useState([]);
     const [currPage, setCurrPage] = useState(1);
     const [total, setTotal] = useState(20);
+    const listRef = useRef(null)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -47,35 +48,39 @@ const ListView = () => {
     const handleTableChange = ({current, total}) => {
         setCurrPage(current);
         setTotal(total);
+        window.scrollTo({top: listRef.current.offsetTop - 30, behavior: 'smooth'})  
     }
 
     return (
         <div>
             <section className={styles.content}>
-                <Title level={3}>View All</Title>
-                <Paragraph>Have you ever wondered what all Texas elections look like in a list view? Probably not, but we've got you covered here. The list can also be filtered and sorted by different properties to make your viewing experience more customizable (soon™).</Paragraph>
+                <Title level={2}>View All</Title>
+                <Paragraph style={{fontSize: 18}}>Have you ever wondered what all Texas elections look like in a list view? Probably not, but we've got you covered here. The list can also be filtered and sorted by different properties to make your viewing experience more customizable (soon™).</Paragraph>
             </section>
             <Divider />
-            <Table 
-                dataSource={listData}
-                columns={columns} 
-                onRow={record => {
-                    return {
-                        onClick: event => {
-                            const { id } = record;
-                            history.push(`/elections/view/${id}`);
+            <section ref = {listRef} >
+                <Table 
+                    dataSource={listData}
+                    columns={columns} 
+                    onRow={record => {
+                        return {
+                            onClick: event => {
+                                const { id } = record;
+                                history.push(`/elections/view/${id}`);
+                            }
                         }
-                    }
-                }}
-                loading={loading}
-                rowClassName={styles.cursor}
-                pagination={{
-                    total: total,
-                    defaultPageSize: 20,
-                    defaultCurrent: 1
-                }}
-                onChange={handleTableChange}
-            />
+                    }}
+                    loading={loading}
+                    rowClassName={styles.cursor}
+                    pagination={{
+                        total: total,
+                        defaultPageSize: 20,
+                        defaultCurrent: 1
+                    }}
+                    onChange={handleTableChange}
+                />
+            </section>
+
         </div>
     )
 }

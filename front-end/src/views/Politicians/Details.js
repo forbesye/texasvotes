@@ -7,6 +7,9 @@ import styles from "./Politicians.module.css"
 import { subtitle, officeName } from "./Lib"
 import { getAPI } from "library/APIClient"
 import { numberStringWithCommas } from "library/Functions"
+import { Timeline } from 'react-twitter-widgets'
+import { FacebookProvider, Page } from 'react-facebook';
+// import FB_APP_ID from '../../key';
 
 
 const { Title, Paragraph, Text, Link } = Typography
@@ -99,25 +102,26 @@ export default function Details () {
     if (loaded) {
         content = (
             <Fragment>
+
                 <PageHeader 
-                    title={name}
-                    subTitle={subtitle(offices.current || offices.running_for, !offices.running_for)}
+                    title={<Text style={{fontSize: 24}}>{name}</Text>}
+                    subTitle={<Text style={{fontSize: 18}}>{subtitle(offices.current || offices.running_for, !offices.running_for)}</Text>}
                     onBack={handleBack}
                 />
                 <Divider />
                 <div className={styles.politicianDescription}>
-                    <Title style={{ textAlign: "center" }} level={3}>General Information</Title>
+                    <Title style={{ textAlign: "center" }} level={2}>General Information</Title>
                     <img src={image} alt={name} className={styles.politicianImage} />
                     <Divider />
-                    <iframe title="defaultTitle" width="90%" height="400px" src={video} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-                    <Divider />
+                    
                     <article className={styles.politicianDetails}>
                         <div className={styles.politicianGeneralInfo}>
                             <div>
                                 <Text strong>Party: </Text><Text>{parties[party]}</Text>
                             </div>
                             <div>
-                                <Text strong>District: </Text><Text>{district.name}</Text>
+                                {/* TODO: dynamic district link */}
+                                <Text strong>District: </Text><Link to={`/districts/view/0`}>{district.name}</Link>
                             </div>
                             {
                                 offices.current ? (
@@ -175,15 +179,13 @@ export default function Details () {
                     </article>
                     { biography ? (
                         <article className={styles.politicianBio}>
-                            <Collapse ghost>
-                                <Panel header="Campaign Biography">
-                                    {
-                                        typeof biography === "string" ? (
-                                            <Paragraph>{biography}</Paragraph>
-                                        ) : biography.map(p => <Paragraph>{p}</Paragraph>)
-                                    }
-                                </Panel>
-                            </Collapse>
+                            
+                            <Title style={{ textAlign: "center" }} level={3}>Campaign Biography</Title>
+                            {
+                                typeof biography === "string" ? (
+                                    <Paragraph>{biography}</Paragraph>
+                                ) : biography.map(p => <Paragraph>{p}</Paragraph>)
+                            }
                             {
                                 politician.issues ? (
                                     <Collapse ghost>
@@ -199,6 +201,16 @@ export default function Details () {
                             }
                         </article>
                     ) : null }
+                    <Divider />
+                    {/* TODO: Replace hardcoded screen name with Twitter handle */}
+                    <Timeline
+                      dataSource={{ sourceType: "profile", screenName: "RepRWilliams" }}
+                      options={{ width: "400", height: "400" }}
+                    />
+                    {/* <FacebookProvider appId={FB_APP_ID}>
+                        <Page href="https://www.facebook.com/RepRogerWilliams" tabs="timeline" />
+                    </FacebookProvider>     */}
+
                     <Divider />
                     <article className={styles.districtDetails}>
                         <Title style={{ textAlign: "center" }} level={3}>District Information</Title>
@@ -227,7 +239,7 @@ export default function Details () {
                                     <Paragraph>{name} has spent {formatAsMoney(fundraising.spent)} on their current campaign.</Paragraph>
                                     <Paragraph>{name} currently has {formatAsMoney(fundraising.remaining_cash)} on hand.</Paragraph>
                                     <List 
-                                        header={<Text strong>{name}'s Contribution Categories</Text>}
+                                        header={<Text strong style={{fontSize: "18px"}}>{name}'s Contribution Categories</Text>}
                                         bordered
                                         dataSource={fundraising.contributors}
                                         renderItem={item => {
@@ -239,7 +251,7 @@ export default function Details () {
                                                 other: "Other Sources"
                                             }
                                             return (
-                                            <List.Item><Text>From {titles[item.type]}: {formatAsMoney(item.amount)}</Text></List.Item>
+                                            <List.Item><Text style={{fontSize: "18px"}}>From {titles[item.type]}: {formatAsMoney(item.amount)}</Text></List.Item>
                                             )
                                         }}
                                     />
