@@ -9,7 +9,6 @@ import { getAPI } from "library/APIClient"
 import { numberStringWithCommas } from "library/Functions"
 import { Timeline } from 'react-twitter-widgets'
 import { FacebookProvider, Page } from 'react-facebook';
-// import FB_APP_ID from '../../key';
 
 
 const { Title, Paragraph, Text, Link } = Typography
@@ -65,6 +64,8 @@ export default function Details () {
     const [ politician, setPolitician ] = useState({})
     const [ loaded, setLoaded ] = useState(false)
     const history = useHistory()
+    console.log(process.env)
+    const FB_API_KEY = process.env.REACT_APP_FB_KEY
     
     useEffect(() => {
         const fetchData = async () => {
@@ -207,9 +208,9 @@ export default function Details () {
                       dataSource={{ sourceType: "profile", screenName: "RepRWilliams" }}
                       options={{ width: "400", height: "400" }}
                     />
-                    {/* <FacebookProvider appId={FB_APP_ID}>
+                    <FacebookProvider appId={FB_API_KEY}>
                         <Page href="https://www.facebook.com/RepRogerWilliams" tabs="timeline" />
-                    </FacebookProvider>     */}
+                    </FacebookProvider>    
 
                     <Divider />
                     <article className={styles.districtDetails}>
