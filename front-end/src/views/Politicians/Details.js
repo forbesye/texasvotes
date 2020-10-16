@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react"
+import { Link } from 'react-router-dom'
 import { PageHeader, Typography, Divider, Collapse, List, Table } from "antd"
 import { FacebookOutlined, TwitterOutlined, InstagramOutlined, YoutubeOutlined, GlobalOutlined } from "@ant-design/icons"
 import { useParams, useHistory } from "react-router-dom"
@@ -11,7 +12,7 @@ import { Timeline } from 'react-twitter-widgets'
 import { FacebookProvider, Page } from 'react-facebook';
 
 
-const { Title, Paragraph, Text, Link } = Typography
+const { Title, Paragraph, Text } = Typography
 const { Panel } = Collapse
 
 const partyMap = {
@@ -23,7 +24,7 @@ const partyMap = {
 
 function formatAsMoney (num) {
     // return `$${num.toFixed(2)}`
-    return numberStringWithCommas(num.toFixed(2))
+    return `$` + numberStringWithCommas(num.toFixed(2))
 }
 
 function formatKey (str) {
@@ -45,9 +46,9 @@ function tableTitle (election) {
         const participants = upcoming ? election.candidates : election.results.vote_counts
         console.log(upcoming)
         const party = participants[0].party
-        return `${electionYear} ${partyMap[party]} ${capitalize(election.type)} Election`
+        return `${electionYear} ${partyMap[party]} ${capitalize(election.type.class)} Election`
     } else {
-        return `${electionYear} ${capitalize(election.type)} Election`
+        return `${electionYear} ${capitalize(election.type.class)} Election`
     }
 }
 
@@ -64,7 +65,6 @@ export default function Details () {
     const [ politician, setPolitician ] = useState({})
     const [ loaded, setLoaded ] = useState(false)
     const history = useHistory()
-    console.log(process.env)
     const FB_API_KEY = process.env.REACT_APP_FB_KEY
     
     useEffect(() => {
@@ -146,33 +146,33 @@ export default function Details () {
                         </div>
                         <div className={styles.politicianSocials}>
                             <div>
-                                <Link target="_blank" href={website}><GlobalOutlined /> Campaign Website</Link>
+                                <a target="_blank" href={website}><GlobalOutlined /> Campaign Website</a>
                             </div>
                             {
                                 socials.facebook ? (
                                     <div>
-                                        <Link target="_blank" href={socials.facebook}><FacebookOutlined /> Facebook</Link>
+                                        <a target="_blank" href={socials.facebook}><FacebookOutlined /> Facebook</a>
                                     </div>
                                 ) : null
                             }
                             {
                                 socials.twitter ? (
                                     <div>
-                                        <Link target="_blank" href={socials.twitter}><TwitterOutlined /> Twitter</Link>
+                                        <a target="_blank" href={socials.twitter}><TwitterOutlined /> Twitter</a>
                                     </div>
                                 ) : null
                             }
                             {
                                 socials.instagram ? (
                                     <div>
-                                        <Link target="_blank" href={socials.instagram}><InstagramOutlined /> Instagram</Link>
+                                        <a target="_blank" href={socials.instagram}><InstagramOutlined /> Instagram</a>
                                     </div>
                                 ) : null
                             }
                             {
                                 socials.youtube ? (
                                     <div>
-                                        <Link target="_blank" href={socials.youtube}><YoutubeOutlined /> Youtube</Link>
+                                        <a target="_blank" href={socials.youtube}><YoutubeOutlined /> Youtube</a>
                                     </div>
                                 ) : null
                             }
@@ -266,12 +266,12 @@ export default function Details () {
                         }
                         <section className={styles.electionSection}>
                             <Title level={5}>Participating Elections</Title>
-                            {
+                            {/* {
                                 elections.upcoming ? (
                                     <Fragment>
                                         <Paragraph>{name} is running in an upcoming election.</Paragraph>
                                         <div className={styles.electionTable}>
-                                            {/* <Text strong>{tableTitle(elections.upcoming)}</Text> */}
+                                            <Text strong>{tableTitle(elections.upcoming)}</Text>
                                             <Table 
                                                 columns={[
                                                     { title: "Name", dataIndex: "name", key: "name", render: (text, record) => <div>{text} {record.incumbent ? <Text strong>(incumbent)</Text> : null}</div> }, 
@@ -283,9 +283,21 @@ export default function Details () {
                                         </div>
                                     </Fragment>
                                 ) : <Paragraph>{name} is not up for re-election.</Paragraph>
+                            } */}
+                            
+                            {
+                                elections.upcoming ? (
+                                    <Fragment>
+                                        <Paragraph>{name} is running in an upcoming election.</Paragraph>
+                                        <div className={styles.electionTable}>
+                                            {/* TODO: dynamic election id */}
+			                                <Link to="/elections/view/0">{tableTitle(elections.upcoming)}</Link>
+                                        </div>
+                                    </Fragment>
+                                ) : <Paragraph>{name} is not up for re-election.</Paragraph>
                             }
                             
-                            {/* {
+                            {
                                 elections.past.length > 0 ? (
                                     <Fragment>
                                         <Paragraph>{name} has also ran in past elections.</Paragraph>
@@ -307,7 +319,7 @@ export default function Details () {
                                     </Fragment>
                                 ) : null
                             }
-                             */}
+                            
                         </section>
                     </article>
                 </div>
