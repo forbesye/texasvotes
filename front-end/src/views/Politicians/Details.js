@@ -285,19 +285,19 @@ export default function Details () {
                                 ) : <Paragraph>{name} is not up for re-election.</Paragraph>
                             } */}
                             
-                            {
+                            {/* {
                                 elections.upcoming ? (
                                     <Fragment>
                                         <Paragraph>{name} is running in an upcoming election.</Paragraph>
-                                        <div className={styles.electionTable}>
+                                        <div className={styles.electionTable}> */}
                                             {/* TODO: dynamic election id */}
-			                                <Link to="/elections/view/0">{tableTitle(elections.upcoming)}</Link>
+			                                {/* <Link to="/elections/view/0">{tableTitle(elections.upcoming)}</Link>
                                         </div>
                                     </Fragment>
                                 ) : <Paragraph>{name} is not up for re-election.</Paragraph>
-                            }
+                            } */}
                             
-                            {
+                            {/* {
                                 elections.past.length > 0 ? (
                                     <Fragment>
                                         <Paragraph>{name} has also ran in past elections.</Paragraph>
@@ -318,7 +318,7 @@ export default function Details () {
                                         
                                     </Fragment>
                                 ) : null
-                            }
+                            } */}
                             
                         </section>
                     </article>
