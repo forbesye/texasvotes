@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react"
 import { Link } from 'react-router-dom'
 import { PageHeader, Typography, Divider, Collapse, List, Table } from "antd"
-import { FacebookOutlined, TwitterOutlined, InstagramOutlined, YoutubeOutlined, GlobalOutlined } from "@ant-design/icons"
+import { FacebookOutlined, TwitterOutlined, YoutubeOutlined, GlobalOutlined, PhoneOutlined } from "@ant-design/icons"
 import { useParams, useHistory } from "react-router-dom"
 import Spinner from "components/ui/Spinner"
 import styles from "./Politicians.module.css"
@@ -87,23 +87,22 @@ export default function Details () {
 
     const { 
         name, 
-        biography, 
-        district, 
-        image, 
+        elected,
         party, 
-        website, 
-        socials,
-        offices,
         terms,
-        fundraising,
-        elections,
-        video
+        offices,
+        image, 
+        contact,
+        district,
+        elections, 
+        fundraising
     } = politician
     let content = null
+    let socials = {}
     if (loaded) {
+        contact.social_media.map(social => socials[social.type] = social.id)
         content = (
             <Fragment>
-
                 <PageHeader 
                     title={<Text style={{fontSize: 24}}>{name}</Text>}
                     subTitle={<Text style={{fontSize: 18}}>{subtitle(offices.current || offices.running_for, !offices.running_for)}</Text>}
@@ -121,8 +120,7 @@ export default function Details () {
                                 <Text strong>Party: </Text><Text>{parties[party]}</Text>
                             </div>
                             <div>
-                                {/* TODO: dynamic district link */}
-                                <Text strong>District: </Text><Link to={`/districts/view/0`}>{district.name}</Link>
+                                <Text strong>District: </Text><Link to={`/districts/view/${district.id}`}>TX-{district.number}</Link>
                             </div>
                             {
                                 offices.current ? (
@@ -146,72 +144,52 @@ export default function Details () {
                         </div>
                         <div className={styles.politicianSocials}>
                             <div>
-                                <a target="_blank" href={website}><GlobalOutlined /> Campaign Website</a>
+                                <a target="_blank" rel="noopener noreferrer" href={contact.website}><GlobalOutlined /> Campaign Website</a>
+                            </div>
+                            <div>
+                                <a target="_blank" rel="noopener noreferrer" href={`tel:${contact.phone}`}><PhoneOutlined /> Phone Number</a>
                             </div>
                             {
-                                socials.facebook ? (
-                                    <div>
-                                        <a target="_blank" href={socials.facebook}><FacebookOutlined /> Facebook</a>
-                                    </div>
-                                ) : null
-                            }
-                            {
-                                socials.twitter ? (
-                                    <div>
-                                        <a target="_blank" href={socials.twitter}><TwitterOutlined /> Twitter</a>
-                                    </div>
-                                ) : null
-                            }
-                            {
-                                socials.instagram ? (
-                                    <div>
-                                        <a target="_blank" href={socials.instagram}><InstagramOutlined /> Instagram</a>
-                                    </div>
-                                ) : null
-                            }
-                            {
-                                socials.youtube ? (
-                                    <div>
-                                        <a target="_blank" href={socials.youtube}><YoutubeOutlined /> Youtube</a>
-                                    </div>
-                                ) : null
+                                Object.keys(socials).map(type => {
+                                    if (type === "facebook") {
+                                        return(
+                                            <div>
+                                                <a target="_blank" rel="noopener noreferrer" href={`https://www.facebook.com/${socials[type]}`}><FacebookOutlined /> Facebook</a>
+                                            </div>
+                                        )
+                                    } else if (type === "twitter") {
+                                        return(
+                                            <div>
+                                                <a target="_blank" rel="noopener noreferrer" href={`http://twitter.com/${socials[type]}`}><TwitterOutlined /> Twitter</a>
+                                            </div>
+                                        )
+                                    } else if (type === "youtube") {
+                                        return(
+                                            <div>
+                                                <a target="_blank" rel="noopener noreferrer" href={`http://www.youtube.com/channel/${socials[type]}`}><YoutubeOutlined /> Youtube</a>
+                                            </div>
+                                        )
+                                    }
+
+                                })
                             }
                         </div>
                     </article>
-                    { biography ? (
-                        <article className={styles.politicianBio}>
-                            
-                            <Title style={{ textAlign: "center" }} level={3}>Campaign Biography</Title>
-                            {
-                                typeof biography === "string" ? (
-                                    <Paragraph>{biography}</Paragraph>
-                                ) : biography.map(p => <Paragraph>{p}</Paragraph>)
-                            }
-                            {
-                                politician.issues ? (
-                                    <Collapse ghost>
-                                        <Panel header="Issues">
-                                            {
-                                                politician.issues.map((issue, i) => (
-                                                    <Paragraph key={i}><Text strong>{issue.type}: </Text>{issue.stance}</Paragraph>
-                                                ))
-                                            }
-                                        </Panel>
-                                    </Collapse>
-                                ) : null
-                            }
-                        </article>
-                    ) : null }
                     <Divider />
-                    {/* TODO: Replace hardcoded screen name with Twitter handle */}
-                    <Timeline
-                      dataSource={{ sourceType: "profile", screenName: "RepRWilliams" }}
-                      options={{ width: "400", height: "400" }}
-                    />
-                    <FacebookProvider appId={FB_API_KEY}>
-                        <Page href="https://www.facebook.com/RepRogerWilliams" tabs="timeline" />
-                    </FacebookProvider>    
-
+                    {
+                        Object.keys(socials).includes("twitter") ? 
+                            <Timeline
+                              dataSource={{ sourceType: "profile", screenName: socials['twitter'] }}
+                              options={{ width: "400", height: "600" }}
+                            />
+                        :
+                            Object.keys(socials).includes("facebook") ?
+                                <FacebookProvider appId={FB_API_KEY}>
+                                    <Page href={`https://www.facebook.com/${socials['facebook']}`} tabs="timeline" />
+                                </FacebookProvider>    
+                            : null
+                        
+                    }
                     <Divider />
                     <article className={styles.districtDetails}>
                         <Title style={{ textAlign: "center" }} level={3}>District Information</Title>
@@ -232,7 +210,7 @@ export default function Details () {
                     <Divider />
                     <article className={styles.electionDetails}>
                         <Title style={{ textAlign: "center" }} level={3}>Election Information</Title>
-                        {
+                        {/* {
                             fundraising ? (
                                 <section className={styles.electionSection}>
                                     <Title level={5}>2019-2020 Fundraising Information</Title>
@@ -263,7 +241,7 @@ export default function Details () {
                                     <Paragraph>{name} doesn't have any fundraising information on file.</Paragraph>
                                 </section>
                             )
-                        }
+                        } */}
                         <section className={styles.electionSection}>
                             <Title level={5}>Participating Elections</Title>
                             {/* {

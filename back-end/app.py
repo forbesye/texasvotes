@@ -92,6 +92,115 @@ politician_test_json = {
  }
 }
 
+politician_test_json = {
+    "id": 0,
+    "name": "Roger Williams",
+    "elected": True,
+    "party": "R",
+    "terms": {
+      "current": 4,
+      "total": 5
+    },
+    "offices": {
+      "current": "us_house",
+      "past": [
+        "tx_secretary_of_state"
+      ]
+    },
+    "image": "https://williams.house.gov/sites/williams.house.gov/files/wysiwyg_uploaded/CRW%20Official_0_0.jpg",
+    "contact": {
+      "website": "https://williams.house.gov/",
+      "social_media": [
+        {
+          "type": "facebook",
+          "id": "RepRogerWilliams"
+        },
+        {
+          "type": "twitter",
+          "id": "RepRWilliams"
+        },
+        {
+          "type": "youtube",
+          "id": "UCBtfmMMQarjtLB9U_pWMOhw"
+        }
+      ],
+      "phone": "(202) 225-9896"
+    },
+    "district": {
+      "id": 1,
+      "ocd_id": "ocd-division/country:us/state:tx/cd:25",
+      "type": "us_house",
+      "number": 25,
+      "party": "R",
+      "counties": [
+        "Tarrant",
+        "Coryell",
+        "Travis",
+        "Bosque",
+        "Johnson",
+        "Hays",
+        "Somervell",
+        "Burnet",
+        "Erath",
+        "Hill",
+        "Hamilton",
+        "Lampasas",
+        "Bell"
+      ]
+    },
+    "elections": {
+      "upcoming": {
+        "id": 1,
+        "type": {
+          "class": "general"
+        },
+        "office": "us_house",
+        "district": "TX25",
+        "dates": {
+          "election_day": "2020-11-03T06:00:00.000Z",
+          "early_start": "2020-10-13T06:00:00.000Z",
+          "early_end": "2020-10-30T06:00:00.000Z"
+        }
+      },
+      "past": []
+    },
+    "fundraising": {
+      "cid": "N00030602",
+      "raised": 1501689.45,
+      "spent": 1156825.04,
+      "remaining_cash": 1268552.12,
+      "debt": 0,
+      "industries": [
+        {
+          "type": "Retired",
+          "individual": 131092,
+          "pacs": 0,
+          "total": 131092
+        },
+        {
+          "type": "Real Estate",
+          "individual": 75735,
+          "pacs": 34500,
+          "total": 110235
+        }
+      ],
+      "contributors": [
+        {
+          "name": "Lockheed Martin",
+          "individual": 21600,
+          "pacs": 8000,
+          "total": 29600
+        },
+        {
+          "name": "Maund Auto Group",
+          "individual": 16800,
+          "pacs": 0,
+          "total": 16800
+        }
+      ]
+    }
+  }
+
 district_test_json = {
  "id": 0,
  "name": "TX-25",
