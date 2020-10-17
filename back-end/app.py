@@ -3,7 +3,6 @@ from db import init_db
 import requests
 import json
 app = Flask(__name__)
-application = app # This is for AWS Elastic Beanstalk, pls don't remove!!!
 db = init_db(app)
 
 class About(db.Model):
