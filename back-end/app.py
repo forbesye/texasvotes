@@ -20,78 +20,6 @@ class About(db.Model):
 
 # TODO make classes from db. Can reference 90mininone
 # TODO more of an idea but maybe we can run filter on objects multiple times
-
-politician_test_json = {
- "id": 0,
- "name": "Roger Williams",
- "elected": True,
- "party": "R",
- "terms": {
-  "current": 4,
-  "total": 5
- },
- "offices": {
-  "current": "us_house",
-  "past": [
-   "tx_secretary_of_state"
-  ]
- },
- "district": {
-  "name": "TX-25",
-  "id": 1
- },
- "biography": "Roger Williams represents the 25th congressional district of Texas which stretches from Tarrant County in the north to Hays County in the south and includes much of the Texas Hill Country and Austin.",
- "image": "https://williams.house.gov/sites/williams.house.gov/files/wysiwyg_uploaded/CRW%20Official_0_0.jpg",
- "socials": {
-  "facebook": "http://www.facebook.com/RepRogerWilliams",
-  "twitter": "http://twitter.com/RepRWilliams",
-  "youtube": "http://www.youtube.com/channel/UCBtfmMMQarjtLB9U_pWMOhw"
- },
- "website": "https://williams.house.gov/",
- "elections": {
-  "upcoming": {
-   "id": 1
-  },
-  "past": [
-   {
-    "id": 2
-   },
-   {
-    "id": 3
-   },
-   {
-    "id": 4
-   },
-   {
-    "id": 5
-   }
-  ]
- },
- "fundraising": {
-  "raised": 1501689,
-  "spent": 1156825,
-  "remaining_cash": 1268552,
-  "contributors": [
-   {
-    "type": "small_individual",
-    "amount": 10407
-   },
-   {
-    "type": "large_individual",
-    "amount": 331010
-   },
-   {
-    "type": "pac",
-    "amount": 535343
-   },
-   {
-    "type": "other",
-    "amount": 625289
-   }
-  ]
- }
-}
-
 politician_test_json = {
     "id": 0,
     "name": "Roger Williams",
@@ -345,6 +273,52 @@ election_test_json = {
  }
 }
 
+election_test_json = {
+    "id": 0,
+    "type": {
+      "class": "general"
+    },
+    "office": "us_house",
+    "district": {
+      "id": 1,
+      "ocd_id": "ocd-division/country:us/state:tx/cd:25",
+      "type": "us_house",
+      "number": 25,
+      "party": "R",
+      "counties": [
+        "Tarrant",
+        "Coryell",
+        "Travis",
+        "Bosque",
+        "Johnson",
+        "Hays",
+        "Somervell",
+        "Burnet",
+        "Erath",
+        "Hill",
+        "Hamilton",
+        "Lampasas",
+        "Bell"
+      ]
+    },
+    "dates": {
+      "election_day": "2020-11-03T06:00:00.000Z",
+      "early_start": "2020-10-13T06:00:00.000Z",
+      "early_end": "2020-10-30T06:00:00.000Z"
+    },
+    "candidates": [
+      {
+        "id": 1,
+        "name": "Roger Williams",
+        "incumbent": True,
+        "party": "R",
+        "image": "https://williams.house.gov/sites/williams.house.gov/files/wysiwyg_uploaded/CRW%20Official_0_0.jpg",
+        "district": "TX25"
+      }
+    ]
+  }
+  
+
 election_primary_test_json = {
     "id": 0,
     "type": {
@@ -380,6 +354,68 @@ election_primary_test_json = {
         ]
     }
 }
+election_primary_test_json = {
+    "id": 0,
+    "type": {
+      "class": "primary",
+      "party": "D"
+    },
+    "dates": {
+      "early_start": "2020-02-18T00:00:00-0600",
+      "early_end": "2020-02-28T00:00:00-0600",
+      "election_day": "2020-03-03T00:00:00-0500"
+    },
+    "district": {
+      "id": 1,
+      "ocd_id": "ocd-division/country:us/state:tx/cd:25",
+      "type": "us_house",
+      "number": 25,
+      "party": "R",
+      "counties": [
+        "Tarrant",
+        "Coryell",
+        "Travis",
+        "Bosque",
+        "Johnson",
+        "Hays",
+        "Somervell",
+        "Burnet",
+        "Erath",
+        "Hill",
+        "Hamilton",
+        "Lampasas",
+        "Bell"
+      ]
+    },
+    "office": "us_house",
+    "results": {
+      "winner": {
+        "name": "Julie Oliver",
+        "party": "D",
+        "id": 2,
+        "incumbent": False,
+        "image": "https://cms-assets.berniesanders.com/media/images/julie-oliver.original.jpg",
+        "district": "TX25"
+      },
+      "vote_counts": [
+        {
+          "name": "Julie Oliver",
+          "party": "D",
+          "id": 2,
+          "vote_total": 56151,
+          "vote_percentage": 69.6
+        },
+        {
+          "name": "Heidi Sloan",
+          "party": "D",
+          "id": 3,
+          "vote_total": 24512,
+          "vote_percentage": 30.4
+        }
+      ],
+      "total_voters": 304553
+    }
+  }
 
 @app.route('/politician', methods=['GET'])
 def politicians():

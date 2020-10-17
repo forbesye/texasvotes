@@ -54,6 +54,16 @@ const columns = [
     },
     {
         title: 'Election Date',
+        dataIndex: 'early_date',
+        key: 'early_date',
+        render: text => (
+          <Typography.Text style={{ fontSize: 18 }}>
+            {text}
+          </Typography.Text>
+        )
+    },
+    {
+        title: 'Election Date',
         dataIndex: 'election_date',
         key: 'election_date',
         render: text => (
