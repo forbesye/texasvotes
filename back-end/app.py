@@ -5,16 +5,6 @@ import json
 app = Flask(__name__)
 db = init_db(app)
 
-class About(db.Model):
-    __tablename__ = "about"
-    id = db.Column('id', db.Integer, primary_key=True)
-    first_name = db.Column('first_name', db.Unicode)
-    last_name = db.Column('last_name', db.Unicode)
-
-    def __repr__(self):
-        return '<User %r>' % self.first_name
-
-
 # going to start making routes
 
 # TODO make classes from db. Can reference 90mininone
