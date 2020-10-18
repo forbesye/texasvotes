@@ -65,7 +65,7 @@ const About = () => {
     const [totalCommits, setTotalCommits] = useState(0);
     const [totalIssues, setTotalIssues] = useState(0);
     const [totalTests, setTotalTests] = useState(0);
-    const [ loaded, setLoaded ] = useState(false)
+    const [loaded, setLoaded] = useState(false)
 
     useEffect(() => {
         const fetchData = async () => {
