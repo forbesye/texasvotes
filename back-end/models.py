@@ -1,10 +1,12 @@
 from app import db
 
+# Association table between politicians and elections, many-to-many relationship
 link_politician_elections = db.Table('link_politician_elections',
     db.Column('politician_id', db.Integer, db.ForeignKey('politician.id'), primary_key=True),
     db.Column('election_id', db.Integer, db.ForeignKey('election.id'), primary_key=True)
 )
 
+# Association table between districts and counties, many-to-many relationship
 link_districts_counties = db.Table('link_districts_counties',
     db.Column('district_id', db.Integer, db.ForeignKey('district.id'), primary_key=True),
     db.Column('county_id', db.Integer, db.ForeignKey('counties.id'), primary_key=True)
@@ -13,8 +15,11 @@ link_districts_counties = db.Table('link_districts_counties',
 class Politician(db.Model):
     __tablename__ = 'politician'
     id = db.Column(db.Integer, primary_key=True)
+    # Foreign key for associated district, one-to-many relationship
     district_id = db.Column(db.Integer, db.ForeignKey('district.id'), nullable=True)
+    # All associated elections, many-to-many relationship
     elections = db.relationship('Election', secondary=link_politician_elections, backref=db.backref('politicians', lazy='joined'))
+    # Variables
     name = db.Column(db.String, nullable=False)
     district_number = db.Column(db.Integer, nullable=True, default=-1)
     incumbent = db.Column(db.Boolean, nullable=False)
@@ -27,6 +32,7 @@ class Politician(db.Model):
     twitter = db.Column(db.String, nullable=True)
     youtube = db.Column(db.String, nullable=True)
     phone_number = db.Column(db.String, nullable=True)
+    # Fundraisers are for federal politicians only
     fund_raise = db.Column(db.Integer, nullable=True)
     fund_spent = db.Column(db.Integer, nullable=True)
     fund_remain = db.Column(db.Integer, nullable=True)
@@ -40,9 +46,13 @@ class Politician(db.Model):
 class District(db.Model):
     __tablename__ = 'district'
     id = db.Column(db.Integer, primary_key=True)
+    # All associated politicians, one-to-many relationship
     politicians = db.relationship('Politician', backref='current_district')
+    # All associated elections, one-to-many relationship
     elections = db.relationship('Election', backref='current_district')
+    # All associated counties, many-to-many relationship
     counties = db.relationship('Counties', secondary=link_districts_counties, backref=db.backref('districts', lazy='joined'))
+    # Variables
     ocd_id = db.Column(db.String, nullable=False)
     type_name = db.Column(db.String, nullable=True) # Look into
     party = db.Column(db.String, nullable=True)
@@ -68,7 +78,9 @@ class District(db.Model):
 class Election(db.Model):
     __tablename__ = 'election'
     id = db.Column(db.Integer, primary_key=True)
+    # Foreign key for associated district, one-to-many relationship
     district_id = db.Column(db.Integer, db.ForeignKey('district.id'), nullable=True)
+    # Variables
     class_name = db.Column(db.String, nullable=False)
     party = db.Column(db.String, nullable=True)
     office = db.Column(db.String, nullable=False)

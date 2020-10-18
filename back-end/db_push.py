@@ -137,7 +137,7 @@ def link_elections_districts():
         election.current_district = temp_district
     db.session.commit()
 
-def link_politicians_districts():
+def link_politicians_elections():
     politicians = db.session.query(Politician).all()
     for pol in politicians:
         elections = db.session.query(Election).filter_by(office=pol.office, district_number=pol.district_number).all()
@@ -160,4 +160,4 @@ if __name__ == '__main__':
     populate_elections()
     link_politicians_districts()
     link_elections_districts()
-    link_politicians_districts()
+    link_politicians_elections()
