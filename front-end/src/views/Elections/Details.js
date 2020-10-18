@@ -1,9 +1,10 @@
 import React, {useState, useEffect, Fragment} from 'react'
-import { PageHeader, Typography, Divider, Collapse, List, Table } from "antd"
-import { useParams, useHistory } from 'react-router-dom'
+import { PageHeader, Typography, Divider, Collapse, List, Table, Timeline } from "antd"
+import { ClockCircleOutlined } from '@ant-design/icons';
+import { useParams, useHistory, Link } from 'react-router-dom'
 import Spinner from "components/ui/Spinner"
 import styles from './Elections.module.css'
-import { monthDayYearParse } from "library/Functions"
+import { monthDayYearParse, numberStringWithCommas } from "library/Functions"
 import { election_date_mappings } from "library/Mappings"
 import { getAPI } from "library/APIClient"
 
@@ -22,6 +23,8 @@ const candidateColumns = [
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
+        // TODO: Link to correct politicitian id
+        render: text => <Link to={`/politicians/view/0`}>{text}</Link> 
     },
     {
         title: 'Party',
@@ -45,17 +48,20 @@ const resultColumns = [
         title: 'Vote Total',
         dataIndex: 'vote_total',
         key: 'vote_total',
+        render: text => numberStringWithCommas(text)
     },
     {
         title: 'Vote Percentage',
         dataIndex: 'vote_percentage',
         key: 'vote_percentage',
+        render: text => text + "%"
     },
 ]
 
 function title (election) {
     if(election.type === "general")
-        return `General Election for ${election.district.name}`
+    // TODO: Dynamic district id
+        return <div>{`General Election for `} <Link to={`/districts/view/0`}>{`${election.district.name}`}</Link></div>
     else
         return `${OFFICE_NAMES[election.office]} ${election.district.name}`
 }
@@ -66,6 +72,11 @@ const Details = () => {
     const [ loaded, setLoaded ] = useState(false)
 
     const history = useHistory()
+
+    const electionDate = ["early_start", "early_end", "election_day"]
+    // const todayDate = new Date("2018-10-23T00:00:00+0000")
+    const todayDate = new Date()
+    var beforeToday = true
     
     useEffect(() => {
         const fetchData = async () => {
@@ -107,46 +118,74 @@ const Details = () => {
                     <Title style={{ textAlign: "center" }} level={3}>Current Balance</Title>
                     <img src={"https://media.kvue.com/assets/KVUE/images/1fa58d6e-51ff-4b54-b48e-f62e3848109a/1fa58d6e-51ff-4b54-b48e-f62e3848109a_1140x641.jpg"} alt={district} className={styles.electionImage} />
                     <Divider />
-                    <Title style={{ textAlign: "center" }} level={3}>General Information</Title>
+                    {/* <Title style={{ textAlign: "center" }} level={3}>General Information</Title> */}
                 
                 </div>
-                <article className={styles.districtDetails}>
-                    <Collapse ghost>
-                        <Panel header="Election Dates">
-                            <List 
-                                dataSource = {Object.keys(dates)}
-                                renderItem = {key => {
+                <article className={styles.electionDetails}>
+                    <Title style={{ textAlign: "center" }} level={3}>Election Dates</Title>
+                    <Timeline style={{paddingTop: "20px", width: "225px", margin: "auto", fontSize: 18}}>
+                        {
+                            // Object.keys(dates).map(key => {
+                            electionDate.map(key => {
+                                var curDate = new Date(dates[key])
+                                if (!beforeToday){
+                                  return (
+                                      <Timeline.Item color="green"> 
+                                          <Text strong>{election_date_mappings[key]} </Text>
+                                          <Text>{monthDayYearParse(dates[key])}</Text>
+                                      </Timeline.Item>
+                                  )
+                                } else if (curDate > todayDate) {
+                                    beforeToday = false
                                     return (
-                                        <List.Item>
-                                            <Text strong>{election_date_mappings[key]}: </Text><Text>{monthDayYearParse(dates[key])}</Text>
-                                        </List.Item>
+                                        <div>
+                                            <Timeline.Item> 
+                                                <Text strong>Today </Text>
+                                                <Text>{monthDayYearParse(todayDate)}</Text>
+                                            </Timeline.Item>
+                                            <Timeline.Item dot={<ClockCircleOutlined style={{ fontSize: '16px' }} />} color="red"> 
+                                                <Text strong>{election_date_mappings[key]} </Text>
+                                                <Text>{monthDayYearParse(dates[key])}</Text>
+                                            </Timeline.Item>
+                                        </div>
                                     )
-                                }}
-                            />
-                        </Panel>
-                    </Collapse>
+                                } else if(beforeToday){
+                                    return (
+                                        <Timeline.Item color="gray"> 
+                                            <Text strong>{election_date_mappings[key]} </Text>
+                                            <Text>{monthDayYearParse(dates[key])}</Text>
+                                        </Timeline.Item>
+                                    )
+                                }
+                            })
+                        }
+                        {
+                            beforeToday ? 
+                            <Timeline.Item> 
+                                <Text strong>Today </Text>
+                                <Text>{monthDayYearParse(todayDate)}</Text>
+                            </Timeline.Item>
+                            :
+                            null
+                        }
+                    </Timeline>
                 </article>
 
-                <article className={styles.districtDetails}>
-                    <Collapse ghost>
-                        <Panel header="Candidates">
-                            <Table 
-                                dataSource = {candidates}
-                                columns={candidateColumns}
-                            />
-                        </Panel>
-                    </Collapse>
+                <article className={styles.electionDetails}>
+                    <Title style={{ textAlign: "center" }} level={3}>Candidates</Title>
+                    <Table 
+                        dataSource = {candidates}
+                        columns={candidateColumns}
+                    />
                 </article>
                 
-                { results ? (<article className={styles.districtDetails}>
-                    <Collapse ghost>
-                        <Panel header="Results">
-                            <Table 
-                                dataSource = {results.vote_counts}
-                                columns={resultColumns}
-                            />
-                        </Panel>
-                    </Collapse>
+                { results ? (<article className={styles.electionDetails}>
+                    
+                    <Title style={{ textAlign: "center" }} level={3}>Results</Title>
+                    <Table 
+                        dataSource = {results.vote_counts}
+                        columns={resultColumns}
+                    />
                 </article>) : null }
                 
             </Fragment>
