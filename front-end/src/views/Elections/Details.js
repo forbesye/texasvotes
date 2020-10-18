@@ -83,11 +83,11 @@ const Details = () => {
 
     const videoSearch = (term) => {
         YTSearch({key: YT_API_KEY, term: term}, (videos) => {
-            setLoaded(true);
+            console.log(term)
             setYTLink(`https://www.youtube.com/watch?v=${videos[0].id.videoId}`)
+            setLoaded(true);
         })
     }
-    videoSearch("general election district texas 25")
     
     useEffect(() => {
         const fetchData = async () => {
@@ -98,6 +98,11 @@ const Details = () => {
                 params: {}
             })
             setElection(data);
+            if(data.type.class === "general"){
+                videoSearch(`general election district texas ${data.district.number}`)
+            } else {
+                videoSearch(`${OFFICE_NAMES[data.office]} election district texas ${data.district.number}`)
+            }
         }
         fetchData();
     }, [id])
