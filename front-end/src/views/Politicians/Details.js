@@ -1,13 +1,18 @@
 import React, { useState, useEffect, Fragment } from "react"
+import { Link } from 'react-router-dom'
 import { PageHeader, Typography, Divider, Collapse, List, Table } from "antd"
 import { FacebookOutlined, TwitterOutlined, InstagramOutlined, YoutubeOutlined, GlobalOutlined } from "@ant-design/icons"
 import { useParams, useHistory } from "react-router-dom"
 import Spinner from "components/ui/Spinner"
 import styles from "./Politicians.module.css"
-import politicians from "./DefaultPoliticians"
 import { subtitle, officeName } from "./Lib"
+import { getAPI } from "library/APIClient"
+import { numberStringWithCommas } from "library/Functions"
+import { Timeline } from 'react-twitter-widgets'
+import { FacebookProvider, Page } from 'react-facebook';
 
-const { Title, Paragraph, Text, Link } = Typography
+
+const { Title, Paragraph, Text } = Typography
 const { Panel } = Collapse
 
 const partyMap = {
@@ -18,7 +23,8 @@ const partyMap = {
 }
 
 function formatAsMoney (num) {
-    return `$${num.toFixed(2)}`
+    // return `$${num.toFixed(2)}`
+    return `$` + numberStringWithCommas(num.toFixed(2))
 }
 
 function formatKey (str) {
@@ -40,9 +46,9 @@ function tableTitle (election) {
         const participants = upcoming ? election.candidates : election.results.vote_counts
         console.log(upcoming)
         const party = participants[0].party
-        return `${electionYear} ${partyMap[party]} ${capitalize(election.type)} Election`
+        return `${electionYear} ${partyMap[party]} ${capitalize(election.type.class)} Election`
     } else {
-        return `${electionYear} ${capitalize(election.type)} Election`
+        return `${electionYear} ${capitalize(election.type.class)} Election`
     }
 }
 
@@ -59,12 +65,21 @@ export default function Details () {
     const [ politician, setPolitician ] = useState({})
     const [ loaded, setLoaded ] = useState(false)
     const history = useHistory()
-
+    const FB_API_KEY = process.env.REACT_APP_FB_KEY
+    
     useEffect(() => {
-        const data = politicians.find(p => p.id === parseInt(id))
-        setPolitician(data)
-        setLoaded(true)
-    }, [politician, id])
+        const fetchData = async () => {
+            setLoaded(false);
+            const data = await getAPI({
+                model: "politician",
+                path: id,
+                params: {}
+            })
+            setPolitician(data);
+            setLoaded(true);
+        }
+        fetchData();
+    }, [id])
 
     const handleBack = () => {
         history.push("/politicians/view")
@@ -88,25 +103,26 @@ export default function Details () {
     if (loaded) {
         content = (
             <Fragment>
+
                 <PageHeader 
-                    title={name}
-                    subTitle={subtitle(offices.current || offices.running_for, !offices.running_for)}
+                    title={<Text style={{fontSize: 24}}>{name}</Text>}
+                    subTitle={<Text style={{fontSize: 18}}>{subtitle(offices.current || offices.running_for, !offices.running_for)}</Text>}
                     onBack={handleBack}
                 />
                 <Divider />
                 <div className={styles.politicianDescription}>
-                    <Title style={{ textAlign: "center" }} level={3}>General Information</Title>
+                    <Title style={{ textAlign: "center" }} level={2}>General Information</Title>
                     <img src={image} alt={name} className={styles.politicianImage} />
                     <Divider />
-                    <iframe title="defaultTitle" width="90%" height="400px" src={video} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-                    <Divider />
+                    
                     <article className={styles.politicianDetails}>
                         <div className={styles.politicianGeneralInfo}>
                             <div>
                                 <Text strong>Party: </Text><Text>{parties[party]}</Text>
                             </div>
                             <div>
-                                <Text strong>District: </Text><Text>{district.name}</Text>
+                                {/* TODO: dynamic district link */}
+                                <Text strong>District: </Text><Link to={`/districts/view/0`}>{district.name}</Link>
                             </div>
                             {
                                 offices.current ? (
@@ -130,33 +146,33 @@ export default function Details () {
                         </div>
                         <div className={styles.politicianSocials}>
                             <div>
-                                <Link target="_blank" href={website}><GlobalOutlined /> Campaign Website</Link>
+                                <a target="_blank" href={website}><GlobalOutlined /> Campaign Website</a>
                             </div>
                             {
                                 socials.facebook ? (
                                     <div>
-                                        <Link target="_blank" href={socials.facebook}><FacebookOutlined /> Facebook</Link>
+                                        <a target="_blank" href={socials.facebook}><FacebookOutlined /> Facebook</a>
                                     </div>
                                 ) : null
                             }
                             {
                                 socials.twitter ? (
                                     <div>
-                                        <Link target="_blank" href={socials.twitter}><TwitterOutlined /> Twitter</Link>
+                                        <a target="_blank" href={socials.twitter}><TwitterOutlined /> Twitter</a>
                                     </div>
                                 ) : null
                             }
                             {
                                 socials.instagram ? (
                                     <div>
-                                        <Link target="_blank" href={socials.instagram}><InstagramOutlined /> Instagram</Link>
+                                        <a target="_blank" href={socials.instagram}><InstagramOutlined /> Instagram</a>
                                     </div>
                                 ) : null
                             }
                             {
                                 socials.youtube ? (
                                     <div>
-                                        <Link target="_blank" href={socials.youtube}><YoutubeOutlined /> Youtube</Link>
+                                        <a target="_blank" href={socials.youtube}><YoutubeOutlined /> Youtube</a>
                                     </div>
                                 ) : null
                             }
@@ -164,15 +180,13 @@ export default function Details () {
                     </article>
                     { biography ? (
                         <article className={styles.politicianBio}>
-                            <Collapse ghost>
-                                <Panel header="Campaign Biography">
-                                    {
-                                        typeof biography === "string" ? (
-                                            <Paragraph>{biography}</Paragraph>
-                                        ) : biography.map(p => <Paragraph>{p}</Paragraph>)
-                                    }
-                                </Panel>
-                            </Collapse>
+                            
+                            <Title style={{ textAlign: "center" }} level={3}>Campaign Biography</Title>
+                            {
+                                typeof biography === "string" ? (
+                                    <Paragraph>{biography}</Paragraph>
+                                ) : biography.map(p => <Paragraph>{p}</Paragraph>)
+                            }
                             {
                                 politician.issues ? (
                                     <Collapse ghost>
@@ -189,10 +203,20 @@ export default function Details () {
                         </article>
                     ) : null }
                     <Divider />
+                    {/* TODO: Replace hardcoded screen name with Twitter handle */}
+                    <Timeline
+                      dataSource={{ sourceType: "profile", screenName: "RepRWilliams" }}
+                      options={{ width: "400", height: "400" }}
+                    />
+                    <FacebookProvider appId={FB_API_KEY}>
+                        <Page href="https://www.facebook.com/RepRogerWilliams" tabs="timeline" />
+                    </FacebookProvider>    
+
+                    <Divider />
                     <article className={styles.districtDetails}>
                         <Title style={{ textAlign: "center" }} level={3}>District Information</Title>
-                        <Paragraph>{name} is running in {district.name} which spans {district.counties.length} counties.</Paragraph>
-                        <Paragraph>If {name} were to win, they would be representing {district.demographics.total_population} constituents in total. {district.name}'s demographics are below.</Paragraph>
+                        {/* <Paragraph>{name} is running in {district.name} which spans {district.counties.length} counties.</Paragraph> */}
+                        {/* <Paragraph>If {name} were to win, they would be representing {district.demographics.total_population} constituents in total. {district.name}'s demographics are below.</Paragraph> */}
                         <br/>
                         <Text strong>Racial Makeup</Text>
                         <Table 
@@ -200,9 +224,9 @@ export default function Details () {
                                 { title: "Race", dataIndex: "race", key: "race" }, 
                                 { title: "Population", dataIndex: "population", key: "population" }
                             ]}
-                            dataSource={Object.keys(district.demographics.race).map(k => {
-                                return { race: formatKey(k), population: district.demographics.race[k] }
-                            })}
+                            // dataSource={Object.keys(district.demographics.race).map(k => {
+                            //     return { race: formatKey(k), population: district.demographics.race[k] }
+                            // })}
                         />
                     </article>
                     <Divider />
@@ -216,7 +240,7 @@ export default function Details () {
                                     <Paragraph>{name} has spent {formatAsMoney(fundraising.spent)} on their current campaign.</Paragraph>
                                     <Paragraph>{name} currently has {formatAsMoney(fundraising.remaining_cash)} on hand.</Paragraph>
                                     <List 
-                                        header={<Text strong>{name}'s Contribution Categories</Text>}
+                                        header={<Text strong style={{fontSize: "18px"}}>{name}'s Contribution Categories</Text>}
                                         bordered
                                         dataSource={fundraising.contributors}
                                         renderItem={item => {
@@ -228,7 +252,7 @@ export default function Details () {
                                                 other: "Other Sources"
                                             }
                                             return (
-                                            <List.Item><Text>From {titles[item.type]}: {formatAsMoney(item.amount)}</Text></List.Item>
+                                            <List.Item><Text style={{fontSize: "18px"}}>From {titles[item.type]}: {formatAsMoney(item.amount)}</Text></List.Item>
                                             )
                                         }}
                                     />
@@ -242,7 +266,7 @@ export default function Details () {
                         }
                         <section className={styles.electionSection}>
                             <Title level={5}>Participating Elections</Title>
-                            {
+                            {/* {
                                 elections.upcoming ? (
                                     <Fragment>
                                         <Paragraph>{name} is running in an upcoming election.</Paragraph>
@@ -259,9 +283,21 @@ export default function Details () {
                                         </div>
                                     </Fragment>
                                 ) : <Paragraph>{name} is not up for re-election.</Paragraph>
-                            }
+                            } */}
                             
-                            {
+                            {/* {
+                                elections.upcoming ? (
+                                    <Fragment>
+                                        <Paragraph>{name} is running in an upcoming election.</Paragraph>
+                                        <div className={styles.electionTable}> */}
+                                            {/* TODO: dynamic election id */}
+			                                {/* <Link to="/elections/view/0">{tableTitle(elections.upcoming)}</Link>
+                                        </div>
+                                    </Fragment>
+                                ) : <Paragraph>{name} is not up for re-election.</Paragraph>
+                            } */}
+                            
+                            {/* {
                                 elections.past.length > 0 ? (
                                     <Fragment>
                                         <Paragraph>{name} has also ran in past elections.</Paragraph>
@@ -282,7 +318,7 @@ export default function Details () {
                                         
                                     </Fragment>
                                 ) : null
-                            }
+                            } */}
                             
                         </section>
                     </article>

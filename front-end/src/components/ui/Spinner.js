@@ -20,6 +20,5 @@ const styles = {
 
 export default function Spinner () {
     const message = messages[ Math.floor(Math.random() * messages.length) ] + "..."
-    console.log(message)
     return <Spin style={styles} tip={message} size="large" />
 }
