@@ -1,4 +1,10 @@
-from app import db
+from flask import Flask, request, make_response, jsonify
+from db import init_db
+from flask_marshmallow import Marshmallow
+app = Flask(__name__)
+db = init_db(app)
+ma = Marshmallow(app)
+
 
 # Association table between politicians and elections, many-to-many relationship
 link_politician_elections = db.Table('link_politician_elections',
@@ -99,3 +105,6 @@ class Counties(db.Model):
 
     def __repr__(self):
         return '<County %s>' % self.name
+
+
+class Politician_Schema(ma.Schema):

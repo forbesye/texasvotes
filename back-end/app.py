@@ -1,10 +1,6 @@
-from flask import Flask, request, make_response, jsonify
-from db import init_db
+from models import Politician, District, Election, Counties, db, app
 import requests
 import json
-app = Flask(__name__)
-db = init_db(app)
-
 # going to start making routes
 
 # TODO make classes from db. Can reference 90mininone
@@ -263,6 +259,7 @@ election_primary_test_json = {
 
 @app.route('/politician', methods=['GET'])
 def politicians():
+    '''
     name = request.args.get('name')
     party = request.args.get('party')
     district = request.args.get('district')
@@ -275,8 +272,9 @@ def politicians():
     page = request.args.get('page')
     if page != None:
         return get_pages(int(page), "politician")
+    '''
 
-    return politician_test_json
+    return db.session.query(Politician).all()
 
 @app.route('/politician/<int:id>', methods=['GET'])
 def politician_id(id):
