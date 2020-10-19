@@ -52,7 +52,10 @@ def format_politician_fundraising(p):
 
     for j in json_funds:
         if "fund_" + j in p:
-            fundraising[j] = json.loads(p.pop("fund_" + j).replace("'", '"'))
+            try:
+                fundraising[j] = json.loads(p.pop("fund_" + j).replace("'", '"'))
+            except json.decoder.JSONDecodeError:
+                pass
 
     if fundraising:
         p["fundraising"] = fundraising
@@ -141,8 +144,12 @@ def format_elections_in_district(elections):
 def format_district(district):
     format_district_elected_officials(district)
     format_district_demographics(district)
-    format_elections_in_district(district["elections"])
-    format_districts_in_politicians(district["elected_officials"])
+
+    if "elections" in district:
+        format_elections_in_district(district["elections"])
+    
+    if "elected_officials" in district:
+        format_districts_in_politicians(district["elected_officials"])
 
 date_types = ["election_day", "early_start", "early_end"]
 
