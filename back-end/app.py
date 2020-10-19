@@ -1,4 +1,4 @@
-from models import Politician, District, Election, Counties, db, app, politician_schema
+from models import Politician, District, Election, Counties, db, app, politician_schema, district_schema, election_schema
 from flask import Flask, request, make_response, jsonify
 import requests
 import json
@@ -278,7 +278,7 @@ def politicians():
         page = int(page)
 
     politicians = db.session.query(Politician).paginate(page=page)
-    count = politicians.total #db.session.query(Politician).count()
+    count = politicians.total
 
     result = politician_schema.dump(politicians.items, many=True)
 
@@ -293,6 +293,7 @@ def politician_id(id):
 
 @app.route('/district', methods=['GET'])
 def districts():
+    '''
     dist_type = request.args.get('type')
     party = request.args.get('party')
     county = request.args.get('county')
@@ -301,12 +302,20 @@ def districts():
     
     l = [dist_type, party, county, number, address]
     # print(l)
+    '''
 
     page = request.args.get('page')
-    if page != None:
-        return get_pages(int(page), "district")
+    if page == None:
+        page = 1
+    else:
+        page = int(page)
 
-    return district_test_json
+    districts = db.session.query(District).paginate(page=page)
+    count = districts.total
+
+    result = district_schema.dump(districts.items, many=True)
+
+    return {"page":result, "count":count}
 
 @app.route('/district/<int:id>', methods=['GET'])
 def district_id(id):
@@ -317,21 +326,29 @@ def district_id(id):
 
 @app.route('/election', methods=['GET'])
 def elections():
+    '''
     election_type = request.args.get('type')
     candidates = request.args.get('candidates')
     district = request.args.get('district')
     winner = request.args.get('winner')
     office = request.args.get('office')
-
-    # TODO might have to change later
-    page = request.args.get('page')
-    if page != None:
-        return get_pages(int(page), "election")
     
     l = [election_type, candidates, district, winner, office]
     # print(l)
+    '''
 
-    return election_test_json
+    page = request.args.get('page')
+    if page == None:
+        page = 1
+    else:
+        page = int(page)
+
+    elections = db.session.query(Election).paginate(page=page)
+    count = elections.total
+
+    result = election_schema.dump(elections.items, many=True)
+
+    return {"page":result, "count":count}
 
 
 # currently hardcoded kinda

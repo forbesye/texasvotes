@@ -139,3 +139,5 @@ class ElectionSchema(BaseSchema):
     office = fields.Str(required=True)
 
 politician_schema = PoliticianSchema()
+district_schema = DistrictSchema()
+election_schema = ElectionSchema()
