@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react"
 import { Link } from 'react-router-dom'
-import { PageHeader, Typography, Divider, Collapse, List, Table } from "antd"
+import { PageHeader, Typography, Divider, List } from "antd"
 import { FacebookOutlined, TwitterOutlined, YoutubeOutlined, GlobalOutlined, PhoneOutlined } from "@ant-design/icons"
 import { useParams, useHistory } from "react-router-dom"
 import Spinner from "components/ui/Spinner"
@@ -13,7 +13,6 @@ import { FacebookProvider, Page } from 'react-facebook';
 
 
 const { Title, Paragraph, Text } = Typography
-const { Panel } = Collapse
 
 const partyMap = {
     D: "Democratic",
@@ -25,13 +24,6 @@ const partyMap = {
 function formatAsMoney (num) {
     // return `$${num.toFixed(2)}`
     return `$` + numberStringWithCommas(num.toFixed(2))
-}
-
-function formatKey (str) {
-    const splitted = str.split("_")
-    if (splitted.length === 1)
-        return capitalize(splitted[0])
-    return splitted.reduce((prev, curr) => capitalize(prev) + " " + capitalize(curr))
 }
 
 function capitalize (str) {
@@ -86,25 +78,27 @@ export default function Details () {
 
     const { 
         name, 
-        elected,
         party, 
-        terms,
-        offices,
         image, 
         contact,
         district,
-        elections, 
-        fundraising
+        election, 
+        fundraising,
+        current,
+        running_for
     } = politician
     let content = null
     let socials = {}
     if (loaded) {
-        contact.social_media.map(social => socials[social.type] = social.id)
+        if (contact.social_media){
+            contact.social_media.map(social => socials[social.type] = social.id)
+        }
+        
         content = (
             <Fragment>
                 <PageHeader 
                     title={<Text style={{fontSize: 24}}>{name}</Text>}
-                    subTitle={<Text style={{fontSize: 18}}>{subtitle(offices.current || offices.running_for, !offices.running_for)}</Text>}
+                    subTitle={<Text style={{fontSize: 18}}>{subtitle(current || running_for, !running_for)}</Text>}
                     onBack={handleBack}
                 />
                 <Divider />
@@ -118,16 +112,18 @@ export default function Details () {
                             <div>
                                 <Text strong>Party: </Text><Text>{parties[party]}</Text>
                             </div>
-                            <div>
-                                <Text strong>District: </Text><Link to={`/districts/view/${district.id}`}>TX-{district.number}</Link>
-                            </div>
                             {
-                                offices.current ? (
+                                district ?
+                                    <div><Text strong>District: </Text><Link to={`/districts/view/${district.id}`}>TX-{district.number}</Link></div>
+                                : null
+                            }
+                            {
+                                current ? (
                                     <Fragment>
                                         <div>
-                                            <Text strong>Current Office: </Text><Text>{`${officeName(offices.current)} (${terms.current} terms)`}</Text>
+                                            <Text strong>Current Office: </Text><Text>{`${officeName(current)}`}</Text>
                                         </div>
-                                        <div>
+                                        {/* <div>
                                             {
                                                 offices.past && offices.past.length > 0 ? (
                                                     <Fragment>
@@ -136,7 +132,7 @@ export default function Details () {
                                                 ) : null
                                             }
                                             
-                                        </div>
+                                        </div> */}
                                     </Fragment>
                                 ) : null
                             }
@@ -151,25 +147,25 @@ export default function Details () {
                             {
                                 Object.keys(socials).map(type => {
                                     if (type === "facebook") {
-                                        return(
+                                        return (
                                             <div>
                                                 <a target="_blank" rel="noopener noreferrer" href={`https://www.facebook.com/${socials[type]}`}><FacebookOutlined /> Facebook</a>
                                             </div>
                                         )
                                     } else if (type === "twitter") {
-                                        return(
+                                        return (
                                             <div>
                                                 <a target="_blank" rel="noopener noreferrer" href={`http://twitter.com/${socials[type]}`}><TwitterOutlined /> Twitter</a>
                                             </div>
                                         )
                                     } else if (type === "youtube") {
-                                        return(
+                                        return (
                                             <div>
                                                 <a target="_blank" rel="noopener noreferrer" href={`http://www.youtube.com/channel/${socials[type]}`}><YoutubeOutlined /> Youtube</a>
                                             </div>
                                         )
                                     }
-
+                                    return null
                                 })
                             }
                         </div>
@@ -186,23 +182,31 @@ export default function Details () {
                                 <FacebookProvider appId={FB_API_KEY}>
                                     <Page href={`https://www.facebook.com/${socials['facebook']}`} tabs="timeline" />
                                 </FacebookProvider>    
-                            : null
-                        
+                            : <Paragraph>{name} does not have Twitter or Facebook.</Paragraph>
                     }
                     <Divider />
                     <article className={styles.districtDetails}>
                         <Title style={{ textAlign: "center" }} level={3}>District Information</Title>
-                        <Paragraph>{name} is running in <Link to={`/districts/view/${district.id}`}>TX-{district.number}</Link> which spans {district.counties.length} counties. Here are the counties {name} would represent: </Paragraph>
-                        <br/>
-                        <List 
-                            dataSource = {district.counties}
-                            renderItem = {item => (
-                                <List.Item>
-                                    <Text>{item}</Text>
-                                </List.Item>
-                            )}
-                            grid = {{gutter: 16, column: 3}}
-                        />
+                        {
+                            district ?
+                            <div>
+                                <Paragraph>{name} is running in 
+                                    <Link to={`/districts/view/${district.id}`}> TX-{district.number} </Link> 
+                                    which spans {district.counties.length} count{district.counties.length === 1 ? 'y' : 'ies'}. Here are the counties {name} would represent: </Paragraph>
+                                <br/>
+                                <List 
+                                    dataSource = {district.counties}
+                                    renderItem = {item => (
+                                        <List.Item>
+                                            <Text>{item}</Text>
+                                        </List.Item>
+                                    )}
+                                    grid = {{gutter: 16, column: 3}}
+                                />
+                            </div>
+                            : <Paragraph>There is no district information for {name}</Paragraph>
+                        }
+                        
                     </article>
                     <Divider />
                     <article className={styles.electionDetails}>
@@ -247,25 +251,6 @@ export default function Details () {
                                         )
                                     }}
                                 />
-                                        
-                                    
-                                    {/* <List 
-                                        header={<Text strong style={{fontSize: "18px"}}>{name}'s Contribution Categories</Text>}
-                                        bordered
-                                        dataSource={fundraising.contributors}
-                                        renderItem={item => {
-                                            const titles = {
-                                                small_individual: "Donataions Under $250",
-                                                large_individual: "Donations Above $250",
-                                                self_finance: "Self Financing",
-                                                pac: "PAC Donations",
-                                                other: "Other Sources"
-                                            }
-                                            return (
-                                            <List.Item><Text style={{fontSize: "18px"}}>From {titles[item.type]}: {formatAsMoney(item.amount)}</Text></List.Item>
-                                            )
-                                        }}
-                                    /> */}
                                 </section>
                             ) : (
                                 <section>
@@ -277,11 +262,11 @@ export default function Details () {
                         <section className={styles.electionSection}>
                             <Title level={4}>Participating Elections</Title>
                             {
-                                elections.upcoming ? (
+                                election.length === undefined ? (
                                     <Fragment>
                                         <Paragraph>{name} is running in an upcoming election.</Paragraph>
                                         <div className={styles.electionTable}> 
-			                                <Link to={`/elections/view/${elections.upcoming.id}`}>{tableTitle(elections.upcoming)}</Link>
+			                                <Link to={`/elections/view/${election.id}`}>{tableTitle(election)}</Link>
                                         </div>
                                     </Fragment>
                                 ) : <Paragraph>{name} is not up for re-election.</Paragraph>
