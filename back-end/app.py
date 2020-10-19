@@ -351,6 +351,68 @@ def politician_id(id):
     else:
         return make_response("Error: Politician not found", 404)
 
+def format_elected_officials(districts):
+    for d in districts:
+        elected_officials = d.pop("elected_officials")
+
+        elected_officials = [e for e in elected_officials if e["current"]]
+
+        for e in elected_officials:
+            e.pop("current")
+
+        if elected_officials:
+            d["elected_officials"] = elected_officials
+
+def format_demo_type(type, district):
+    demo_type = {}
+
+    if (type + "_out_of") in district:
+        demo_type["out_of"] = district.pop(type + "_out_of")
+    if (type + "_stats") in district:
+        # TODO: Find some way to be able to parse the json's correctly
+        # Must either remove any ' that don't enclose a whole string or replace all ' enclosing
+        # a whole string with "
+        try:
+            demo_type["items"] = json.loads(district.pop(type + "_stats").replace("'", '"'))
+        except json.decoder.JSONDecodeError:
+            pass
+
+    if demo_type:
+        return {type:demo_type}
+
+    return None
+
+demos = ["age", "race", "ethnicity", "income"]
+edus = ["enrollment", "attainment"]
+
+def format_education(district):
+    educations = {}
+
+    for edu in edus:
+        results = format_demo_type(edu, district)
+        if results:
+            educations.update(results)
+
+    return {"education":educations}
+
+def format_demographics(districts):
+    global demos
+
+    for district in districts:
+        demographics = {}
+
+        if "total_population" in district:
+            demographics["total_population"] = district.pop("total_population")
+
+        for demo in demos:
+            results = format_demo_type(demo, district)
+            if results:
+                demographics.update(results)
+
+        demographics.update(format_education(district))
+
+        district["demographics"] = demographics
+
 
 @app.route('/district', methods=['GET'])
 def districts():
@@ -375,6 +437,9 @@ def districts():
     count = districts.total
 
     result = district_schema.dump(districts.items, many=True)
+
+    format_elected_officials(result)
+    format_demographics(result)
 
     return {"page":result, "count":count}
 
