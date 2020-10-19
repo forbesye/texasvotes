@@ -25,7 +25,7 @@ class Politician(db.Model):
     # Foreign key for associated district, one-to-many relationship
     district_id = db.Column(db.Integer, db.ForeignKey('district.id'), nullable=True)
     # All associated elections, many-to-many relationship
-    elections = db.relationship('Election', secondary=link_politician_elections, backref=db.backref('politicians', lazy='joined'))
+    elections = db.relationship('Election', secondary=link_politician_elections, backref=db.backref('politicians', lazy='dynamic'))
     # Variables
     name = db.Column(db.String, nullable=False)
     district_number = db.Column(db.Integer, nullable=True, default=-1)
@@ -122,21 +122,20 @@ class PoliticianSchema(BaseSchema):
     name = fields.Str(required=True)
     phone = fields.Str(required=False, attribute="phone_number")
     district = fields.Nested('DistrictSchema', only=("id", "type", "number", "counties"), required=True, attribute="current_district")
+    election = fields.Nested('ElectionSchema', only=("id", "office"), required=True, attribute="elections", many=True)
+
+class CountySchema(BaseSchema):
+    id = fields.Int(required=True)
+    name = fields.Str(required=True)
 
 class DistrictSchema(BaseSchema):
     id = fields.Int(required=True)
     type = fields.Str(required=True, attribute="type_name")
     number = fields.Int(required=True)
-
-    # TODO: Find some way to return a list of names, not a list of dicts with names inside
-    counties = fields.List(fields.Nested('CountySchema', only=("name",)), required=True)
+    counties = fields.Pluck(CountySchema, "name", many=True)
 
 class ElectionSchema(BaseSchema):
     id = fields.Int(required=True)
     office = fields.Str(required=True)
-
-class CountySchema(BaseSchema):
-    id = fields.Int(required=True)
-    name = fields.Str(required=True)
 
 politician_schema = PoliticianSchema()

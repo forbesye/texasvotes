@@ -1,4 +1,5 @@
 from models import Politician, District, Election, Counties, db, app, politician_schema
+from flask import Flask, request, make_response, jsonify
 import requests
 import json
 # going to start making routes
@@ -268,16 +269,18 @@ def politicians():
     
     l = [name, party, district, current_office, incumbent]
     # print(l)
-
-    page = request.args.get('page')
-    if page != None:
-        return get_pages(int(page), "politician")
     '''
 
-    politicians = db.session.query(Politician).all()
-    count = db.session.query(Politician).count()
+    page = request.args.get('page')
+    if page == None:
+        page = 1
+    else:
+        page = int(page)
 
-    result = politician_schema.dump(politicians, many=True)
+    politicians = db.session.query(Politician).paginate(page=page)
+    count = politicians.total #db.session.query(Politician).count()
+
+    result = politician_schema.dump(politicians.items, many=True)
 
     return {"page":result, "count":count}
 
