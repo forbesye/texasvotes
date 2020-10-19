@@ -17,12 +17,9 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-facebook": "^8.1.4",
-    "react-mapbox-gl": "^4.8.6",
-    "react-player": "^2.6.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "react-twitter-widgets": "^1.9.5",
-    "youtube-api-search": "0.0.5"
+    "react-twitter-widgets": "^1.9.5"
   },
   "scripts": {
     "start": "react-scripts start",

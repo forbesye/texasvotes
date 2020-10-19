@@ -185,15 +185,6 @@ export default function Details () {
                                 </FacebookProvider>    
                             : <Paragraph>{name} does not have Twitter or Facebook.</Paragraph>
                     }
-                    <Divider />
-                    {/* TODO: Replace hardcoded screen name with Twitter handle */}
-                    <Timeline
-                      dataSource={{ sourceType: "profile", screenName: "RepRWilliams" }}
-                      options={{ width: "400", height: "400" }}
-                    />
-                    <FacebookProvider appId={FB_API_KEY}>
-                        <Page href="https://www.facebook.com/RepRogerWilliams" tabs="timeline" />
-                    </FacebookProvider>    
 
                     <Divider />
                     <article className={styles.districtDetails}>
