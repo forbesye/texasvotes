@@ -32,7 +32,7 @@ const ListView = () => {
                     type: elected_office_mappings[district.type],
                     party: party_mappings[district.party],
                     official_name: district.elected_officials[0].name, // TODO: API call will be diff
-                    population: district.demographics.total_population
+                    population: district.demographics.total_population,
                 }
             })
             setTotal(total);

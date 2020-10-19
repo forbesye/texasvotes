@@ -210,6 +210,291 @@ district_test_json = {
  }
 }
 
+# district_test_json = {
+#     "id": 0,
+#     "ocd_id": "ocd-division/country:us/state:tx/cd:25",
+#     "type": "us_house",
+#     "party": "R",
+#     "number": 25,
+#     "counties": [
+#       "Tarrant",
+#       "Coryell",
+#       "Travis",
+#       "Bosque",
+#       "Johnson",
+#       "Hays",
+#       "Somervell",
+#       "Burnet",
+#       "Erath",
+#       "Hill",
+#       "Hamilton",
+#       "Lampasas",
+#       "Bell"
+#     ],
+#     "map": "",
+#     "elections": {
+#       "upcoming": {
+#         "id": 1,
+#         "type": {
+#           "class": "general"
+#         },
+#         "office": "us_house",
+#         "district": "TX25",
+#         "dates": {
+#           "election_day": "2020-11-03T06:00:00.000Z",
+#           "early_start": "2020-10-13T06:00:00.000Z",
+#           "early_end": "2020-10-30T06:00:00.000Z"
+#         }
+#       },
+#       "past": []
+#     },
+#     "elected_officials": [
+#       {
+#         "id": 1,
+#         "name": "Roger Williams",
+#         "incumbent": True,
+#         "party": "R",
+#         "image": "https://williams.house.gov/sites/williams.house.gov/files/wysiwyg_uploaded/CRW%20Official_0_0.jpg",
+#         "district": "TX25"
+#       }
+#     ],
+#     "demographics": {
+#       "total_population": 818807,
+#       "age": {
+#         "out_of": 818807,
+#         "items": [
+#           {
+#             "start": 0,
+#             "end": 5,
+#             "proportion": 5.7
+#           },
+#           {
+#             "start": 5,
+#             "end": 9,
+#             "proportion": 6
+#           },
+#           {
+#             "start": 10,
+#             "end": 14,
+#             "proportion": 7.5
+#           },
+#           {
+#             "start": 15,
+#             "end": 19,
+#             "proportion": 7.3
+#           },
+#           {
+#             "start": 20,
+#             "end": 24,
+#             "proportion": 6.1
+#           },
+#           {
+#             "start": 25,
+#             "end": 34,
+#             "proportion": 13.2
+#           },
+#           {
+#             "start": 35,
+#             "end": 44,
+#             "proportion": 14.1
+#           },
+#           {
+#             "start": 45,
+#             "end": 54,
+#             "proportion": 13.4
+#           },
+#           {
+#             "start": 55,
+#             "end": 59,
+#             "proportion": 6.6
+#           },
+#           {
+#             "start": 60,
+#             "end": 64,
+#             "proportion": 6
+#           },
+#           {
+#             "start": 65,
+#             "end": 74,
+#             "proportion": 8.7
+#           },
+#           {
+#             "start": 75,
+#             "end": 84,
+#             "proportion": 4.1
+#           },
+#           {
+#             "start": 85,
+#             "proportion": 1.3
+#           }
+#         ],
+#         "median": 37.8
+#       },
+#       "race": {
+#         "out_of": 818807,
+#         "items": [
+#           {
+#             "race": "White",
+#             "proportion": 0.3
+#           },
+#           {
+#             "race": "African American",
+#             "proportion": 2.1
+#           },
+#           {
+#             "race": "Indigenous",
+#             "proportion": 3.6
+#           },
+#           {
+#             "race": "Asian",
+#             "proportion": 100
+#           },
+#           {
+#             "race": "Native Hawaiian and other Pacific Islander",
+#             "proportion": 18.7
+#           },
+#           {
+#             "race": "Some other race",
+#             "proportion": 15.2
+#           },
+#           {
+#             "race": "Two or more races",
+#             "proportion": 1.2
+#           }
+#         ]
+#       },
+#       "ethnicity": {
+#         "out_of": 818807,
+#         "items": [
+#           {
+#             "ethnicity": "Hispanic or Latino",
+#             "proportion": 18.7
+#           },
+#           {
+#             "ethnicity": "Not Hispanic or Latino",
+#             "proportion": 81.3
+#           }
+#         ]
+#       },
+#       "education": {
+#         "enrollment": {
+#           "out_of": 207000,
+#           "items": [
+#             {
+#               "level": "Preschool",
+#               "proportion": 6
+#             },
+#             {
+#               "level": "Kindergarten",
+#               "proportion": 4.5
+#             },
+#             {
+#               "level": "Elementary and Middle School",
+#               "proportion": 40
+#             },
+#             {
+#               "level": "High School",
+#               "proportion": 21.2
+#             },
+#             {
+#               "level": "College or Graduate School",
+#               "proportion": 28.3
+#             }
+#           ]
+#         },
+#         "attainment": {
+#           "out_of": 552026,
+#           "items": [
+#             {
+#               "level": "Less than 9th grade",
+#               "proportion": 3.2
+#             },
+#             {
+#               "level": "9th to 12th grade",
+#               "proportion": 5.5
+#             },
+#             {
+#               "level": "High School Degree",
+#               "proportion": 23.3
+#             },
+#             {
+#               "level": "Some College, no degree",
+#               "proportion": 20.7
+#             },
+#             {
+#               "level": "Associate's Degree",
+#               "proportion": 6.7
+#             },
+#             {
+#               "level": "Bachelor's Degree",
+#               "proportion": 25.8
+#             },
+#             {
+#               "level": "Graduate or Professional Degree",
+#               "proportion": 14.8
+#             }
+#           ]
+#         }
+#       },
+#       "income": {
+#         "out_of": 291833,
+#         "items": [
+#           {
+#             "start": 0,
+#             "end": 9999,
+#             "proportion": 4.7
+#           },
+#           {
+#             "start": 10000,
+#             "end": 14999,
+#             "proportion": 2.5
+#           },
+#           {
+#             "start": 15000,
+#             "end": 24999,
+#             "proportion": 6.5
+#           },
+#           {
+#             "start": 25000,
+#             "end": 34999,
+#             "proportion": 7.4
+#           },
+#           {
+#             "start": 35000,
+#             "end": 49999,
+#             "proportion": 9.6
+#           },
+#           {
+#             "start": 50000,
+#             "end": 74999,
+#             "proportion": 16.8
+#           },
+#           {
+#             "start": 75000,
+#             "end": 99999,
+#             "proportion": 11.8
+#           },
+#           {
+#             "start": 100000,
+#             "end": 149999,
+#             "proportion": 17.9
+#           },
+#           {
+#             "start": 150000,
+#             "end": 199999,
+#             "proportion": 10.1
+#           },
+#           {
+#             "start": 200000,
+#             "proportion": 12.7
+#           }
+#         ],
+#         "median": 79975,
+#         "mean": 113438
+#       }
+#     }
+#   }
+
 election_test_json = {
  "id": 0,
  "type": "general",
