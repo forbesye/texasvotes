@@ -29,8 +29,15 @@ def format_politician_contact(p):
     p["contact"] = contact
 
 def format_politician_office(p):
-    current = p.pop("current")
-    office = p.pop("office")
+    if "current" in p:
+        current = p.pop("current")
+    else:
+        current = False
+
+    if "office" in p:
+        office = p.pop("office")
+    else:
+        return
 
     if current:
         p["current"] = office
@@ -52,7 +59,10 @@ def format_politician_fundraising(p):
 
     for j in json_funds:
         if "fund_" + j in p:
-            fundraising[j] = json.loads(p.pop("fund_" + j).replace("'", '"'))
+            try:
+                fundraising[j] = json.loads(p.pop("fund_" + j).replace("'", '"'))
+            except json.decoder.JSONDecodeError:
+                pass
 
     if fundraising:
         p["fundraising"] = fundraising
@@ -100,7 +110,7 @@ def format_district_demo_type(type, district):
 def format_district_elected_officials(d):
     elected_officials = d.pop("elected_officials")
 
-    elected_officials = [e for e in elected_officials if e["current"]]
+    elected_officials = [e for e in elected_officials if ("current" in e and e["current"])]
 
     for e in elected_officials:
         e.pop("current")
@@ -145,8 +155,12 @@ def format_elections_in_district(elections):
 def format_district(district):
     format_district_elected_officials(district)
     format_district_demographics(district)
-    format_elections_in_district(district["elections"])
-    format_districts_in_politicians(district["elected_officials"])
+
+    if "elections" in district:
+        format_elections_in_district(district["elections"])
+    
+    if "elected_officials" in district:
+        format_districts_in_politicians(district["elected_officials"])
 
 date_types = ["election_day", "early_start", "early_end"]
 
@@ -162,7 +176,20 @@ def format_election_dates(election):
 
 def format_election_district(election):
     if "district" in election:
-        election["district"] = {"type":election["district"]["type"], "number":election["district"]["number"]}
+        district = election["district"]
+
+        formatted = {}
+
+        if "type" in district:
+            formatted.update({"type":district["type"]})
+        
+        if "number" in district:
+            formatted.update({"number":district["number"]})
+
+        if formatted:
+            election["district"] = formatted
+        else:
+            election.pop("district")
 
 def format_election_type(election):
     type_election = {}
