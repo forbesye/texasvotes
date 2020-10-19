@@ -346,10 +346,15 @@ def politicians():
 
 @app.route('/politician/<int:id>', methods=['GET'])
 def politician_id(id):
-    if id == 0:
-        return politician_test_json
-    else:
-        return make_response("Error: Politician not found", 404)
+    politician = db.session.query(Politician).filter_by(id=id)
+
+    politician = politician_schema.dump(politician, many=True)[0]
+
+    format_office([politician])
+    format_contact([politician])
+    format_fundraising([politician])
+
+    return politician
 
 def format_elected_officials(districts):
     for d in districts:
@@ -450,6 +455,36 @@ def district_id(id):
     else:
         return make_response("Error: District not found", 404)
 
+def format_type(elections):
+    for election in elections:
+        type_election = {}
+
+        if "class_name" in election:
+            type_election["class"] = election.pop("class_name")
+
+        if type_election:
+            election.update({"type":type_election})
+
+date_types = ["election_day", "early_start", "early_end"]
+
+def format_dates(elections):
+    global date_types
+
+    for election in elections:
+        dates = {}
+
+        for date in date_types:
+            if date in election:
+                dates[date] = election.pop(date)
+
+        election["dates"] = dates
+
+def format_districts(elections):
+    for election in elections:
+        for politician in election["candidates"]:
+            if "district" in politician:
+                politician["district"] = {"type":politician["district"]["type"], "number":politician["district"]["number"]}
+
 @app.route('/election', methods=['GET'])
 def elections():
     '''
@@ -473,6 +508,10 @@ def elections():
     count = elections.total
 
     result = election_schema.dump(elections.items, many=True)
+
+    format_type(result)
+    format_dates(result)
+    format_districts(result)
 
     return {"page":result, "count":count}
 

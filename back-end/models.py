@@ -120,23 +120,22 @@ class BaseSchema(ma.Schema):
 class PoliticianSchema(BaseSchema):
     id = fields.Int(required=True)
     name = fields.Str(required=True)
-    district = fields.Nested('DistrictSchema', only=("id", "type", "number", "counties"), required=True, attribute="current_district")
-    election = fields.Nested('ElectionSchema', only=("id", "office"), required=True, attribute="elections", many=True)
+    district = fields.Nested('DistrictSchema', only=("id", "type", "number", "counties", "ocd_id", "party"), required=True, attribute="current_district")
+    election = fields.Nested('ElectionSchema', only=("id", "office", "class_name", "district", "election_day", "early_start", "early_end"), required=True, attribute="elections", many=True)
 
+    incumbent = fields.Bool(required=True)
     current = fields.Bool(required=True)
     office = fields.Str(required=True)
 
     party = fields.Str(required=True)
     image = fields.Str(required=False, attribute="img_url")
 
-    # TODO: Encapsulate somehow?
     website = fields.Str(required=True)
     facebook = fields.Str(required=True)
     twitter = fields.Str(required=True)
     youtube = fields.Str(required=True)
     phone = fields.Str(required=True, attribute="phone_number")
 
-    # TODO: Encapsulate somehow?
     fund_raise = fields.Int(required=False)
     fund_spent = fields.Int(required=False)
     fund_remain = fields.Int(required=False)
@@ -176,6 +175,14 @@ class DistrictSchema(BaseSchema):
 class ElectionSchema(BaseSchema):
     id = fields.Int(required=True)
     office = fields.Str(required=True)
+    district = fields.Nested('DistrictSchema', only=('id', 'ocd_id', 'type', 'number', 'party', 'counties'), required=True, attribute="current_district")
+    candidates = fields.Nested('PoliticianSchema', only=('id', 'name', 'party', 'image', 'district'), required=True, attribute="politicians", many=True)
+    class_name = fields.Str(required=True)
+    party = fields.Str(required=False)
+    office = fields.Str(required=True)
+    election_day = fields.Str(required=True)
+    early_start = fields.Str(required=True)
+    early_end = fields.Str(required=True)
 
 politician_schema = PoliticianSchema()
 district_schema = DistrictSchema()
