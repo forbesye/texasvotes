@@ -264,7 +264,7 @@ export default function Details () {
                         <section className={styles.electionSection}>
                             <Title level={4}>Participating Elections</Title>
                             {
-                                election.length === undefined ? (
+                                election ? (
                                     <Fragment>
                                         <Paragraph>{name} is running in an upcoming election.</Paragraph>
                                         <div className={styles.electionTable}> 
