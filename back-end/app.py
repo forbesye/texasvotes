@@ -1,4 +1,4 @@
-from models import Politician, District, Election, Counties, db, app
+from models import Politician, District, Election, Counties, db, app, politician_schema
 import requests
 import json
 # going to start making routes
@@ -274,7 +274,12 @@ def politicians():
         return get_pages(int(page), "politician")
     '''
 
-    return db.session.query(Politician).all()
+    politicians = db.session.query(Politician).all()
+    count = db.session.query(Politician).count()
+
+    result = politician_schema.dump(politicians, many=True)
+
+    return {"page":result, "count":count}
 
 @app.route('/politician/<int:id>', methods=['GET'])
 def politician_id(id):

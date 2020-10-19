@@ -1,6 +1,7 @@
 from flask import Flask, request, make_response, jsonify
 from db import init_db
 from flask_marshmallow import Marshmallow
+from marshmallow import fields, post_dump
 app = Flask(__name__)
 db = init_db(app)
 ma = Marshmallow(app)
@@ -106,5 +107,36 @@ class Counties(db.Model):
     def __repr__(self):
         return '<County %s>' % self.name
 
+class BaseSchema(ma.Schema):
+    SKIP_VALUES = [None]
 
-class Politician_Schema(ma.Schema):
+    @post_dump
+    def remove_skip_values(self, data, **kargs):
+        return {
+            key: value for key, value in data.items()
+            if value not in self.SKIP_VALUES
+        }
+    
+class PoliticianSchema(BaseSchema):
+    id = fields.Int(required=True)
+    name = fields.Str(required=True)
+    phone = fields.Str(required=False, attribute="phone_number")
+    district = fields.Nested('DistrictSchema', only=("id", "type", "number", "counties"), required=True, attribute="current_district")
+
+class DistrictSchema(BaseSchema):
+    id = fields.Int(required=True)
+    type = fields.Str(required=True, attribute="type_name")
+    number = fields.Int(required=True)
+
+    # TODO: Find some way to return a list of names, not a list of dicts with names inside
+    counties = fields.List(fields.Nested('CountySchema', only=("name",)), required=True)
+
+class ElectionSchema(BaseSchema):
+    id = fields.Int(required=True)
+    office = fields.Str(required=True)
+
+class CountySchema(BaseSchema):
+    id = fields.Int(required=True)
+    name = fields.Str(required=True)
+
+politician_schema = PoliticianSchema()
