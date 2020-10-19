@@ -32,6 +32,18 @@ const Details = () => {
         'type': 'vector',
         'url': 'mapbox://catalystic.4792yhty'
     };
+
+    const SENATE_SOURCE = {
+        'type': 'vector',
+        'url': 'mapbox://catalystic.32xmvx8x'
+        
+        // 'url': `https://api.mapbox.com/v4/catalystic.32xmvx8x.json?access_token=${process.env.REACT_APP_MAP_KEY}`
+    };
+
+    const CONGRESS_SOURCE = {
+        'type': 'vector',
+        'url': 'mapbox://catalystic.1h2pkbbe'
+    };
     
     useEffect(() => {
         const fetchData = async () => {
@@ -88,13 +100,28 @@ const Details = () => {
                         zoom={[4.5]}
                     >
                         <Source id="house_source" tileJsonSource={HOUSE_SOURCE} />
+                        <Source id="senate_source" tileJsonSource={SENATE_SOURCE} />
+                        <Source id="congress_source" tileJsonSource={CONGRESS_SOURCE} />
                         <Layer 
-                            id="house_source_layer" 
-                            type= 'line'
+                            id="house_layer" 
+                            type= 'vector'
                             sourceId= 'house_source'
                             sourceLayer= 'original'
-                        >
-                        </Layer>
+                            filter={['in', 'District', 1]}
+                        />
+                        {/* <Layer 
+                            id="senate_layer" 
+                            type= 'vector'
+                            sourceId= 'senate_source'
+                            sourceLayer= 'original'
+                        />
+
+                        <Layer 
+                            id="congress_layer" 
+                            type= 'vector'
+                            sourceId= 'congress_source'
+                            sourceLayer= 'original'
+                        /> */}
                     </Map>
 
                     <article className={styles.districtDetails}>
