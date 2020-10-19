@@ -176,7 +176,7 @@ class ElectionSchema(BaseSchema):
     id = fields.Int(required=True)
     office = fields.Str(required=True)
     district = fields.Nested('DistrictSchema', only=('id', 'ocd_id', 'type', 'number', 'party', 'counties'), required=True, attribute="current_district")
-    candidates = fields.Nested('PoliticianSchema', only=('id', 'name', 'party', 'image', 'district'), required=True, attribute="politicians", many=True)
+    candidates = fields.Nested('PoliticianSchema', only=('id', 'name', 'party', 'image', 'district', 'incumbent'), required=True, attribute="politicians", many=True)
     class_name = fields.Str(required=True)
     party = fields.Str(required=False)
     office = fields.Str(required=True)

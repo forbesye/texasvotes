@@ -542,36 +542,15 @@ def elections():
 
     return {"page":result, "count":count}
 
-
-# currently hardcoded kinda
-def get_pages(page, model):
-    dic = {'total': 35}
-    if page == 1:
-        if model == "election":
-            dic.update({'page': [election_test_json] * 20})
-        elif model == "district":
-            dic.update({'page': [district_test_json] * 20})
-        elif model == "politician":
-            dic.update({'page': [politician_test_json] * 20})
-        return dic
-    elif page == 2:
-        if model == "election":
-            dic.update({'page': [election_test_json] * 15})
-        elif model == "district":
-            dic.update({'page': [district_test_json] * 15})
-        elif model == "politician":
-            dic.update({'page': [politician_test_json] * 15})
-        return dic
-    else:
-       return make_response("Error: page not found", 404) 
-        
-
 @app.route('/election/<int:id>', methods=['GET'])
 def election_id(id):
-    if id == 0:
-        return election_test_json
-    else:
-        return make_response("Error: Election not found", 404)
+    election = db.session.query(Election).filter_by(id=id)
+
+    election = election_schema.dump(election, many=True)[0]
+
+    format_election(election)
+
+    return election
 
 @app.route('/')
 def hello_world():
