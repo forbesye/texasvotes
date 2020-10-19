@@ -258,6 +258,62 @@ election_primary_test_json = {
     }
 }
 
+def format_contact(politicians):
+    for p in politicians:
+
+        contact = {}
+
+        if "website" in p:
+            contact["website"] = p.pop("website")
+
+        social = []
+
+        if "facebook" in p:
+            social.append({"type":"facebook", "id":p.pop("facebook")})
+        if "twitter" in p:
+            social.append({"type":"twitter", "id":p.pop("twitter")})
+        if "youtube" in p:
+            social.append({"type":"youtube", "id":p.pop("youtube")})
+
+        if social:
+            contact["social_media"] = social
+
+        if "phone" in p:
+            contact["phone"] = p.pop("phone")
+
+        p["contact"] = contact
+
+def format_office(politicians):
+    for p in politicians:
+        current = p.pop("current")
+        office = p.pop("office")
+
+        if current:
+            p["current"] = office
+        else:
+            p["running_for"] = office
+
+    return politicians
+
+def format_fundraising(politicians):
+    for p in politicians:
+        fundraising = {}
+
+        if "fund_raise" in p:
+            fundraising["raised"] = p.pop("fund_raise")
+        if "fund_spent" in p:
+            fundraising["spent"] = p.pop("fund_spent")
+        if "fund_remain" in p:
+            fundraising["remaining_cash"] = p.pop("fund_remain")
+        if "fund_debt" in p:
+            fundraising["debt"] = p.pop("fund_debt")
+        if "fund_industries" in p:
+            fundraising["industries"] = json.loads(p.pop("fund_industries").replace("'", '"'))
+        if "fund_contributors" in p:
+            fundraising["contributors"] = json.loads(p.pop("fund_contributors").replace("'", '"'))
+
+        p["fundraising"] = fundraising
+
 @app.route('/politician', methods=['GET'])
 def politicians():
     '''
@@ -282,6 +338,10 @@ def politicians():
 
     result = politician_schema.dump(politicians.items, many=True)
 
+    format_office(result)
+    format_contact(result)
+    format_fundraising(result)
+
     return {"page":result, "count":count}
 
 @app.route('/politician/<int:id>', methods=['GET'])
@@ -290,6 +350,7 @@ def politician_id(id):
         return politician_test_json
     else:
         return make_response("Error: Politician not found", 404)
+
 
 @app.route('/district', methods=['GET'])
 def districts():

@@ -120,9 +120,29 @@ class BaseSchema(ma.Schema):
 class PoliticianSchema(BaseSchema):
     id = fields.Int(required=True)
     name = fields.Str(required=True)
-    phone = fields.Str(required=False, attribute="phone_number")
     district = fields.Nested('DistrictSchema', only=("id", "type", "number", "counties"), required=True, attribute="current_district")
     election = fields.Nested('ElectionSchema', only=("id", "office"), required=True, attribute="elections", many=True)
+
+    current = fields.Bool(required=True)
+    office = fields.Str(required=True)
+
+    party = fields.Str(required=True)
+    image = fields.Str(required=False, attribute="img_url")
+
+    # TODO: Encapsulate somehow?
+    website = fields.Str(required=True)
+    facebook = fields.Str(required=True)
+    twitter = fields.Str(required=True)
+    youtube = fields.Str(required=True)
+    phone = fields.Str(required=True, attribute="phone_number")
+
+    # TODO: Encapsulate somehow?
+    fund_raise = fields.Int(required=False)
+    fund_spent = fields.Int(required=False)
+    fund_remain = fields.Int(required=False)
+    fund_debt = fields.Int(required=False)
+    fund_industries = fields.Str(required=False)
+    fund_contributors = fields.Str(required=False)
 
 class CountySchema(BaseSchema):
     id = fields.Int(required=True)
