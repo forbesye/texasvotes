@@ -172,7 +172,7 @@ def format_election_dates(election):
 
 def format_election_district(election):
     if "district" in election:
-        district = delection["district"]
+        district = election["district"]
 
         formatted = {}
 
