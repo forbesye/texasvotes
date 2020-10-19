@@ -31,8 +31,9 @@ const ListView = () => {
                     key: district.id,
                     type: elected_office_mappings[district.type],
                     party: party_mappings[district.party],
-                    official_name: district.elected_officials[0].name, // TODO: API call will be diff
+                    official_name: district.elected_officials[0].name,
                     population: district.demographics.total_population,
+                    name: `TX-${district.number}`,
                 }
             })
             setTotal(total);

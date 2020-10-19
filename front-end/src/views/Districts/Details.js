@@ -52,20 +52,22 @@ const Details = () => {
 
 
     const {
-        name,
-        // number,
+        ocd_id,
+        type,
+        party,
+        number,
         counties,
+        map,
         elections,
         elected_officials,
         demographics,
-        // current_incumbent
     } = district
     let content = null
     if(loaded) {
         content = (
             <Fragment>
                 <PageHeader
-                    title={name}
+                    title={`TX-${number}`}
                     subTitle={description(district)}
                     onBack={handleBack} 
                 />
@@ -96,35 +98,7 @@ const Details = () => {
                     </Map>
 
                     <article className={styles.districtDetails}>
-                        <Title style={{ textAlign: "center" }} level={3}>Elections</Title>
-                        <Row justify="space-around">
-                            <Col>
-                                {
-                                    elections.past.length > 0 ?  (
-                                        <Fragment>
-                                            <Text strong style={{fontSize: 18}}>Past Election IDs: </Text>
-                                            {
-                                                elections.past.map((e, i) => {
-                                                    // TODO change /0 to actual past election id
-                                                    return <Link to={`/elections/view/0`}>{(i > 0 ? ", " : "") + e.id}</Link>
-                                                })
-                                            }
-                                        </Fragment>
-                                    ) : null
-                                }
-                            </Col>
-                            <Col>
-                                {
-                                    elections.current ? (
-                                        <Fragment>
-                                            <Text strong style={{fontSize: 18}}>Current Election ID: </Text>
-                                            {/* TODO change /0 to actual current election id */}
-                                            <Link to={`/elections/view/0`}>{elections.current.id}</Link>
-                                        </Fragment>
-                                    ) : null
-                                }
-                            </Col>
-                        </Row>
+                        <Title style={{ textAlign: "center" }} level={3}>District Details</Title>
                         <Row justify="space-around">
                             <Col>
                                 <Text strong style={{fontSize: 18}}>Past Official: </Text>
@@ -135,6 +109,44 @@ const Details = () => {
                                 <Text strong style={{fontSize: 18}}>Current Official: </Text>
                                 {/* TODO modify /0 to be the elected official's id */}
                                 <Link to={`/politicians/view/0`}>{elected_officials[0].name}</Link>
+                            </Col>
+                        </Row>
+                        <Row justify="space-around">
+                            <Col>
+                                {
+                                    elections.past.length > 0 ?  (
+                                        <Fragment>
+                                            <Text strong style={{fontSize: 18}}>Past Elections: </Text>
+                                            {
+                                                elections.past.map((e, i) => {
+                                                    // TODO change /0 to actual past election id
+                                                    return <Link to={`/elections/view/0`}>{(i > 0 ? ", " : "") + e.id}</Link>
+                                                })
+                                            }
+                                        </Fragment>
+                                    ) : (
+                                        <Fragment>
+                                            <Text strong style={{fontSize: 18}}>Past Elections: </Text>
+                                            <Text>None</Text>
+                                        </Fragment>
+                                    )
+                                }
+                            </Col>
+                            <Col>
+                                {
+                                    elections.upcoming ? (
+                                        <Fragment>
+                                            <Text strong style={{fontSize: 18}}>Current Election: </Text>
+                                            {/* TODO change /0 to actual current election id */}
+                                            <Link to={`/elections/view/0`}>{elections.upcoming.id}</Link>
+                                        </Fragment>
+                                    ) : (
+                                        <Fragment>
+                                            <Text strong style={{fontSize: 18}}>Current Election: </Text>
+                                            <Text style={{fontSize: 18}}>None</Text>
+                                        </Fragment>
+                                    )
+                                }
                             </Col>
                         </Row>
                     </article>
@@ -157,47 +169,47 @@ const Details = () => {
                             <Text strong style={{fontSize: 18}}>Age</Text>
                             <br />
                             <PieChart 
-                                data={Object.keys(demographics.age).map(key => demographics.age[key])}
-                                labels={Object.keys(demographics.age).map(key => age_mappings[key])}
+                                data={demographics.age.items.map(item => (item.proportion / 100) * demographics.age.out_of)}
+                                labels={demographics.age.items.map(item => `${item.start} - ${item.end}`)}
                             />
                         </div>
                         <div style={{marginTop: "40px"}}>
                             <Text strong style={{fontSize: 18}}>Race</Text>
                             <br />
                             <PieChart 
-                                data={Object.keys(demographics.race).map(key => demographics.race[key])}
-                                labels={Object.keys(demographics.race).map(key => race_mappings[key])}
+                                data={demographics.race.items.map(item => (item.proportion / 100) * demographics.race.out_of)}
+                                labels={demographics.race.items.map(item => item.race)}
                             />
                         </div>
                         <div style={{marginTop: "40px"}}>
                             <Text strong style={{fontSize: 18}}>Ethnicity</Text>
                             <br />
                             <PieChart 
-                                data={Object.keys(demographics.ethnicity).map(key => demographics.ethnicity[key])}
-                                labels={Object.keys(demographics.ethnicity).map(key => ethnicity_mappings[key])}
+                                data={demographics.ethnicity.items.map(item => (item.proportion / 100) * demographics.ethnicity.out_of)}
+                                labels={demographics.ethnicity.items.map(item => item.ethnicity)}
                             />
                         </div>
                         <div style={{marginTop: "40px"}}>
                             <Text strong style={{fontSize: 18}}>Education Enrollement</Text>
                             <br />
                             <PieChart 
-                                data={Object.keys(demographics.educational_attainment.enrollment).map(key => demographics.educational_attainment.enrollment[key])}
-                                labels={Object.keys(demographics.educational_attainment.enrollment).map(key => educational_mappings[key])}
+                                data={demographics.education.enrollment.items.map(item => (item.proportion / 100) * demographics.education.enrollment.out_of)}
+                                labels={demographics.education.enrollment.items.map(item => item.level)}
                             />
                             <br />
                             <Text strong style={{fontSize: 18}}>Education Attainment</Text>
                             <br />
                             <PieChart 
-                                data={Object.keys(demographics.educational_attainment.attainment).map(key => demographics.educational_attainment.attainment[key])}
-                                labels={Object.keys(demographics.educational_attainment.attainment).map(key => educational_mappings[key])}
+                                data={demographics.education.attainment.items.map(item => (item.proportion / 100) * demographics.education.attainment.out_of)}
+                                labels={demographics.education.attainment.items.map(item => item.level)}
                             />
                         </div>
                         <div style={{marginTop: "40px"}}>
                             <Text strong style={{fontSize: 18}}>Income</Text>
                             <br />
                             <PieChart 
-                                data={Object.keys(demographics.income).map(key => demographics.income[key])}
-                                labels={Object.keys(demographics.income).map(key => income_mappings[key])}
+                                data={demographics.income.items.map(item => (item.proportion / 100) * demographics.income.out_of)}
+                                labels={demographics.income.items.map(item => `${item.start} - ${item.end}`)}
                             />
                         </div>
                     </article>
