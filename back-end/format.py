@@ -68,6 +68,10 @@ def format_election_in_politician(politician):
         format_election_dates(politician["election"])
         format_district_in_schema(politician["election"])
 
+    # there is an election field but it's an empty array. Remove it
+    elif "election" in politician:
+        politician.pop("election")
+
 def format_politician(politician):
     format_politician_office(politician)
     format_politician_contact(politician)
