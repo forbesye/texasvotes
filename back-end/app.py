@@ -258,61 +258,75 @@ election_primary_test_json = {
     }
 }
 
-def format_contact(politicians):
-    for p in politicians:
+def format_contact(p):
+    contact = {}
 
-        contact = {}
+    if "website" in p:
+        contact["website"] = p.pop("website")
 
-        if "website" in p:
-            contact["website"] = p.pop("website")
+    social = []
 
-        social = []
+    if "facebook" in p:
+        social.append({"type":"facebook", "id":p.pop("facebook")})
+    if "twitter" in p:
+        social.append({"type":"twitter", "id":p.pop("twitter")})
+    if "youtube" in p:
+        social.append({"type":"youtube", "id":p.pop("youtube")})
 
-        if "facebook" in p:
-            social.append({"type":"facebook", "id":p.pop("facebook")})
-        if "twitter" in p:
-            social.append({"type":"twitter", "id":p.pop("twitter")})
-        if "youtube" in p:
-            social.append({"type":"youtube", "id":p.pop("youtube")})
+    if social:
+        contact["social_media"] = social
 
-        if social:
-            contact["social_media"] = social
+    if "phone" in p:
+        contact["phone"] = p.pop("phone")
 
-        if "phone" in p:
-            contact["phone"] = p.pop("phone")
+    p["contact"] = contact
 
-        p["contact"] = contact
+def format_office(p):
+    current = p.pop("current")
+    office = p.pop("office")
 
-def format_office(politicians):
-    for p in politicians:
-        current = p.pop("current")
-        office = p.pop("office")
+    if current:
+        p["current"] = office
+    else:
+        p["running_for"] = office
 
-        if current:
-            p["current"] = office
-        else:
-            p["running_for"] = office
+def format_fundraising(p):
+    fundraising = {}
 
-    return politicians
+    if "fund_raise" in p:
+        fundraising["raised"] = p.pop("fund_raise")
+    if "fund_spent" in p:
+        fundraising["spent"] = p.pop("fund_spent")
+    if "fund_remain" in p:
+        fundraising["remaining_cash"] = p.pop("fund_remain")
+    if "fund_debt" in p:
+        fundraising["debt"] = p.pop("fund_debt")
+    if "fund_industries" in p:
+        fundraising["industries"] = json.loads(p.pop("fund_industries").replace("'", '"'))
+    if "fund_contributors" in p:
+        fundraising["contributors"] = json.loads(p.pop("fund_contributors").replace("'", '"'))
 
-def format_fundraising(politicians):
-    for p in politicians:
-        fundraising = {}
+    p["fundraising"] = fundraising
 
-        if "fund_raise" in p:
-            fundraising["raised"] = p.pop("fund_raise")
-        if "fund_spent" in p:
-            fundraising["spent"] = p.pop("fund_spent")
-        if "fund_remain" in p:
-            fundraising["remaining_cash"] = p.pop("fund_remain")
-        if "fund_debt" in p:
-            fundraising["debt"] = p.pop("fund_debt")
-        if "fund_industries" in p:
-            fundraising["industries"] = json.loads(p.pop("fund_industries").replace("'", '"'))
-        if "fund_contributors" in p:
-            fundraising["contributors"] = json.loads(p.pop("fund_contributors").replace("'", '"'))
+def format_dates(election):
+    global date_types
+    dates = {}
 
-        p["fundraising"] = fundraising
+    for date in date_types:
+        if date in election:
+            dates[date] = election.pop(date)
+
+    election["dates"] = dates
+
+def format_election_district(election):
+    if "district" in election:
+        election["district"] = {"type":election["district"]["type"], "number":election["district"]["number"]}
+
+def format_election_in_politician(politician):
+    if "election" in politician and len(politician["election"]) > 0:
+        politician["election"] = politician["election"][0]
+        format_dates(politician["election"])
+        format_election_district(politician["election"])
 
 @app.route('/politician', methods=['GET'])
 def politicians():
@@ -338,9 +352,11 @@ def politicians():
 
     result = politician_schema.dump(politicians.items, many=True)
 
-    format_office(result)
-    format_contact(result)
-    format_fundraising(result)
+    for r in result:
+        format_office(r)
+        format_contact(r)
+        format_fundraising(r)
+        format_election_in_politician(r)
 
     return {"page":result, "count":count}
 
@@ -350,23 +366,23 @@ def politician_id(id):
 
     politician = politician_schema.dump(politician, many=True)[0]
 
-    format_office([politician])
-    format_contact([politician])
-    format_fundraising([politician])
+    format_office(politician)
+    format_contact(politician)
+    format_fundraising(politician)
+    format_election_in_politician(politician)
 
     return politician
 
-def format_elected_officials(districts):
-    for d in districts:
-        elected_officials = d.pop("elected_officials")
+def format_elected_officials(d):
+    elected_officials = d.pop("elected_officials")
 
-        elected_officials = [e for e in elected_officials if e["current"]]
+    elected_officials = [e for e in elected_officials if e["current"]]
 
-        for e in elected_officials:
-            e.pop("current")
+    for e in elected_officials:
+        e.pop("current")
 
-        if elected_officials:
-            d["elected_officials"] = elected_officials
+    if elected_officials:
+        d["elected_officials"] = elected_officials
 
 def format_demo_type(type, district):
     demo_type = {}
@@ -400,23 +416,21 @@ def format_education(district):
 
     return {"education":educations}
 
-def format_demographics(districts):
+def format_demographics(district):
     global demos
+    demographics = {}
 
-    for district in districts:
-        demographics = {}
+    if "total_population" in district:
+        demographics["total_population"] = district.pop("total_population")
 
-        if "total_population" in district:
-            demographics["total_population"] = district.pop("total_population")
+    for demo in demos:
+        results = format_demo_type(demo, district)
+        if results:
+            demographics.update(results)
 
-        for demo in demos:
-            results = format_demo_type(demo, district)
-            if results:
-                demographics.update(results)
+    demographics.update(format_education(district))
 
-        demographics.update(format_education(district))
-
-        district["demographics"] = demographics
+    district["demographics"] = demographics
 
 
 @app.route('/district', methods=['GET'])
@@ -443,8 +457,9 @@ def districts():
 
     result = district_schema.dump(districts.items, many=True)
 
-    format_elected_officials(result)
-    format_demographics(result)
+    for r in result:
+        format_elected_officials(r)
+        format_demographics(r)
 
     return {"page":result, "count":count}
 
@@ -455,35 +470,21 @@ def district_id(id):
     else:
         return make_response("Error: District not found", 404)
 
-def format_type(elections):
-    for election in elections:
-        type_election = {}
+def format_type(election):
+    type_election = {}
 
-        if "class_name" in election:
-            type_election["class"] = election.pop("class_name")
+    if "class_name" in election:
+        type_election["class"] = election.pop("class_name")
 
-        if type_election:
-            election.update({"type":type_election})
+    if type_election:
+        election.update({"type":type_election})
 
 date_types = ["election_day", "early_start", "early_end"]
 
-def format_dates(elections):
-    global date_types
-
-    for election in elections:
-        dates = {}
-
-        for date in date_types:
-            if date in election:
-                dates[date] = election.pop(date)
-
-        election["dates"] = dates
-
-def format_districts(elections):
-    for election in elections:
-        for politician in election["candidates"]:
-            if "district" in politician:
-                politician["district"] = {"type":politician["district"]["type"], "number":politician["district"]["number"]}
+def format_districts(election):
+    for politician in election["candidates"]:
+        if "district" in politician:
+            politician["district"] = {"type":politician["district"]["type"], "number":politician["district"]["number"]}
 
 @app.route('/election', methods=['GET'])
 def elections():
@@ -509,9 +510,10 @@ def elections():
 
     result = election_schema.dump(elections.items, many=True)
 
-    format_type(result)
-    format_dates(result)
-    format_districts(result)
+    for r in result:
+        format_type(r)
+        format_dates(r)
+        format_districts(r)
 
     return {"page":result, "count":count}
 
