@@ -28,10 +28,34 @@ const toolsInfo = [
         link: "https://ant.design/"
     },
     {
+        title: "Flask",
+        img: FlaskLogo,
+        description: "Simple framework for API development",
+        link: "https://flask.palletsprojects.com/en/1.1.x/"
+    },
+    {
+        title: "SQLAlchemy",
+        img: SQLAlchemyLogo,
+        description: "SQL toolkit and object-relational mapper",
+        link: "https://www.sqlalchemy.org/"
+    },
+    {
+        title: "Marshmallow",
+        img: MarshmallowLogo,
+        description: "Library for complex datatype conversion",
+        link: "https://marshmallow.readthedocs.io/en/stable/"
+    },
+    {
         title: "AWS",
         img: AWSLogo,
         description: "Cloud hosting platform",
         link: "https://aws.amazon.com/"
+    },
+    {
+        title: "GCP",
+        img: GCPLogo,
+        description: "Cloud hosting platform",
+        link: "https://cloud.google.com/"
     },
     {
         title: "Docker",
@@ -46,10 +70,28 @@ const toolsInfo = [
         link: "https://gitlab.com/"
     },
     {
+        title: "Slack",
+        img: SlackLogo,
+        description: "Team communication platform",
+        link: "https://slack.com/"
+    },
+    {
         title: "Postman",
         img: PostmanLogo,
         description: "Tool for designing and testing APIs",
         link: "https://postman.com/"
+    },
+    {
+        title: "Jest",
+        img: JestLogo,
+        description: "JavaScript testing framework",
+        link: "https://jestjs.io/"
+    },
+    {
+        title: "Selenium",
+        img: SeleniumLogo,
+        description: "End-to-end UI testing framework",
+        link: "https://www.selenium.dev/"
     },
 ]
 
@@ -81,7 +123,7 @@ const repoAndAPI = [
     },
     {
         img: PostmanLogo,
-        link: "https://documenter.getpostman.com/view/6920111/TVKJxZu3"
+        link: "https://documenter.getpostman.com/view/12817007/TVYAg1Yb"
     }
 ]
 
