@@ -32,7 +32,6 @@ export default function GridView () {
             });
             setTotal(total);
             setGridData(page);
-            console.log(page);
             setLoading(false);
         }
         fetchData()
