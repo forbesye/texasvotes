@@ -24,13 +24,13 @@ export default function GridView () {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            const { page, total } = await getAPI({
+            const { page, count } = await getAPI({
                     model: "politician",
                     params: {
                         page: currPage
                     }
             });
-            setTotal(total);
+            setTotal(count);
             setGridData(page);
             setLoading(false);
         }
