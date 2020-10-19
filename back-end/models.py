@@ -1,8 +1,10 @@
 from flask import Flask, request, make_response, jsonify
 from db import init_db
+from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 from marshmallow import fields, post_dump
 app = Flask(__name__)
+CORS(app)
 db = init_db(app)
 ma = Marshmallow(app)
 
