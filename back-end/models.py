@@ -1,4 +1,11 @@
-from app import db
+from flask import Flask, request, make_response, jsonify
+from db import init_db
+from flask_marshmallow import Marshmallow
+from marshmallow import fields, post_dump
+app = Flask(__name__)
+db = init_db(app)
+ma = Marshmallow(app)
+
 
 # Association table between politicians and elections, many-to-many relationship
 link_politician_elections = db.Table('link_politician_elections',
@@ -18,7 +25,7 @@ class Politician(db.Model):
     # Foreign key for associated district, one-to-many relationship
     district_id = db.Column(db.Integer, db.ForeignKey('district.id'), nullable=True)
     # All associated elections, many-to-many relationship
-    elections = db.relationship('Election', secondary=link_politician_elections, backref=db.backref('politicians', lazy='joined'))
+    elections = db.relationship('Election', secondary=link_politician_elections, backref=db.backref('politicians', lazy='dynamic'))
     # Variables
     name = db.Column(db.String, nullable=False)
     district_number = db.Column(db.Integer, nullable=True, default=-1)
@@ -99,3 +106,84 @@ class Counties(db.Model):
 
     def __repr__(self):
         return '<County %s>' % self.name
+
+class BaseSchema(ma.Schema):
+    SKIP_VALUES = [None]
+
+    @post_dump
+    def remove_skip_values(self, data, **kargs):
+        return {
+            key: value for key, value in data.items()
+            if value not in self.SKIP_VALUES
+        }
+    
+class PoliticianSchema(BaseSchema):
+    id = fields.Int(required=True)
+    name = fields.Str(required=True)
+    district = fields.Nested('DistrictSchema', only=("id", "type", "number", "counties", "ocd_id", "party"), required=True, attribute="current_district")
+    election = fields.Nested('ElectionSchema', only=("id", "office", "class_name", "district", "election_day", "early_start", "early_end"), required=True, attribute="elections", many=True)
+
+    incumbent = fields.Bool(required=True)
+    current = fields.Bool(required=True)
+    office = fields.Str(required=True)
+
+    party = fields.Str(required=True)
+    image = fields.Str(required=False, attribute="img_url")
+
+    website = fields.Str(required=True)
+    facebook = fields.Str(required=True)
+    twitter = fields.Str(required=True)
+    youtube = fields.Str(required=True)
+    phone = fields.Str(required=True, attribute="phone_number")
+
+    fund_raise = fields.Int(required=False)
+    fund_spent = fields.Int(required=False)
+    fund_remain = fields.Int(required=False)
+    fund_debt = fields.Int(required=False)
+    fund_industries = fields.Str(required=False)
+    fund_contributors = fields.Str(required=False)
+
+class CountySchema(BaseSchema):
+    id = fields.Int(required=True)
+    name = fields.Str(required=True)
+
+class DistrictSchema(BaseSchema):
+    id = fields.Int(required=True)
+    type = fields.Str(required=True, attribute="type_name")
+    number = fields.Int(required=True)
+    elected_officials = fields.Nested('PoliticianSchema', only=("id", "name", "party", "image", "incumbent", "current", "district"), required=True, attribute="politicians", many=True)
+    elections = fields.Nested('ElectionSchema', only=("id", "office", "class_name", "election_day", "early_start", "early_end"), required=True, many=True)
+    counties = fields.Pluck(CountySchema, "name", many=True)
+    ocd_id = fields.Str(required=True)
+    type = fields.Str(required=True, attribute="type_name")
+    party = fields.Str(required=False)
+    number = fields.Int(required=False)
+    total_population = fields.Int(required=True)
+    age_out_of = fields.Int(required=True)
+    age_stats = fields.Str(required=True)
+    race_out_of = fields.Int(required=True)
+    race_stats = fields.Str(required=True)
+    ethnicity_out_of = fields.Int(required=False)
+    ethnicity_stats = fields.Str(required=False)
+    enrollment_out_of = fields.Int(required=True)
+    enrollment_stats = fields.Str(required=True)
+    attainment_out_of = fields.Int(required=True)
+    attainment_stats = fields.Str(required=True)
+    income_out_of = fields.Int(required=True)
+    income_stats = fields.Str(required=True)
+
+class ElectionSchema(BaseSchema):
+    id = fields.Int(required=True)
+    office = fields.Str(required=True)
+    district = fields.Nested('DistrictSchema', only=('id', 'ocd_id', 'type', 'number', 'party', 'counties'), required=True, attribute="current_district")
+    candidates = fields.Nested('PoliticianSchema', only=('id', 'name', 'party', 'image', 'district', 'incumbent'), required=True, attribute="politicians", many=True)
+    class_name = fields.Str(required=True)
+    party = fields.Str(required=False)
+    office = fields.Str(required=True)
+    election_day = fields.Str(required=True)
+    early_start = fields.Str(required=True)
+    early_end = fields.Str(required=True)
+
+politician_schema = PoliticianSchema()
+district_schema = DistrictSchema()
+election_schema = ElectionSchema()
