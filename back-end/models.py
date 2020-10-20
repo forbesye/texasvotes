@@ -97,7 +97,7 @@ class Election(db.Model):
     election_day = db.Column(db.String, nullable=False)
     early_start = db.Column(db.String, nullable=False)
     early_end = db.Column(db.String, nullable=False)
-
+    video_url = db.Column(db.String, nullable=True, default='https://www.youtube.com/watch?v=uC0uzrfUClc')
     def __repr__(self):
         return '<Election %s %s>' % (self.office, self.district_number)
 
@@ -185,6 +185,7 @@ class ElectionSchema(BaseSchema):
     election_day = fields.Str(required=True)
     early_start = fields.Str(required=True)
     early_end = fields.Str(required=True)
+    video_url = fields.Str(required=True)
 
 politician_schema = PoliticianSchema()
 district_schema = DistrictSchema()
