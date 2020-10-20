@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render components Dev card 1`] = `ShallowWrapper {}`;
+
+exports[`Render components Spinner 1`] = `ShallowWrapper {}`;
+
+exports[`Render views About 1`] = `ShallowWrapper {}`;
+
+exports[`Render views Splash 1`] = `ShallowWrapper {}`;
