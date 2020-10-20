@@ -49,11 +49,4 @@ describe('Library functions', () => {
         commas(num)
         expect(commas).toHaveReturnedWith('123,456,789')
     })
-
-    test('Date parse', () => {
-        const num = "2020-03-24"
-        const dateParse = jest.fn(num => monthDayYearParse(num))
-        dateParse(num)
-        expect(dateParse).toHaveReturnedWith('Mar 23, 2020')
-    })
 })
