@@ -8,9 +8,13 @@ import Spinner from "components/ui/Spinner"
 import { getAPI } from "library/APIClient"
 import PieChart from "./../../components/charts/PieChart"
 import ReactMapboxGl, { Layer, Feature, Source } from 'react-mapbox-gl'
+import { numberStringWithCommas } from "library/Functions"
 
 const { Title, Text } = Typography
 
+function formatAsMoney (num) {
+    return `$` + numberStringWithCommas(num.toFixed(2))
+}
 
 const Details = () => {
     const { id } = useParams()
@@ -195,15 +199,21 @@ const Details = () => {
                             <Text strong style={{fontSize: 18}}>Age</Text>
                             <br />
                             <PieChart 
-                                data={demographics.age.items.map(item => (item.proportion / 100) * demographics.age.out_of)}
-                                labels={demographics.age.items.map(item => `${item.start} - ${item.end}`)}
+                                data={demographics.age.items.map(item => Math.round((item.proportion / 100) * demographics.age.out_of))}
+                                labels={demographics.age.items.map(item => { 
+                                    if(item.end) {
+                                        return(`${item.start} - ${item.end}`)
+                                    } else {
+                                        return(`${item.start}+`)
+                                    }
+                                })}
                             />
                         </div>
                         <div style={{marginTop: "40px"}}>
                             <Text strong style={{fontSize: 18}}>Race</Text>
                             <br />
                             <PieChart 
-                                data={demographics.race.items.map(item => (item.proportion / 100) * demographics.race.out_of)}
+                                data={demographics.race.items.map(item => Math.round((item.proportion / 100) * demographics.race.out_of))}
                                 labels={demographics.race.items.map(item => item.race)}
                             />
                         </div>
@@ -213,7 +223,7 @@ const Details = () => {
                                 <Text strong style={{fontSize: 18}}>Ethnicity</Text>
                                 <br />
                                 <PieChart 
-                                    data={demographics.ethnicity.items.map(item => (item.proportion / 100) * demographics.ethnicity.out_of)}
+                                    data={demographics.ethnicity.items.map(item => Math.round((item.proportion / 100) * demographics.ethnicity.out_of))}
                                     labels={demographics.ethnicity.items.map(item => item.ethnicity)}
                                 />
                             </div>
@@ -223,14 +233,14 @@ const Details = () => {
                             <Text strong style={{fontSize: 18}}>Education Enrollement</Text>
                             <br />
                             <PieChart 
-                                data={demographics.education.enrollment.items.map(item => (item.proportion / 100) * demographics.education.enrollment.out_of)}
+                                data={demographics.education.enrollment.items.map(item => Math.round((item.proportion / 100) * demographics.education.enrollment.out_of))}
                                 labels={demographics.education.enrollment.items.map(item => item.level)}
                             />
                             <br />
                             <Text strong style={{fontSize: 18}}>Education Attainment</Text>
                             <br />
                             <PieChart 
-                                data={demographics.education.attainment.items.map(item => (item.proportion / 100) * demographics.education.attainment.out_of)}
+                                data={demographics.education.attainment.items.map(item => Math.round((item.proportion / 100) * demographics.education.attainment.out_of))}
                                 labels={demographics.education.attainment.items.map(item => item.level)}
                             />
                         </div>
@@ -238,8 +248,14 @@ const Details = () => {
                             <Text strong style={{fontSize: 18}}>Income</Text>
                             <br />
                             <PieChart 
-                                data={demographics.income.items.map(item => (item.proportion / 100) * demographics.income.out_of)}
-                                labels={demographics.income.items.map(item => `${item.start} - ${item.end}`)}
+                                data={demographics.income.items.map(item => Math.round((item.proportion / 100) * demographics.income.out_of))}
+                                labels={demographics.income.items.map(item => { 
+                                    if(item.end) {
+                                        return(`${formatAsMoney(item.start)} - ${formatAsMoney(item.end)}`)
+                                    } else {
+                                        return(`${formatAsMoney(item.start)}+`)
+                                    }
+                                })}
                             />
                         </div>
                     </article>

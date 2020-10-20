@@ -22,7 +22,6 @@ const partyMap = {
 }
 
 function formatAsMoney (num) {
-    // return `$${num.toFixed(2)}`
     return `$` + numberStringWithCommas(num.toFixed(2))
 }
 
