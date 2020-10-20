@@ -25,9 +25,7 @@ const candidateColumns = [
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
-        // TODO: Link to correct politicitian id
         render: (text, record) => {
-            console.log(record)
             return <Link to={`/politicians/view/${record.id}`}>{text}</Link> 
         }
     },
@@ -62,19 +60,18 @@ const resultColumns = [
         render: text => text + "%"
     },
 ]
-
+function districtName (election){
+    if (election.office === "us_senate") {
+        return "US Senate Seat for Texas"
+    } else {
+        return `${OFFICE_NAMES[election.office]} ${election.district.number}`
+    }
+}
 function title (election) {
     if(election.type.class === "general") {
-    // TODO: Dynamic district id
-        let districtName
-        if (election.office === "us_senate") {
-            districtName = "US Senate Seat for Texas"
-        } else {
-            districtName = `${OFFICE_NAMES[election.office]} ${election.district.number}`
-        }
-        return <div>{`General Election for the `} <Link to={`/districts/view/${election.district.id}`}>{districtName}</Link></div>
+        return <div>{`General Election for the `} <Link to={`/districts/view/${election.district.id}`}>{districtName(election)}</Link></div>
     } else {
-        return <div>{`${OFFICE_NAMES[election.office]}`} <Link to={`/districts/view/${election.district.id}`}>{`TX-${election.district.number}`}</Link></div>
+        return <div>{`${OFFICE_NAMES[election.office]}`} <Link to={`/districts/view/${election.district.id}`}>{districtName(election)}</Link></div>
     }
 }
 
@@ -93,7 +90,6 @@ const Details = () => {
 
     const videoSearch = (term) => {
         YTSearch({key: YT_API_KEY, term: term}, (videos) => {
-            console.log(term)
             setYTLink(`https://www.youtube.com/watch?v=${videos[0].id.videoId}`)
             setLoaded(true);
         })
@@ -109,7 +105,7 @@ const Details = () => {
             })
             setElection(data);
             if(data.type.class === "general"){
-                videoSearch(`general election district texas ${data.district.number}`)
+                videoSearch(`${districtName(data)}`)
             } else {
                 videoSearch(`${OFFICE_NAMES[data.office]} election district texas ${data.district.number}`)
             }
