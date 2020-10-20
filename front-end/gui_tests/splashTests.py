@@ -7,7 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 # PATH = "chromedriver.exe"
 PATH = "./front-end/gui_tests/chromedriver.exe"
-URL = "http://localhost:3000/"
+URL = "https://stage.texasvotes.me/"
 # URL = "https://www.texasvotes.me/"
 
 class TestSplash(unittest.TestCase):

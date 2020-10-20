@@ -8,7 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 # PATH = "chromedriver.exe"
 PATH = "./front-end/gui_tests/chromedriver.exe"
-URL = "http://localhost:3000/"
+URL = "https://stage.texasvotes.me/"
 # URL = "https://www.texasvotes.me/"
 
 class Test(unittest.TestCase):
@@ -25,7 +25,7 @@ class Test(unittest.TestCase):
         cls.driver.quit()
 
     def testImage(self):
-        self.driver.find_element_by_class_name("Navbar_leftNav__wlFFO").click()
+        self.driver.find_element_by_class_name("Navbar_logo__2l4jJ").click()
         element = self.driver.find_element_by_tag_name('h1')
         assert element.text == 'Texas Votes'
 

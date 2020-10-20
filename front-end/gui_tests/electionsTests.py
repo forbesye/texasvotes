@@ -6,8 +6,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-PATH = "chromedriver.exe"
-# PATH = "./front-end/gui_tests/chromedriver.exe"
+# PATH = "chromedriver.exe"
+PATH = "./front-end/gui_tests/chromedriver.exe"
 URL = "https://stage.texasvotes.me/elections/view/"
 # URL = "https://www.texasvotes.me/elections/view/"
 
