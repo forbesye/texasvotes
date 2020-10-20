@@ -29,6 +29,21 @@ test_back_end:
   script:
     - make back-end-tests
 
+
+postman_tests:
+  stage: test
+  image:
+    name: postman/newman_alpine33
+    entrypoint: [""]
+  script:
+    - newman --version
+    - npm install -g newman-reporter-html
+    - newman run collection.json --reporters cli,html --reporter-html-export report.html
+  artifacts:
+      paths:
+        - report.html
+    
+
 deploy_development:
   image: python:3.6-stretch
   only:
@@ -56,3 +71,5 @@ deploy_production:
     - $AWS_PROD_DEPLOY
     - cd back-end
     - /root/.local/bin/eb deploy Texasvotes-prod
+
+
