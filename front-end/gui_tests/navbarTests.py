@@ -1,3 +1,4 @@
+
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -10,7 +11,7 @@ PATH = "./front-end/gui_tests/chromedriver.exe"
 URL = "https://stage.texasvotes.me/"
 # URL = "https://www.texasvotes.me/"
 
-class TestSplash(unittest.TestCase):
+class Test(unittest.TestCase):
 
     # Get drivers and run website before all tests
     @classmethod
@@ -23,8 +24,35 @@ class TestSplash(unittest.TestCase):
     def tearDownClass(cls):
         cls.driver.quit()
 
-    def testPoliticianCard(self):
-        self.driver.find_element_by_id("politicianCard").click()
+    def testImage(self):
+        self.driver.find_element_by_class_name("Navbar_logo__2l4jJ").click()
+        element = self.driver.find_element_by_tag_name('h1')
+        assert element.text == 'Texas Votes'
+
+        self.driver.back()
+        currentURL = self.driver.current_url
+        assert currentURL == URL
+        
+    def testHome(self):
+        self.driver.find_element_by_link_text('Home').click()
+        element = self.driver.find_element_by_tag_name('h1')
+        assert element.text == 'Texas Votes'
+
+        self.driver.back()
+        currentURL = self.driver.current_url
+        assert currentURL == URL
+
+    def testAbout(self):
+        self.driver.find_element_by_link_text('About').click()
+        element = self.driver.find_element_by_tag_name('h1')
+        assert element.text == 'About Us'
+
+        self.driver.back()
+        currentURL = self.driver.current_url
+        assert currentURL == URL
+
+    def testPoliticians(self):
+        self.driver.find_element_by_link_text('Politicians').click()
         element = self.driver.find_element_by_tag_name('h1')
         assert element.text == 'Texas Politicians'
 
@@ -32,8 +60,8 @@ class TestSplash(unittest.TestCase):
         currentURL = self.driver.current_url
         assert currentURL == URL
 
-    def testDistrictCard(self):
-        self.driver.find_element_by_id("districtCard").click()
+    def testDistricts(self):
+        self.driver.find_element_by_link_text('Districts').click()
         element = self.driver.find_element_by_tag_name('h1')
         assert element.text == 'Texas Districts'
 
@@ -41,20 +69,20 @@ class TestSplash(unittest.TestCase):
         currentURL = self.driver.current_url
         assert currentURL == URL
 
-    def testElectionCard(self):
-        self.driver.find_element_by_id("electionCard").click()
+    def testElections(self):
+        self.driver.find_element_by_link_text('Elections').click()
         element = self.driver.find_element_by_tag_name('h1')
         assert element.text == 'Texas Elections'
-        
+
         self.driver.back()
         currentURL = self.driver.current_url
         assert currentURL == URL
 
     def testVotingFAQ(self):
-        self.driver.find_element_by_link_text('here').click()
+        self.driver.find_element_by_link_text('Voting FAQ').click()
         element = self.driver.find_element_by_tag_name('h1')
         assert element.text == 'Voting FAQ'
-        
+
         self.driver.back()
         currentURL = self.driver.current_url
         assert currentURL == URL
