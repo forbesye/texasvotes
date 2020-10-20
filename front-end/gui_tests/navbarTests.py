@@ -1,3 +1,4 @@
+
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -17,12 +18,20 @@ class Test(unittest.TestCase):
     def setUpClass(cls):
         cls.driver = webdriver.Chrome(PATH)
         cls.driver.get(URL)
-        
+
     # Close browser and quit after all tests
     @classmethod
     def tearDownClass(cls):
         cls.driver.quit()
 
+    def testElectionLink(self):
+        self.driver.find_element_by_link_text("Elections").click()
+        element = self.driver.find_element_by_tag_name('h1')
+        assert element.text == 'Texas Elections'
+
+        self.driver.back()
+        currentURL = self.driver.current_url
+        assert currentURL == URL
 
 if __name__ == "__main__":
     unittest.main()
