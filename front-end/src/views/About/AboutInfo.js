@@ -156,7 +156,7 @@ const teamInfo =
             bio: "I’m a third year CS major at UT Austin. I’m from Dallas, Texas and spend my free time playing video games and practicing piano. I definitely spend too much time working on projects and school :(",
             commits: 0,
             issues: 0,
-            tests: 0
+            tests: 9
         },
         {
             name: "Jefferson Ye",
@@ -167,7 +167,7 @@ const teamInfo =
             bio: "I’m a third year CS major at UT Austin. I’m from Dallas, Texas and in my free time I enjoy exercising, cooking, reading, playing video games, and listening to podcasts!",
             commits: 0,
             issues: 0,
-            tests: 0
+            tests: 8
         },
         {
             name: "Sydney Owen",
@@ -178,7 +178,7 @@ const teamInfo =
             bio: "I’m a fourth year CS major at UT Austin. I grew up in a small town called Llano, Texas. I spend my free time reading sci-fi/fantasy novels, playing video games, and spoiling my cat.",
             commits: 0,
             issues: 0,
-            tests: 0
+            tests: 7
         },
         {
             name: "Ivan Romero",
@@ -189,7 +189,7 @@ const teamInfo =
             bio: "I'm a fourth year CS major at UT Austin. I'm from Houston, Texas and I spend most of my time cooking or watching and participating in combat sports like boxing or Brazilian-Jiu-Jitsu.",
             commits: 0,
             issues: 0,
-            tests: 0
+            tests: 7
         },
         {
             name: "Kevin Li",
