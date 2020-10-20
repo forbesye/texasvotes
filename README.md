@@ -16,6 +16,7 @@ Phase 1: c8bbdbbcee676cb57f7533beb84f47de784289de
 
 ## Project Leader
 Phase 1: Jefferson Ye
+
 Phase 2: Larry Win
 
 ## Gitlab Pipelines
@@ -25,6 +26,8 @@ https://gitlab.com/forbesye/fitsbits/-/pipelines
 https://texasvotes.me
 
 ## Completion Times
+
+### Phase 1
 | Name | Estimated | Actual |
 |------|-----------|--------|
 |Jefferson Ye|10|14|
@@ -33,3 +36,13 @@ https://texasvotes.me
 |Sydney Owen|6|7|
 |Ivan Romero|5|6|
 |Kevin Li|6|6|
+
+### Phase 2
+| Name | Estimated | Actual |
+|------|-----------|--------|
+|Jefferson Ye|25|30|
+|Larry Win|20|30|
+|Jennifer Suriadinata|15|25|
+|Sydney Owen|15|20|
+|Ivan Romero|15|20|
+|Kevin Li|15|20|

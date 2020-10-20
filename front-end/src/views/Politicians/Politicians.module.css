@@ -27,8 +27,18 @@
     gap: 16px;
 }
 
-.card {
+.cardRep {
     height: 100%;
+    border-style: solid !important;
+    border-width: 4px !important;
+    border-color: red !important;
+}
+
+.cardDem {
+    height: 100%;
+    border-style: solid !important;
+    border-width: 4px !important;
+    border-color: blue !important;
 }
 
 .croppedImage {
@@ -76,10 +86,12 @@
 
 .politicianGeneralInfo, .politicianSocials {
     padding: 4px 16px;
+    font-size: 18px;
 }
 
 .electionDetails, .districtDetails, .politicianBio {
     width: 90%;
+    font-size: 18px !important;
 }
 
 .electionSection {
@@ -87,7 +99,7 @@
 }
 
 .electionTable {
-    margin: 16px auto;
+    margin: 16px auto; 
 }
 
 @media (min-width: 768px) {
