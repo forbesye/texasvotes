@@ -27,16 +27,6 @@ https://texasvotes.me
 
 ## Completion Times
 
-### Phase 2
-| Name | Estimated | Actual |
-|------|-----------|--------|
-|Jefferson Ye|0|0|
-|Larry Win|0|0|
-|Jennifer Suriadinata|0|0|
-|Sydney Owen|0|0|
-|Ivan Romero|0|0|
-|Kevin Li|0|0|
-
 ### Phase 1
 | Name | Estimated | Actual |
 |------|-----------|--------|
@@ -46,3 +36,13 @@ https://texasvotes.me
 |Sydney Owen|6|7|
 |Ivan Romero|5|6|
 |Kevin Li|6|6|
+
+### Phase 2
+| Name | Estimated | Actual |
+|------|-----------|--------|
+|Jefferson Ye|25|30|
+|Larry Win|20|30|
+|Jennifer Suriadinata|15|25|
+|Sydney Owen|15|20|
+|Ivan Romero|15|20|
+|Kevin Li|15|20|
