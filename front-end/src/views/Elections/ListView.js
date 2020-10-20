@@ -19,12 +19,14 @@ const ListView = () => {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            const { page, total } = await getAPI({
+            const { page, count } = await getAPI({
                     model: "election",
                     params: {
                         page: currPage
                     }
             });
+            console.log(page)
+            console.log(count)
             const data = page.map(election => {
                 return {
                     ...election,
@@ -38,7 +40,7 @@ const ListView = () => {
                     early_date: monthDayYearParse(election.dates.early_start)
                 }
             });
-            setTotal(total);
+            setTotal(count);
             setListData(data);
             setLoading(false);
         }

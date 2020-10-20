@@ -114,7 +114,9 @@ export default function Details () {
                             </div>
                             {
                                 district ?
-                                    <div><Text strong>District: </Text><Link to={`/districts/view/${district.id}`}>TX-{district.number}</Link></div>
+                                <div><Text strong>District: </Text><Link to={`/districts/view/${district.id}`}>
+                                    { district.number === -1 ? "Texas" : `TX-${district.number}` }
+                                </Link></div>
                                 : null
                             }
                             {
