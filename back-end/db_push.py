@@ -120,6 +120,7 @@ def push_election(data):
     entry["election_day"] = data["dates"]["election_day"]
     entry["early_start"] = data["dates"]["early_start"]
     entry["early_end"] = data["dates"]["early_end"]
+    entry["video_url"] = data["video_url"]
     election_db_instance = Election(**entry)
     db.session.add(election_db_instance)
 
