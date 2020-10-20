@@ -27,19 +27,10 @@ export function officeName (name) {
 }
 
 export function description (politician) {
+    const districtName = politician.district.number === -1 ? "Texas" : `TX-${politician.district.number}`
     if (politician.incumbent) {
-        if(politician.district.number != -1) {
-            return `${ELECTED_OFFICE_NAMES[politician.current]} | TX-${politician.district.number}`
-        }
-        else {
-            return `${ELECTED_OFFICE_NAMES[politician.current]} | Texas`
-        }
+        return `${ELECTED_OFFICE_NAMES[politician.current]} (${politician.party}) | ${districtName}`
     } else {
-        if(politician.district.number != -1) {
-            return `${CHALLENGER_OFFICE_NAMES[politician.running_for]} | TX-${politician.district.number}`
-        }
-        else {
-            return `${CHALLENGER_OFFICE_NAMES[politician.running_for]} | Texas`
-        }
+        return `${CHALLENGER_OFFICE_NAMES[politician.running_for]} ${ politician.running_for !== "us_senate" ? politician.district.number : "" } (${politician.party})`
     }
 }
