@@ -8,6 +8,14 @@ import { getAPI } from "library/APIClient"
 const { Title, Paragraph, Text } = Typography
 const { Meta } = Card
 
+// https://www.schemecolor.com/rainbow-break.php
+const colorHexMap = {
+    "I": "#5DD95D",
+    "R": "#EF3A38",
+    "D": "#3893D2",
+    "L": "#F1EA49"
+}
+
 export default function GridView () {
     const [gridData, setGridData] = useState([]);
     const [currPage, setCurrPage] = useState(1);
@@ -44,13 +52,13 @@ export default function GridView () {
                 { gridData.map((item, i) => (
                     <Link to={`/politicians/view/${item.id}`}>
                         <Card
-                            className={item.party === "R" ? styles.cardRep : styles.cardDem}
                             hoverable
                             cover={<img className={styles.croppedImage} alt={item.name} src={item.image} />}
                         >
+                            <div className={styles.circle} style={{background: colorHexMap[item.party]}}>{item.party}</div>
                             <Meta 
                                 title={<Text style={{fontSize: 20}}>{item.name}</Text>}
-                                description={<Text style={{fontSize: 18}}>{description(item)}</Text>}
+                                description={<Text style={{fontSize: 18}}>{description(item)} </Text>}
                             />
                         </Card>
                     </Link>

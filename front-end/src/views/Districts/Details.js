@@ -84,7 +84,7 @@ const Details = () => {
                         center={[-100, 30]}
                         containerStyle={{
                           height: '50vh',
-                          width: '30vw'
+                          width: '90%'
                         }}
                         zoom={[4.5]}
                     >
@@ -165,7 +165,7 @@ const Details = () => {
                             </Col>
                             <Col>
                                 {
-                                    elections ? (
+                                    elections.length ? (
                                         <Fragment>
                                             <Text strong style={{fontSize: 18}}>Current Election: </Text>
                                             <Link to={`/elections/view/${elections[0].id}`}>{elections[0].id}</Link>

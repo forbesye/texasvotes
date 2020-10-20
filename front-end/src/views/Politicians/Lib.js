@@ -1,3 +1,5 @@
+import React from 'react'
+
 const ELECTED_OFFICE_NAMES = {
     tx_house: "State Representative",
     tx_senate: "State Senator",
@@ -26,8 +28,18 @@ export function officeName (name) {
 
 export function description (politician) {
     if (politician.incumbent) {
-        return `${ELECTED_OFFICE_NAMES[politician.current]} (${politician.party}) | TX-${politician.district.number}`
+        if(politician.district.number != -1) {
+            return `${ELECTED_OFFICE_NAMES[politician.current]} | TX-${politician.district.number}`
+        }
+        else {
+            return `${ELECTED_OFFICE_NAMES[politician.current]} | Texas`
+        }
     } else {
-        return `${CHALLENGER_OFFICE_NAMES[politician.running_for]} (${politician.party})`
+        if(politician.district.number != -1) {
+            return `${CHALLENGER_OFFICE_NAMES[politician.running_for]} | TX-${politician.district.number}`
+        }
+        else {
+            return `${CHALLENGER_OFFICE_NAMES[politician.running_for]} | Texas`
+        }
     }
 }
