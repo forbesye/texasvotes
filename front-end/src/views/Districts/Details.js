@@ -165,7 +165,7 @@ const Details = () => {
                             </Col>
                             <Col>
                                 {
-                                    elections ? (
+                                    elections.length ? (
                                         <Fragment>
                                             <Text strong style={{fontSize: 18}}>Current Election: </Text>
                                             <Link to={`/elections/view/${elections[0].id}`}>{elections[0].id}</Link>

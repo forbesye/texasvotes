@@ -1,3 +1,5 @@
+import React from 'react'
+
 const ELECTED_OFFICE_NAMES = {
     tx_house: "State Representative",
     tx_senate: "State Senator",
