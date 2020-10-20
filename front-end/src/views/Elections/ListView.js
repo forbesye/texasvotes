@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react"
-import { Table, Divider, Typography } from "antd"
+import { Table, Divider, Typography, Pagination } from "antd"
 import { useHistory } from 'react-router-dom'
 import columns from "./Lib"
+import { districtName } from "./../Districts/Lib"
 import { getAPI } from "library/APIClient"
 import styles from "./Elections.module.css"
 import { election_type_mappings, elected_office_mappings } from "library/Mappings"
@@ -31,7 +32,7 @@ const ListView = () => {
                 return {
                     ...election,
                     key: election.id,
-                    district: `TX-${election.district.number}`,
+                    district: districtName(election.district),
                     type: election_type_mappings[election.type.class],
                     office: elected_office_mappings[election.office],
                     winner: election.results ? election.results.winner.name : "TBD",
@@ -78,7 +79,8 @@ const ListView = () => {
                     pagination={{
                         total: total,
                         defaultPageSize: 20,
-                        defaultCurrent: 1
+                        defaultCurrent: 1,
+                        pageSizeOptions: []
                     }}
                     onChange={handleTableChange}
                 />

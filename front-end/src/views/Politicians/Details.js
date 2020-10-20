@@ -10,6 +10,7 @@ import { getAPI } from "library/APIClient"
 import { numberStringWithCommas } from "library/Functions"
 import { Timeline } from 'react-twitter-widgets'
 import { FacebookProvider, Page } from 'react-facebook';
+import { districtName } from "./../Districts/Lib"
 
 
 const { Title, Paragraph, Text } = Typography
@@ -115,7 +116,7 @@ export default function Details () {
                             {
                                 district ?
                                 <div><Text strong>District: </Text><Link to={`/districts/view/${district.id}`}>
-                                    { district.number === -1 ? "Texas" : `TX-${district.number}` }
+                                    { district.number === -1 ? "Texas" : districtName(district) }
                                 </Link></div>
                                 : null
                             }
@@ -194,7 +195,7 @@ export default function Details () {
                             district ?
                             <div>
                                 <Paragraph>{name} is running in 
-                                    <Link to={`/districts/view/${district.id}`}> TX-{district.number} </Link> 
+                                    <Link to={`/districts/view/${district.id}`}> {districtName(district)} </Link> 
                                     which spans {district.counties.length} count{district.counties.length === 1 ? 'y' : 'ies'}. Here are the counties {name} would represent: </Paragraph>
                                 <br/>
                                 <List 
