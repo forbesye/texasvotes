@@ -1,8 +1,8 @@
 import React, {useState, useEffect, Fragment, useRef} from 'react'
 import { PageHeader, Typography, Divider, Row, Col, Collapse, List } from "antd"
 import { useParams, useHistory, Link } from 'react-router-dom'
-// import districts from './DefaultDistricts'
 import styles from './Districts.module.css'
+import { districtName, description } from "./Lib"
 import  { age_mappings, income_mappings, race_mappings, ethnicity_mappings, educational_mappings, elected_office_mappings, party_mappings } from "library/Mappings"
 import Spinner from "components/ui/Spinner"
 import { getAPI } from "library/APIClient"
@@ -10,18 +10,13 @@ import PieChart from "./../../components/charts/PieChart"
 import ReactMapboxGl, { Layer, Feature, Source } from 'react-mapbox-gl'
 
 const { Title, Text } = Typography
-const { Panel } = Collapse
 
-const description = (district) => {
-    return `${elected_office_mappings[district.type]} ${party_mappings[district.party]}`
-}
 
 const Details = () => {
     const { id } = useParams()
     const [ district, setDistrict ] = useState({})
     const [ loaded, setLoaded ] = useState(false)
     const history = useHistory()
-    const mapContainer = useRef(null)
     
     const Map = ReactMapboxGl({
         accessToken:
@@ -32,7 +27,17 @@ const Details = () => {
         'type': 'vector',
         'url': 'mapbox://catalystic.4792yhty'
     };
-    
+
+    const SENATE_SOURCE = {
+        'type': 'vector',
+        'url': 'mapbox://catalystic.32xmvx8x'
+    };
+
+    const CONGRESS_SOURCE = {
+        'type': 'vector',
+        'url': 'mapbox://catalystic.1h2pkbbe'
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             const data = await getAPI({
@@ -52,12 +57,8 @@ const Details = () => {
 
 
     const {
-        ocd_id,
-        type,
-        party,
         number,
         counties,
-        map,
         elections,
         elected_officials,
         demographics,
@@ -67,19 +68,15 @@ const Details = () => {
         content = (
             <Fragment>
                 <PageHeader
-                    title={`TX-${number}`}
+                    title={districtName(district)}
                     subTitle={description(district)}
                     onBack={handleBack} 
                 />
                 <Divider />
                 <div className={styles.districtDescription}>
-                    {/* <Title style={{ textAlign: "center" }} level={3}>Current Incumbent</Title> */}
-                    {/* <img src={current_incumbent.src} alt={current_incumbent.name} className={styles.districtImage} /> */}
-                    {/* <Title style={{ textAlign: "center" }} level={4}>{current_incumbent.name}</Title> */}
-                    {/* <Divider /> */}
                     <Title style={{ textAlign: "center" }} level={3}>District Map</Title>
                     <Map
-                        style='mapbox://styles/catalystic/ckggmur05017k1arklcio8vlc'
+                        style='mapbox://styles/mapbox/streets-v11'
                         center={[-100, 30]}
                         containerStyle={{
                           height: '50vh',
@@ -87,58 +84,87 @@ const Details = () => {
                         }}
                         zoom={[4.5]}
                     >
-                        <Source id="house_source" tileJsonSource={HOUSE_SOURCE} />
-                        <Layer 
-                            id="house_source_layer" 
-                            type= 'line'
-                            sourceId= 'house_source'
-                            sourceLayer= 'original'
-                        >
-                        </Layer>
+                        {
+                            district.type === 'tx_house' ? 
+                            <div>
+                                <Source id="house_source" tileJsonSource={HOUSE_SOURCE} />
+                                <Layer 
+                                    id="house_layer" 
+                                    type='line'
+                                    sourceId='house_source'
+                                    sourceLayer='texas_house_shapefile-57mz0c'
+                                    filter={['in', 'District', number]}
+                                />
+                                <Layer 
+                                    id="house_layer_fill" 
+                                    type='fill'
+                                    sourceId='house_source'
+                                    sourceLayer='texas_house_shapefile-57mz0c'
+                                    paint={{'fill-color': '#6e599f', 'fill-opacity': 0.5}}
+                                    filter={['in', 'District', number]}
+                                />
+                            </div>
+                            : 
+                            district.type === 'tx_senate' ?
+                            <div>
+                                <Source id="senate_source" tileJsonSource={SENATE_SOURCE} />
+                                <Layer 
+                                    id="senate_layer" 
+                                    type='line'
+                                    sourceId='senate_source'
+                                    sourceLayer='texas_senate_shapefile-5reubk'
+                                    filter={['in', 'District', number]}
+                                />
+                                <Layer 
+                                    id="senate_layer_fill" 
+                                    type='fill'
+                                    sourceId='senate_source'
+                                    sourceLayer='texas_senate_shapefile-5reubk'
+                                    paint={{'fill-color': '#6e599f', 'fill-opacity': 0.5}}
+                                    filter={['in', 'District', number]}
+                                />
+                            </div>
+                            :
+                            district.type === 'us_house' ?
+                            <div>
+                                <Source id="congress_source" tileJsonSource={CONGRESS_SOURCE} />
+                                <Layer 
+                                    id="congress_layer" 
+                                    type='line'
+                                    sourceId='congress_source'
+                                    sourceLayer='texas_congress_shapefile-27vyoe'
+                                    filter={['in', 'District', number]}
+                                />
+                                <Layer 
+                                    id="congress_layer_fill" 
+                                    type='fill'
+                                    sourceId='congress_source'
+                                    sourceLayer='texas_congress_shapefile-27vyoe'
+                                    paint={{'fill-color': '#6e599f', 'fill-opacity': 0.5}}
+                                    filter={['in', 'District', number]}
+                                />
+                            </div>
+                            : null
+                        }
                     </Map>
 
                     <article className={styles.districtDetails}>
                         <Title style={{ textAlign: "center" }} level={3}>District Details</Title>
                         <Row justify="space-around">
                             <Col>
-                                <Text strong style={{fontSize: 18}}>Past Official: </Text>
-                                {/* TODO modify /0 to be the elected official's id */}
-                                <Link to={`/politicians/view/0`}>{elected_officials[0].name}</Link> 
-                            </Col>
-                            <Col>
                                 <Text strong style={{fontSize: 18}}>Current Official: </Text>
-                                {/* TODO modify /0 to be the elected official's id */}
-                                <Link to={`/politicians/view/0`}>{elected_officials[0].name}</Link>
-                            </Col>
-                        </Row>
-                        <Row justify="space-around">
-                            <Col>
                                 {
-                                    elections.past.length > 0 ?  (
-                                        <Fragment>
-                                            <Text strong style={{fontSize: 18}}>Past Elections: </Text>
-                                            {
-                                                elections.past.map((e, i) => {
-                                                    // TODO change /0 to actual past election id
-                                                    return <Link to={`/elections/view/0`}>{(i > 0 ? ", " : "") + e.id}</Link>
-                                                })
-                                            }
-                                        </Fragment>
-                                    ) : (
-                                        <Fragment>
-                                            <Text strong style={{fontSize: 18}}>Past Elections: </Text>
-                                            <Text>None</Text>
-                                        </Fragment>
-                                    )
+                                    elected_officials ?
+                                    <Link to={`/politicians/view/${elected_officials[0].id}`}>{elected_officials[0].name}</Link>
+                                    : <Text style={{fontSize: 18}}> None </Text>
                                 }
                             </Col>
                             <Col>
                                 {
-                                    elections.upcoming ? (
+                                    elections ? (
                                         <Fragment>
                                             <Text strong style={{fontSize: 18}}>Current Election: </Text>
-                                            {/* TODO change /0 to actual current election id */}
-                                            <Link to={`/elections/view/0`}>{elections.upcoming.id}</Link>
+                                            <Link to={`/elections/view/${elections[0].id}`}>{elections[0].id}</Link>
                                         </Fragment>
                                     ) : (
                                         <Fragment>
@@ -181,14 +207,18 @@ const Details = () => {
                                 labels={demographics.race.items.map(item => item.race)}
                             />
                         </div>
-                        <div style={{marginTop: "40px"}}>
-                            <Text strong style={{fontSize: 18}}>Ethnicity</Text>
-                            <br />
-                            <PieChart 
-                                data={demographics.ethnicity.items.map(item => (item.proportion / 100) * demographics.ethnicity.out_of)}
-                                labels={demographics.ethnicity.items.map(item => item.ethnicity)}
-                            />
-                        </div>
+                        { 
+                            demographics.ethnicity ? 
+                            <div style={{marginTop: "40px"}}>
+                                <Text strong style={{fontSize: 18}}>Ethnicity</Text>
+                                <br />
+                                <PieChart 
+                                    data={demographics.ethnicity.items.map(item => (item.proportion / 100) * demographics.ethnicity.out_of)}
+                                    labels={demographics.ethnicity.items.map(item => item.ethnicity)}
+                                />
+                            </div>
+                            : null
+                        }
                         <div style={{marginTop: "40px"}}>
                             <Text strong style={{fontSize: 18}}>Education Enrollement</Text>
                             <br />

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Typography } from "antd"
+import  { elected_office_mappings, party_mappings } from "library/Mappings"
 
 const columns = [
     {
@@ -53,6 +54,21 @@ const columns = [
         )
     }
 ]
-// Elected official column, link to search query in politicians
+
+export function districtName (district) {
+    if (district.type === 'tx_house') {
+        return `Texas House District ${district.number}`
+    } else if (district.type === 'tx_senate') {
+        return `Texas Senate District ${district.number}`
+    } else if (district.type === 'us_house') {
+        return `Congressional District ${district.number}`
+    } else {
+        return `Texas`
+    }
+}
+
+export function description (district) {
+    return `${elected_office_mappings[district.type]} ${party_mappings[district.party]}`
+}
 
 export default columns;
