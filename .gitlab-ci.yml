@@ -37,7 +37,6 @@ postman_tests:
     entrypoint: [""]
   script:
     - newman --version
-    - npm install -g newman-reporter-html
     - newman run collections.json --reporters cli,html --reporter-html-export report.html
   artifacts:
       paths:
