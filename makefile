@@ -6,8 +6,8 @@ front-build:
 	cd front-end/ && npm build
 back-dev:
 	cd back-end/ && python3 -m flask run
-back-end-tests:
-	echo "Running unittests and Postman test suite..."
+python-unit-tests:
+	echo "Running python unit tests..."
 	python3 back-end/unittests.py -v
 front-end-tests:
 	echo "Running Jest and Selenium test suite..."
