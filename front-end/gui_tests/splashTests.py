@@ -4,6 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import sys
 
 # PATH = "chromedriver.exe"
 PATH = "./front-end/gui_tests/chromedriver.exe"
@@ -60,4 +61,5 @@ class TestSplash(unittest.TestCase):
         assert currentURL == URL
 
 if __name__ == "__main__":
-    unittest.main()
+    PATH = sys.argv[1]
+    unittest.main(argv=['first-arg-is-ignored'])
