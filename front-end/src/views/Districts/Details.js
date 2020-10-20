@@ -12,6 +12,12 @@ import { numberStringWithCommas } from "library/Functions"
 
 const { Title, Text } = Typography
 
+function electionName (district) {
+    if(district.elections[0].type.class === "general") {
+        return <div>{`General Election for the `} {districtName(district)}</div>
+    } 
+}
+
 function formatAsMoney (num) {
     return `$` + numberStringWithCommas(num.toFixed(2))
 }
@@ -163,12 +169,14 @@ const Details = () => {
                                     : <Text style={{fontSize: 18}}> None </Text>
                                 }
                             </Col>
+                        </Row>
+                        <Row justify="space-around" style={{marginTop: 10}}>
                             <Col>
                                 {
                                     elections.length ? (
                                         <Fragment>
                                             <Text strong style={{fontSize: 18}}>Current Election: </Text>
-                                            <Link to={`/elections/view/${elections[0].id}`}>{elections[0].id}</Link>
+                                            <Link to={`/elections/view/${elections[0].id}`}>{electionName(district)}</Link>
                                         </Fragment>
                                     ) : (
                                         <Fragment>

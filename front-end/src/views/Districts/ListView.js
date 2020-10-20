@@ -73,7 +73,8 @@ const ListView = () => {
                     pagination={{
                         total: total,
                         defaultPageSize: 20,
-                        defaultCurrent: 1
+                        defaultCurrent: 1,
+                        pageSizeOptions: []
                     }}
                     onChange={handleTableChange}
                 />

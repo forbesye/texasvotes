@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react"
-import { Table, Divider, Typography } from "antd"
+import { Table, Divider, Typography, Pagination } from "antd"
 import { useHistory } from 'react-router-dom'
 import columns from "./Lib"
 import { districtName } from "./../Districts/Lib"
@@ -79,7 +79,8 @@ const ListView = () => {
                     pagination={{
                         total: total,
                         defaultPageSize: 20,
-                        defaultCurrent: 1
+                        defaultCurrent: 1,
+                        pageSizeOptions: []
                     }}
                     onChange={handleTableChange}
                 />
