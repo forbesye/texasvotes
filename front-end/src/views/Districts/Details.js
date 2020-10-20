@@ -31,13 +31,12 @@ const Details = () => {
     const HOUSE_SOURCE = {
         'type': 'vector',
         'url': 'mapbox://catalystic.4792yhty'
+        // 'url': 'mapbox://mapbox.82pkq93d'
     };
 
     const SENATE_SOURCE = {
         'type': 'vector',
         'url': 'mapbox://catalystic.32xmvx8x'
-        
-        // 'url': `https://api.mapbox.com/v4/catalystic.32xmvx8x.json?access_token=${process.env.REACT_APP_MAP_KEY}`
     };
 
     const CONGRESS_SOURCE = {
@@ -91,7 +90,8 @@ const Details = () => {
                     {/* <Divider /> */}
                     <Title style={{ textAlign: "center" }} level={3}>District Map</Title>
                     <Map
-                        style='mapbox://styles/catalystic/ckggmur05017k1arklcio8vlc'
+                        // style='mapbox://styles/catalystic/ckggmur05017k1arklcio8vlc'
+                        style='mapbox://styles/mapbox/streets-v11'
                         center={[-100, 30]}
                         containerStyle={{
                           height: '50vh',
@@ -104,23 +104,24 @@ const Details = () => {
                         <Source id="congress_source" tileJsonSource={CONGRESS_SOURCE} />
                         <Layer 
                             id="house_layer" 
-                            type= 'vector'
-                            sourceId= 'house_source'
-                            sourceLayer= 'original'
-                            filter={['in', 'District', 1]}
+                            type='line'
+                            sourceId='house_source'
+                            sourceLayer='texas_house_shapefile-57mz0c'
+                            // TODO: dynamic distrcit number
+                            filter={['in', 'District', 74]}
                         />
                         {/* <Layer 
                             id="senate_layer" 
-                            type= 'vector'
+                            type= 'line'
                             sourceId= 'senate_source'
-                            sourceLayer= 'original'
+                            sourceLayer= 'texas_senate_shapefile-5reubk'
                         />
 
                         <Layer 
                             id="congress_layer" 
-                            type= 'vector'
+                            type= 'line'
                             sourceId= 'congress_source'
-                            sourceLayer= 'original'
+                            sourceLayer= 'texas_congress_shapefile-27vyoe'
                         /> */}
                     </Map>
 

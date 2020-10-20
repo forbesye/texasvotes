@@ -19,7 +19,7 @@ const ListView = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const { page, total } = await getAPI({
+            const { page, count } = await getAPI({
                     model: "district",
                     params: {
                         page: currPage
@@ -36,7 +36,7 @@ const ListView = () => {
                     name: `TX-${district.number}`,
                 }
             })
-            setTotal(total);
+            setTotal(count);
             setListData(data);
             setLoading(false);
         }
