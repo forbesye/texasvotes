@@ -54,6 +54,6 @@ describe('Library functions', () => {
         const num = "2020-03-24"
         const dateParse = jest.fn(num => monthDayYearParse(num))
         dateParse(num)
-        expect(dateParse).toHaveReturnedWith('Mar 24, 2020')
+        expect(dateParse).toHaveReturnedWith('Mar 23, 2020')
     })
 })
