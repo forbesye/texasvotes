@@ -14,10 +14,10 @@ const { Title, Text } = Typography
 const { Panel } = Collapse
 
 const OFFICE_NAMES = {
-    us_house: "House of Representatives",
+    us_house: "US Congressional District",
     us_senate: "US Senate",
-    tx_house: "Texas House of Representatives",
-    tx_senate: "Texas Senate",
+    tx_house: "Texas House of Representatives District",
+    tx_senate: "Texas State Senate District",
 }
 
 const candidateColumns = [
@@ -26,7 +26,10 @@ const candidateColumns = [
         dataIndex: 'name',
         key: 'name',
         // TODO: Link to correct politicitian id
-        render: text => <Link to={`/politicians/view/0`}>{text}</Link> 
+        render: (text, record) => {
+            console.log(record)
+            return <Link to={`/politicians/view/${record.id}`}>{text}</Link> 
+        }
     },
     {
         title: 'Party',
@@ -61,11 +64,18 @@ const resultColumns = [
 ]
 
 function title (election) {
-    if(election.type.class === "general")
+    if(election.type.class === "general") {
     // TODO: Dynamic district id
-        return <div>{`General Election for `} <Link to={`/districts/view/${election.district.id}`}>{`TX-${election.district.number}`}</Link></div>
-    else
+        let districtName
+        if (election.office === "us_senate") {
+            districtName = "US Senate Seat for Texas"
+        } else {
+            districtName = `${OFFICE_NAMES[election.office]} ${election.district.number}`
+        }
+        return <div>{`General Election for the `} <Link to={`/districts/view/${election.district.id}`}>{districtName}</Link></div>
+    } else {
         return <div>{`${OFFICE_NAMES[election.office]}`} <Link to={`/districts/view/${election.district.id}`}>{`TX-${election.district.number}`}</Link></div>
+    }
 }
 
 const Details = () => {
@@ -140,7 +150,7 @@ const Details = () => {
                     <Title style={{ textAlign: "center" }} level={3}>Election Dates</Title>
                     <Timeline 
                         mode={"left"} 
-                        style={{paddingTop: "20px", width: "400px", margin: "auto", fontSize: 18}}>
+                        style={{paddingTop: "20px", width: "95%", margin: "auto", fontSize: 18}}>
                         {
                             electionDate.map(key => {
                                 var curDate = new Date(dates[key])

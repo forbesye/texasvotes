@@ -84,7 +84,7 @@ const Details = () => {
                         center={[-100, 30]}
                         containerStyle={{
                           height: '50vh',
-                          width: '30vw'
+                          width: '95%'
                         }}
                         zoom={[4.5]}
                     >
