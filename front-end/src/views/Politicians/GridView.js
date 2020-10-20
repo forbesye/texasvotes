@@ -9,8 +9,6 @@ const { Title, Paragraph, Text } = Typography
 const { Meta } = Card
 
 export default function GridView () {
-    // const [items, setItems] = useState(politicians)
-    const [loading, setLoading] = useState(true);
     const [gridData, setGridData] = useState([]);
     const [currPage, setCurrPage] = useState(1);
     const [total, setTotal] = useState(20);
@@ -23,17 +21,14 @@ export default function GridView () {
 
     useEffect(() => {
         const fetchData = async () => {
-            setLoading(true);
-            const { page, total } = await getAPI({
+            const { page, count } = await getAPI({
                     model: "politician",
                     params: {
                         page: currPage
                     }
             });
-            setTotal(total);
+            setTotal(count);
             setGridData(page);
-            console.log(page);
-            setLoading(false);
         }
         fetchData()
     }, [currPage]);
@@ -49,7 +44,7 @@ export default function GridView () {
                 { gridData.map((item, i) => (
                     <Link to={`/politicians/view/${item.id}`}>
                         <Card
-                            className={item.party == "R" ? styles.cardRep : styles.cardDem}
+                            className={item.party === "R" ? styles.cardRep : styles.cardDem}
                             hoverable
                             cover={<img className={styles.croppedImage} alt={item.name} src={item.image} />}
                         >
@@ -66,9 +61,9 @@ export default function GridView () {
                 defaultCurrent={1}
                 defaultPageSize={20}
                 onChange={handlePaginationChange}
+                pageSizeOptions={[]}
                 style={{margin: "16px 0", display: "flex", justifyContent:"flex-end"}}
             />
-
         </Fragment>
     )
 }

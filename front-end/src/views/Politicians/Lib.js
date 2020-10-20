@@ -25,9 +25,9 @@ export function officeName (name) {
 }
 
 export function description (politician) {
-    if (politician.elected) {
-        return `${ELECTED_OFFICE_NAMES[politician.offices.current]} (${politician.party}) | ${politician.district.name}`
+    if (politician.incumbent) {
+        return `${ELECTED_OFFICE_NAMES[politician.current]} (${politician.party}) | TX-${politician.district.number}`
     } else {
-        return `${CHALLENGER_OFFICE_NAMES[politician.offices.running_for]} (${politician.party}) | ${politician.district.name}`
+        return `${CHALLENGER_OFFICE_NAMES[politician.running_for]} (${politician.party})`
     }
 }

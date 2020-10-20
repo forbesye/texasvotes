@@ -29,12 +29,13 @@ const ListView = () => {
                 return {
                     ...election,
                     key: election.id,
-                    district: election.district.name,
-                    type: election_type_mappings[election.type],
+                    district: `TX-${election.district.number}`,
+                    type: election_type_mappings[election.type.class],
                     office: elected_office_mappings[election.office],
                     winner: election.results ? election.results.winner.name : "TBD",
                     totalVoters: election.results ? election.results.total_voters : "TBD",
-                    election_date: monthDayYearParse(election.dates.election_day)
+                    election_date: monthDayYearParse(election.dates.election_day),
+                    early_date: monthDayYearParse(election.dates.early_start)
                 }
             });
             setTotal(total);
