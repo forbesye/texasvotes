@@ -10,4 +10,5 @@ back-end-tests:
 	echo "Running unittests and Postman test suite..."
 	python3 back-end/unittests.py -v
 front-end-tests:
-	echo "Running Mocha and Selenium test suite..."
+	echo "Running Jest and Selenium test suite..."
+	cd front-end/ && npm test
