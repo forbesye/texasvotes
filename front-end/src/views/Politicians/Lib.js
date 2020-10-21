@@ -29,8 +29,8 @@ export function officeName (name) {
 export function description (politician) {
     const districtName = politician.district.number === -1 ? "Texas" : `TX-${politician.district.number}`
     if (politician.incumbent) {
-        return `${ELECTED_OFFICE_NAMES[politician.current]} (${politician.party}) | ${districtName}`
+        return `${ELECTED_OFFICE_NAMES[politician.current]} | ${districtName}`
     } else {
-        return `${CHALLENGER_OFFICE_NAMES[politician.running_for]} ${ politician.running_for !== "us_senate" ? politician.district.number : "" } (${politician.party})`
+        return `${CHALLENGER_OFFICE_NAMES[politician.running_for]} ${ politician.running_for !== "us_senate" ? politician.district.number : ""}`
     }
 }

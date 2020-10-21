@@ -14,7 +14,7 @@
 ## Git SHA
 Phase 1: c8bbdbbcee676cb57f7533beb84f47de784289de
 
-Phase 2: 
+Phase 2: 50dc1dec4de6c0c6ace3081630c56137a069326c
 
 ## Project Leader
 Phase 1: Jefferson Ye
