@@ -32,20 +32,30 @@ const columns = [
           </Typography.Text>
         )
     },
+    // {
+    //     title: 'Winner',
+    //     dataIndex: 'winner',
+    //     key: 'winner',
+    //     render: text => (
+    //       <Typography.Text style={{ fontSize: 18 }}>
+    //         {text}
+    //       </Typography.Text>
+    //     )
+    // },
+    // {
+    //     title: 'Total Voters',
+    //     dataIndex: 'totalVoters',
+    //     key: 'totalVoters',
+    //     render: text => (
+    //       <Typography.Text style={{ fontSize: 18 }}>
+    //         {text}
+    //       </Typography.Text>
+    //     )
+    // },
     {
-        title: 'Winner',
-        dataIndex: 'winner',
-        key: 'winner',
-        render: text => (
-          <Typography.Text style={{ fontSize: 18 }}>
-            {text}
-          </Typography.Text>
-        )
-    },
-    {
-        title: 'Total Voters',
-        dataIndex: 'totalVoters',
-        key: 'totalVoters',
+        title: 'Early Voting Date',
+        dataIndex: 'early_date',
+        key: 'early_date',
         render: text => (
           <Typography.Text style={{ fontSize: 18 }}>
             {text}

@@ -2,11 +2,9 @@ import React, { useState, useEffect, useRef } from "react"
 import { Table, Divider, Typography } from "antd"
 import { useHistory } from 'react-router-dom'
 import styles from "./Districts.module.css"
-import columns from "./Lib"
-// import districtData from "./DefaultDistricts"
+import columns, { districtName } from "./Lib"
 import { party_mappings, elected_office_mappings } from "library/Mappings"
 import { getAPI } from "library/APIClient"
-// import { numberStringWithCommas } from "lib/Functions"
 const { Title, Paragraph } = Typography
 
 const ListView = () => {
@@ -19,23 +17,25 @@ const ListView = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const { page, total } = await getAPI({
+            const { page, count } = await getAPI({
                     model: "district",
                     params: {
                         page: currPage
                     }
             });
             const data = page.map(district => {
+                var elected_official = district.elected_officials ? district.elected_officials[0].name : "N/A"
                 return {
                     ...district,
                     key: district.id,
                     type: elected_office_mappings[district.type],
                     party: party_mappings[district.party],
-                    official_name: district.elected_officials[0].name, // TODO: API call will be diff
-                    population: district.demographics.total_population
+                    official_name: elected_official,
+                    population: district.demographics.total_population,
+                    name: districtName(district),
                 }
             })
-            setTotal(total);
+            setTotal(count);
             setListData(data);
             setLoading(false);
         }
@@ -73,7 +73,8 @@ const ListView = () => {
                     pagination={{
                         total: total,
                         defaultPageSize: 20,
-                        defaultCurrent: 1
+                        defaultCurrent: 1,
+                        pageSizeOptions: []
                     }}
                     onChange={handleTableChange}
                 />

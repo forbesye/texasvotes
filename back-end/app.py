@@ -123,7 +123,7 @@ def election_id(id):
 
 @app.route('/')
 def hello_world():
-    return 'Hello World 2.0!'
+    return '<img src="https://i.kym-cdn.com/photos/images/original/001/211/814/a1c.jpg" alt="cowboy" />'
 
 if __name__ == '__main__':
     app.run(host = "0.0.0.0", port = 5000, debug = True)

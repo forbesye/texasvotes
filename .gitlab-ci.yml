@@ -16,19 +16,30 @@ build_front_end:
     - npm install
     - CI=false npm run-script build
 
-test_front_end:
+jest_tests:
   stage: test
   script:
-    - make front-end-tests
+    - cd front-end
+    - npm install
+    - npm test
 
-test_back_end:
+python_unit_tests:
   image: python:3.6-stretch
   stage: test
   before_script:
     - pip install -r back-end/requirements.txt
   script:
-    - make back-end-tests
+    - make python-unit-tests
 
+postman_tests:
+  stage: test
+  image:
+    name: postman/newman_alpine33
+    entrypoint: [""]
+  script:
+    - newman --version
+    - newman run Postman.json 
+    
 deploy_development:
   image: python:3.6-stretch
   only:

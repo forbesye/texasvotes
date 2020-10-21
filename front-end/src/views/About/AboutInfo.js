@@ -10,6 +10,13 @@ import AWSLogo from 'views/About/images/AWSLogo.png'
 import DockerLogo from 'views/About/images/DockerLogo.png'
 import PostmanLogo from 'views/About/images/PostmanLogo.png'
 import GitLabLogo from 'views/About/images/GitLabLogo.png'
+import SeleniumLogo from 'views/About/images/SeleniumLogo.png'
+import JestLogo from 'views/About/images/JestLogo.png'
+import FlaskLogo from 'views/About/images/FlaskLogo.jpg'
+import SlackLogo from 'views/About/images/SlackLogo.png'
+import GCPLogo from 'views/About/images/GCPLogo.png'
+import MarshmallowLogo from 'views/About/images/MarshmallowLogo.png'
+import SQLAlchemyLogo from 'views/About/images/SQLAlchemyLogo.png'
 import GoogleDevLogo from 'views/About/images/GoogleDevLogo.png'
 import OpenSecretsLogo from 'views/About/images/OpenSecretsLogo.png'
 import OpenStatesLogo from 'views/About/images/OpenStatesLogo.png'
@@ -28,10 +35,34 @@ const toolsInfo = [
         link: "https://ant.design/"
     },
     {
+        title: "Flask",
+        img: FlaskLogo,
+        description: "Simple framework for API development",
+        link: "https://flask.palletsprojects.com/en/1.1.x/"
+    },
+    {
+        title: "SQLAlchemy",
+        img: SQLAlchemyLogo,
+        description: "SQL toolkit and object-relational mapper",
+        link: "https://www.sqlalchemy.org/"
+    },
+    {
+        title: "Marshmallow",
+        img: MarshmallowLogo,
+        description: "Library for complex datatype conversion",
+        link: "https://marshmallow.readthedocs.io/en/stable/"
+    },
+    {
         title: "AWS",
         img: AWSLogo,
         description: "Cloud hosting platform",
         link: "https://aws.amazon.com/"
+    },
+    {
+        title: "GCP",
+        img: GCPLogo,
+        description: "Cloud hosting platform",
+        link: "https://cloud.google.com/"
     },
     {
         title: "Docker",
@@ -46,10 +77,28 @@ const toolsInfo = [
         link: "https://gitlab.com/"
     },
     {
+        title: "Slack",
+        img: SlackLogo,
+        description: "Team communication platform",
+        link: "https://slack.com/"
+    },
+    {
         title: "Postman",
         img: PostmanLogo,
         description: "Tool for designing and testing APIs",
         link: "https://postman.com/"
+    },
+    {
+        title: "Jest",
+        img: JestLogo,
+        description: "JavaScript testing framework",
+        link: "https://jestjs.io/"
+    },
+    {
+        title: "Selenium",
+        img: SeleniumLogo,
+        description: "End-to-end UI testing framework",
+        link: "https://www.selenium.dev/"
     },
 ]
 
@@ -81,7 +130,7 @@ const repoAndAPI = [
     },
     {
         img: PostmanLogo,
-        link: "https://documenter.getpostman.com/view/6920111/TVKJxZu3"
+        link: "https://documenter.getpostman.com/view/12817007/TVYC8zTg"
     }
 ]
 
@@ -107,7 +156,7 @@ const teamInfo =
             bio: "I’m a third year CS major at UT Austin. I’m from Dallas, Texas and spend my free time playing video games and practicing piano. I definitely spend too much time working on projects and school :(",
             commits: 0,
             issues: 0,
-            tests: 0
+            tests: 9
         },
         {
             name: "Jefferson Ye",
@@ -118,7 +167,7 @@ const teamInfo =
             bio: "I’m a third year CS major at UT Austin. I’m from Dallas, Texas and in my free time I enjoy exercising, cooking, reading, playing video games, and listening to podcasts!",
             commits: 0,
             issues: 0,
-            tests: 0
+            tests: 8
         },
         {
             name: "Sydney Owen",
@@ -129,7 +178,7 @@ const teamInfo =
             bio: "I’m a fourth year CS major at UT Austin. I grew up in a small town called Llano, Texas. I spend my free time reading sci-fi/fantasy novels, playing video games, and spoiling my cat.",
             commits: 0,
             issues: 0,
-            tests: 0
+            tests: 7
         },
         {
             name: "Ivan Romero",
@@ -140,7 +189,7 @@ const teamInfo =
             bio: "I'm a fourth year CS major at UT Austin. I'm from Houston, Texas and I spend most of my time cooking or watching and participating in combat sports like boxing or Brazilian-Jiu-Jitsu.",
             commits: 0,
             issues: 0,
-            tests: 0
+            tests: 7
         },
         {
             name: "Kevin Li",

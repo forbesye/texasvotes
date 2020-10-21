@@ -18,12 +18,19 @@ export default class PieChart extends Component {
                         label: "Pie Chart",
                         data: this.props.data,
                         backgroundColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
+                            '#0B3C49',
+                            '#EB5E55',
+                            '#BCD8C1',
+                            '#E3D985',
+                            '#E57A44',
+                            '#422040',
+                            '#D6DBB2',
+                            '#504136',
+                            '#22577A',
+                            '#C9B1BD',
+                            '#B49594',
+                            '#567568',
+                            '#9D75CB'
                         ],
                     }
                 ]
