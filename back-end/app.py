@@ -10,6 +10,7 @@ from models import (
     election_schema,
 )
 from flask import Flask, request, make_response, jsonify
+from sqlalchemy import or_
 from format import *
 import requests
 import json
@@ -34,11 +35,12 @@ def filter_politicians(pol_query, queries):
         district_num = district_num[0]
         pol_query = pol_query.filter(Politician.district_number == int(district_num))
 
+    # Very much does not work yet
+    # Don't try to query
     if counties != None:
-        counties = counties[0]
         filters = []
         for c in counties:
-            filters.append(Politician.current_district.counties.like(c))
+            filters.append(Politician.current_district.filter(District.counties.like(c)))
         pol_query = pol_query.filter(or_(*tuple(filters)))
 
     if election_type != None:
@@ -46,6 +48,39 @@ def filter_politicians(pol_query, queries):
         pol_query = pol_query.filter(Politician.office.like(election_type))
     
     return pol_query
+
+def sortBy(sorting, pol_query, desc):
+    pol = None
+
+    if sorting == 'name':
+        pol = Politician.name
+    elif sorting == 'party':
+        pol = Politician.party
+    elif sorting == 'dist':
+        pol = Politician.district_number
+    elif sorting == 'type':
+        pol = Politician.office
+    else:
+        return pol_query
+
+    if desc:
+        return pol_query.order_by(pol.desc())
+    else:
+        return pol_query.order_by(pol)
+
+def sort_politicians(sort, pol_query):
+    if sort == None:
+        return pol_query
+    else:
+        sort = sort[0]
+
+    sort = sort.split('-')
+
+    # In descending order
+    if len(sort) > 1:
+        return sortBy(sort[1], pol_query, True)
+    else:
+        return sortBy(sort[0], pol_query, False)
 
 @app.route("/politician", methods=["GET"])
 def politicians():
@@ -71,6 +106,7 @@ def politicians():
 
     # Sorting
     sort = get_query('sort', queries)
+    pol_query = sort_politicians(sort, pol_query)
 
     page = get_query('page', queries)
     if page == None:
