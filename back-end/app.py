@@ -14,12 +14,43 @@ from format import *
 import requests
 import json
 
+def get_query(name, queries):
+    try:
+        return queries[name]
+    except KeyError:
+        return None
+
+def filter_politicians(pol_query, queries):
+    party = get_query('party', queries)
+    district_num = get_query('district_num', queries)
+    counties = get_query("counties", queries)
+    election_type = get_query("type", queries)
+
+    if party != None:
+        party = party[0]
+        pol_query = pol_query.filter(Politician.party.like(party))
+
+    if district_num != None:
+        district_num = district_num[0]
+        pol_query = pol_query.filter(Politician.district_number == int(district_num))
+
+    if counties != None:
+        counties = counties[0]
+        filters = []
+        for c in counties:
+            filters.append(Politician.current_district.counties.like(c))
+        pol_query = pol_query.filter(or_(*tuple(filters)))
+
+    if election_type != None:
+        election_type = election_type[0]
+        pol_query = pol_query.filter(Politician.office.like(election_type))
+    
+    return pol_query
 
 @app.route("/politician", methods=["GET"])
 def politicians():
     """
     name = request.args.get('name')
-    party = request.args.get('party')
     district = request.args.get('district')
     current_office = request.args.get('current_office')
     incumbent = request.args.get('incumbent')
@@ -28,13 +59,27 @@ def politicians():
     # print(l)
     """
 
-    page = request.args.get("page")
+    queries = request.args.to_dict(flat=False)
+
+    pol_query = db.session.query(Politician)
+
+    # Searching
+    q = get_query('q', queries)
+
+    # Filtering
+    pol_query = filter_politicians(pol_query, queries)
+
+    # Sorting
+    sort = get_query('sort', queries)
+
+    page = get_query('page', queries)
     if page == None:
         page = 1
     else:
         page = int(page)
 
-    politicians = db.session.query(Politician).paginate(page=page)
+    politicians = pol_query.paginate(page=page)
+
     count = politicians.total
 
     result = politician_schema.dump(politicians.items, many=True)
