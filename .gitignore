@@ -23,6 +23,7 @@ chrome-user-data
 .vscode
 *.swp
 *.swo
+data
 
 # misc
 .DS_Store
