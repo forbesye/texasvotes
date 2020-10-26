@@ -10,33 +10,39 @@ from models import (
     election_schema,
 )
 from flask import Flask, request, make_response, jsonify
-from sqlalchemy import or_
 from format import *
 import requests
 import json
 
+# Wrapper for retrieving keys from dictionary queries
+# Returns none if desired key is not in queries
 def get_query(name, queries):
     try:
         return queries[name]
     except KeyError:
         return None
 
+# Filters politicians by one of the four supported attributes
+# Supports filtering for multiple values for the attribute
 def filter_politician_by(pol_query, filtering, what):
     if filtering == "party":
-        pol_query = pol_query.filter(Politician.party.like(what))
+        pol_query = pol_query.filter(Politician.party.in_(what))
+
     elif filtering == "district_num":
-        pol_query = pol_query.filter(Politician.district_number == int(what))
+        pol_query = pol_query.filter(Politician.district_number.in_(what))
+
     elif filtering == "counties":
         filters = []
         #for c in counties:
         #    filters.append(Politician.current_district.filter(District.counties.like(c)))
         pol_query = pol_query.join(Politician.current_district, aliased=True).filter(Politician.counties.has("Llano"))
+
     elif filtering == "type":
-        pol_query = pol_query.filter(Politician.office.like(what))
+        pol_query = pol_query.filter(Politician.office.in_(what))
 
     return pol_query
 
-
+# Filters politicians for all four supported attributes
 def filter_politicians(pol_query, queries):
     party = get_query('party', queries)
     district_num = get_query('district_num', queries)
@@ -48,7 +54,6 @@ def filter_politicians(pol_query, queries):
         pol_query = filter_politician_by(pol_query, 'party', party)
 
     if district_num != None:
-        district_num = district_num[0]
         pol_query = filter_politician_by(pol_query, 'district_num', district_num)
 
     # Very much does not work yet
@@ -57,11 +62,12 @@ def filter_politicians(pol_query, queries):
         pol_query = filter_politician_by(pol_query, 'counties', counties)
 
     if election_type != None:
-        election_type = election_type[0]
         pol_query = filter_politician_by(pol_query, 'type', election_type)
     
     return pol_query
 
+# Sorts politicians by one of the four supported attributes
+# in ascending or descending order
 def sort_politician_by(sorting, pol_query, desc):
     pol = None
 
@@ -81,6 +87,9 @@ def sort_politician_by(sorting, pol_query, desc):
     else:
         return pol_query.order_by(pol)
 
+# Determines whether attribute will be sorted in ascending or descending order
+# Passes attribute to be sorted to sort_politician_by for sorting
+# Only supports sorting on one attribute at a time
 def sort_politicians(sort, pol_query):
     if sort == None:
         return pol_query
@@ -95,8 +104,7 @@ def sort_politicians(sort, pol_query):
     else:
         return sort_politician_by(sort[0], pol_query, False)
 
-def search_politician_by_house(house_type, )
-
+# TODO: implement searching within politicians
 def search_politicians(q, pol_query):
     # Searching by office type
     if "texas" in q:
@@ -114,6 +122,8 @@ def search_politicians(q, pol_query):
     elif 'house' in q:
         pol_query = filter_politician_by(pol_query, 'type', 'us_house')
         pol_query = filter_politician_by(pol_query, 'type', 'tx_house')
+
+    return pol_query
 
 @app.route("/politician", methods=["GET"])
 def politicians():
@@ -133,6 +143,7 @@ def politicians():
 
     # Searching
     q = get_query('q', queries)
+    #pol_query = search_politicians(pol_query, q) # TODO: Figure out why this was turning pol_query into a list
 
     # Filtering
     pol_query = filter_politicians(pol_query, queries)
