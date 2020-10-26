@@ -21,6 +21,22 @@ def get_query(name, queries):
     except KeyError:
         return None
 
+def filter_politician_by(pol_query, filtering, what):
+    if filtering == "party":
+        pol_query = pol_query.filter(Politician.party.like(what))
+    elif filtering == "district_num":
+        pol_query = pol_query.filter(Politician.district_number == int(what))
+    elif filtering == "counties":
+        filters = []
+        #for c in counties:
+        #    filters.append(Politician.current_district.filter(District.counties.like(c)))
+        pol_query = pol_query.join(Politician.current_district, aliased=True).filter(Politician.counties.has("Llano"))
+    elif filtering == "type":
+        pol_query = pol_query.filter(Politician.office.like(what))
+
+    return pol_query
+
+
 def filter_politicians(pol_query, queries):
     party = get_query('party', queries)
     district_num = get_query('district_num', queries)
@@ -29,27 +45,24 @@ def filter_politicians(pol_query, queries):
 
     if party != None:
         party = party[0]
-        pol_query = pol_query.filter(Politician.party.like(party))
+        pol_query = filter_politician_by(pol_query, 'party', party)
 
     if district_num != None:
         district_num = district_num[0]
-        pol_query = pol_query.filter(Politician.district_number == int(district_num))
+        pol_query = filter_politician_by(pol_query, 'district_num', district_num)
 
     # Very much does not work yet
     # Don't try to query
     if counties != None:
-        filters = []
-        for c in counties:
-            filters.append(Politician.current_district.filter(District.counties.like(c)))
-        pol_query = pol_query.filter(or_(*tuple(filters)))
+        pol_query = filter_politician_by(pol_query, 'counties', counties)
 
     if election_type != None:
         election_type = election_type[0]
-        pol_query = pol_query.filter(Politician.office.like(election_type))
+        pol_query = filter_politician_by(pol_query, 'type', election_type)
     
     return pol_query
 
-def sortBy(sorting, pol_query, desc):
+def sort_politician_by(sorting, pol_query, desc):
     pol = None
 
     if sorting == 'name':
@@ -78,9 +91,29 @@ def sort_politicians(sort, pol_query):
 
     # In descending order
     if len(sort) > 1:
-        return sortBy(sort[1], pol_query, True)
+        return sort_politician_by(sort[1], pol_query, True)
     else:
-        return sortBy(sort[0], pol_query, False)
+        return sort_politician_by(sort[0], pol_query, False)
+
+def search_politician_by_house(house_type, )
+
+def search_politicians(q, pol_query):
+    # Searching by office type
+    if "texas" in q:
+        if "house" in q:
+            pol_query = filter_politician_by(pol_query, 'type', 'tx_house')
+        elif 'senate' in q:
+            pol_query = filter_politician_by(pol_query, 'type', 'tx_senate')
+
+    elif "us" in q:
+        if "house" in q:
+            pol_query = filter_politician_by(pol_query, 'type', 'us_house')
+        elif "senate" in q:
+            pol_query = filter_politician_by(pol_query, 'type', 'us_senate')
+    
+    elif 'house' in q:
+        pol_query = filter_politician_by(pol_query, 'type', 'us_house')
+        pol_query = filter_politician_by(pol_query, 'type', 'tx_house')
 
 @app.route("/politician", methods=["GET"])
 def politicians():
