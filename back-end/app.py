@@ -10,6 +10,7 @@ from models import (
     election_schema,
 )
 from flask import Flask, request, make_response, jsonify
+from sqlalchemy import and_
 from format import *
 import requests
 import json
@@ -32,10 +33,7 @@ def filter_politician_by(pol_query, filtering, what):
         pol_query = pol_query.filter(Politician.district_number.in_(what))
 
     elif filtering == "counties":
-        filters = []
-        #for c in counties:
-        #    filters.append(Politician.current_district.filter(District.counties.like(c)))
-        pol_query = pol_query.join(Politician.current_district, aliased=True).filter(Politician.counties.has("Llano"))
+        pol_query = pol_query.filter(Politician.current_district.counties.has("Llano"))
 
     elif filtering == "type":
         pol_query = pol_query.filter(Politician.office.in_(what))
@@ -50,7 +48,6 @@ def filter_politicians(pol_query, queries):
     election_type = get_query("type", queries)
 
     if party != None:
-        party = party[0]
         pol_query = filter_politician_by(pol_query, 'party', party)
 
     if district_num != None:
@@ -181,6 +178,88 @@ def politician_id(id):
     return politician
 
 
+# Districts
+
+# Filters districts by one of the four supported attributes
+# Supports filtering for multiple values for the attribute
+def filter_district_by(dist_query, filtering, what):
+    if filtering == "type":
+        dist_query = dist_query.filter(District.type_name.in_(what))
+
+    elif filtering == "party":
+        dist_query = dist_query.filter(District.party.in_(what))
+
+    elif filtering == "popul":
+        dist_query = dist_query.filter(and_(District.total_population >= what[0], District.total_population <= what[1]))
+
+    return dist_query
+
+# Filters politicians for all four supported attributes
+def filter_districts(dist_query, queries):
+    office_type = get_query('type', queries)
+    party = get_query('party', queries)
+    min_popul = get_query("min_popul", queries)
+    max_popul = get_query("max_popul", queries)
+
+    if office_type != None:
+        dist_query = filter_district_by(dist_query, 'type', office_type)
+
+    if party != None:
+        dist_query = filter_district_by(dist_query, 'party', party)
+
+    if min_popul or max_popul:
+        if not min_popul:
+            min_popul = 0
+        else:
+            min_popul = min_popul[0]
+
+        if not max_popul:
+            max_popul = 694200000
+        else:
+            max_popul = max_popul[0]
+
+        dist_query = filter_district_by(dist_query, 'popul', [min_popul, max_popul])
+    
+    return dist_query
+
+# Sorts politicians by one of the four supported attributes
+# in ascending or descending order
+def sort_district_by(sorting, dist_query, desc):
+    dist = None
+
+    if sorting == 'number':
+        dist = District.number
+    elif sorting == 'type':
+        dist = District.type_name
+    elif sorting == 'party':
+        dist = District.party
+    elif sorting == 'popul':
+        dist = District.total_population
+    else:
+        return dist_query
+
+    if desc:
+        return dist_query.order_by(dist.desc())
+    else:
+        return dist_query.order_by(dist)
+
+# Determines whether attribute will be sorted in ascending or descending order
+# Passes attribute to be sorted to sort_politician_by for sorting
+# Only supports sorting on one attribute at a time
+def sort_districts(sort, dist_query):
+    if sort == None:
+        return dist_query
+    else:
+        sort = sort[0]
+
+    sort = sort.split('-')
+
+    # In descending order
+    if len(sort) > 1:
+        return sort_district_by(sort[1], dist_query, True)
+    else:
+        return sort_district_by(sort[0], dist_query, False)
+
 @app.route("/district", methods=["GET"])
 def districts():
     """
@@ -194,13 +273,28 @@ def districts():
     # print(l)
     """
 
-    page = request.args.get("page")
+    queries = request.args.to_dict(flat=False)
+
+    dist_query = db.session.query(District)
+
+    # Searching
+    #q = get_query('q', queries)
+    #pol_query = search_politicians(pol_query, q) # TODO: Figure out why this was turning pol_query into a list
+
+    # Filtering
+    dist_query = filter_districts(dist_query, queries)
+
+    # Sorting
+    sort = get_query('sort', queries)
+    dist_query = sort_districts(sort, dist_query)
+
+    page = get_query('page', queries)
     if page == None:
         page = 1
     else:
         page = int(page)
 
-    districts = db.session.query(District).paginate(page=page)
+    districts = dist_query.paginate(page=page)
     count = districts.total
 
     result = district_schema.dump(districts.items, many=True)
