@@ -10,7 +10,7 @@ from models import (
     election_schema,
 )
 from flask import Flask, request, make_response, jsonify
-from sqlalchemy import and_
+from sqlalchemy import and_, or_
 from format import *
 import requests
 import json
@@ -33,7 +33,10 @@ def filter_politician_by(pol_query, filtering, what):
         pol_query = pol_query.filter(Politician.district_number.in_(what))
 
     elif filtering == "counties":
-        pol_query = pol_query.filter(Politician.current_district.counties.has("Llano"))
+        filters = []
+        for county in what:
+            filters.append(District.counties.any(name=county))
+        pol_query = pol_query.join(District).filter(or_(*tuple(filters)))
 
     elif filtering == "type":
         pol_query = pol_query.filter(Politician.office.in_(what))
@@ -53,8 +56,6 @@ def filter_politicians(pol_query, queries):
     if district_num != None:
         pol_query = filter_politician_by(pol_query, 'district_num', district_num)
 
-    # Very much does not work yet
-    # Don't try to query
     if counties != None:
         pol_query = filter_politician_by(pol_query, 'counties', counties)
 
