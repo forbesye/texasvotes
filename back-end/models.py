@@ -46,7 +46,7 @@ class Politician(db.Model):
     name = db.Column(db.String, nullable=False)
     district_number = db.Column(db.Integer, nullable=True, default=-1)
     incumbent = db.Column(db.Boolean, nullable=False)
-    current = db.Column(db.Boolean, nullable=True, default=False)
+    current = db.Column(db.Boolean, nullable=False, default=False)
     office = db.Column(db.String, nullable=True)
     party = db.Column(db.String, nullable=False)
     img_url = db.Column(
