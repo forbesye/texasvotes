@@ -17,6 +17,8 @@ import SlackLogo from 'views/About/images/SlackLogo.png'
 import GCPLogo from 'views/About/images/GCPLogo.png'
 import MarshmallowLogo from 'views/About/images/MarshmallowLogo.png'
 import SQLAlchemyLogo from 'views/About/images/SQLAlchemyLogo.png'
+import PostgresLogo from 'views/About/images/PostgresLogo.png'
+import NamecheapLogo from 'views/About/images/NamecheapLogo.png'
 import GoogleDevLogo from 'views/About/images/GoogleDevLogo.png'
 import OpenSecretsLogo from 'views/About/images/OpenSecretsLogo.png'
 import OpenStatesLogo from 'views/About/images/OpenStatesLogo.png'
@@ -53,6 +55,30 @@ const toolsInfo = [
         link: "https://marshmallow.readthedocs.io/en/stable/"
     },
     {
+        title: "PostgreSQL",
+        img: PostgresLogo,
+        description: "Relational database management system",
+        link: "https://www.postgresql.org/"
+    },
+    {
+        title: "Jest",
+        img: JestLogo,
+        description: "JavaScript testing framework",
+        link: "https://jestjs.io/"
+    },
+    {
+        title: "Selenium",
+        img: SeleniumLogo,
+        description: "End-to-end UI testing framework",
+        link: "https://www.selenium.dev/"
+    },
+    {
+        title: "Postman",
+        img: PostmanLogo,
+        description: "Tool for designing and testing APIs",
+        link: "https://postman.com/"
+    },
+    {
         title: "AWS",
         img: AWSLogo,
         description: "Cloud hosting platform",
@@ -83,22 +109,10 @@ const toolsInfo = [
         link: "https://slack.com/"
     },
     {
-        title: "Postman",
-        img: PostmanLogo,
-        description: "Tool for designing and testing APIs",
-        link: "https://postman.com/"
-    },
-    {
-        title: "Jest",
-        img: JestLogo,
-        description: "JavaScript testing framework",
-        link: "https://jestjs.io/"
-    },
-    {
-        title: "Selenium",
-        img: SeleniumLogo,
-        description: "End-to-end UI testing framework",
-        link: "https://www.selenium.dev/"
+        title: "Namecheap",
+        img: NamecheapLogo,
+        description: "Domain name registrar",
+        link: "https://namecheap.com/"
     },
 ]
 

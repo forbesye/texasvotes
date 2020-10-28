@@ -1,13 +1,12 @@
-import React, {useState, useEffect, Fragment, useRef} from 'react'
-import { PageHeader, Typography, Divider, Row, Col, Collapse, List } from "antd"
+import React, {useState, useEffect, Fragment } from 'react'
+import { PageHeader, Typography, Divider, Row, Col, List } from "antd"
 import { useParams, useHistory, Link } from 'react-router-dom'
 import styles from './Districts.module.css'
 import { districtName, description } from "./Lib"
-import  { age_mappings, income_mappings, race_mappings, ethnicity_mappings, educational_mappings, elected_office_mappings, party_mappings } from "library/Mappings"
 import Spinner from "components/ui/Spinner"
 import { getAPI } from "library/APIClient"
 import PieChart from "./../../components/charts/PieChart"
-import ReactMapboxGl, { Layer, Feature, Source } from 'react-mapbox-gl'
+import ReactMapboxGl, { Layer, Source } from 'react-mapbox-gl'
 import { numberStringWithCommas } from "library/Functions"
 
 const { Title, Text } = Typography
@@ -86,7 +85,8 @@ const Details = () => {
                 <div className={styles.districtDescription}>
                     <Title style={{ textAlign: "center" }} level={3}>District Map</Title>
                     <Map
-                        style='mapbox://styles/mapbox/streets-v11'
+                        // eslint-disable-next-line
+                        style="mapbox://styles/mapbox/streets-v11"
                         center={[-100, 30]}
                         containerStyle={{
                           height: '50vh',
