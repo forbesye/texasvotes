@@ -71,12 +71,8 @@ def sort_politician_by(sorting, pol_query, desc):
 
     if sorting == 'name':
         pol = Politician.name
-    elif sorting == 'party':
-        pol = Politician.party
     elif sorting == 'dist':
         pol = Politician.district_number
-    elif sorting == 'type':
-        pol = Politician.office
     else:
         return pol_query
 
