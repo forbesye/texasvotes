@@ -1,5 +1,5 @@
 import React, {useState, useEffect, Fragment} from 'react'
-import { PageHeader, Typography, Divider, Collapse, List, Table, Timeline } from "antd"
+import { PageHeader, Typography, Divider, Table, Timeline } from "antd"
 import { ClockCircleOutlined } from '@ant-design/icons';
 import { useParams, useHistory, Link } from 'react-router-dom'
 import Spinner from "components/ui/Spinner"
@@ -10,7 +10,6 @@ import { getAPI } from "library/APIClient"
 import ReactPlayer from "react-player"
 
 const { Title, Text } = Typography
-const { Panel } = Collapse
 
 const OFFICE_NAMES = {
     us_house: "US Congressional District",
@@ -92,6 +91,12 @@ const Details = () => {
                 path: id,
                 params: {}
             })
+            data.candidates = data.candidates.map(c => {
+                return {
+                    ...c,
+                    key: c.id
+                }
+            })
             setElection(data);
             setLoaded(true);
         }
@@ -103,7 +108,6 @@ const Details = () => {
     }
     
     const {
-        district,
         candidates,
         results,
         dates,
@@ -139,6 +143,7 @@ const Details = () => {
                                 if (!beforeToday){
                                     return (
                                         <Timeline.Item 
+                                            key={key}
                                             label={<Text strong>{election_date_mappings[key]}</Text>} 
                                             color="green"> 
                                             {monthDayYearParse(dates[key])}
@@ -149,11 +154,13 @@ const Details = () => {
                                     return (
                                         <div>
                                             <Timeline.Item 
+                                                key={todayDate}
                                                 label={<Text strong>Today</Text>}> 
                                                 <Text>{monthDayYearParse(todayDate)}</Text>
                                             </Timeline.Item>
                                             
                                             <Timeline.Item 
+                                                key = {key}
                                                 dot={<ClockCircleOutlined style={{ fontSize: '16px' }} />}
                                                 label={<Text strong>{election_date_mappings[key]}</Text>} 
                                                 color="red"> 
@@ -161,9 +168,10 @@ const Details = () => {
                                             </Timeline.Item>
                                         </div>
                                     )
-                                } else if(beforeToday){
+                                } else {
                                     return (
                                         <Timeline.Item 
+                                            key={key}
                                             label={<Text strong>{election_date_mappings[key]}</Text>} 
                                             color="gray"> 
                                             <Text>{monthDayYearParse(dates[key])}</Text>
