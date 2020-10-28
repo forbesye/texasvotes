@@ -14,6 +14,7 @@ from sqlalchemy import and_, or_
 from format import *
 import requests
 import json
+import re
 
 # Wrapper for retrieving keys from dictionary queries
 # Returns none if desired key is not in queries
@@ -204,8 +205,7 @@ def filter_district_by(dist_query, filtering, what):
 def filter_districts(dist_query, queries):
     office_type = get_query('office', queries)
     party = get_query('party', queries)
-    min_popul = get_query("min_popul", queries)
-    max_popul = get_query("max_popul", queries)
+    popRange = get_query("popRange", queries)
     counties = get_query("counties", queries)
     number = get_query("number", queries)
 
@@ -215,18 +215,17 @@ def filter_districts(dist_query, queries):
     if party != None:
         dist_query = filter_district_by(dist_query, 'party', party)
 
-    if min_popul or max_popul:
-        if not min_popul:
-            min_popul = 0
+    if popRange:
+        popRange = popRange[0]
+        min_pop = 0
+        max_pop = 694200000
+        # Only upper bound is given
+        if len(popRange.split('-')) != 2:
+            min_pop = int(popRange[:-1])
+        # Both lower and upper bound given
         else:
-            min_popul = min_popul[0]
-
-        if not max_popul:
-            max_popul = 694200000
-        else:
-            max_popul = max_popul[0]
-
-        dist_query = filter_district_by(dist_query, 'popul', [min_popul, max_popul])
+            min_pop, max_pop = (popRange.split('-'))
+        dist_query = filter_district_by(dist_query, 'popul', [min_pop, max_pop])
 
     if counties:
         dist_query = filter_district_by(dist_query, 'counties', counties)
