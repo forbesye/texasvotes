@@ -38,7 +38,7 @@ def filter_politician_by(pol_query, filtering, what):
             filters.append(District.counties.any(name=county))
         pol_query = pol_query.join(District).filter(or_(*tuple(filters)))
 
-    elif filtering == "type":
+    elif filtering == "office":
         pol_query = pol_query.filter(Politician.office.in_(what))
 
     return pol_query
@@ -48,7 +48,7 @@ def filter_politicians(pol_query, queries):
     party = get_query('party', queries)
     district_num = get_query('district_num', queries)
     counties = get_query("counties", queries)
-    election_type = get_query("type", queries)
+    office = get_query("office", queries)
 
     if party != None:
         pol_query = filter_politician_by(pol_query, 'party', party)
@@ -59,8 +59,8 @@ def filter_politicians(pol_query, queries):
     if counties != None:
         pol_query = filter_politician_by(pol_query, 'counties', counties)
 
-    if election_type != None:
-        pol_query = filter_politician_by(pol_query, 'type', election_type)
+    if office != None:
+        pol_query = filter_politician_by(pol_query, 'office', office)
     
     return pol_query
 
