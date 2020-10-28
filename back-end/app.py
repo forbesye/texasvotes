@@ -200,7 +200,7 @@ def filter_district_by(dist_query, filtering, what):
 
     return dist_query
 
-# Filters politicians for all four supported attributes
+# Filters districts for all four supported attributes
 def filter_districts(dist_query, queries):
     office_type = get_query('office', queries)
     party = get_query('party', queries)
@@ -236,7 +236,7 @@ def filter_districts(dist_query, queries):
     
     return dist_query
 
-# Sorts politicians by one of the four supported attributes
+# Sorts districts by one of the four supported attributes
 # in ascending or descending order
 def sort_district_by(sorting, dist_query, desc):
     dist = None
@@ -254,7 +254,7 @@ def sort_district_by(sorting, dist_query, desc):
         return dist_query.order_by(dist)
 
 # Determines whether attribute will be sorted in ascending or descending order
-# Passes attribute to be sorted to sort_politician_by for sorting
+# Passes attribute to be sorted to sort_district_by for sorting
 # Only supports sorting on one attribute at a time
 def sort_districts(sort, dist_query):
     if sort == None:
@@ -326,6 +326,83 @@ def district_id(id):
     return district
 
 
+# Elections
+
+# Filters elections by one of the four supported attributes
+# Supports filtering for multiple values for the attribute
+def filter_election_by(elect_query, filtering, what):
+    if filtering == "type":
+        elect_query = elect_query.filter(Election.class_name.in_(what))
+
+    elif filtering == "dist":
+        elect_query = elect_query.filter(Election.district_number.in_(what))
+
+    elif filtering == "office":
+        elect_query = elect_query.filter(Election.office.in_(what))
+
+    elif filtering == "counties":
+        filters = []
+        for county in what:
+            filters.append(District.counties.any(name=county))
+        elect_query = elect_query.join(District).filter(or_(*tuple(filters)))
+
+    return elect_query
+
+# Filters elections for all four supported attributes
+def filter_elections(elect_query, queries):
+    election_type = get_query('type', queries)
+    office_type = get_query('office', queries)
+    dist_number = get_query("dist", queries)
+    counties = get_query("counties", queries)
+
+    if election_type:
+        elect_query = filter_election_by(elect_query, 'type', election_type)
+
+    if office_type != None:
+        elect_query = filter_election_by(elect_query, 'office', office_type)
+
+    if dist_number:
+        elect_query = filter_election_by(elect_query, 'dist', dist_number)
+
+    if counties:
+        elect_query = filter_election_by(elect_query, 'counties', counties)
+    
+    return elect_query
+
+# Sorts elections by one of the four supported attributes
+# in ascending or descending order
+def sort_election_by(sorting, elect_query, desc):
+    dist = None
+
+    if sorting == 'number':
+        dist = District.number
+    elif sorting == 'pop':
+        dist = District.total_population
+    else:
+        return dist_query
+
+    if desc:
+        return dist_query.order_by(dist.desc())
+    else:
+        return dist_query.order_by(dist)
+
+# Determines whether attribute will be sorted in ascending or descending order
+# Passes attribute to be sorted to sort_election_by for sorting
+# Only supports sorting on one attribute at a time
+def sort_elections(sort, elect_query):
+    if sort == None:
+        return dist_query
+    else:
+        sort = sort[0]
+
+    sort = sort.split('-')
+
+    # In descending order
+    if len(sort) > 1:
+        return sort_district_by(sort[1], dist_query, True)
+    else:
+        return sort_district_by(sort[0], dist_query, False)
+
 @app.route("/election", methods=["GET"])
 def elections():
     """
@@ -339,13 +416,24 @@ def elections():
     # print(l)
     """
 
-    page = request.args.get("page")
+    queries = request.args.to_dict(flat=False)
+
+    elect_query = db.session.query(Election)
+
+    # Filtering
+    elect_query = filter_elections(elect_query, queries)
+
+    # Sorting
+    sort = get_query('sort', queries)
+    #elect_query = sort_elections(sort, elect_query)
+
+    page = get_query('page', queries)
     if page == None:
         page = 1
     else:
         page = int(page)
 
-    elections = db.session.query(Election).paginate(page=page)
+    elections = elect_query.paginate(page=page)
     count = elections.total
 
     result = election_schema.dump(elections.items, many=True)
