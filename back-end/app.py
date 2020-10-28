@@ -243,11 +243,7 @@ def sort_district_by(sorting, dist_query, desc):
 
     if sorting == 'number':
         dist = District.number
-    elif sorting == 'type':
-        dist = District.type_name
-    elif sorting == 'party':
-        dist = District.party
-    elif sorting == 'popul':
+    elif sorting == 'pop':
         dist = District.total_population
     else:
         return dist_query
