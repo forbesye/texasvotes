@@ -220,8 +220,8 @@ def filter_districts(dist_query, queries):
         min_pop = 0
         max_pop = 694200000
         # Only upper bound is given
-        if len(popRange.split('-')) != 2:
-            min_pop = int(popRange[:-1])
+        if len(popRange.split('-')) < 2:
+            min_pop = int(popRange)
         # Both lower and upper bound given
         else:
             min_pop, max_pop = (popRange.split('-'))
