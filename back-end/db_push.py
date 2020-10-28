@@ -9,6 +9,7 @@ curr_directory = os.path.dirname(__file__)
 def populate_politicians():
     print("Starting populate_politicians...")
     dir_name = "data/Politicians"
+    # Iterate through all JSONs in politicians data folder
     for file_name in os.listdir(dir_name):
         full_path = "%s/%s" % (dir_name, file_name)
         with open(full_path, "r") as fi:
@@ -23,18 +24,28 @@ def push_politician(data):
     entry["name"] = data["name"]
     entry["incumbent"] = data["incumbent"]
     entry["party"] = data["party"]
-    entry["img_url"] = data["image"]
+    if "image" in data:
+        entry["img_url"] = data["image"]
+    # Two differennt ways district number is encoded across JSONs
     if "district" in data:
-        entry["district_number"] = data["district"]
-    if "current" in data["offices"]:
+        if type(data["district"]) != int:
+            entry["district_number"] = data["district"]["number"]
+        else:
+            entry["district_number"] = data["district"]
+    # Current politician
+    if "offices" in data and "current" in data["offices"]:
         entry["current"] = True
         entry["office"] = data["offices"]["current"]
-    if "running_for" in data["offices"]:
+    # Two different ways office is encoded for running politician JSON
+    if "offices" in data and "running_for" in data["offices"]:
         entry["current"] = False
         entry["office"] = data["offices"]["running_for"]
-    if "website" in data["contact"]:
+    if "running_for" in data:
+        entry["current"] = False
+        entry["office"] = data["running_for"]
+    if "contact" in data and "website" in data["contact"]:
         entry["website"] = data["contact"]["website"]
-    if data["contact"]["social_media"]:
+    if "contact" in data and data["contact"]["social_media"]:
         for social in data["contact"]["social_media"]:
             if social["type"].lower() == "facebook" and social["id"] != "":
                 entry["facebook"] = social["id"]
@@ -42,8 +53,9 @@ def push_politician(data):
                 entry["twitter"] = social["id"]
             if social["type"].lower() == "youtube" and social["id"] != "":
                 entry["youtube"] = social["id"]
-    if "phone" in data["contact"]:
+    if "contact" in data and "phone" in data["contact"]:
         entry["phone_number"] = data["contact"]["phone"]
+    # For federal polticians only
     if "fundraising" in data and data["fundraising"]:
         entry["fund_raise"] = int(data["fundraising"]["raised"])
         entry["fund_spent"] = int(data["fundraising"]["spent"])
@@ -54,10 +66,10 @@ def push_politician(data):
     politician_db_instance = Politician(**entry)
     db.session.add(politician_db_instance)
 
-
 def populate_districts():
     print("Starting populate_districts...")
     dir_name = "data/Districts"
+    # Iterate through all JSONs in districts data folder
     for file_name in os.listdir(dir_name):
         full_path = "%s/%s" % (dir_name, file_name)
         with open(full_path, "r") as fi:
@@ -113,6 +125,7 @@ def push_county(county_name, district):
 def populate_elections():
     print("Starting populate_elections...")
     dir_name = "data/Elections"
+    # Iterate through all JSONs in election data folder
     for file_name in os.listdir(dir_name):
         full_path = "%s/%s" % (dir_name, file_name)
         with open(full_path, "r") as fi:
@@ -125,15 +138,47 @@ def populate_elections():
 def push_election(data):
     entry = dict()
     entry["class_name"] = data["type"]["class"]
-    if data["type"]["class"].lower() == "primary":
+    # Accounts for party being present if not general election
+    if data["type"]["class"].lower() != "general":
         entry["party"] = data["type"]["party"]
     entry["office"] = data["office"]
-    entry["district_number"] = data["district"]
+    # Two different formats for district number across JSONs
+    if type(data["district"]) == int:
+        entry["district_number"] = data["district"]
+    else:
+        entry["district_number"] = data["district"]["number"]
     entry["election_day"] = data["dates"]["election_day"]
     entry["early_start"] = data["dates"]["early_start"]
     entry["early_end"] = data["dates"]["early_end"]
     entry["video_url"] = data["video_url"]
+    # Assign correct politician id in election results
+    if "results" in data:
+        entry["total_voters"] = data["results"]["total_voters"]
+        # Get winner
+        winner_name = data["results"]["winner"]["name"]
+        winner_pol = db.session.query(Politician).filter_by(name=winner_name).first()
+        data["results"]["winner"]["id"] = winner_pol.id
+        for pol in data["results"]["vote_counts"]:
+            pol_name = pol["name"]
+            pol_orm = db.session.query(Politician).filter_by(name=pol_name).first()
+            if pol_orm:
+                pol["id"] = pol_orm.id
+        entry["results"] = data["results"]
     election_db_instance = Election(**entry)
+    # Past election results append politicians to relationship
+    if "results" in entry:
+        for pol in entry["results"]["vote_counts"]:
+            pol_name = pol["name"]
+            pol_orm = db.session.query(Politician).filter_by(name=pol_name).first()
+            if pol_orm:
+                election_db_instance.politicians.append(pol_orm)
+    # Upcoming election results append politicians to relationship
+    if "candidates" in data:
+        for pol in data["candidates"]:
+            pol_name = pol["name"]
+            pol_orm = db.session.query(Politician).filter_by(name=pol_name).first()
+            if pol_orm:
+                election_db_instance.politicians.append(pol_orm)
     db.session.add(election_db_instance)
 
 
@@ -161,19 +206,6 @@ def link_elections_districts():
     db.session.commit()
 
 
-def link_politicians_elections():
-    politicians = db.session.query(Politician).all()
-    for pol in politicians:
-        elections = (
-            db.session.query(Election)
-            .filter_by(office=pol.office, district_number=pol.district_number)
-            .all()
-        )
-        for election in elections:
-            election.politicians.append(pol)
-    db.session.commit()
-
-
 def reset_db():
     # Be VERYYY careful with this...
     db.session.remove()
@@ -190,4 +222,3 @@ if __name__ == "__main__":
     populate_elections()
     link_politicians_districts()
     link_elections_districts()
-    link_politicians_elections()
