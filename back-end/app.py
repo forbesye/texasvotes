@@ -150,7 +150,7 @@ def politicians():
     if page == None:
         page = 1
     else:
-        page = int(page)
+        page = int(page[0])
 
     politicians = pol_query.paginate(page=page)
 
@@ -302,7 +302,7 @@ def districts():
     if page == None:
         page = 1
     else:
-        page = int(page)
+        page = int(page[0])
 
     districts = dist_query.paginate(page=page)
     count = districts.total
@@ -431,7 +431,7 @@ def elections():
     if page == None:
         page = 1
     else:
-        page = int(page)
+        page = int(page[0])
 
     elections = elect_query.paginate(page=page)
     count = elections.total
