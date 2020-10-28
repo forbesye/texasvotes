@@ -180,7 +180,7 @@ def politician_id(id):
 # Filters districts by one of the four supported attributes
 # Supports filtering for multiple values for the attribute
 def filter_district_by(dist_query, filtering, what):
-    if filtering == "type":
+    if filtering == "office":
         dist_query = dist_query.filter(District.type_name.in_(what))
 
     elif filtering == "party":
@@ -189,17 +189,28 @@ def filter_district_by(dist_query, filtering, what):
     elif filtering == "popul":
         dist_query = dist_query.filter(and_(District.total_population >= what[0], District.total_population <= what[1]))
 
+    elif filtering == "counties":
+        filters = []
+        for c in what:
+            filters.append(District.counties.any(name=c))
+        dist_query = dist_query.filter(or_(*tuple(filters)))
+
+    elif filtering == "number":
+        dist_query = dist_query.filter(District.number.in_(what))
+
     return dist_query
 
 # Filters politicians for all four supported attributes
 def filter_districts(dist_query, queries):
-    office_type = get_query('type', queries)
+    office_type = get_query('office', queries)
     party = get_query('party', queries)
     min_popul = get_query("min_popul", queries)
     max_popul = get_query("max_popul", queries)
+    counties = get_query("counties", queries)
+    number = get_query("number", queries)
 
     if office_type != None:
-        dist_query = filter_district_by(dist_query, 'type', office_type)
+        dist_query = filter_district_by(dist_query, 'office', office_type)
 
     if party != None:
         dist_query = filter_district_by(dist_query, 'party', party)
@@ -216,6 +227,12 @@ def filter_districts(dist_query, queries):
             max_popul = max_popul[0]
 
         dist_query = filter_district_by(dist_query, 'popul', [min_popul, max_popul])
+
+    if counties:
+        dist_query = filter_district_by(dist_query, 'counties', counties)
+
+    if number:
+        dist_query = filter_district_by(dist_query, 'number', number)
     
     return dist_query
 
