@@ -124,6 +124,8 @@ class Election(db.Model):
     video_url = db.Column(
         db.String, nullable=True, default="https://www.youtube.com/watch?v=uC0uzrfUClc"
     )
+    total_voters = db.Column(db.Integer, nullable=True)
+    results = db.Column(db.JSON, nullable=True)
 
     def __repr__(self):
         return "<Election %s %s>" % (self.office, self.district_number)
