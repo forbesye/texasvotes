@@ -372,26 +372,26 @@ def filter_elections(elect_query, queries):
 # Sorts elections by one of the four supported attributes
 # in ascending or descending order
 def sort_election_by(sorting, elect_query, desc):
-    dist = None
+    elect = None
 
-    if sorting == 'number':
-        dist = District.number
-    elif sorting == 'pop':
-        dist = District.total_population
+    if sorting == 'dist':
+        elect = Election.district_number
+    elif sorting == 'electionDate':
+        elect = Election.election_day
     else:
-        return dist_query
+        return elect_query
 
     if desc:
-        return dist_query.order_by(dist.desc())
+        return elect_query.order_by(elect.desc())
     else:
-        return dist_query.order_by(dist)
+        return elect_query.order_by(elect)
 
 # Determines whether attribute will be sorted in ascending or descending order
 # Passes attribute to be sorted to sort_election_by for sorting
 # Only supports sorting on one attribute at a time
 def sort_elections(sort, elect_query):
     if sort == None:
-        return dist_query
+        return elect_query
     else:
         sort = sort[0]
 
@@ -399,9 +399,9 @@ def sort_elections(sort, elect_query):
 
     # In descending order
     if len(sort) > 1:
-        return sort_district_by(sort[1], dist_query, True)
+        return sort_election_by(sort[1], elect_query, True)
     else:
-        return sort_district_by(sort[0], dist_query, False)
+        return sort_election_by(sort[0], elect_query, False)
 
 @app.route("/election", methods=["GET"])
 def elections():
@@ -425,7 +425,7 @@ def elections():
 
     # Sorting
     sort = get_query('sort', queries)
-    #elect_query = sort_elections(sort, elect_query)
+    elect_query = sort_elections(sort, elect_query)
 
     page = get_query('page', queries)
     if page == None:
