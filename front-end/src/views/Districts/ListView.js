@@ -54,7 +54,7 @@ const ListView = () => {
                     ...district,
                     key: district.id,
                     type: elected_office_mappings[district.type],
-                    party: party_mappings[district.party],
+                    party: district.party ? party_mappings[district.party] : "N/A",
                     official_name: elected_official,
                     population: district.demographics.total_population,
                     name: districtName(district),
