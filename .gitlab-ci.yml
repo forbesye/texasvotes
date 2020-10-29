@@ -39,6 +39,15 @@ postman_tests:
   script:
     - newman --version
     - newman run Postman.json 
+
+selenium_tests:
+  stage: test
+  image: nikolaik/python-nodejs
+  before_script:
+    - pip install -r back-end/requirements.txt
+    - cd front-end/ && npm install && cd ..
+  script:
+    - make selenium_tests
     
 deploy_development:
   image: python:3.6-stretch
