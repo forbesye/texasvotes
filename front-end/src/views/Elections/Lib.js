@@ -42,16 +42,6 @@ const columns = [
           </Typography.Text>
         )
     },
-    // {
-    //     title: 'Early Voting Date',
-    //     dataIndex: 'early_date',
-    //     key: 'early_date',
-    //     render: text => (
-    //       <Typography.Text style={{ fontSize: 18 }}>
-    //         {text}
-    //       </Typography.Text>
-    //     )
-    // },
     {
         title: 'Election Date',
         dataIndex: 'election_date',

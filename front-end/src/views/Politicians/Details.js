@@ -37,14 +37,6 @@ const tableTitle = (election, party) => {
     }
 }
 
-// TODO: refactor
-const parties = {
-    D: "Democrat",
-    R: "Republican",
-    I: "Independent",
-    L: "Libertarian"
-}
-
 export default function Details () {
     const { id } = useParams()
     const [ politician, setPolitician ] = useState({})
@@ -104,7 +96,7 @@ export default function Details () {
                     <article className={styles.politicianDetails}>
                         <div className={styles.politicianGeneralInfo}>
                             <div>
-                                <Text strong>Party: </Text><Text>{parties[party]}</Text>
+                                <Text strong>Party: </Text><Text>{party_mappings[party]}</Text>
                             </div>
                             {
                                 district ?

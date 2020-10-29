@@ -67,7 +67,6 @@ const ListView = () => {
         fetchData()
     }, [currPage, countiesFilter, partyFilter, officeFilter, districtFilter, populationFilter, sortVal]);
 
-    // Todo: Add filtering and sorting
     const handleTableChange = ({current, total}) => {
         setCurrPage(current);
         setTotal(total);
