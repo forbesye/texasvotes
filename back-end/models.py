@@ -260,6 +260,7 @@ class ElectionSchema(BaseSchema):
     early_start = fields.Str(required=True)
     early_end = fields.Str(required=True)
     video_url = fields.Str(required=True)
+    results = fields.Str(required=True)
 
 
 politician_schema = PoliticianSchema()
