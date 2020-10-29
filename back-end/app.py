@@ -108,7 +108,7 @@ def search_politicians(q, pol_query):
     if not q:
         return pol_query
     else:
-        q = q[0]
+        q = q[0].strip()
 
     terms = q.split()
 
@@ -116,7 +116,10 @@ def search_politicians(q, pol_query):
     for term in terms:
         searches.append(Politician.name.match(term))
         searches.append(Politician.office.match(term))
-        searches.append(Politician.district_number.in_([term]))
+        try:
+            searches.append(Politician.district_number.in_([int(term)]))
+        except ValueError:
+            pass
         searches.append(District.counties.any(name=term))
     pol_query = pol_query.join(District).filter(or_(*tuple(searches)))
 
@@ -261,6 +264,29 @@ def sort_districts(sort, dist_query):
     else:
         return sort_district_by(sort[0], dist_query, False)
 
+# Applies filter with an "or" on each attribute
+# Number and counties have to be an exact match
+def search_districts(q, dist_query):
+    if not q:
+        return dist_query
+    else:
+        q = q[0].strip()
+
+    terms = q.split()
+
+    searches = []
+    for term in terms:
+        try:
+            searches.append(District.number.in_([int(term)]))
+        except ValueError:
+            pass
+        searches.append(District.type_name.match(term))
+        searches.append(District.party.match(term))
+        searches.append(District.counties.any(name=term))
+    dist_query = dist_query.filter(or_(*tuple(searches)))
+
+    return dist_query
+
 @app.route("/district", methods=["GET"])
 def districts():
     queries = request.args.to_dict(flat=False)
@@ -268,8 +294,8 @@ def districts():
     dist_query = db.session.query(District)
 
     # Searching
-    #q = get_query('q', queries)
-    #pol_query = search_politicians(pol_query, q) # TODO: Figure out why this was turning pol_query into a list
+    q = get_query('q', queries)
+    dist_query = search_districts(q, dist_query)
 
     # Filtering
     dist_query = filter_districts(dist_query, queries)
@@ -383,11 +409,38 @@ def sort_elections(sort, elect_query):
     else:
         return sort_election_by(sort[0], elect_query, False)
 
+# Applies filter with an "or" on each attribute
+# District number and counties have to be an exact match
+def search_elections(q, elect_query):
+    if not q:
+        return elect_query
+    else:
+        q = q[0].strip()
+
+    terms = q.split()
+
+    searches = []
+    for term in terms:
+        try:
+            searches.append(Election.district_number.in_([int(term)]))
+        except ValueError:
+            pass
+        searches.append(Election.class_name.match(term))
+        searches.append(Election.office.match(term))
+        searches.append(District.counties.any(name=term))
+    elect_query = elect_query.join(District).filter(or_(*tuple(searches)))
+
+    return elect_query
+
 @app.route("/election", methods=["GET"])
 def elections():
     queries = request.args.to_dict(flat=False)
 
     elect_query = db.session.query(Election)
+
+    # Searching
+    q = get_query('q', queries)
+    elect_query = search_elections(q, elect_query)
 
     # Filtering
     elect_query = filter_elections(elect_query, queries)
