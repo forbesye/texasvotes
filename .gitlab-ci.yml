@@ -45,6 +45,7 @@ selenium_tests:
   image: nikolaik/python-nodejs
   before_script:
     - pip install -r back-end/requirements.txt
+    - pip install selenium==3.141.0 pyvirtualdisplay
     - cd front-end/ && npm install && cd ..
   script:
     - make selenium-tests
