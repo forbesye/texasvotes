@@ -51,8 +51,7 @@ selenium_tests:
     - _timeout() { ( set +b; sleep "$1" & "${@:2}" & wait -n; kill -9 `jobs -p`; ) }
     - (_timeout 100 python3 back-end/app.py) &
     - cd front-end/ && (_timeout 100 npm start) &
-    - ls
-    - python3 guitests.py
+    - python3 front-end/guitests.py
     
 deploy_development:
   image: python:3.6-stretch
