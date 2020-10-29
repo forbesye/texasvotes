@@ -6,20 +6,12 @@ import { description } from "./Lib"
 import { getAPI } from "library/APIClient"
 import { CountiesFilter, PartiesFilter, OfficeFilter, DistrictNumberFilter } from "library/FilterValues"
 import { changeFilter } from "library/Functions"
+import { colorHexMap } from 'library/Mappings'
 import Spinner from "components/ui/Spinner"
-// import FilterOptions from "components/ui/FilterOptions"
 
 const { Title, Paragraph, Text } = Typography
 const { Meta } = Card
 const { Option } = Select
-
-// https://www.schemecolor.com/rainbow-break.php
-const colorHexMap = {
-    "I": "#5DD95D",
-    "R": "#EF3A38",
-    "D": "#3893D2",
-    "L": "#F1EA49"
-}
 
 export default function GridView () {
     const [loading, setLoading] = useState(true);

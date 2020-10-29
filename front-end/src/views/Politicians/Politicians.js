@@ -7,7 +7,6 @@ import Details from "./Details"
 import styles from "./Politicians.module.css"
 
 const { TabPane } = Tabs
-// const { Search } = Input
 
 export default function Politicians () {
     const [currKey, setCurrKey] = useState("search")

@@ -12,12 +12,6 @@ import { party_mappings } from "library/Mappings"
 
 const { Title, Text } = Typography
 
-// function electionName (district) {
-//     if(district.elections[0].type.class === "general") {
-//         return <div>{`General Election for the `} {districtName(district)}</div>
-//     } 
-// }
-
 const electionName = (election, number) => {
     const { dates, office, type, party, id } = election
     const { election_day } = dates
