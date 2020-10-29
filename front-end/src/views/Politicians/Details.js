@@ -7,48 +7,34 @@ import Spinner from "components/ui/Spinner"
 import styles from "./Politicians.module.css"
 import { subtitle, officeName } from "./Lib"
 import { getAPI } from "library/APIClient"
-import { numberStringWithCommas } from "library/Functions"
+import { formatAsMoney, districtName } from "library/Functions"
 import { Timeline } from 'react-twitter-widgets'
 import { FacebookProvider, Page } from 'react-facebook';
-import { districtName } from "./../Districts/Lib"
-
+import { party_mappings } from 'library/Mappings'
 
 const { Title, Paragraph, Text } = Typography
 
-const partyMap = {
-    D: "Democratic",
-    R: "Republican",
-    L: "Libertarian",
-    I: "Independent"
-}
-
-function formatAsMoney (num) {
-    return `$` + numberStringWithCommas(num.toFixed(2))
-}
-
-function capitalize (str) {
-    return str.substring(0, 1).toUpperCase() + str.substring(1)
-}
-
-function tableTitle (election) {
-    const electionDay = new Date(election.dates.election_day)
-    const electionYear = electionDay.getFullYear()
-    const upcoming = electionDay - new Date() > 0
-    if (election.type === "primary" || election.type === "runoff") {
-        const participants = upcoming ? election.candidates : election.results.vote_counts
-        const party = participants[0].party
-        return `${electionYear} ${partyMap[party]} ${capitalize(election.type.class)} Election`
+const tableTitle = (election, party) => {
+    const { class_name, office, election_day, id, district } = election
+    const { number } = district
+    const electionYear = new Date(election_day).getFullYear()
+    if(class_name === "general") {
+        return <div key={id}>
+            <Link to={`/elections/view/${id}`}>{`${electionYear} General Election for `} {districtName(office, number)}</Link></div>
+    } else if (class_name === "runoff") {
+        return (<div key={id}>
+            <Link to={`/elections/view/${id}`}>{`${electionYear} ${party_mappings[party]} Runoff for `} 
+                {districtName(office, number)}
+            </Link>
+            </div>)
     } else {
-        return `${electionYear} ${capitalize(election.type.class)} Election`
+        return (<div key={id}>
+            <Link to={`/elections/view/${id}`}>
+            {`${electionYear} ${party_mappings[party]} Primary for `} 
+                {districtName(office, number)}
+            </Link>
+            </div>)
     }
-}
-
-// TODO: refactor
-const parties = {
-    D: "Democrat",
-    R: "Republican",
-    I: "Independent",
-    L: "Libertarian"
 }
 
 export default function Details () {
@@ -82,7 +68,7 @@ export default function Details () {
         image, 
         contact,
         district,
-        election, 
+        elections, 
         fundraising,
         current,
         running_for
@@ -96,7 +82,6 @@ export default function Details () {
         
         content = (
             <Fragment>
-
                 <PageHeader 
                     title={<Text style={{fontSize: 24}}>{name}</Text>}
                     subTitle={<Text style={{fontSize: 18}}>{subtitle(current || running_for, !running_for)}</Text>}
@@ -111,12 +96,12 @@ export default function Details () {
                     <article className={styles.politicianDetails}>
                         <div className={styles.politicianGeneralInfo}>
                             <div>
-                                <Text strong>Party: </Text><Text>{parties[party]}</Text>
+                                <Text strong>Party: </Text><Text>{party_mappings[party]}</Text>
                             </div>
                             {
                                 district ?
                                 <div><Text strong>District: </Text><Link to={`/districts/view/${district.id}`}>
-                                    { district.number === -1 ? "Texas" : districtName(district) }
+                                    { district.number === -1 ? "Texas" : districtName(district.type, district.number) }
                                 </Link></div>
                                 : null
                             }
@@ -126,16 +111,6 @@ export default function Details () {
                                         <div>
                                             <Text strong>Current Office: </Text><Text>{`${officeName(current)}`}</Text>
                                         </div>
-                                        {/* <div>
-                                            {
-                                                offices.past && offices.past.length > 0 ? (
-                                                    <Fragment>
-                                                        <Text strong>Past Offices: </Text><Text>{offices.past.map((o, i) => (i !== 0 ? ", " : "") + officeName(o))}</Text>
-                                                    </Fragment>
-                                                ) : null
-                                            }
-                                            
-                                        </div> */}
                                     </Fragment>
                                 ) : null
                             }
@@ -151,20 +126,42 @@ export default function Details () {
                                 Object.keys(socials).map(type => {
                                     if (type === "facebook") {
                                         return (
-                                            <div>
-                                                <a target="_blank" rel="noopener noreferrer" href={`https://www.facebook.com/${socials[type]}`}><FacebookOutlined /> Facebook</a>
+                                            <div key={type}>
+                                                <a 
+                                                target="_blank" 
+                                                rel="noopener noreferrer" 
+                                                href={`https://www.facebook.com/${socials[type]}`}
+                                                key={type}
+                                                >
+                                                    <FacebookOutlined /> Facebook
+                                                </a>
                                             </div>
                                         )
                                     } else if (type === "twitter") {
                                         return (
-                                            <div>
-                                                <a target="_blank" rel="noopener noreferrer" href={`http://twitter.com/${socials[type]}`}><TwitterOutlined /> Twitter</a>
+                                            <div key={type}>
+                                                <a 
+                                                    target="_blank" 
+                                                    rel="noopener noreferrer" 
+                                                    href={`http://twitter.com/${socials[type]}`}
+                                                >
+                                                    <TwitterOutlined /> 
+                                                    Twitter
+                                                    </a>
                                             </div>
                                         )
                                     } else if (type === "youtube") {
                                         return (
-                                            <div>
-                                                <a target="_blank" rel="noopener noreferrer" href={`http://www.youtube.com/channel/${socials[type]}`}><YoutubeOutlined /> Youtube</a>
+                                            <div key={type}>
+                                                <a 
+                                                target="_blank" 
+                                                rel="noopener noreferrer" 
+                                                href={`http://www.youtube.com/channel/${socials[type]}`}
+                                                key={type}
+                                                >
+                                                    <YoutubeOutlined /> 
+                                                    Youtube
+                                                </a>
                                             </div>
                                         )
                                     }
@@ -195,8 +192,8 @@ export default function Details () {
                             district ?
                             <div>
                                 <Paragraph>{name} is running in 
-                                    <Link to={`/districts/view/${district.id}`}> {districtName(district)} </Link> 
-                                    which spans {district.counties.length} count{district.counties.length === 1 ? 'y' : 'ies'}. Here are the counties {name} would represent: </Paragraph>
+                                    <Link to={`/districts/view/${district.id}`}> {districtName(district.type, district.number)} </Link> 
+                                    which spans {district.counties.length} count{district.counties.length === 1 ? 'y' : 'ies'}. Here are the count {name} would represent: </Paragraph>
                                 <br/>
                                 <List 
                                     dataSource = {district.counties}
@@ -266,40 +263,17 @@ export default function Details () {
                         <section className={styles.electionSection}>
                             <Title level={4}>Participating Elections</Title>
                             {
-                                election ? (
+                                elections ? (
                                     <Fragment>
-                                        <Paragraph>{name} is running in an upcoming election.</Paragraph>
+                                        <Paragraph>{name} is in the following elections:</Paragraph>
                                         <div className={styles.electionTable}> 
-			                                <Link to={`/elections/view/${election.id}`}>{tableTitle(election)}</Link>
+                                            {elections.map(e => {
+                                                return tableTitle(e, party)
+                                            })}
                                         </div>
                                     </Fragment>
                                 ) : <Paragraph>{name} is not up for re-election.</Paragraph>
                             }
-
-                            {/* TODO: format for past elections */}
-                            {/* {
-                                elections.past.length > 0 ? (
-                                    <Fragment>
-                                        <Paragraph>{name} has ran in past elections.</Paragraph>
-                                        { elections.past.map(e => (
-                                            <div className={styles.electionTable}>
-                                                <Text strong>{tableTitle(e)}</Text>
-                                                <Table 
-                                                    columns={[
-                                                        { title: "Name", dataIndex: "name", key: "name", render: (text, record) => <div>{text} {e.results.winner.name === record.name ? <Text strong>(winner)</Text> : null}</div> },
-                                                        { title: "Party", dataIndex: "party", key: "party" },
-                                                        { title: "Vote Percentage", dataIndex: "vote_percentage", key: "vote_percentage", render: (text) => <div>{text}%</div> }
-                                                    ]}
-                                                    dataSource={e.results.vote_counts}
-                                                    pagination={false}
-                                                />
-                                            </div>
-                                        )) }
-                                        
-                                    </Fragment>
-                                ) : <Paragraph>{name} is has not run for any past elections</Paragraph>
-                            } */}
-                            
                         </section>
                     </article>
                 </div>

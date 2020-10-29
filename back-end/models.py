@@ -128,7 +128,7 @@ class Election(db.Model):
     results = db.Column(db.JSON, nullable=True)
 
     def __repr__(self):
-        return "<Election %s %s>" % (self.office, self.district_number)
+        return "<Election %s %s %s>" % (self.class_name, self.office, self.district_number)
 
 
 class Counties(db.Model):
@@ -159,7 +159,7 @@ class PoliticianSchema(BaseSchema):
         required=True,
         attribute="current_district",
     )
-    election = fields.Nested(
+    elections = fields.Nested(
         "ElectionSchema",
         only=(
             "id",
@@ -171,7 +171,6 @@ class PoliticianSchema(BaseSchema):
             "early_end",
         ),
         required=True,
-        attribute="elections",
         many=True,
     )
 
@@ -214,7 +213,7 @@ class DistrictSchema(BaseSchema):
     )
     elections = fields.Nested(
         "ElectionSchema",
-        only=("id", "office", "class_name", "election_day", "early_start", "early_end"),
+        only=("id", "office", "class_name", "election_day", "early_start", "early_end", "party"),
         required=True,
         many=True,
     )
@@ -261,6 +260,7 @@ class ElectionSchema(BaseSchema):
     early_start = fields.Str(required=True)
     early_end = fields.Str(required=True)
     video_url = fields.Str(required=True)
+    results = fields.Str(required=True)
 
 
 politician_schema = PoliticianSchema()

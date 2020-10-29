@@ -28,9 +28,30 @@ const changeFilter = (setFunc) => {
     return output
 }
 
+const districtName = (office, number) => {
+    const OFFICE_NAMES = {
+        us_house: "US Congressional District",
+        us_senate: "US Senate",
+        tx_house: "Texas House of Representatives District",
+        tx_senate: "Texas State Senate District",
+    }
+
+    if (office === "us_senate") {
+        return "US Senate Seat for Texas"
+    } else {
+        return `${OFFICE_NAMES[office]} ${number}`
+    }
+}
+
+const formatAsMoney = (num) => {
+    return `$` + numberStringWithCommas(num.toFixed(2))
+}
+
 export {
     percentageString,
     numberStringWithCommas,
     monthDayYearParse,
-    changeFilter
+    changeFilter,
+    districtName,
+    formatAsMoney
 }

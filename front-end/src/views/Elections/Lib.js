@@ -13,6 +13,16 @@ const columns = [
         )
     },
     {
+        title: 'Party',
+        dataIndex: 'party',
+        key: 'party',
+        render: text => (
+          <Typography.Text style={{ fontSize: 18 }}>
+            {text ? text : "All"}
+          </Typography.Text>
+        )
+    },
+    {
         title: 'District',
         dataIndex: 'district',
         key: 'district',
@@ -26,16 +36,6 @@ const columns = [
         title: 'Office',
         dataIndex: 'office',
         key: 'office',
-        render: text => (
-          <Typography.Text style={{ fontSize: 18 }}>
-            {text}
-          </Typography.Text>
-        )
-    },
-    {
-        title: 'Early Voting Date',
-        dataIndex: 'early_date',
-        key: 'early_date',
         render: text => (
           <Typography.Text style={{ fontSize: 18 }}>
             {text}

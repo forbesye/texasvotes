@@ -81,7 +81,6 @@ def format_districts_in_politicians(politicians):
     for p in politicians:
         format_district_in_schema(p)
 
-
 def format_election_in_politician(politician):
     if "election" in politician and len(politician["election"]) > 0:
         politician["election"] = politician["election"][0]
@@ -217,6 +216,15 @@ def format_election_district(election):
         else:
             election.pop("district")
 
+def format_results_in_election(election):
+    results = {}
+    try:
+        if "results" in election:
+            results = json.loads(election.pop("results").replace("'", '"'))
+    except json.decoder.JSONDecodeError:
+        pass
+    if results:
+        election["results"] = results
 
 def format_election_type(election):
     type_election = {}
@@ -237,3 +245,4 @@ def format_election(election):
     format_election_type(election)
     format_election_dates(election)
     format_election_districts(election)
+    format_results_in_election(election)
