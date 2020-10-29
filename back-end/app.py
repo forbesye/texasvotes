@@ -24,6 +24,9 @@ def get_query(name, queries):
     except KeyError:
         return None
 
+
+# Politician
+
 # Filters politicians by one of the four supported attributes
 # Supports filtering for multiple values for the attribute
 def filter_politician_by(pol_query, filtering, what):
@@ -99,46 +102,35 @@ def sort_politicians(sort, pol_query):
     else:
         return sort_politician_by(sort[0], pol_query, False)
 
-# TODO: implement searching within politicians
+# Applies filter with an "or" on each attribute
+# District number and counties have to be an exact match
 def search_politicians(q, pol_query):
-    # Searching by office type
-    if "texas" in q:
-        if "house" in q:
-            pol_query = filter_politician_by(pol_query, 'type', 'tx_house')
-        elif 'senate' in q:
-            pol_query = filter_politician_by(pol_query, 'type', 'tx_senate')
+    if not q:
+        return pol_query
+    else:
+        q = q[0]
 
-    elif "us" in q:
-        if "house" in q:
-            pol_query = filter_politician_by(pol_query, 'type', 'us_house')
-        elif "senate" in q:
-            pol_query = filter_politician_by(pol_query, 'type', 'us_senate')
-    
-    elif 'house' in q:
-        pol_query = filter_politician_by(pol_query, 'type', 'us_house')
-        pol_query = filter_politician_by(pol_query, 'type', 'tx_house')
+    terms = q.split()
+
+    searches = []
+    for term in terms:
+        searches.append(Politician.name.match(term))
+        searches.append(Politician.office.match(term))
+        searches.append(Politician.district_number.in_([term]))
+        searches.append(District.counties.any(name=term))
+    pol_query = pol_query.join(District).filter(or_(*tuple(searches)))
 
     return pol_query
 
 @app.route("/politician", methods=["GET"])
 def politicians():
-    """
-    name = request.args.get('name')
-    district = request.args.get('district')
-    current_office = request.args.get('current_office')
-    incumbent = request.args.get('incumbent')
-
-    l = [name, party, district, current_office, incumbent]
-    # print(l)
-    """
-
     queries = request.args.to_dict(flat=False)
 
     pol_query = db.session.query(Politician)
 
     # Searching
     q = get_query('q', queries)
-    #pol_query = search_politicians(pol_query, q) # TODO: Figure out why this was turning pol_query into a list
+    pol_query = search_politicians(q, pol_query) # TODO: Figure out why this was turning pol_query into a list
 
     # Filtering
     pol_query = filter_politicians(pol_query, queries)
@@ -271,17 +263,6 @@ def sort_districts(sort, dist_query):
 
 @app.route("/district", methods=["GET"])
 def districts():
-    """
-    dist_type = request.args.get('type')
-    party = request.args.get('party')
-    county = request.args.get('county')
-    number = request.args.get('number')
-    address = request.args.get('address')
-
-    l = [dist_type, party, county, number, address]
-    # print(l)
-    """
-
     queries = request.args.to_dict(flat=False)
 
     dist_query = db.session.query(District)
@@ -404,17 +385,6 @@ def sort_elections(sort, elect_query):
 
 @app.route("/election", methods=["GET"])
 def elections():
-    """
-    election_type = request.args.get('type')
-    candidates = request.args.get('candidates')
-    district = request.args.get('district')
-    winner = request.args.get('winner')
-    office = request.args.get('office')
-
-    l = [election_type, candidates, district, winner, office]
-    # print(l)
-    """
-
     queries = request.args.to_dict(flat=False)
 
     elect_query = db.session.query(Election)
