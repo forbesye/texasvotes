@@ -29,15 +29,15 @@ const getGitlabInfo = async () => {
         totalCommitCount += commits;
     });
 
-    // Todo: When over 100 issues, implement pagination support to get all issues
     const issuePaginationLength = 100;
-    let issueList = await fetch(`https://gitlab.com/api/v4/projects/21177395/issues?per_page=${issuePaginationLength}`)
-    issueList = await issueList.json()
-
-
-    // while (issueList.length === issuePaginationLength) {
-        // Implement this later     
-    // }
+    let page = 1
+    let issuePage = []
+    let issueList = []
+    do {
+        issuePage = await fetch(`https://gitlab.com/api/v4/projects/21177395/issues?per_page=${issuePaginationLength}&page=${page++}`)
+        issuePage = await issuePage.json()
+        issueList = [...issueList, ...issuePage]
+    } while (issuePage.length === 100)
 
     issueList.forEach(element => {
         const { assignees } = element;
@@ -85,7 +85,7 @@ const About = () => {
         <div className={styles.wrapper}>
             <h1 className={styles.title} >About Us</h1>
                 <p style={{fontSize: 20}}>
-                TexasVotes is a website that allows users to quickly look up their representatives, the districts they live in, and state/federal elections they're slated to participate in within the state of Texas. We hope to increase governmental transparency and decrease the difficulty for the voting process in order to promote a more democratic society.
+                Texas Votes is a website that allows users to quickly look up their representatives, the districts they live in, and state/federal elections they're slated to participate in within the state of Texas. We hope to increase governmental transparency and decrease the difficulty for the voting process in order to promote a more democratic society.
                 </p>
             <h1 className={styles.title}>Our Team</h1>
             {
@@ -118,7 +118,7 @@ const About = () => {
                 <RepoCard type="issues" number={totalIssues}/>
                 <RepoCard type="tests" number={totalTests}/>
             </div>
-            <h1 className={styles.title}>Development Tools</h1>
+            <h1 className={styles.title}>Tools Utilized</h1>
             <div className={`${styles.gridLayout} ${styles.devTools}`}>
                 {toolsInfo.map(tool => {
                     const { title, img, description, link} = tool;

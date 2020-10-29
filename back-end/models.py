@@ -46,7 +46,7 @@ class Politician(db.Model):
     name = db.Column(db.String, nullable=False)
     district_number = db.Column(db.Integer, nullable=True, default=-1)
     incumbent = db.Column(db.Boolean, nullable=False)
-    current = db.Column(db.Boolean, nullable=True, default=False)
+    current = db.Column(db.Boolean, nullable=False, default=False)
     office = db.Column(db.String, nullable=True)
     party = db.Column(db.String, nullable=False)
     img_url = db.Column(
@@ -124,6 +124,8 @@ class Election(db.Model):
     video_url = db.Column(
         db.String, nullable=True, default="https://www.youtube.com/watch?v=uC0uzrfUClc"
     )
+    total_voters = db.Column(db.Integer, nullable=True)
+    results = db.Column(db.JSON, nullable=True)
 
     def __repr__(self):
         return "<Election %s %s>" % (self.office, self.district_number)

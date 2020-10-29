@@ -21,8 +21,16 @@ const monthDayYearParse = (d) => {
     return date.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
+const changeFilter = (setFunc) => {
+    const output = (value) => {
+        setFunc(value)
+    }
+    return output
+}
+
 export {
     percentageString,
     numberStringWithCommas,
-    monthDayYearParse
+    monthDayYearParse,
+    changeFilter
 }
