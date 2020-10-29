@@ -14,5 +14,5 @@ front-end-tests:
 	cd front-end/ && npm test
 selenium-tests:
 	(_timeout 100 python3 back-end/app.py) &
-	cd front-end/ && (_timeout 100 npm react) &
+	cd front-end/ && (_timeout 100 npm start) &
 	python3 front-end/gui_tests/gui_tests.py

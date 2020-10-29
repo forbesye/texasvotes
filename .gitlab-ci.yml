@@ -1,20 +1,20 @@
 image: node:latest
 
 stages:
-  - build
+  # - build
   - test
   - deploy
   
-cache:
-  paths:
-    - front-end/node_modules/
+# cache:
+#   paths:
+#     - front-end/node_modules/
 
-build_front_end:
-  stage: build
-  script:
-    - cd front-end
-    - npm install
-    - CI=false npm run-script build
+# build_front_end:
+#   stage: build
+#   script:
+#     - cd front-end
+#     - npm install
+#     - CI=false npm run-script build
 
 jest_tests:
   stage: test
@@ -47,7 +47,7 @@ selenium_tests:
     - pip install -r back-end/requirements.txt
     - cd front-end/ && npm install && cd ..
   script:
-    - make selenium_tests
+    - make selenium-tests
     
 deploy_development:
   image: python:3.6-stretch
