@@ -4,19 +4,12 @@ import { ClockCircleOutlined } from '@ant-design/icons';
 import { useParams, useHistory, Link } from 'react-router-dom'
 import Spinner from "components/ui/Spinner"
 import styles from './Elections.module.css'
-import { monthDayYearParse, numberStringWithCommas } from "library/Functions"
+import { monthDayYearParse, numberStringWithCommas, districtName } from "library/Functions"
 import { election_date_mappings, party_mappings } from "library/Mappings"
 import { getAPI } from "library/APIClient"
 import ReactPlayer from "react-player"
 
 const { Title, Text } = Typography
-
-const OFFICE_NAMES = {
-    us_house: "US Congressional District",
-    us_senate: "US Senate",
-    tx_house: "Texas House of Representatives District",
-    tx_senate: "Texas State Senate District",
-}
 
 const candidateColumns = [
     {
@@ -58,30 +51,26 @@ const resultColumns = [
         render: text => text + "%"
     },
 ]
-function districtName (election){
-    if (election.office === "us_senate") {
-        return "US Senate Seat for Texas"
-    } else {
-        return `${OFFICE_NAMES[election.office]} ${election.district.number}`
-    }
-}
+
 function title (election) {
-    console.log(election)
-    const electionYear = new Date(election.dates.election_day).getFullYear()
-    if(election.type.class === "general") {
-        return <div>{`${electionYear} General Election for `} <Link to={`/districts/view/${election.district.id}`}>{districtName(election)}</Link></div>
-    } else if (election.type.class === "runoff") {
+    const { dates, office, district, type, party } = election
+    const { number, id } = district
+    const { election_day } = dates
+    const electionYear = new Date(election_day).getFullYear()
+    if(type.class === "general") {
+        return <div>{`${electionYear} General Election for `} <Link to={`/districts/view/${id}`}>{districtName(office, number)}</Link></div>
+    } else if (type.class === "runoff") {
         return (<div>
-            {`${electionYear} ${party_mappings[election.party]} Runoff for `} 
-            <Link to={`/districts/view/${election.district.id}`}>
-                {districtName(election)}
+            {`${electionYear} ${party_mappings[party]} Runoff for `} 
+            <Link to={`/districts/view/${id}`}>
+                {districtName(office, number)}
             </Link>
             </div>)
     } else {
         return (<div>
-            {`${electionYear} ${party_mappings[election.party]} Primary for `} 
-            <Link to={`/districts/view/${election.district.id}`}>
-                {districtName(election)}
+            {`${electionYear} ${party_mappings[party]} Primary for `} 
+            <Link to={`/districts/view/${id}`}>
+                {districtName(office, number)}
             </Link>
             </div>)
     }

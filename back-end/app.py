@@ -163,9 +163,7 @@ def politicians():
 @app.route("/politician/<int:id>", methods=["GET"])
 def politician_id(id):
     politician = db.session.query(Politician).filter_by(id=id)
-
     politician = politician_schema.dump(politician, many=True)[0]
-
     format_politician(politician)
 
     return politician
