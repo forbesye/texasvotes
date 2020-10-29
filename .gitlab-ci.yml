@@ -48,6 +48,7 @@ selenium_tests:
     - pip install selenium==3.141.0 pyvirtualdisplay
     - cd front-end/ && npm install && cd ..
   script:
+    - _timeout() { ( set +b; sleep "$1" & "${@:2}" & wait -n; kill -9 `jobs -p`; ) }
     - make selenium-tests
     
 deploy_development:
