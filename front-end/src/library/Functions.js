@@ -43,10 +43,15 @@ const districtName = (office, number) => {
     }
 }
 
+const formatAsMoney = (num) => {
+    return `$` + numberStringWithCommas(num.toFixed(2))
+}
+
 export {
     percentageString,
     numberStringWithCommas,
     monthDayYearParse,
     changeFilter,
-    districtName
+    districtName,
+    formatAsMoney
 }

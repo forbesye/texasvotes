@@ -7,16 +7,12 @@ import Spinner from "components/ui/Spinner"
 import styles from "./Politicians.module.css"
 import { subtitle, officeName } from "./Lib"
 import { getAPI } from "library/APIClient"
-import { numberStringWithCommas, districtName } from "library/Functions"
+import { formatAsMoney, districtName } from "library/Functions"
 import { Timeline } from 'react-twitter-widgets'
 import { FacebookProvider, Page } from 'react-facebook';
 import { party_mappings } from 'library/Mappings'
 
 const { Title, Paragraph, Text } = Typography
-
-function formatAsMoney (num) {
-    return `$` + numberStringWithCommas(num.toFixed(2))
-}
 
 const tableTitle = (election, party) => {
     const { class_name, office, election_day, id, district } = election
@@ -205,7 +201,7 @@ export default function Details () {
                             <div>
                                 <Paragraph>{name} is running in 
                                     <Link to={`/districts/view/${district.id}`}> {districtName(district.type, district.number)} </Link> 
-                                    which spans {district.counties.length} count{district.counties.length === 1 ? 'y' : 'ies'}. Here are the counties {name} would represent: </Paragraph>
+                                    which spans {district.counties.length} count{district.counties.length === 1 ? 'y' : 'ies'}. Here are the count {name} would represent: </Paragraph>
                                 <br/>
                                 <List 
                                     dataSource = {district.counties}
@@ -277,7 +273,7 @@ export default function Details () {
                             {
                                 elections ? (
                                     <Fragment>
-                                        <Paragraph>{name} is running/ran in the following elections.</Paragraph>
+                                        <Paragraph>{name} is in the following elections:</Paragraph>
                                         <div className={styles.electionTable}> 
                                             {elections.map(e => {
                                                 return tableTitle(e, party)

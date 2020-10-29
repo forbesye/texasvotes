@@ -52,7 +52,7 @@ const resultColumns = [
     },
 ]
 
-function title (election) {
+const title = (election) => {
     const { dates, office, district, type, party } = election
     const { number, id } = district
     const { election_day } = dates

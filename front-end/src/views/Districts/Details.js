@@ -7,18 +7,36 @@ import Spinner from "components/ui/Spinner"
 import { getAPI } from "library/APIClient"
 import PieChart from "./../../components/charts/PieChart"
 import ReactMapboxGl, { Layer, Source } from 'react-mapbox-gl'
-import { numberStringWithCommas } from "library/Functions"
+import { formatAsMoney } from "library/Functions"
+import { party_mappings } from "library/Mappings"
 
 const { Title, Text } = Typography
 
-function electionName (district) {
-    if(district.elections[0].type.class === "general") {
-        return <div>{`General Election for the `} {districtName(district)}</div>
-    } 
-}
+// function electionName (district) {
+//     if(district.elections[0].type.class === "general") {
+//         return <div>{`General Election for the `} {districtName(district)}</div>
+//     } 
+// }
 
-function formatAsMoney (num) {
-    return `$` + numberStringWithCommas(num.toFixed(2))
+const electionName = (election, number) => {
+    const { dates, office, type, party, id } = election
+    const { election_day } = dates
+    const electionYear = new Date(election_day).getFullYear()
+    if(type.class === "general") {
+        return <div><Link to={`/elections/view/${id}`}>{`${electionYear} General Election for `} {districtName(office, number)}</Link></div>
+    } else if (type.class === "runoff") {
+        return (<div>
+            <Link to={`/elections/view/${id}`}>
+            {`${electionYear} ${party_mappings[party]} Runoff for ${districtName(office, number)}`}
+            </Link>
+            </div>)
+    } else {
+        return (<div>
+            <Link to={`/elections/view/${id}`}>
+                {`${electionYear} ${party_mappings[party]} Primary for ${districtName(office, number)}`} 
+            </Link>
+            </div>)
+    }
 }
 
 const Details = () => {
@@ -162,11 +180,17 @@ const Details = () => {
                         <Title style={{ textAlign: "center" }} level={3}>District Details</Title>
                         <Row justify="space-around">
                             <Col>
-                                <Text strong style={{fontSize: 18}}>Current Official: </Text>
+                                <Text strong style={{fontSize: 18}}>
+                                    {elected_officials.length < 2 ? "Elected official" : "Elected officials" }
+                                </Text>
                                 {
-                                    elected_officials ?
-                                    <Link to={`/politicians/view/${elected_officials[0].id}`}>{elected_officials[0].name}</Link>
-                                    : <Text style={{fontSize: 18}}> None </Text>
+                                    elected_officials.map(pol => (
+                                        <div>
+                                            <Link to={`/politicians/view/${pol.id}`}>
+                                                {pol.name}
+                                            </Link>
+                                        </div>
+                                    ))
                                 }
                             </Col>
                         </Row>
@@ -175,13 +199,14 @@ const Details = () => {
                                 {
                                     elections.length ? (
                                         <Fragment>
-                                            <Text strong style={{fontSize: 18}}>Current Election: </Text>
-                                            <Link to={`/elections/view/${elections[0].id}`}>{electionName(district)}</Link>
+                                            <Text strong style={{fontSize: 18}}>Elections</Text>
+                                            { elections.map(e => {
+                                                return electionName(e, number)
+                                            })}
                                         </Fragment>
                                     ) : (
                                         <Fragment>
-                                            <Text strong style={{fontSize: 18}}>Current Election: </Text>
-                                            <Text style={{fontSize: 18}}>None</Text>
+                                            <Text style={{fontSize: 18}}>There are no elections for this district.</Text>
                                         </Fragment>
                                     )
                                 }
