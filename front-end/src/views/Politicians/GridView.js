@@ -62,10 +62,15 @@ export default function GridView () {
         <Fragment>
             <section className={styles.content}>
                 <Title level={2}>View All</Title>
-                <Paragraph style={{fontSize: 18}}>Have you ever wondered what all Texas officials and candidates look like in a grid view? Probably not, but we've got you covered here. The grid can also be filtered and sorted by different properties to make your viewing experience more customizable (soon™).</Paragraph>
+                <Paragraph style={{fontSize: 18}}>Have you ever wondered what all Texas officials and candidates look like in a grid view? Probably not, but we've got you covered here. The grid can also be filtered and sorted by different properties to make your viewing experience more customizable.</Paragraph>
             </section>
             <Divider />
             <section className={styles.filterSection}>
+                <Title level={3}>Filter</Title>
+                <CountiesFilter onChange={changeFilter(setCountiesFilter)}/>
+                <PartiesFilter onChange={changeFilter(setPartyFilter)}/>
+                <OfficeFilter onChange={changeFilter(setOfficeFilter)}/>
+                <DistrictNumberFilter onChange={changeFilter(setDistrictFilter)}/>
                 <Title level={3}>Sort</Title>
                 <div style={{marginBottom: 20, textAlign: "center"}}>
                     <Title level={5}>Order</Title>
@@ -81,11 +86,6 @@ export default function GridView () {
                         <Option key={"-number"}>District (Desc.)</Option>
                     </Select>
                 </div>
-                <Title level={3}>Filter</Title>
-                <CountiesFilter onChange={changeFilter(setCountiesFilter)}/>
-                <PartiesFilter onChange={changeFilter(setPartyFilter)}/>
-                <OfficeFilter onChange={changeFilter(setOfficeFilter)}/>
-                <DistrictNumberFilter onChange={changeFilter(setDistrictFilter)}/>
             </section>
             <section className={styles.sortSection}>
             </section>

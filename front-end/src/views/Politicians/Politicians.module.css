@@ -55,10 +55,10 @@
 
 .politicianPage {
     margin: auto;
+    margin-bottom: 100px;
     max-width: 900px;
     padding: 16px 8px;
     background: #ffffff;
-    border-radius: 2px;
 }
 
 .politicianDescription {

@@ -77,11 +77,19 @@ const ListView = () => {
         <div>
             <section className={styles.content}>
                 <Title level={2}>View All</Title>
-                <Paragraph style={{fontSize: 18}}>Have you ever wondered what all Texas districts look like in a list view? Probably not, but we've got you covered here. The list can also be filtered and sorted by different properties to make your viewing experience more customizable (soon™).</Paragraph>
+                <Paragraph style={{fontSize: 18}}>Have you ever wondered what all Texas districts look like in a list view? Probably not, but we've got you covered here. The list can also be filtered and sorted by different properties to make your viewing experience more customizable.</Paragraph>
             </section>
             <Divider />
 
-            <section className={styles.filterSection}>
+            <section className={styles.filterSection}>      
+                <Title level={3}>Filter</Title>
+                <CountiesFilter onChange={changeFilter(setCountiesFilter)}/>
+                <PartiesFilter onChange={changeFilter(setPartyFilter)}/>
+                <OfficeFilter onChange={changeFilter(setOfficeFilter)}/>
+                <DistrictNumberFilter onChange={changeFilter(setDistrictFilter)}/>
+                <PopulationRange 
+                    onChange={changeFilter(setPopulationFilter)}
+                />
                 <Title level={3}>Sort</Title>
                 <div style={{marginBottom: 20, textAlign: "center"}}>
                     <Title level={5}>Order</Title>
@@ -97,14 +105,6 @@ const ListView = () => {
                         <Option key={"-pop"}>Pop. (Desc.)</Option>
                     </Select>
                 </div>
-                <Title level={3}>Filter</Title>
-                <CountiesFilter onChange={changeFilter(setCountiesFilter)}/>
-                <PartiesFilter onChange={changeFilter(setPartyFilter)}/>
-                <OfficeFilter onChange={changeFilter(setOfficeFilter)}/>
-                <DistrictNumberFilter onChange={changeFilter(setDistrictFilter)}/>
-                <PopulationRange 
-                    onChange={changeFilter(setPopulationFilter)}
-                />
             </section>
 
             <section ref = {listRef}>
