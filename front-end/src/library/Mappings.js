@@ -321,6 +321,14 @@ const counties_list =
     "Zavala"
 ]
 
+// https://www.schemecolor.com/rainbow-break.php
+const colorHexMap = {
+    "I": "#5DD95D",
+    "R": "#EF3A38",
+    "D": "#3893D2",
+    "L": "#F1EA49"
+}
+
 export {
     age_mappings,
     income_mappings,
@@ -331,5 +339,6 @@ export {
     party_mappings,
     election_type_mappings,
     election_date_mappings,
-    counties_list
+    counties_list,
+    colorHexMap
 }

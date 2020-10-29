@@ -3,10 +3,9 @@ import { Typography, Tabs } from "antd"
 import { Route, useLocation, useHistory, Switch } from "react-router-dom"
 import styles from "./Districts.module.css"
 import ListView from "./ListView"
-import SearchView from "./SearchView" // Do we need seperate ones?
+import SearchView from "./SearchView"
 import Details from "./Details"
 const { TabPane } = Tabs
-// const { Search } = Input
 
 const Districts = () => {
     const [currKey, setCurrKey] = useState("search")

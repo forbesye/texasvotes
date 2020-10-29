@@ -3,7 +3,7 @@ import { Typography, Tabs } from "antd"
 import { Route, useLocation, useHistory, Switch } from "react-router-dom"
 import styles from "./Elections.module.css"
 import ListView from "./ListView"
-import SearchView from "./SearchView" // Do we need seperate ones?
+import SearchView from "./SearchView"
 import Details from "./Details"
 const { TabPane } = Tabs
 

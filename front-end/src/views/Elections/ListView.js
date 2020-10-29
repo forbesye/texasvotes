@@ -29,7 +29,7 @@ const ListView = () => {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            let params = { page: currPage}
+            let params = { page: currPage }
             if(districtFilter) {
                 params.number = districtFilter
             }
@@ -55,12 +55,11 @@ const ListView = () => {
                     type: election_type_mappings[`${election.type.class}`],
                     office: elected_office_mappings[election.office],
                     winner: election.results ? election.results.winner.name : "TBD",
-                    totalVoters: election.results ? election.results.total_voters : "TBD",
+                    totalVoters: election.results ? election.results.total_voters : "",
                     election_date: monthDayYearParse(election.dates.election_day),
                     early_date: monthDayYearParse(election.dates.early_start)
                 }
             });
-            setCurrPage(page)
             setTotal(count)
             setListData(data)
             setLoading(false)

@@ -43,6 +43,16 @@ const columns = [
         )
     },
     {
+      title: 'Total Voters',
+      dataIndex: 'totalVoters',
+      key: 'totalVoters',
+      render: text => (
+        <Typography.Text style={{ fontSize: 18 }}>
+          {text ? text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "TBD"}
+        </Typography.Text>
+      )
+  },
+    {
         title: 'Election Date',
         dataIndex: 'election_date',
         key: 'election_date',
