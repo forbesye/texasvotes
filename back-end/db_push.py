@@ -156,6 +156,7 @@ def push_election(data):
         entry["total_voters"] = data["results"]["total_voters"]
         # Get winner
         winner_name = data["results"]["winner"]["name"]
+        print(winner_name)
         winner_pol = db.session.query(Politician).filter_by(name=winner_name).first()
         data["results"]["winner"]["id"] = winner_pol.id
         for pol in data["results"]["vote_counts"]:
