@@ -5,7 +5,7 @@ import { useParams, useHistory, Link } from 'react-router-dom'
 import Spinner from "components/ui/Spinner"
 import styles from './Elections.module.css'
 import { monthDayYearParse, numberStringWithCommas } from "library/Functions"
-import { election_date_mappings } from "library/Mappings"
+import { election_date_mappings, party_mappings } from "library/Mappings"
 import { getAPI } from "library/APIClient"
 import ReactPlayer from "react-player"
 
@@ -66,10 +66,24 @@ function districtName (election){
     }
 }
 function title (election) {
+    console.log(election)
+    const electionYear = new Date(election.dates.election_day).getFullYear()
     if(election.type.class === "general") {
-        return <div>{`General Election for the `} <Link to={`/districts/view/${election.district.id}`}>{districtName(election)}</Link></div>
+        return <div>{`${electionYear} General Election for `} <Link to={`/districts/view/${election.district.id}`}>{districtName(election)}</Link></div>
+    } else if (election.type.class === "runoff") {
+        return (<div>
+            {`${electionYear} ${party_mappings[election.party]} Runoff for `} 
+            <Link to={`/districts/view/${election.district.id}`}>
+                {districtName(election)}
+            </Link>
+            </div>)
     } else {
-        return <div>{`${OFFICE_NAMES[election.office]}`} <Link to={`/districts/view/${election.district.id}`}>{districtName(election)}</Link></div>
+        return (<div>
+            {`${electionYear} ${party_mappings[election.party]} Primary for `} 
+            <Link to={`/districts/view/${election.district.id}`}>
+                {districtName(election)}
+            </Link>
+            </div>)
     }
 }
 

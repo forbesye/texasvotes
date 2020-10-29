@@ -23,13 +23,13 @@ const ListView = () => {
     const [districtFilter, setDistrictFilter] = useState(0);
     const [officeFilter, setOfficeFilter] = useState("");
     const [total, setTotal] = useState(20);
-    const [sortVal, setSortVal] = useState("dist");
+    const [sortVal, setSortVal] = useState("-electionDate");
     const listRef = useRef(null)
 
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            let params = { page: currPage }
+            let params = { page: currPage}
             if(districtFilter) {
                 params.number = districtFilter
             }
@@ -52,7 +52,7 @@ const ListView = () => {
                     ...election,
                     key: election.id,
                     district: districtName(election.district),
-                    type: election_type_mappings[election.type.class],
+                    type: election_type_mappings[`${election.type.class}`],
                     office: elected_office_mappings[election.office],
                     winner: election.results ? election.results.winner.name : "TBD",
                     totalVoters: election.results ? election.results.total_voters : "TBD",
@@ -60,15 +60,16 @@ const ListView = () => {
                     early_date: monthDayYearParse(election.dates.early_start)
                 }
             });
-            setTotal(count);
-            setListData(data);
-            setLoading(false);
+            setCurrPage(page)
+            setTotal(count)
+            setListData(data)
+            setLoading(false)
         }
         fetchData()
     }, [currPage, countiesFilter, electionTypeFilter, officeFilter, districtFilter, sortVal]);
 
-    // Todo: Add filtering and sorting
     const handleTableChange = ({current, total}) => {
+        console.log(current)
         setCurrPage(current);
         setTotal(total);
         window.scrollTo({top: listRef.current.offsetTop - 30, behavior: 'smooth'})  
@@ -88,14 +89,14 @@ const ListView = () => {
                     <Title level={5}>Order</Title>
                     <Select
                         size="large" 
-                        defaultValue="dist" 
+                        defaultValue="-electionDate" 
                         style={{width: 150}}
                         onChange={setSortVal}
                     >
-                        <Option key={"dist"} value={"dist"}>District (Asc.)</Option>
-                        <Option key={"-dist"}>District (Desc.)</Option>
+                        <Option key={"-electionDate"} value={"-electionDate"}>Date (Newest)</Option>
                         <Option key={"electionDate"}>Date (Oldest)</Option>
-                        <Option key={"-electionDate"}>Date (Newest)</Option>
+                        <Option key={"dist"}>District (Asc.)</Option>
+                        <Option key={"-dist"}>District (Desc.)</Option>
                     </Select>
                 </div>
                 <Title level={3}>Filter</Title>

@@ -39,7 +39,7 @@ const columns = [
         key: 'population',
         render: text => (
           <Typography.Text style={{ fontSize: 18 }}>
-            {text}
+            {text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
           </Typography.Text>
         )
     },
