@@ -49,7 +49,10 @@ selenium_tests:
     - cd front-end/ && npm install && cd ..
   script:
     - _timeout() { ( set +b; sleep "$1" & "${@:2}" & wait -n; kill -9 `jobs -p`; ) }
-    - make selenium-tests
+    - (_timeout 100 python3 back-end/app.py) &
+    - cd front-end/ && (_timeout 100 npm start) &
+    - ls
+    - python3 guitests.py
     
 deploy_development:
   image: python:3.6-stretch
