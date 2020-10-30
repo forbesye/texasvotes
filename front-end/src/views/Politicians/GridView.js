@@ -87,8 +87,6 @@ export default function GridView () {
                 <OfficeFilter onChange={changeFilter(setOfficeFilter)}/>
                 <DistrictNumberFilter onChange={changeFilter(setDistrictFilter)}/>
             </section>
-            <section className={styles.sortSection}>
-            </section>
 
             {
                 !loading ? 
@@ -97,6 +95,7 @@ export default function GridView () {
                     <Link key={item.id} to={`/politicians/view/${item.id}`}>
                         <Card
                             hoverable
+                            style={{height: "100%"}}
                             cover={<img className={styles.croppedImage} alt={item.name} src={item.image} />}
                         >
                             <div className={styles.circle} style={{background: colorHexMap[item.party]}}>{item.party}</div>
