@@ -45,6 +45,10 @@ const Routes = [
         title: "Error",
         path: "/error",
         Component: ErrorPage
+    },
+    {
+        title: "Not Found",
+        Component: ErrorPage
     }
 ]
 
