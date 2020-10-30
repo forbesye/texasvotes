@@ -128,6 +128,7 @@ const ListView = () => {
                         pageSizeOptions: []
                     }}
                     onChange={handleTableChange}
+                    scroll={{x: true}}
                 />
             </section>
         </div>
