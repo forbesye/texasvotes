@@ -61,13 +61,18 @@ const Details = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getAPI({
-                model: "district",
-                path: id,
-                params: {}
-            })
-            setDistrict(data);
-            setLoaded(true);
+            try {
+                const data = await getAPI({
+                    model: "district",
+                    path: id,
+                    params: {}
+                })
+                setDistrict(data);
+                setLoaded(true);
+            } catch(err) {
+                history.push("/error")
+            }
+            
         }
         fetchData();
     }, [id])

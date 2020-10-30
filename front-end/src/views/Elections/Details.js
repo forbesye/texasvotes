@@ -88,20 +88,24 @@ const Details = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            setLoaded(false);
-            const data = await getAPI({
-                model: "election",
-                path: id,
-                params: {}
-            })
-            data.candidates = data.candidates.map(c => {
-                return {
-                    ...c,
-                    key: c.id
-                }
-            })
-            setElection(data);
-            setLoaded(true);
+            try {
+                setLoaded(false);
+                const data = await getAPI({
+                    model: "election",
+                    path: id,
+                    params: {}
+                })
+                data.candidates = data.candidates.map(c => {
+                    return {
+                        ...c,
+                        key: c.id
+                    }
+                })
+                setElection(data);
+                setLoaded(true);
+            } catch(err) {
+                history.push("/error")
+            }
         }
         fetchData();
     }, [id])

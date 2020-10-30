@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment, useRef } from "react"
 import { Typography, Divider, Card, Pagination, Select } from "antd"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import styles from "./Politicians.module.css"
 import { description } from "./Lib"
 import { getAPI } from "library/APIClient"
@@ -24,6 +24,7 @@ export default function GridView () {
     const [districtFilter, setDistrictFilter] = useState(0);
     const [sortVal, setSortVal] = useState("name");
     const gridRef = useRef(null)
+    const history = useHistory()
 
     const handlePaginationChange = (page) => {
         setCurrPage(page);
@@ -32,28 +33,32 @@ export default function GridView () {
 
     useEffect(() => {
         const fetchData = async () => {
-            setLoading(true)
-            let params = { page: currPage }
-            if(districtFilter) {
-                params.number = districtFilter
+            try {
+                setLoading(true)
+                let params = { page: currPage }
+                if(districtFilter) {
+                    params.number = districtFilter
+                }
+                if(countiesFilter) {
+                    params.counties = countiesFilter
+                }
+                if(partyFilter) {
+                    params.party = partyFilter
+                }
+                if(officeFilter) {
+                    params.office = officeFilter
+                }
+                params.sort = sortVal
+                const { page, count } = await getAPI({
+                        model: "politician",
+                        params: params
+                });
+                setTotal(count)
+                setGridData(page)
+                setLoading(false)
+            } catch(err) {
+                history.push("/error")
             }
-            if(countiesFilter) {
-                params.counties = countiesFilter
-            }
-            if(partyFilter) {
-                params.party = partyFilter
-            }
-            if(officeFilter) {
-                params.office = officeFilter
-            }
-            params.sort = sortVal
-            const { page, count } = await getAPI({
-                    model: "politician",
-                    params: params
-            });
-            setTotal(count)
-            setGridData(page)
-            setLoading(false)
         }
         fetchData()
     }, [currPage, sortVal, countiesFilter, partyFilter, officeFilter, districtFilter]);
