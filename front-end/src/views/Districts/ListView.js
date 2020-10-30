@@ -26,43 +26,48 @@ const ListView = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            setLoading(true);
-            let params = { page: currPage }
-            if(districtFilter) {
-                params.number = districtFilter
-            }
-            if(countiesFilter) {
-                params.counties = countiesFilter
-            }
-            if(partyFilter) {
-                params.party = partyFilter
-            }
-            if(officeFilter) {
-                params.office = officeFilter
-            }
-            if(populationFilter) {
-                params.popRange = populationFilter
-            }
-            params.sort = sortVal
-            const { page, count } = await getAPI({
-                    model: "district",
-                    params: params
-            });
-            const data = page.map(district => {
-                var elected_official = district.elected_officials ? district.elected_officials[0].name : "N/A"
-                return {
-                    ...district,
-                    key: district.id,
-                    type: elected_office_mappings[district.type],
-                    party: district.party ? party_mappings[district.party] : "N/A",
-                    official_name: elected_official,
-                    population: district.demographics.total_population,
-                    name: districtName(district),
+            try {
+                setLoading(true);
+                let params = { page: currPage }
+                if(districtFilter) {
+                    params.number = districtFilter
                 }
-            })
-            setTotal(count);
-            setListData(data);
-            setLoading(false);
+                if(countiesFilter) {
+                    params.counties = countiesFilter
+                }
+                if(partyFilter) {
+                    params.party = partyFilter
+                }
+                if(officeFilter) {
+                    params.office = officeFilter
+                }
+                if(populationFilter) {
+                    params.popRange = populationFilter
+                }
+                params.sort = sortVal
+                const { page, count } = await getAPI({
+                        model: "district",
+                        params: params
+                });
+                const data = page.map(district => {
+                    var elected_official = district.elected_officials ? district.elected_officials[0].name : "N/A"
+                    return {
+                        ...district,
+                        key: district.id,
+                        type: elected_office_mappings[district.type],
+                        party: district.party ? party_mappings[district.party] : "N/A",
+                        official_name: elected_official,
+                        population: district.demographics.total_population,
+                        name: districtName(district),
+                    }
+                })
+                setTotal(count);
+                setListData(data);
+                setLoading(false);
+            } catch(err) {
+                history.push("/error")
+            }
+            
         }
         fetchData()
     }, [currPage, countiesFilter, partyFilter, officeFilter, districtFilter, populationFilter, sortVal]);
