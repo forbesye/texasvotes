@@ -47,23 +47,21 @@
 }
 
 .cardFlexContainer {
-    max-width: 1200px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: 32px auto 0;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 32px;
+    margin: 16px 24px !important;
+    grid-template-rows: repeat(auto-fit, minmax(250px, 1fr));
 }
 
 .card {
-    margin: 16px !important;
-    width: 90%;
-    max-width: 320px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* border-radius: 25px !important; */
-    /* border-radius: 25px; */
+    justify-content: space-around;
+    align-content: stretch;
+    text-align: center;
+    height: 100%;
 }
 
 .cardImage {
