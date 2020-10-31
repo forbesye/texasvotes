@@ -5,6 +5,7 @@ import {Switch, Route} from "react-router-dom"
 import routes from "./Routes"
 import { Layout } from 'antd'
 import './App.css'
+import ErrorPage from "./ErrorPage"
 
 const { Header, Footer, Content } = Layout 
 
@@ -29,6 +30,16 @@ const App = () => {
   	  	  	  	  	  	  	  	)
   	  	  	  	  	  	  	})
   	  	  	  	  	  	}
+						<Route
+							title={"Error"}
+							path={"/error"}
+							key={"Error"}
+							component={ErrorPage}
+						/>
+						<Route
+							title={"Not found"}
+							component={ErrorPage}
+						/>
   	  	  	  	  	</Switch>
   	  	  	  	</Content>
   	  	  	  	<Footer className="footer" style={{padding: "0px"}}>

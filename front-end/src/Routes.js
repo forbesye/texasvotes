@@ -4,7 +4,6 @@ import Politicians from "./views/Politicians/Politicians"
 import Districts from "./views/Districts/Districts"
 import Elections from "./views/Elections/Elections"
 import VoterFAQ from "./views/VoterFAQ/VoterFAQ"
-import ErrorPage from "./ErrorPage"
 
 const Routes = [
     {
@@ -40,15 +39,6 @@ const Routes = [
         title: "Voting FAQ",
         path: "/voting",
         Component: VoterFAQ
-    },
-    {
-        title: "Error",
-        path: "/error",
-        Component: ErrorPage
-    },
-    {
-        title: "Not Found",
-        Component: ErrorPage
     }
 ]
 
