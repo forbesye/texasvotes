@@ -10,7 +10,8 @@ const messages = [
     "Waiting for Lt. Governor Dan Patrick to say something stupid again",
     "Attempting to court the Hispanic vote",
     "Looking for Beto O'Rourke stumping on some tables",
-    "Trying to stop Ted Cruz from reading 'Green Eggs and Ham' on the Senate Floor"
+    "Trying to stop Ted Cruz from reading 'Green Eggs and Ham' on the Senate Floor",
+    "Searching for the Zodiac Killer"
 ]
 
 const styles = {
