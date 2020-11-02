@@ -122,12 +122,13 @@ const ElectionTypeFilter = ({onChange}) => {
         <div style={{marginBottom: 20, textAlign: "center"}}>
             <Title level={5}>Election Type</Title>
             <Select 
+                mode="multiple"
+                maxTagCount={1}
+                showArrow={true}
                 size="large" 
-                defaultValue="" 
                 style={{width: 150}}
                 onChange={onChange}
             >
-                <Option key={""} value={""}>All</Option>
                 {electionTypes.map(n => (
                     <Option key={n}>{n.charAt(0).toUpperCase() + n.slice(1)}</Option>
                 ))}

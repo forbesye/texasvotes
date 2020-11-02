@@ -37,19 +37,11 @@ export default function GridView () {
                 setLoading(true)
                 var params = new URLSearchParams()
                 params.append("page", currPage)
-                if(districtFilter) {
-                    districtFilter.forEach(district => params.append("district_num", district))
-                }
-                if(countiesFilter) {
-                    countiesFilter.forEach(county => params.append("counties", county))
-                }
-                if(partyFilter) {
-                    partyFilter.forEach(party => params.append("party", party))
-                }
-                if(officeFilter) {
-                    officeFilter.forEach(office => params.append("office", office))
-                }
                 params.append("sort", sortVal)
+                districtFilter.forEach(district => params.append("district_num", district))
+                countiesFilter.forEach(county => params.append("counties", county))
+                partyFilter.forEach(party => params.append("party", party))
+                officeFilter.forEach(office => params.append("office", office))
                 const { page, count } = await getAPI({
                         model: "politician",
                         params: params
