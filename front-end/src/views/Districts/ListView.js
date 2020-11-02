@@ -16,10 +16,10 @@ const ListView = () => {
     const [listData, setListData] = useState([])
     const [currPage, setCurrPage] = useState(1);
     const [total, setTotal] = useState(20);
-    const [countiesFilter, setCountiesFilter] = useState("");
-    const [partyFilter, setPartyFilter] = useState("");
-    const [officeFilter, setOfficeFilter] = useState("");
-    const [districtFilter, setDistrictFilter] = useState(0);
+    const [countiesFilter, setCountiesFilter] = useState([]);
+    const [partyFilter, setPartyFilter] = useState([]);
+    const [officeFilter, setOfficeFilter] = useState([]);
+    const [districtFilter, setDistrictFilter] = useState([]);
     const [populationFilter, setPopulationFilter] = useState("");
     const [sortVal, setSortVal] = useState("number");
     const listRef = useRef(null)
@@ -28,23 +28,15 @@ const ListView = () => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                let params = { page: currPage }
-                if(districtFilter) {
-                    params.number = districtFilter
-                }
-                if(countiesFilter) {
-                    params.counties = countiesFilter
-                }
-                if(partyFilter) {
-                    params.party = partyFilter
-                }
-                if(officeFilter) {
-                    params.office = officeFilter
-                }
-                if(populationFilter) {
-                    params.popRange = populationFilter
-                }
-                params.sort = sortVal
+                var params = new URLSearchParams()
+                params.append("page", currPage)
+                params.append("sort", sortVal)
+                districtFilter.forEach(district => params.append("number", district))
+                countiesFilter.forEach(county => params.append("counties", county))
+                partyFilter.forEach(party => params.append("party", party))
+                officeFilter.forEach(office => params.append("office", office))
+                if(populationFilter)
+                    params.append("popRange", populationFilter)
                 const { page, count } = await getAPI({
                         model: "district",
                         params: params
@@ -82,7 +74,7 @@ const ListView = () => {
         <div>
             <section className={styles.content}>
                 <Title level={2}>View All</Title>
-                <Paragraph style={{fontSize: 18}}>Have you ever wondered what all Texas districts look like in a list view? Probably not, but we've got you covered here. The list can also be filtered and sorted by different properties to make your viewing experience more customizable (soon™).</Paragraph>
+                <Paragraph style={{fontSize: 18}}>Have you ever wondered what all Texas districts look like in a list view? Probably not, but we've got you covered here. The list can also be filtered and sorted by different properties to make your viewing experience more customizable.</Paragraph>
             </section>
             <Divider />
 

@@ -18,10 +18,10 @@ const ListView = () => {
     const [loading, setLoading] = useState(true);
     const [listData, setListData] = useState([]);
     const [currPage, setCurrPage] = useState(1);
-    const [countiesFilter, setCountiesFilter] = useState("");
-    const [electionTypeFilter, setElectionTypeFilter] = useState("");
-    const [districtFilter, setDistrictFilter] = useState(0);
-    const [officeFilter, setOfficeFilter] = useState("");
+    const [countiesFilter, setCountiesFilter] = useState([]);
+    const [electionTypeFilter, setElectionTypeFilter] = useState([]);
+    const [districtFilter, setDistrictFilter] = useState([]);
+    const [officeFilter, setOfficeFilter] = useState([]);
     const [total, setTotal] = useState(20);
     const [sortVal, setSortVal] = useState("-electionDate");
     const listRef = useRef(null)
@@ -29,20 +29,13 @@ const ListView = () => {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            let params = { page: currPage }
-            if(districtFilter) {
-                params.number = districtFilter
-            }
-            if(countiesFilter) {
-                params.counties = countiesFilter
-            }
-            if(electionTypeFilter) {
-                params.type = electionTypeFilter
-            }
-            if(officeFilter) {
-                params.office = officeFilter
-            }
-            params.sort = sortVal
+            var params = new URLSearchParams()
+            params.append("page", currPage)
+            params.append("sort", sortVal)
+            districtFilter.forEach(district => params.append("dist", district))
+            countiesFilter.forEach(county => params.append("counties", county))
+            officeFilter.forEach(office => params.append("office", office))
+            electionTypeFilter.forEach(electionType => params.append("type", electionType))
             const { page, count } = await getAPI({
                     model: "election",
                     params: params

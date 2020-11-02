@@ -23,6 +23,7 @@ const monthDayYearParse = (d) => {
 
 const changeFilter = (setFunc) => {
     const output = (value) => {
+        console.log(value)
         setFunc(value)
     }
     return output
