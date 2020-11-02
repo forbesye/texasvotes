@@ -16,53 +16,50 @@ const ListView = () => {
     const [listData, setListData] = useState([])
     const [currPage, setCurrPage] = useState(1);
     const [total, setTotal] = useState(20);
-    const [countiesFilter, setCountiesFilter] = useState("");
-    const [partyFilter, setPartyFilter] = useState("");
-    const [officeFilter, setOfficeFilter] = useState("");
-    const [districtFilter, setDistrictFilter] = useState(0);
+    const [countiesFilter, setCountiesFilter] = useState([]);
+    const [partyFilter, setPartyFilter] = useState([]);
+    const [officeFilter, setOfficeFilter] = useState([]);
+    const [districtFilter, setDistrictFilter] = useState([]);
     const [populationFilter, setPopulationFilter] = useState("");
     const [sortVal, setSortVal] = useState("number");
     const listRef = useRef(null)
 
     useEffect(() => {
         const fetchData = async () => {
-            setLoading(true);
-            let params = { page: currPage }
-            if(districtFilter) {
-                params.number = districtFilter
+            try {
+                setLoading(true);
+                var params = new URLSearchParams()
+                params.append("page", currPage)
+                params.append("sort", sortVal)
+                districtFilter.forEach(district => params.append("number", district))
+                countiesFilter.forEach(county => params.append("counties", county))
+                partyFilter.forEach(party => params.append("party", party))
+                officeFilter.forEach(office => params.append("office", office))
+                if(populationFilter)
+                    params.append("popRange", populationFilter)
+                const { page, count } = await getAPI({
+                        model: "district",
+                        params: params
+                });
+                const data = page.map(district => {
+                    var elected_official = district.elected_officials ? district.elected_officials[0].name : "N/A"
+                    return {
+                        ...district,
+                        key: district.id,
+                        type: elected_office_mappings[district.type],
+                        party: district.party ? party_mappings[district.party] : "N/A",
+                        official_name: elected_official,
+                        population: district.demographics.total_population,
+                        name: districtName(district),
+                    }
+                })
+                setTotal(count);
+                setListData(data);
+                setLoading(false);
+            } catch(err) {
+                history.push("/error")
             }
-            if(countiesFilter) {
-                params.counties = countiesFilter
-            }
-            if(partyFilter) {
-                params.party = partyFilter
-            }
-            if(officeFilter) {
-                params.office = officeFilter
-            }
-            if(populationFilter) {
-                params.popRange = populationFilter
-            }
-            params.sort = sortVal
-            const { page, count } = await getAPI({
-                    model: "district",
-                    params: params
-            });
-            const data = page.map(district => {
-                var elected_official = district.elected_officials ? district.elected_officials[0].name : "N/A"
-                return {
-                    ...district,
-                    key: district.id,
-                    type: elected_office_mappings[district.type],
-                    party: district.party ? party_mappings[district.party] : "N/A",
-                    official_name: elected_official,
-                    population: district.demographics.total_population,
-                    name: districtName(district),
-                }
-            })
-            setTotal(count);
-            setListData(data);
-            setLoading(false);
+            
         }
         fetchData()
     }, [currPage, countiesFilter, partyFilter, officeFilter, districtFilter, populationFilter, sortVal]);
@@ -128,6 +125,7 @@ const ListView = () => {
                         pageSizeOptions: []
                     }}
                     onChange={handleTableChange}
+                    scroll={{x: true}}
                 />
             </section>
         </div>

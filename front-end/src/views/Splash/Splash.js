@@ -39,7 +39,7 @@ const Splash = () => {
                         cover={<img className={styles.cardImage} alt={"Politician"} src={politician}></img>}   
                         hoverable={true}
                     >
-                        <Title style={{ textAlign: "center" }}>Politicians</Title>
+                        <Title style={{ textAlign: "center", width: "275px" }}>Politicians</Title>
                         <p>
                             Want to learn more about your politicians?
                         </p>
@@ -52,8 +52,8 @@ const Splash = () => {
                         cover={<img className={styles.cardImage} alt={"Texas"} src={texas}></img>}     
                         hoverable={true}
                     >
-                        <Title style={{ textAlign: "center" }}>Districts</Title>
-                        <p>
+                        <Title style={{ textAlign: "center", width: "275px" }}>Districts</Title>
+                        <p style={{ width: "275px" }}>
                             Which district are you in? Learn about the different districts across Texas!
                         </p>
                     </Card>
@@ -65,8 +65,8 @@ const Splash = () => {
                         cover={<img className={styles.cardImage} alt={"Vote"} src={vote}></img>}    
                         hoverable={true}
                     >
-                        <Title style={{ textAlign: "center" }}>Elections</Title>
-                        <p>
+                        <Title style={{ textAlign: "center", width: "275px" }}>Elections</Title>
+                        <p style={{ width: "275px" }}>
                             What are some of the upcoming elections? Keep track of the elections and mark your calendars to vote!
                         </p>
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment, useRef } from "react"
 import { Typography, Divider, Card, Pagination, Select } from "antd"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import styles from "./Politicians.module.css"
 import { description } from "./Lib"
 import { getAPI } from "library/APIClient"

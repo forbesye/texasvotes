@@ -86,7 +86,11 @@ class District(db.Model):
     )
     # Variables
     ocd_id = db.Column(db.String, nullable=False)
-    type_name = db.Column(db.String, nullable=True)  # Look into
+    type_name = db.Column(db.String, nullable=True)
+    max_long = db.Column(db.Float, nullable=False, default=-100)
+    min_long = db.Column(db.Float, nullable=False, default=-100)
+    max_lat = db.Column(db.Float, nullable=False, default=-30)
+    min_lat = db.Column(db.Float, nullable=False, default=-100)
     party = db.Column(db.String, nullable=True)
     number = db.Column(db.Integer, nullable=True)
     map_url = db.Column(db.String, nullable=False, default="")
@@ -235,6 +239,10 @@ class DistrictSchema(BaseSchema):
     attainment_stats = fields.Str(required=True)
     income_out_of = fields.Int(required=True)
     income_stats = fields.Str(required=True)
+    max_long = fields.Float(required=True)
+    min_long = fields.Float(required=True)
+    max_lat = fields.Float(required=True)
+    min_lat = fields.Float(required=True)
 
 
 class ElectionSchema(BaseSchema):

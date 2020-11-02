@@ -61,13 +61,18 @@ const Details = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getAPI({
-                model: "district",
-                path: id,
-                params: {}
-            })
-            setDistrict(data);
-            setLoaded(true);
+            try {
+                const data = await getAPI({
+                    model: "district",
+                    path: id,
+                    params: {}
+                })
+                setDistrict(data);
+                setLoaded(true);
+            } catch(err) {
+                history.push("/error")
+            }
+            
         }
         fetchData();
     }, [id])
@@ -76,13 +81,16 @@ const Details = () => {
         history.push("/districts/view")
     }
 
-
     const {
         number,
         counties,
         elections,
         elected_officials,
         demographics,
+        max_long,
+        min_long,
+        max_lat,
+        min_lat
     } = district
     let content = null
     if(loaded) {
@@ -99,12 +107,14 @@ const Details = () => {
                     <Map
                         // eslint-disable-next-line
                         style="mapbox://styles/mapbox/streets-v11"
-                        center={[-100, 30]}
+                        fitBounds={[[max_lat, max_long], [min_lat, min_long]]}
+                        fitBoundsOptions={{ padding: 80 }}
+                        movingMethod="easeTo"
                         containerStyle={{
                           height: '50vh',
                           width: '95%'
                         }}
-                        zoom={[4.5]}
+                        maxZoom={[4.5]}
                     >
                         {
                             district.type === 'tx_house' ? 
