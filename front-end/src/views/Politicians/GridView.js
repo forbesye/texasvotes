@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment, useRef } from "react"
 import { Typography, Divider, Card, Pagination, Select } from "antd"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import styles from "./Politicians.module.css"
 import { description } from "./Lib"
 import { getAPI } from "library/APIClient"
@@ -18,12 +18,13 @@ export default function GridView () {
     const [gridData, setGridData] = useState([]);
     const [currPage, setCurrPage] = useState(1);
     const [total, setTotal] = useState(20);
-    const [countiesFilter, setCountiesFilter] = useState("");
-    const [partyFilter, setPartyFilter] = useState("");
-    const [officeFilter, setOfficeFilter] = useState("");
-    const [districtFilter, setDistrictFilter] = useState(0);
+    const [countiesFilter, setCountiesFilter] = useState([]);
+    const [partyFilter, setPartyFilter] = useState([]);
+    const [officeFilter, setOfficeFilter] = useState([]);
+    const [districtFilter, setDistrictFilter] = useState([]);
     const [sortVal, setSortVal] = useState("name");
     const gridRef = useRef(null)
+    const history = useHistory()
 
     const handlePaginationChange = (page) => {
         setCurrPage(page);
@@ -32,28 +33,25 @@ export default function GridView () {
 
     useEffect(() => {
         const fetchData = async () => {
-            setLoading(true)
-            let params = { page: currPage }
-            if(districtFilter) {
-                params.number = districtFilter
+            try {
+                setLoading(true)
+                var params = new URLSearchParams()
+                params.append("page", currPage)
+                params.append("sort", sortVal)
+                districtFilter.forEach(district => params.append("district_num", district))
+                countiesFilter.forEach(county => params.append("counties", county))
+                partyFilter.forEach(party => params.append("party", party))
+                officeFilter.forEach(office => params.append("office", office))
+                const { page, count } = await getAPI({
+                        model: "politician",
+                        params: params
+                });
+                setTotal(count)
+                setGridData(page)
+                setLoading(false)
+            } catch(err) {
+                history.push("/error")
             }
-            if(countiesFilter) {
-                params.counties = countiesFilter
-            }
-            if(partyFilter) {
-                params.party = partyFilter
-            }
-            if(officeFilter) {
-                params.office = officeFilter
-            }
-            params.sort = sortVal
-            const { page, count } = await getAPI({
-                    model: "politician",
-                    params: params
-            });
-            setTotal(count)
-            setGridData(page)
-            setLoading(false)
         }
         fetchData()
     }, [currPage, sortVal, countiesFilter, partyFilter, officeFilter, districtFilter]);
@@ -82,12 +80,10 @@ export default function GridView () {
                     >
                         <Option key={"name"} value="name">Name: A - Z</Option>
                         <Option key={"-name"}>Name: Z - A</Option>
-                        <Option key={"number"}>District (Asc.)</Option>
-                        <Option key={"-number"}>District (Desc.)</Option>
+                        <Option key={"dist"}>District (Asc.)</Option>
+                        <Option key={"-dist"}>District (Desc.)</Option>
                     </Select>
                 </div>
-            </section>
-            <section className={styles.sortSection}>
             </section>
 
             {
@@ -97,6 +93,7 @@ export default function GridView () {
                     <Link key={item.id} to={`/politicians/view/${item.id}`}>
                         <Card
                             hoverable
+                            style={{height: "100%"}}
                             cover={<img className={styles.croppedImage} alt={item.name} src={item.image} />}
                         >
                             <div className={styles.circle} style={{background: colorHexMap[item.party]}}>{item.party}</div>

@@ -57,13 +57,12 @@
 
 .card {
     margin: 16px !important;
-    width: 90%;
+    width: 100%;
     max-width: 320px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* border-radius: 25px !important; */
-    /* border-radius: 25px; */
+    flex-grow: 1;
 }
 
 .cardImage {

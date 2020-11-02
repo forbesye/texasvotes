@@ -46,14 +46,18 @@ export default function Details () {
     
     useEffect(() => {
         const fetchData = async () => {
-            setLoaded(false);
-            const data = await getAPI({
-                model: "politician",
-                path: id,
-                params: {}
-            })
-            setPolitician(data);
-            setLoaded(true);
+            try {
+                setLoaded(false);
+                const data = await getAPI({
+                    model: "politician",
+                    path: id,
+                    params: {}
+                })
+                setPolitician(data);
+                setLoaded(true);
+            } catch(err) {
+                history.push("/error")
+            }
         }
         fetchData();
     }, [id])
