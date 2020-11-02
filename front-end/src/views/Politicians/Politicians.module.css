@@ -1,205 +1,206 @@
 .wrapper {
-    display: block;
-    width: 90%;
-    margin: auto;
+	display: block;
+	width: 90%;
+	margin: auto;
 }
 
 .header {
-    padding: 32px 0;
+	padding: 32px 0;
 }
 
 .divider {
-    background-color: #262626;
-    width: 24px;
-    height: 3px;
-    margin: 16px 0;
+	background-color: #262626;
+	width: 24px;
+	height: 3px;
+	margin: 16px 0;
 }
 
 .content {
-    margin: auto;
-    max-width: 800px;
+	margin: auto;
+	max-width: 800px;
 }
 
 .grid {
-    display: grid;
-    grid-template-rows: repeat(auto-fill, minmax(350px, 1fr));
-    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-    gap: 16px;
+	display: grid;
+	grid-template-rows: repeat(auto-fill, minmax(350px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+	gap: 16px;
 }
 
 .cardRep {
-    height: 100% !important;
-    border-style: solid !important;
-    border-width: 8px !important;
-    border-color: rgb(248, 87, 78, 1.0) !important;
+	height: 100% !important;
+	border-style: solid !important;
+	border-width: 8px !important;
+	border-color: rgb(248, 87, 78, 1) !important;
 }
 
 .cardDem {
-    height: 100% !important;
-    border-style: solid !important;
-    border-width: 16px !important;
-    border-color: rgb(84, 99, 165, 1.0) !important;
+	height: 100% !important;
+	border-style: solid !important;
+	border-width: 16px !important;
+	border-color: rgb(84, 99, 165, 1) !important;
 }
 
 .croppedImage {
-    display: block;
-    min-width: 270px;
-    height: 350px;
-    object-fit: cover;
+	display: block;
+	min-width: 270px;
+	height: 350px;
+	object-fit: cover;
 }
 
 .searchResults {
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .politicianPage {
-    margin: auto;
-    margin-bottom: 100px;
-    max-width: 900px;
-    padding: 16px 8px;
-    background: #ffffff;
+	margin: auto;
+	margin-bottom: 100px;
+	max-width: 900px;
+	padding: 16px 8px;
+	background: #ffffff;
 }
 
 .politicianDescription {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }
 
 .politicianDetails {
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    margin: 16px 0;
-    width: 100%;
-    max-width: 600px;
-    text-align: center;
+	text-align: left;
+	display: flex;
+	flex-direction: column;
+	margin: 16px 0;
+	width: 100%;
+	max-width: 600px;
+	text-align: center;
 }
 
 .politicianImage {
-    width: 90%;
-    max-width: 400px;
-    flex: 0;
+	width: 90%;
+	max-width: 400px;
+	flex: 0;
 }
 
-.politicianGeneralInfo, .politicianSocials {
-    padding: 4px 16px;
-    font-size: 18px;
+.politicianGeneralInfo,
+.politicianSocials {
+	padding: 4px 16px;
+	font-size: 18px;
 }
 
-.electionDetails, .districtDetails, .politicianBio {
-    width: 90%;
-    font-size: 18px !important;
+.electionDetails,
+.districtDetails,
+.politicianBio {
+	width: 90%;
+	font-size: 18px !important;
 }
 
 .electionSection {
-    margin: 32px auto;
+	margin: 32px auto;
 }
 
 .electionTable {
-    margin: 16px auto; 
+	margin: 16px auto;
 }
 
 .circle {
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    border-radius: 20%;
-    font-size: 22px;
-    color: #fff;
-    text-align: center;
-    background: #000;
-    position: absolute;
-    right: 10px;
-    top: 10px;
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 20%;
+	font-size: 22px;
+	color: #fff;
+	text-align: center;
+	background: #000;
+	position: absolute;
+	right: 10px;
+	top: 10px;
 }
 
 .filterSection {
-    flex-direction: column;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    /* margin-bottom: 20px; */
+	flex-direction: column;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	/* margin-bottom: 20px; */
 }
 
-
 .sortSection {
-    flex-direction: column;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    /* margin-bottom: 20px; */
+	flex-direction: column;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	/* margin-bottom: 20px; */
 }
 
 .searchResults {
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .searchHighlight {
-    background: #d8d8d8;
+	background: #d8d8d8;
 }
 
 .politicianSearchCard {
-    width: 100%;
-    margin: 16px auto;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: #ffffff;
-    border-radius: 4px;
-    max-width: 1024px;
+	width: 100%;
+	margin: 16px auto;
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background: #ffffff;
+	border-radius: 4px;
+	max-width: 1024px;
 }
 
 .politicianSearchImage {
-    width: 90%;
-    height: 320px;
-    object-fit: cover;
+	width: 90%;
+	height: 320px;
+	object-fit: cover;
 }
 
 .politicianSearchDesc {
-    margin: 8px auto;
-    text-align: center;
+	margin: 8px auto;
+	text-align: center;
 }
 
 @media (min-width: 768px) {
-    
-    .grid {
-        justify-content: center;
-        grid-template-columns: repeat(2, 320px);
-    }
+	.grid {
+		justify-content: center;
+		grid-template-columns: repeat(2, 320px);
+	}
 
-    .wrapper {
-        width: 80%;
-    }
+	.wrapper {
+		width: 80%;
+	}
 
-    .politicianDetails {
-        flex-direction: row;
-        align-items: flex-start;
-        justify-content: space-evenly; 
-        text-align: left;
-    }
-    
-    .filterSection {
-        flex-direction: row;
-    }
+	.politicianDetails {
+		flex-direction: row;
+		align-items: flex-start;
+		justify-content: space-evenly;
+		text-align: left;
+	}
 
-    .sortSection {
-        flex-direction: row;
-    }
+	.filterSection {
+		flex-direction: row;
+	}
+
+	.sortSection {
+		flex-direction: row;
+	}
 }
 
 @media (min-width: 1420px) {
-    .grid {
-        grid-template-columns: repeat(4, minmax(270px, 1fr));
-    }
+	.grid {
+		grid-template-columns: repeat(4, minmax(270px, 1fr));
+	}
 }
 
 @media (min-width: 1700px) {
-    .grid {
-        grid-template-columns: repeat(5, minmax(270px, 1fr));
-    }
+	.grid {
+		grid-template-columns: repeat(5, minmax(270px, 1fr));
+	}
 }
