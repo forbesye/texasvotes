@@ -9,12 +9,13 @@ const CountiesFilter = ({onChange}) => {
         <div style={{marginBottom: 20, textAlign: "center"}}>
             <Title level={5}>Counties</Title>
             <Select 
+                mode="multiple"
+                maxTagCount={1}
+                showArrow={true}
                 size="large" 
-                defaultValue="" 
                 style={{width: 150}}
                 onChange={onChange}
             >
-                <Option key={""} value={""}>All</Option>
                 {counties_list.map(county => (
                     <Option key={county}>{county}</Option>
                 ))}
@@ -29,12 +30,13 @@ const PartiesFilter = ({onChange}) => {
         <div style={{marginBottom: 20, textAlign: "center"}}>
             <Title level={5}>Party</Title>
             <Select 
+                mode="multiple"
+                maxTagCount={1}
+                showArrow={true}
                 size="large" 
-                defaultValue="" 
                 style={{width: 150}}
                 onChange={onChange}
             >
-                <Option key={""} value={""}>All</Option>
                 {parties.map(party => (
                     <Option key={party}>{party_mappings[party]}</Option>
                 ))}
@@ -49,12 +51,13 @@ const OfficeFilter = ({onChange}) => {
         <div style={{marginBottom: 20, textAlign: "center"}}>
             <Title level={5}>Office</Title>
             <Select 
+                mode="multiple"
+                maxTagCount={1}
+                showArrow={true}
                 size="large" 
-                defaultValue="" 
                 style={{width: 150}}
                 onChange={onChange}
             > 
-                <Option key={""} value={""}>All</Option>
                 {offices.map(office => (
                     <Option key={office}>{elected_office_mappings[office]}</Option>
                 ))}
@@ -69,12 +72,13 @@ const DistrictNumberFilter = ({onChange}) => {
         <div style={{marginBottom: 20, textAlign: "center"}}>
             <Title level={5}>District #</Title>
             <Select 
+                mode="multiple"
+                maxTagCount={1}
+                showArrow={true}
                 size="large" 
-                defaultValue="" 
                 style={{width: 150}}
                 onChange={onChange}
             >
-                <Option key={""} value={""}>All</Option>
                 {nums.map(n => (
                     <Option key={n}>{n}</Option>
                 ))}

@@ -18,10 +18,10 @@ export default function GridView () {
     const [gridData, setGridData] = useState([]);
     const [currPage, setCurrPage] = useState(1);
     const [total, setTotal] = useState(20);
-    const [countiesFilter, setCountiesFilter] = useState("");
-    const [partyFilter, setPartyFilter] = useState("");
-    const [officeFilter, setOfficeFilter] = useState("");
-    const [districtFilter, setDistrictFilter] = useState(0);
+    const [countiesFilter, setCountiesFilter] = useState([]);
+    const [partyFilter, setPartyFilter] = useState([]);
+    const [officeFilter, setOfficeFilter] = useState([]);
+    const [districtFilter, setDistrictFilter] = useState([]);
     const [sortVal, setSortVal] = useState("name");
     const gridRef = useRef(null)
     const history = useHistory()
@@ -35,20 +35,21 @@ export default function GridView () {
         const fetchData = async () => {
             try {
                 setLoading(true)
-                let params = { page: currPage }
+                var params = new URLSearchParams()
+                params.append("page", currPage)
                 if(districtFilter) {
-                    params.number = districtFilter
+                    districtFilter.forEach(district => params.append("district_num", district))
                 }
                 if(countiesFilter) {
-                    params.counties = countiesFilter
+                    countiesFilter.forEach(county => params.append("counties", county))
                 }
                 if(partyFilter) {
-                    params.party = partyFilter
+                    partyFilter.forEach(party => params.append("party", party))
                 }
                 if(officeFilter) {
-                    params.office = officeFilter
+                    officeFilter.forEach(office => params.append("office", office))
                 }
-                params.sort = sortVal
+                params.append("sort", sortVal)
                 const { page, count } = await getAPI({
                         model: "politician",
                         params: params
@@ -82,8 +83,8 @@ export default function GridView () {
                     >
                         <Option key={"name"} value="name">Name: A - Z</Option>
                         <Option key={"-name"}>Name: Z - A</Option>
-                        <Option key={"number"}>District (Asc.)</Option>
-                        <Option key={"-number"}>District (Desc.)</Option>
+                        <Option key={"dist"}>District (Asc.)</Option>
+                        <Option key={"-dist"}>District (Desc.)</Option>
                     </Select>
                 </div>
                 <Title level={3}>Filter</Title>
