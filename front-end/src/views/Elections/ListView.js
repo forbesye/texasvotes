@@ -74,8 +74,12 @@ const ListView = () => {
                 <Paragraph style={{fontSize: 18}}>Have you ever wondered what all Texas elections look like in a list view? Probably not, but we've got you covered here. The list can also be filtered and sorted by different properties to make your viewing experience more customizable.</Paragraph>
             </section>
             <Divider />
-
             <section className={styles.filterSection}>
+                <Title level={3}>Filter</Title>
+                <CountiesFilter onChange={changeFilter(setCountiesFilter)}/>
+                <OfficeFilter onChange={changeFilter(setOfficeFilter)}/>
+                <DistrictNumberFilter onChange={changeFilter(setDistrictFilter)} />
+                <ElectionTypeFilter onChange={changeFilter(setElectionTypeFilter)}/>
                 <Title level={3}>Sort</Title>
                 <div style={{marginBottom: 20, textAlign: "center"}}>
                     <Title level={5}>Order</Title>
@@ -91,11 +95,6 @@ const ListView = () => {
                         <Option key={"-dist"}>District (Desc.)</Option>
                     </Select>
                 </div>
-                <Title level={3}>Filter</Title>
-                <CountiesFilter onChange={changeFilter(setCountiesFilter)}/>
-                <OfficeFilter onChange={changeFilter(setOfficeFilter)}/>
-                <DistrictNumberFilter onChange={changeFilter(setDistrictFilter)} />
-                <ElectionTypeFilter onChange={changeFilter(setElectionTypeFilter)}/>
             </section>
 
             <section ref = {listRef} >

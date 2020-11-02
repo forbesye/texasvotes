@@ -55,10 +55,10 @@
 
 .politicianPage {
     margin: auto;
+    margin-bottom: 100px;
     max-width: 900px;
     padding: 16px 8px;
     background: #ffffff;
-    border-radius: 2px;
 }
 
 .politicianDescription {
@@ -131,6 +131,38 @@
     justify-content: flex-start;
     align-items: center;
     /* margin-bottom: 20px; */
+}
+
+.searchResults {
+    display: flex;
+    flex-direction: column;
+}
+
+.searchHighlight {
+    background: #d8d8d8;
+}
+
+.politicianSearchCard {
+    width: 100%;
+    margin: 16px auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 4px;
+    max-width: 1024px;
+}
+
+.politicianSearchImage {
+    width: 90%;
+    height: 320px;
+    object-fit: cover;
+}
+
+.politicianSearchDesc {
+    margin: 8px auto;
+    text-align: center;
 }
 
 @media (min-width: 768px) {

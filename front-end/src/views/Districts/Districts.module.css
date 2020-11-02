@@ -15,10 +15,10 @@
 
 .districtPage {
     margin: auto;
+    margin-bottom: 100px;
     max-width: 900px;
     padding: 16px 8px;
     background: #ffffff;
-    border-radius: 2px;
 }
 
 .cursor {
@@ -57,7 +57,10 @@
 }
 
 @media (min-width: 768px) {
-    
+    .wrapper {
+        width: 80%;
+    }
+
     .filterSection {
         flex-direction: row;
     }
