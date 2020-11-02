@@ -1,40 +1,52 @@
-import React, { useState } from 'react';
-import { Drawer, Button } from 'antd';
-import Icon, { MenuOutlined } from '@ant-design/icons';
-import NavContent from './NavContent';
-import TexasVotesLogo from './TexasVotesLogo.png'
-import { Link } from 'react-router-dom'
+import React, { useState } from "react"
+import { Drawer, Button } from "antd"
+import Icon, { MenuOutlined } from "@ant-design/icons"
+import NavContent from "./NavContent"
+import TexasVotesLogo from "./TexasVotesLogo.png"
+import { Link } from "react-router-dom"
 import styles from "./Navbar.module.css"
 
 const Navbar = () => {
-	const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(false)
 	return (
 		<nav className={styles.nav}>
 			<Link to="/" className={styles.leftNav}>
-				<img src={TexasVotesLogo} alt="Texas Votes Logo" className={styles.logo}/>
+				<img
+					src={TexasVotesLogo}
+					alt="Texas Votes Logo"
+					className={styles.logo}
+				/>
 			</Link>
 			<div className={styles.centerNav}>
 				<NavContent />
 			</div>
 			<div className={styles.rightNav}>
-				<Button className={styles.hamburger} type="primary" onClick={() => setOpen(true)} >
+				<Button
+					className={styles.hamburger}
+					type="primary"
+					onClick={() => setOpen(true)}
+				>
 					<Icon component={MenuOutlined} />
 				</Button>
 			</div>
-			<Drawer 
+			<Drawer
 				placement="right"
 				closable={false}
 				onClose={() => setOpen(false)}
 				onClick={() => setOpen(false)}
-                visible={open}
-                headerStyle={{ padding: 12, height: 12, width: 12, background: "pink" }}
-                bodyStyle={{ padding: 0 }}
+				visible={open}
+				headerStyle={{
+					padding: 12,
+					height: 12,
+					width: 12,
+					background: "pink",
+				}}
+				bodyStyle={{ padding: 0 }}
 			>
-				<NavContent orientation="vertical"/>
+				<NavContent orientation="vertical" />
 			</Drawer>
 		</nav>
 	)
 }
 
-export default Navbar;
-	
+export default Navbar
