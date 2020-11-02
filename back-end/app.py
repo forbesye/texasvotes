@@ -10,7 +10,7 @@ from models import (
     election_schema,
 )
 from flask import Flask, request, make_response, jsonify
-from sqlalchemy import and_, or_
+from sqlalchemy import and_, or_, func
 from format import *
 import requests
 import json
@@ -120,7 +120,7 @@ def search_politicians(q, pol_query):
             searches.append(Politician.district_number.in_([int(term)]))
         except ValueError:
             pass
-        searches.append(District.counties.any(name=term))
+        searches.append(District.counties.any(func.lower(Counties.name) == term.lower()))
     pol_query = pol_query.join(District).filter(or_(*tuple(searches)))
 
     return pol_query
@@ -280,7 +280,7 @@ def search_districts(q, dist_query):
             pass
         searches.append(District.type_name.match(term))
         searches.append(District.party.match(term))
-        searches.append(District.counties.any(name=term))
+        searches.append(District.counties.any(func.lower(Counties.name) == term.lower()))
     dist_query = dist_query.filter(or_(*tuple(searches)))
 
     return dist_query
@@ -425,7 +425,7 @@ def search_elections(q, elect_query):
             pass
         searches.append(Election.class_name.match(term))
         searches.append(Election.office.match(term))
-        searches.append(District.counties.any(name=term))
+        searches.append(District.counties.any(func.lower(Counties.name) == term.lower()))
     elect_query = elect_query.join(District).filter(or_(*tuple(searches)))
 
     return elect_query
