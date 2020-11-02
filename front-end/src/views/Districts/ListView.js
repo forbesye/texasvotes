@@ -74,7 +74,7 @@ const ListView = () => {
         <div>
             <section className={styles.content}>
                 <Title level={2}>View All</Title>
-                <Paragraph style={{fontSize: 18}}>Have you ever wondered what all Texas districts look like in a list view? Probably not, but we've got you covered here. The list can also be filtered and sorted by different properties to make your viewing experience more customizable (soon™).</Paragraph>
+                <Paragraph style={{fontSize: 18}}>Have you ever wondered what all Texas districts look like in a list view? Probably not, but we've got you covered here. The list can also be filtered and sorted by different properties to make your viewing experience more customizable.</Paragraph>
             </section>
             <Divider />
 
