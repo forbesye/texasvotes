@@ -138,6 +138,10 @@
     flex-direction: column;
 }
 
+.searchHighlight {
+    background: #d8d8d8;
+}
+
 .politicianSearchCard {
     width: 100%;
     margin: 16px auto;
@@ -186,8 +190,8 @@
     }
 
     img.politicianSearchImage {
-        height: 280px;
-        max-width: 200px;
+        height: 140px;
+        max-width: 100px;
         
         flex: 1;
     }
