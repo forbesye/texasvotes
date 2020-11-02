@@ -25,7 +25,7 @@
 
 .container {
     padding-top: 10px;
-    width: 100vw;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     padding-bottom: 30px;

@@ -56,13 +56,27 @@ export default function GridView () {
             setLoading(false)
         }
         fetchData()
-    }, [currPage, sortVal, countiesFilter, partyFilter, officeFilter, districtFilter]);
+    }, [
+        currPage, 
+        sortVal, 
+        countiesFilter, 
+        partyFilter, 
+        officeFilter, 
+        districtFilter
+    ]);
 
     return (
         <Fragment>
             <section className={styles.content}>
                 <Title level={2}>View All</Title>
-                <Paragraph style={{fontSize: 18}}>Have you ever wondered what all Texas officials and candidates look like in a grid view? Probably not, but we've got you covered here. The grid can also be filtered and sorted by different properties to make your viewing experience more customizable.</Paragraph>
+                <Paragraph style={{fontSize: 18}}>
+                    Have you ever wondered what all Texas officials and 
+                    candidates look like in a grid view? 
+                    Probably not, but we've got you covered here. 
+                    The grid can also be filtered and sorted by different 
+                    properties to make your viewing experience more 
+                    customizable.
+                </Paragraph>
             </section>
             <Divider />
             <section className={styles.filterSection}>
