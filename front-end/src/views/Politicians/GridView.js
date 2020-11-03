@@ -119,7 +119,10 @@ export default function GridView() {
 					{gridData.map((item) => (
 						<Link key={item.id} to={`/politicians/view/${item.id}`}>
 							<Card
-								hoverable
+                                hoverable
+                                style={{
+                                    height: "100%"
+                                }}
 								cover={
 									<img
 										className={styles.croppedImage}
