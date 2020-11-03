@@ -120,7 +120,7 @@ export default function SearchView (props) {
                 <Search 
                     size="large" l
                     loading={loading} 
-                    onSearch={handleSearch} 
+                    onSearch={(val) => handleSearch(val)} 
                     value={searchVal}
                     onChange={handleTextChange}
                 />
@@ -143,11 +143,6 @@ export default function SearchView (props) {
 }
 
 function PoliticianResult(props) {
-	const { name, searchQuery } = props
-	const [highlightStart, highlightEnd] = getMatchIndices(
-		props.name,
-		searchQuery
-	)
 
     let { district: { counties }, name, searchQuery } = props
     const [ highlightStart, highlightEnd ] = getMatchIndices(props.name, searchQuery)
