@@ -1,3 +1,16 @@
+from models import (
+    Politician,
+    District,
+    Election,
+    Counties,
+    db,
+    app,
+    politician_schema,
+    district_schema,
+    election_schema,
+)
+
+from sqlalchemy import and_, or_
 from query_helpers import *
 
 # Filters elections by one of the four supported attributes
