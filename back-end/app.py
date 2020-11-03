@@ -110,7 +110,7 @@ def search_politicians(q, pol_query):
     else:
         q = q[0].strip()
 
-    terms = q.split()
+    terms = format_terms(q.split())
 
     searches = []
     for term in terms:
@@ -270,7 +270,7 @@ def search_districts(q, dist_query):
     else:
         q = q[0].strip()
 
-    terms = q.split()
+    terms = format_terms(q.split())
 
     searches = []
     for term in terms:
@@ -415,7 +415,7 @@ def search_elections(q, elect_query):
     else:
         q = q[0].strip()
 
-    terms = q.split()
+    terms = format_terms(q.split())
 
     searches = []
     for term in terms:
@@ -474,6 +474,28 @@ def election_id(id):
 
     return election
 
+def format_terms(input):
+    terms = [term.lower() for term in input]
+
+    for term in terms:
+        if term == "house":
+            if "texas" in terms:
+                terms.append("tx_house")
+            elif "us" in terms:
+                terms.append("us_house")
+            else:
+                terms.append("tx_house")
+                terms.append("us_house")
+        if term == "senate":
+            if "texas" in terms:
+                terms.append("tx_senate")
+            elif "us" in terms:
+                terms.append("us_senate")
+            else:
+                terms.append("tx_senate")
+                terms.append("us_senate")
+
+    return terms
 
 @app.route("/")
 def hello_world():
