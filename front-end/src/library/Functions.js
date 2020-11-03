@@ -1,3 +1,5 @@
+import { useLocation } from 'react-router-dom'
+
 const percentageString = (key, obj) => {
 	let sum = 0.0
 	let keyVal = obj[key]
@@ -27,7 +29,6 @@ const monthDayYearParse = (d) => {
 
 const changeFilter = (setFunc) => {
 	const output = (value) => {
-		console.log(value)
 		setFunc(value)
 	}
 	return output
@@ -52,6 +53,10 @@ const formatAsMoney = (num) => {
 	return `$` + numberStringWithCommas(num.toFixed(2))
 }
 
+const useQuery = () => {
+	return new URLSearchParams(window.location.search);
+}
+
 export {
 	percentageString,
 	numberStringWithCommas,
@@ -59,4 +64,5 @@ export {
 	changeFilter,
 	districtName,
 	formatAsMoney,
+	useQuery
 }

@@ -10,7 +10,7 @@ import {
 	OfficeFilter,
 	DistrictNumberFilter,
 } from "library/FilterValues"
-import { changeFilter } from "library/Functions"
+import { changeFilter, useQuery } from "library/Functions"
 import { colorHexMap } from "library/Mappings"
 import Spinner from "components/ui/Spinner"
 
@@ -29,6 +29,7 @@ export default function GridView() {
 	const [districtFilter, setDistrictFilter] = useState(0)
 	const [sortVal, setSortVal] = useState("name")
 	const gridRef = useRef(null)
+	const history = useHistory()
 
 	const handlePaginationChange = (page) => {
 		setCurrPage(page)
@@ -39,6 +40,13 @@ export default function GridView() {
 	}
 
 	useEffect(() => {
+		const addParamsURL = (history, params, pathname) => {
+			history.push({
+				pathname: pathname,
+				search: "?" + new URLSearchParams(params).toString()
+			})
+		}
+
 		const fetchData = async () => {
 			setLoading(true)
 			let params = { page: currPage }
@@ -61,6 +69,7 @@ export default function GridView() {
 			})
 			setTotal(count)
 			setGridData(page)
+			addParamsURL(history, params, "/politicians/view")
 			setLoading(false)
 		}
 		fetchData()
