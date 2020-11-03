@@ -23,10 +23,10 @@ export default function GridView() {
 	const [gridData, setGridData] = useState([])
 	const [currPage, setCurrPage] = useState(1)
 	const [total, setTotal] = useState(20)
-	const [countiesFilter, setCountiesFilter] = useState("")
-	const [partyFilter, setPartyFilter] = useState("")
-	const [officeFilter, setOfficeFilter] = useState("")
-	const [districtFilter, setDistrictFilter] = useState(0)
+	const [countiesFilter, setCountiesFilter] = useState([])
+	const [partyFilter, setPartyFilter] = useState([])
+	const [officeFilter, setOfficeFilter] = useState([])
+	const [districtFilter, setDistrictFilter] = useState([])
 	const [sortVal, setSortVal] = useState("name")
 	const gridRef = useRef(null)
 	const history = useHistory()
@@ -48,29 +48,27 @@ export default function GridView() {
 		}
 
 		const fetchData = async () => {
-			setLoading(true)
-			let params = { page: currPage }
-			if (districtFilter) {
-				params.number = districtFilter
-			}
-			if (countiesFilter) {
-				params.counties = countiesFilter
-			}
-			if (partyFilter) {
-				params.party = partyFilter
-			}
-			if (officeFilter) {
-				params.office = officeFilter
-			}
-			params.sort = sortVal
-			const { page, count } = await getAPI({
-				model: "politician",
-				params: params,
-			})
-			setTotal(count)
-			setGridData(page)
-			addParamsURL(history, params, "/politicians/view")
-			setLoading(false)
+			try {
+                setLoading(true)
+                var params = new URLSearchParams()
+                params.append("page", currPage)
+                params.append("sort", sortVal)
+                districtFilter.forEach(district => params.append("district_num", district))
+                countiesFilter.forEach(county => params.append("counties", county))
+                partyFilter.forEach(party => params.append("party", party))
+                officeFilter.forEach(office => params.append("office", office))
+                const { page, count } = await getAPI({
+                        model: "politician",
+                        params: params
+                });
+                setTotal(count)
+				setGridData(page)
+				addParamsURL(history, params, "/politicians/view")
+                setLoading(false)
+            } catch(err) {
+				console.error(err)
+                history.push("/error")
+            }
 		}
 		fetchData()
 	}, [
