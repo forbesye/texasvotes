@@ -69,7 +69,7 @@ export default function SearchView (props) {
                 <Typography.Title level={3}>Search</Typography.Title>
                 <Typography.Paragraph>Search our database for a Texas elected official or political challenger. </Typography.Paragraph>
                 <Search 
-                    size="large" l
+                    size="large"
                     loading={loading} 
                     onSearch={(val) => handleSearch(val)} 
                     value={searchVal}

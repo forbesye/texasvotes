@@ -1,7 +1,3 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { party_mappings } from "library/Mappings"
-
 const percentageString = (key, obj) => {
 	let sum = 0.0
 	let keyVal = obj[key]

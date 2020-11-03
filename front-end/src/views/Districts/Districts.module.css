@@ -56,6 +56,33 @@
 	/* margin-bottom: 20px; */
 }
 
+.description {
+    width: 100%;
+    margin: 8px 0;
+}
+
+.searchResults {
+	display: flex;
+	flex-direction: column;
+}
+
+.districtSearchCard {
+	width: 100%;
+	margin: 16px auto;
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background: #ffffff;
+	border-radius: 4px;
+	max-width: 1024px;
+}
+
+.districtSearchDesc {
+	margin: 8px auto;
+	text-align: center;
+}
+
 @media (min-width: 768px) {
 	.wrapper {
 		width: 80%;

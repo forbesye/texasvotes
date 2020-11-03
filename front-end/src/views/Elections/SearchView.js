@@ -6,12 +6,8 @@ import styles from "./Elections.module.css"
 
 import { getAPI } from "../../library/APIClient"
 import Spinner from "../../components/ui/Spinner"
-// import { description } from "./Lib"
-import {
-	districtName,
-} from "library/Functions"
+import { districtName } from "library/Functions"
 import { party_mappings } from "library/Mappings"
-import { mostAlike, getMatchIndices } from "../../library/searchFunctions"
 
 const { Search } = Input
 const { Title, Text, Paragraph } = Typography
@@ -55,7 +51,6 @@ export default function SearchView(props) {
             }
         })
         const results = data.page
-        // console.log(results)
         const userquery = value.toLowerCase()
         // results.sort((a, b) => {
         //     // Sort by best match
@@ -75,7 +70,6 @@ export default function SearchView(props) {
     
 	useEffect(() => {
 		const q = new URLSearchParams(location.search).get("q")
-		console.log(q)
 		if (q) {
 			const decoded = decodeURIComponent(q)
 			setSearchVal(decoded)
@@ -90,7 +84,7 @@ export default function SearchView(props) {
                     <Typography.Title level={3}>Search</Typography.Title>
                     <Typography.Paragraph>Search our database for elections. </Typography.Paragraph>
                     <Search 
-                        size="large" l
+                        size="large"
                         loading={loading} 
                         onSearch={(val) => handleSearch(val)} 
                         value={searchVal}
