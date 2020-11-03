@@ -159,14 +159,14 @@ function PoliticianResult(props) {
                     <Title level={3}>{
                         <Highlighter 
                             highlightClassName={styles.searchHighlight}
-                            searchWords={[searchQuery]}
+                            searchWords={searchQuery.split(' ')}
                             textToHighlight={props.name}
                         />
                     } ({props.party})</Title>
                     <Paragraph>
                         <Highlighter 
                             highlightClassName={styles.searchHighlight}
-                            searchWords={[searchQuery]}
+                            searchWords={searchQuery.split(' ')}
                             textToHighlight={description(props)}
                         />
                     </Paragraph>
@@ -174,7 +174,7 @@ function PoliticianResult(props) {
                         <Text strong>Counties: </Text> 
                         <Highlighter 
                             highlightClassName={styles.searchHighlight} 
-                            searchWords={[searchQuery]}
+                            searchWords={searchQuery.split(' ')}
                             textToHighlight={displayedCounties}
                         />
                     </Paragraph>
