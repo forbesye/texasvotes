@@ -44,8 +44,6 @@ export default class PieChart extends Component {
 							var total = dataset.data.reduce(function (
 								previousValue,
 								currentValue,
-								currentIndex,
-								array
 							) {
 								return previousValue + currentValue
 							})
@@ -69,7 +67,7 @@ export default class PieChart extends Component {
 	render() {
 		return (
 			<div>
-				<canvas id="myChart" ref={this.chartRef} />
+				<canvas id="myChart" ref={this.chartRef} style={this.props.style}/>
 			</div>
 		)
 	}
