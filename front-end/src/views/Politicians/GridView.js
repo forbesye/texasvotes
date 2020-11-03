@@ -19,6 +19,7 @@ const { Meta } = Card
 const { Option } = Select
 
 export default function GridView() {
+	const history = useHistory()
 	const [loading, setLoading] = useState(true)
 	const [gridData, setGridData] = useState([])
 	const [currPage, setCurrPage] = useState(1)

@@ -1,3 +1,7 @@
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { party_mappings } from "library/Mappings"
+
 const percentageString = (key, obj) => {
 	let sum = 0.0
 	let keyVal = obj[key]
@@ -27,7 +31,6 @@ const monthDayYearParse = (d) => {
 
 const changeFilter = (setFunc) => {
 	const output = (value) => {
-		console.log(value)
 		setFunc(value)
 	}
 	return output
@@ -52,11 +55,12 @@ const formatAsMoney = (num) => {
 	return `$` + numberStringWithCommas(num.toFixed(2))
 }
 
+
 export {
 	percentageString,
 	numberStringWithCommas,
 	monthDayYearParse,
 	changeFilter,
 	districtName,
-	formatAsMoney,
+    formatAsMoney
 }
