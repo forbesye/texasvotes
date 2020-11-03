@@ -1,65 +1,65 @@
 .card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    align-content: stretch;
-    box-shadow: 5px 5px 15px rgba(0,0,0,.2);
-    text-align: center;
-    height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+	align-content: stretch;
+	box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+	text-align: center;
+	height: 100%;
 }
 
 .circle_headshot {
-    object-fit: cover !important;
-    width: 250px !important;
-    height: 250px !important;
-    border-radius: 50% !important;
-    margin: 25px !important;
-    margin-bottom: 0px !important;
-    display: block !important;
+	object-fit: cover !important;
+	width: 250px !important;
+	height: 250px !important;
+	border-radius: 50% !important;
+	margin: 25px !important;
+	margin-bottom: 0px !important;
+	display: block !important;
 }
 
 .tool_image {
-    max-width: 100%;
-    max-height: 100%;
-    display: flex !important;
-    align-self: center;
-    align-content: center;
+	max-width: 100%;
+	max-height: 100%;
+	display: flex !important;
+	align-self: center;
+	align-content: center;
 }
 
-.cardCover{
-    width: 250px !important;
-    height: 250px !important;
-    margin: 25px !important;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
+.cardCover {
+	width: 250px !important;
+	height: 250px !important;
+	margin: 25px !important;
+	display: flex !important;
+	align-items: center;
+	justify-content: center;
 }
 
 .meta {
-    flex: 1;
+	flex: 1;
 }
 
 .gitStats {
-    flex: 0;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-end;
-    width: 100%;
-    border-top: solid 1px #f0f0f0;
-    margin-top: 16px;
+	flex: 0;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-end;
+	width: 100%;
+	border-top: solid 1px #f0f0f0;
+	margin-top: 16px;
 }
 
 .gitStat {
-    margin-top: 16px;
-    flex: 1;
-    text-transform: capitalize;
-    color: rgba(0, 0, 0, 0.45);
-    border-left: solid 1px #f0f0f0;
-    font-size: 14px;
+	margin-top: 16px;
+	flex: 1;
+	text-transform: capitalize;
+	color: rgba(0, 0, 0, 0.45);
+	border-left: solid 1px #f0f0f0;
+	font-size: 14px;
 }
 
 .gitStat:nth-child(1) {
-    border-left: none;
+	border-left: none;
 }

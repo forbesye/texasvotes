@@ -1,105 +1,104 @@
 .splash {
-    background-image: url("./images/light_blue_background.jpg");
-    height: 80vh;
-    background-size: 100%;
-    /* margin-top: 10vh; */
-    /* background-color: red; */
-    padding-top: 30px;
-    padding-bottom: 30px;
+	background-image: url("./images/light_blue_background.jpg");
+	height: 80vh;
+	background-size: 100%;
+	/* margin-top: 10vh; */
+	/* background-color: red; */
+	padding-top: 30px;
+	padding-bottom: 30px;
 }
 
 .splashContent {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column-reverse;
-    align-items: center;
-    margin: auto;
-    width: 90%;
-    max-width: 900px;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column-reverse;
+	align-items: center;
+	margin: auto;
+	width: 90%;
+	max-width: 900px;
 }
 
 .headerText {
-    text-align: center;
-    width: 90%;
-    margin: auto;
-    flex: 1;
+	text-align: center;
+	width: 90%;
+	margin: auto;
+	flex: 1;
 }
 
 .headerImage {
-    width: 120px;
-    margin: 16px auto;
-    flex: 0;
+	width: 120px;
+	margin: 16px auto;
+	flex: 0;
 }
 
 .title {
-    margin: 8px auto;
-    line-height: 125%;
+	margin: 8px auto;
+	line-height: 125%;
 }
 
 .about {
-    font-size: 1.5em;
+	font-size: 1.5em;
 }
 
 .descriptionContainer {
-    width: 90%;
-    max-width: 800px;
-    margin: 32px auto;
+	width: 90%;
+	max-width: 800px;
+	margin: 32px auto;
 }
 
 .cardFlexContainer {
-    max-width: 1200px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: 32px auto 0;
-    flex-direction: column;
+	max-width: 1200px;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin: 32px auto 0;
+	flex-direction: column;
 }
 
 .card {
-    margin: 16px !important;
-    width: 90%;
-    max-width: 320px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* border-radius: 25px !important; */
-    /* border-radius: 25px; */
+	margin: 16px !important;
+	width: 100%;
+	max-width: 320px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex-grow: 1;
 }
 
 .cardImage {
-    width: 200px !important;
-    margin: 40px 0;
-    object-fit: contain;
+	width: 200px !important;
+	margin: 40px 0;
+	object-fit: contain;
 }
 
 @media (min-width: 768px) {
-    .cardFlexContainer {
-        flex-direction: row;
-    }
+	.cardFlexContainer {
+		flex-direction: row;
+	}
 
-    .card {
-        margin: 16px 24px !important;
-    }
+	.card {
+		margin: 16px 24px !important;
+	}
 
-    .splashContent {
-        margin-top: 10vh;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-    }
+	.splashContent {
+		margin-top: 10vh;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+	}
 
-    .headerText {
-        text-align: left;
-        max-width: 600px;
-    }
+	.headerText {
+		text-align: left;
+		max-width: 600px;
+	}
 
-    .headerImage {
-        width: 300px;
-        margin-left: 30px;
-    }
+	.headerImage {
+		width: 300px;
+		margin-left: 30px;
+	}
 
-    .title {
-        font-size: 4.5em !important;
-        margin: 32px auto;
-    }
+	.title {
+		font-size: 4.5em !important;
+		margin: 32px auto;
+	}
 }

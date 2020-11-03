@@ -86,7 +86,11 @@ class District(db.Model):
     )
     # Variables
     ocd_id = db.Column(db.String, nullable=False)
-    type_name = db.Column(db.String, nullable=True)  # Look into
+    type_name = db.Column(db.String, nullable=True)
+    max_long = db.Column(db.Float, nullable=False, default=-100)
+    min_long = db.Column(db.Float, nullable=False, default=-100)
+    max_lat = db.Column(db.Float, nullable=False, default=-30)
+    min_lat = db.Column(db.Float, nullable=False, default=-100)
     party = db.Column(db.String, nullable=True)
     number = db.Column(db.Integer, nullable=True)
     map_url = db.Column(db.String, nullable=False, default="")
@@ -128,7 +132,7 @@ class Election(db.Model):
     results = db.Column(db.JSON, nullable=True)
 
     def __repr__(self):
-        return "<Election %s %s>" % (self.office, self.district_number)
+        return "<Election %s %s %s>" % (self.class_name, self.office, self.district_number)
 
 
 class Counties(db.Model):
@@ -159,7 +163,7 @@ class PoliticianSchema(BaseSchema):
         required=True,
         attribute="current_district",
     )
-    election = fields.Nested(
+    elections = fields.Nested(
         "ElectionSchema",
         only=(
             "id",
@@ -171,7 +175,6 @@ class PoliticianSchema(BaseSchema):
             "early_end",
         ),
         required=True,
-        attribute="elections",
         many=True,
     )
 
@@ -214,7 +217,7 @@ class DistrictSchema(BaseSchema):
     )
     elections = fields.Nested(
         "ElectionSchema",
-        only=("id", "office", "class_name", "election_day", "early_start", "early_end"),
+        only=("id", "office", "class_name", "election_day", "early_start", "early_end", "party"),
         required=True,
         many=True,
     )
@@ -236,6 +239,10 @@ class DistrictSchema(BaseSchema):
     attainment_stats = fields.Str(required=True)
     income_out_of = fields.Int(required=True)
     income_stats = fields.Str(required=True)
+    max_long = fields.Float(required=True)
+    min_long = fields.Float(required=True)
+    max_lat = fields.Float(required=True)
+    min_lat = fields.Float(required=True)
 
 
 class ElectionSchema(BaseSchema):
@@ -261,6 +268,7 @@ class ElectionSchema(BaseSchema):
     early_start = fields.Str(required=True)
     early_end = fields.Str(required=True)
     video_url = fields.Str(required=True)
+    results = fields.Str(required=True)
 
 
 politician_schema = PoliticianSchema()

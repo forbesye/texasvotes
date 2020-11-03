@@ -1,6 +1,7 @@
 from app import db
 import os
 import json
+import csv
 from models import Politician, District, Election, Counties
 
 curr_directory = os.path.dirname(__file__)
@@ -205,6 +206,39 @@ def link_elections_districts():
         election.current_district = temp_district
     db.session.commit()
 
+def link_district_coordinates():
+    county_coordinates = {}
+    with open('data/county_coordinate.csv') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        line_count = 0
+        for row in csv_reader:
+            if line_count == 0:
+                print(f'Column names are {", ".join(row)}')
+            else:
+                county_coordinates[row[2]] = (float(row[0]), float(row[1]))
+            line_count += 1
+    districts = db.session.query(District).all()
+    for district in districts:
+        lat_list = []
+        long_list = []
+        for county in district.counties:
+            temp_lat, temp_long = county_coordinates[county.name]
+            lat_list.append(temp_lat)
+            long_list.append(temp_long)
+        district.max_long = max(long_list)
+        district.min_long = min(long_list)
+        district.max_lat = max(lat_list)
+        district.min_lat = min(lat_list)
+        # District only spans one county, need to add some padding
+        if district.max_long == district.min_long:
+            district.max_long = district.max_long + 0.5
+            district.min_long = district.min_long - 0.5
+        if district.max_lat == district.min_lat:
+            district.max_lat = district.max_lat + 0.5
+            district.min_lat = district.min_lat - 0.5
+        print(f'{district.number} {district.max_long} {district.max_lat} {district.min_long} {district.min_lat}')
+    db.session.commit()
+
 
 def reset_db():
     # Be VERYYY careful with this...
@@ -222,3 +256,4 @@ if __name__ == "__main__":
     populate_elections()
     link_politicians_districts()
     link_elections_districts()
+    link_district_coordinates()
