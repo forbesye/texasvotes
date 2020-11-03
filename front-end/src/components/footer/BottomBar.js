@@ -1,32 +1,34 @@
 import React from "react"
 import styles from "./BottomBar.module.css"
-import { Row, Col } from "antd"
+import { Typography } from "antd"
 import { Link } from "react-router-dom"
+
+const { Paragraph } = Typography
 
 const BottomBar = () => {
 	return (
 		<div className={styles.footer}>
-			<Row className={styles.container}>
-				<Col span={11} className={styles.footerData}>
-					<h1 className={styles.siteName}>Texas Votes</h1> <br />
+			<div className={styles.container}>
+				<div className={styles.footerDataLong}>
+					<h1 className={styles.siteName}>Texas Votes</h1>
 					<div className={styles.siteText}>
 						Search for your representatives, your district, and your
 						state and federal elections within the state of Texas!
 					</div>
-				</Col>
-				<Col span={5} className={styles.footerData}>
+				</div>
+				<div className={styles.footerDataShort}>
 					<h1 className={styles.modelHeader}>Models</h1>
-					<Link to="/politicians">Politicians</Link> <br />
-					<Link to="/districts">Districts</Link> <br />
-					<Link to="/elections">Elections</Link> <br />
-				</Col>
-				<Col span={5} className={styles.footerData}>
+					<div className={styles.footerLinkContainer}><Link to="/politicians">Politicians</Link></div>
+					<div className={styles.footerLinkContainer}><Link to="/districts">Districts</Link></div>
+					<div className={styles.footerLinkContainer}><Link to="/elections">Elections</Link></div>
+				</div>
+				<div className={styles.footerDataShort}>
 					<h1 className={styles.otherLinksHeader}>Other Links</h1>
-					<Link to="/">Home</Link> <br />
-					<Link to="/about">About</Link> <br />
-					<Link to="/voting">Voting FAQ</Link> <br />
-				</Col>
-			</Row>
+					<div className={styles.footerLinkContainer}><Link to="/">Home</Link></div>
+					<div className={styles.footerLinkContainer}><Link to="/about">About</Link></div>
+					<div className={styles.footerLinkContainer}><Link to="/voting">Voting FAQ</Link></div>
+				</div>
+			</div>
 			<h3 className={styles.copyrightText}>
 				{" "}
 				Copyright © 2020 Texas Votes

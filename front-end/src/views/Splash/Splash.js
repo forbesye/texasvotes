@@ -55,10 +55,10 @@ const Splash = () => {
 						}
 						hoverable={true}
 					>
-						<Title style={{ textAlign: "center", width: "275px" }}>
+						<Title style={{ textAlign: "center" }}>
 							Politicians
 						</Title>
-						<p>Want to learn more about your politicians?</p>
+						<Paragraph>Want to learn more about your politicians?</Paragraph>
 					</Card>
 				</Link>
 				<Link
@@ -78,13 +78,13 @@ const Splash = () => {
 						}
 						hoverable={true}
 					>
-						<Title style={{ textAlign: "center", width: "275px" }}>
+						<Title style={{ textAlign: "center" }}>
 							Districts
 						</Title>
-						<p style={{ width: "275px" }}>
+						<Paragraph>
 							Which district are you in? Learn about the different
 							districts across Texas!
-						</p>
+						</Paragraph>
 					</Card>
 				</Link>
 				<Link
@@ -104,13 +104,13 @@ const Splash = () => {
 						}
 						hoverable={true}
 					>
-						<Title style={{ textAlign: "center", width: "275px" }}>
+						<Title style={{ textAlign: "center" }}>
 							Elections
 						</Title>
-						<p style={{ width: "275px" }}>
+						<Paragraph>
 							What are some of the upcoming elections? Keep track
 							of the elections and mark your calendars to vote!
-						</p>
+						</Paragraph>
 					</Card>
 				</Link>
 			</div>
