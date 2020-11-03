@@ -36,46 +36,50 @@ const ListView = () => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			setLoading(true)
-			var params = new URLSearchParams()
-			params.append("page", currPage)
-			params.append("sort", sortVal)
-			districtFilter.forEach((district) =>
-				params.append("dist", district)
-			)
-			countiesFilter.forEach((county) =>
-				params.append("counties", county)
-			)
-			officeFilter.forEach((office) => params.append("office", office))
-			electionTypeFilter.forEach((electionType) =>
-				params.append("type", electionType)
-			)
-			const { page, count } = await getAPI({
-				model: "election",
-				params: params,
-			})
-			const data = page.map((election) => {
-				return {
-					...election,
-					key: election.id,
-					district: districtName(election.district),
-					type: election_type_mappings[`${election.type.class}`],
-					office: elected_office_mappings[election.office],
-					winner: election.results
-						? election.results.winner.name
-						: "TBD",
-					totalVoters: election.results
-						? election.results.total_voters
-						: "",
-					election_date: monthDayYearParse(
-						election.dates.election_day
-					),
-					early_date: monthDayYearParse(election.dates.early_start),
-				}
-			})
-			setTotal(count)
-			setListData(data)
-			setLoading(false)
+            try {
+                setLoading(true)
+                var params = new URLSearchParams()
+                params.append("page", currPage)
+                params.append("sort", sortVal)
+                districtFilter.forEach((district) =>
+                    params.append("dist", district)
+                )
+                countiesFilter.forEach((county) =>
+                    params.append("counties", county)
+                )
+                officeFilter.forEach((office) => params.append("office", office))
+                electionTypeFilter.forEach((electionType) =>
+                    params.append("type", electionType)
+                )
+                const { page, count } = await getAPI({
+                    model: "election",
+                    params: params,
+                })
+                const data = page.map((election) => {
+                    return {
+                        ...election,
+                        key: election.id,
+                        district: districtName(election.district),
+                        type: election_type_mappings[`${election.type.class}`],
+                        office: elected_office_mappings[election.office],
+                        winner: election.results
+                            ? election.results.winner.name
+                            : "TBD",
+                        totalVoters: election.results
+                            ? election.results.total_voters
+                            : "",
+                        election_date: monthDayYearParse(
+                            election.dates.election_day
+                        ),
+                        early_date: monthDayYearParse(election.dates.early_start),
+                    }
+                })
+                setTotal(count)
+                setListData(data)
+                setLoading(false)
+            } catch (err) {
+				history.push("/error")
+            }
 		}
 		fetchData()
 	}, [
