@@ -9,6 +9,7 @@ from models import (
     district_schema,
     election_schema,
 )
+
 from flask import Flask, request, make_response, jsonify
 from sqlalchemy import and_, or_
 from format import *
@@ -16,13 +17,9 @@ import requests
 import json
 import re
 
-# Wrapper for retrieving keys from dictionary queries
-# Returns none if desired key is not in queries
-def get_query(name, queries):
-    try:
-        return queries[name]
-    except KeyError:
-        return None
+from Politician import *
+from District import *
+from Election import *
 
 
 # ---------- Policitians ----------

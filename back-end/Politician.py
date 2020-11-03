@@ -1,3 +1,5 @@
+from query_helpers import *
+
 # Filters politicians by one of the four supported attributes
 # Supports filtering for multiple values for the attribute
 def filter_politician_by(pol_query, filtering, what):

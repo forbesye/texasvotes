@@ -1,3 +1,5 @@
+from query_helpers import *
+
 # Filters elections by one of the four supported attributes
 # Supports filtering for multiple values for the attribute
 def filter_election_by(elect_query, filtering, what):

@@ -1,3 +1,5 @@
+from query_helpers import *
+
 # Filters districts by one of the four supported attributes
 # Supports filtering for multiple values for the attribute
 def filter_district_by(dist_query, filtering, what):
