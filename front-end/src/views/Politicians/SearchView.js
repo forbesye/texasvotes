@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react"
-import { Typography, Input, Divider } from "antd"
+import { Typography, Input, Divider, Pagination } from "antd"
 import { Link, useLocation, useHistory } from "react-router-dom"
+import Highlighter from "react-highlight-words"
 import styles from "./Politicians.module.css"
 
 import { getAPI } from "../../library/APIClient"
@@ -56,6 +57,8 @@ function getMatchIndices (str, toMatch) {
 
 export default function SearchView (props) {
     const [searchVal, setSearchVal] = useState("")
+    const [total, setTotal] = useState(0)
+    const [page, setPage] = useState(1)
     const [results, setResults] = useState([])
     const [loading, setLoading] = useState(false)
     const location = useLocation()
@@ -65,13 +68,14 @@ export default function SearchView (props) {
         setSearchVal(event.target.value)
     }
 
-    const handleSearch = async (value) => {
-        history.push(`/politicians/search?q=${encodeURIComponent(value)}`)
+    const handleSearch = async (value, p=1) => {
+        history.push(`/politicians/search?q=${encodeURIComponent(value)}&page=${p}`)
         setLoading(true)
         const data = await getAPI({ 
             model: "politician",
             params: {
-                q: value
+                q: value,
+                page: p
             }
         })
         const results = data.page
@@ -84,6 +88,12 @@ export default function SearchView (props) {
         })
         setResults(results)
         setLoading(false)
+        setTotal(data.count)
+    }
+
+    const handlePageChange = (p) => {
+        setPage(p)
+        handleSearch(searchVal, p)
     }
 
     useEffect(() => {
@@ -97,8 +107,8 @@ export default function SearchView (props) {
     }, [])
 
     return (
-        <Fragment>
-            <section className={styles.content}>
+        <section className={styles.content}>
+            <section className={styles.description}>
                 <Typography.Title level={3}>Search</Typography.Title>
                 <Typography.Paragraph>Search our database for a Texas elected official or political challenger. </Typography.Paragraph>
                 <Search 
@@ -115,30 +125,53 @@ export default function SearchView (props) {
                     { results.map(result => <PoliticianResult {...result} searchQuery={searchVal} />)}
                 </section>
             ) }
-        </Fragment>
+            <Pagination 
+                current={page}
+                onChange={handlePageChange}
+                pageSize={20}
+                showSizeChanger={false}
+                total={total}
+            />
+        </section>
     )
 }
 
 function PoliticianResult (props) {
 
-    const { name, searchQuery } = props
+    let { district: { counties }, name, searchQuery } = props
     const [ highlightStart, highlightEnd ] = getMatchIndices(props.name, searchQuery)
 
-    const nameJsx = (
-        <Fragment>
-            <span>{name.substring(0, highlightStart)}</span>
-            <span className={styles.searchHighlight}>{name.substring(highlightStart, highlightEnd)}</span>
-            <span>{name.substring(highlightEnd)}</span>
-        </Fragment>
-    )
+    let displayedCounties = counties.length >= 10 ? counties.slice(0, 10) : counties
+    displayedCounties = displayedCounties.reduce((prev, next) => `${prev}, ${next}`)
+    displayedCounties += counties.length >= 10 ? "..." : ""
 
     return (
         <Link to={`/politicians/view/${props.id}`}>
             <div className={styles.politicianSearchCard}>
                 <img className={styles.politicianSearchImage} src={props.image} alt={props.name} />
                 <div className={styles.politicianSearchDesc}>
-                    <Title level={3}>{nameJsx} ({props.party})</Title>
-                    <Text>{description(props)}</Text>
+                    <Title level={3}>{
+                        <Highlighter 
+                            highlightClassName={styles.searchHighlight}
+                            searchWords={[searchQuery]}
+                            textToHighlight={props.name}
+                        />
+                    } ({props.party})</Title>
+                    <Paragraph>
+                        <Highlighter 
+                            highlightClassName={styles.searchHighlight}
+                            searchWords={[searchQuery]}
+                            textToHighlight={description(props)}
+                        />
+                    </Paragraph>
+                    <Paragraph>
+                        <Text strong>Counties: </Text> 
+                        <Highlighter 
+                            highlightClassName={styles.searchHighlight} 
+                            searchWords={[searchQuery]}
+                            textToHighlight={displayedCounties}
+                        />
+                    </Paragraph>
                 </div>
             </div>
         </Link>
