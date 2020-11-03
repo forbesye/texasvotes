@@ -16,7 +16,11 @@ const App = () => {
 				<Header className="nav">
 					<Navbar />
 				</Header>
-				<Content>
+				<Content
+					style={{
+						minHeight: "90vh"
+					}}
+				>
 					<Switch>
 						{routes.map(({ exact, path, Component }) => {
 							return (
