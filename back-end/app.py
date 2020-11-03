@@ -32,10 +32,12 @@ def politicians():
 
     # Searching
     q = get_query('q', queries)
-    pol_query = search_politicians(q, pol_query) # TODO: Figure out why this was turning pol_query into a list
+    if q:
+        pol_query = search_politicians(q, pol_query) # TODO: Figure out why this was turning pol_query into a list
 
     # Filtering
-    pol_query = filter_politicians(pol_query, queries)
+    else:
+        pol_query = filter_politicians(pol_query, queries)
 
     # Sorting
     sort = get_query('sort', queries)
@@ -78,10 +80,12 @@ def districts():
 
     # Searching
     q = get_query('q', queries)
-    dist_query = search_districts(q, dist_query)
+    if q:
+        dist_query = search_districts(q, dist_query)
 
     # Filtering
-    dist_query = filter_districts(dist_query, queries)
+    else:
+        dist_query = filter_districts(dist_query, queries)
 
     # Sorting
     sort = get_query('sort', queries)
@@ -125,10 +129,12 @@ def elections():
 
     # Searching
     q = get_query('q', queries)
-    elect_query = search_elections(q, elect_query)
+    if q:
+        elect_query = search_elections(q, elect_query)
 
     # Filtering
-    elect_query = filter_elections(elect_query, queries)
+    else:
+        elect_query = filter_elections(elect_query, queries)
 
     # Sorting
     sort = get_query('sort', queries)
