@@ -1,0 +1,49 @@
+.content {
+    width: 90%;
+    max-width: 1200px;
+    margin: 16px auto;
+}
+
+.contentHeader, .searchResults {
+    width: 100%;
+    margin: 16px auto;
+}
+
+.searchItemsPolitician, .searchItemsDistrict, .searchItemsElection {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, 280px);
+}
+
+.searchItemsPolitician {
+    grid-template-rows: repeat(auto-fit, 350px);
+}
+
+.generalCard {
+    width: 100%;
+    height: 100%;
+}
+
+.cardCover {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+}
+
+.highlight {
+    background: #e0e0e0;
+}
+
+@media (min-width: 768px) {
+    .searchItemsPolitician, .searchItemsDistrict, .searchItemsElection {
+        grid-template-columns: repeat(auto-fit, 150px);
+    }
+
+    .searchItemsPolitician {
+        grid-template-rows: repeat(auto-fit, 280px);
+    }
+
+    .cardCover {
+        height: 150px;
+    }
+}

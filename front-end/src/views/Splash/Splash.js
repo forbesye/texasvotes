@@ -1,6 +1,6 @@
 import React from "react"
-import { Card, Typography } from "antd"
-import { Link } from "react-router-dom"
+import { Card, Typography, Input } from "antd"
+import { Link, useHistory } from "react-router-dom"
 
 // Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 import texas from "views/Splash/images/texas.svg"
@@ -13,8 +13,10 @@ import vote from "views/Splash/images/vote.svg"
 import styles from "./Splash.module.css"
 
 const { Title, Paragraph } = Typography
+const { Search } = Input
 
 const Splash = () => {
+	const history = useHistory()
 	return (
 		<div>
 			<div className={styles.splash}>
@@ -36,6 +38,19 @@ const Splash = () => {
 						src={politicians}
 					></img>
 				</div>
+			</div>
+			<div className={styles.searchBarContainer}>
+				<Title level={1}>Sitewide Search</Title>
+				<Paragraph>Search for a politician, an district, or an election here.</Paragraph>
+				<Search 
+					size="large" 
+					enterButton="Search" 
+					placeholder="Enter sitewide search here."
+					onSearch={(value) => {
+						console.log(value)
+						history.push(`/search?q=${value}`)
+					}}
+				/>
 			</div>
 			<div className={styles.cardFlexContainer}>
 				<Link
