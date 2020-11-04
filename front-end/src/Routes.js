@@ -14,7 +14,8 @@ import Search from "./views/Search/Search"
     Routes are defined as so:
         title (string): name of page
         path (string): path to display in URL and route to
-        Component (React component): React component that will be displayed for this page
+        Component (React component): React component that will be displayed
+            for this page
     
     Optional:
         exact (bool): path needs to match exactly
