@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Card, Typography, Input } from "antd"
 import { Link, useHistory } from "react-router-dom"
 
@@ -11,12 +11,13 @@ import politicians from "views/Splash/images/politicians.svg"
 import vote from "views/Splash/images/vote.svg"
 
 import styles from "./Splash.module.css"
+import GeneralSearchBar from "../Search/GeneralSearchBar"
 
 const { Title, Paragraph } = Typography
-const { Search } = Input
 
 const Splash = () => {
 	const history = useHistory()
+	const [ searchVal, setSearchVal ] = useState("")
 	return (
 		<div>
 			<div className={styles.splash}>
@@ -40,18 +41,13 @@ const Splash = () => {
 				</div>
 			</div>
 			<div className={styles.searchBarContainer}>
-				<Title level={1}>Sitewide Search</Title>
-				<Paragraph>Search for a politician, an district, or an election here.</Paragraph>
-				<Search 
-					size="large" 
-					enterButton="Search" 
-					placeholder="Enter sitewide search here."
-					onSearch={(value) => {
-						console.log(value)
-						history.push(`/search?q=${value}`)
-					}}
+				<GeneralSearchBar 
+					onSearch={value => history.push(`/search?q=${value}`)} 
+					onChange={(event) => setSearchVal(event.target.value)}
+					value={searchVal}
 				/>
 			</div>
+			
 			<div className={styles.cardFlexContainer}>
 				<Link
 					id="politicianCard"

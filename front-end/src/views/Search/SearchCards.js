@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Fragment } from "react"
 import { Card, Typography } from "antd"
 import { Link } from "react-router-dom"
 import Highlighter from "react-highlight-words"
@@ -6,6 +6,8 @@ import styles from "./Search.module.css"
 import { description as districtDescription } from "../Politicians/Lib"
 import { districtName } from "../Districts/Lib"
 import { election_type_mappings, elected_office_mappings, party_mappings } from "../../library/Mappings"
+
+const COUNTY_LIMIT = 5
 
 const { Paragraph } = Typography
 const { Meta } = Card
@@ -21,7 +23,7 @@ export function PoliticianCard (props) {
     } = props
     counties = counties.slice(0, 3)
     return (
-        <Link to={`/politicians/view/${id}`}>
+        <Link to={`/politicians/view/${id}`} target="_blank">
             <Card
                 className={styles.generalCard}
                 hoverable
@@ -55,27 +57,46 @@ export function PoliticianCard (props) {
 }
 
 export function DistrictCard (props) {
-    const { number, id, party, counties, searchQuery } = props
-    let mapped = counties.slice(0, 3).reduce((prev, curr) => `${prev}, ${curr}`)
-    mapped += counties.length > 3 ? "..." : ""
-    const displayName = number === -1 ? "Texas" : `TX-${number}`
+    const { elected_officials, number, id, party, counties, searchQuery } = props
+    let mapped = counties.slice(0, COUNTY_LIMIT).reduce((prev, curr) => `${prev}, ${curr}`)
+    mapped += counties.length > COUNTY_LIMIT ? "..." : ""
+    const electedOfficials = elected_officials
     return (
-        <Link to={`/districts/view/${id}`}>
-            <Card>
+        <Link to={`/districts/view/${id}`} target="_blank">
+            <Card className={styles.generalCard}>
                 <Meta 
                     title={(
                         <Highlighter 
                             highlightClassName={styles.highlight} 
                             searchWords={[ searchQuery ]} 
-                            textToHighlight={`${displayName} (${party})`}
+                            textToHighlight={`${districtName(props)}`}
                         />
                     )}
                     description={(
-                        <Highlighter 
-                            highlightClassName={styles.highlight}
-                            searchWords={[ searchQuery ]}
-                            textToHighlight={`Type: ${districtName(props)} | Counties: ${mapped}`}
-                        />
+                        <Fragment>
+                            <div>
+                                <Highlighter 
+                                    highlightClassName={styles.highlight}
+                                    searchWords={[ searchQuery ]}
+                                    textToHighlight={`Held By: ${electedOfficials.map(({ name, party }) => `${name} (${party})`)}`}
+                                />
+                            </div>
+                            <div>
+                                <Highlighter 
+                                    highlightClassName={styles.highlight}
+                                    searchWords={[ searchQuery ]}
+                                    textToHighlight={`Type: ${districtName(props)}`}
+                                />
+                            </div>
+                            <div>
+                                <Highlighter 
+                                    highlightClassName={styles.highlight}
+                                    searchWords={[ searchQuery ]}
+                                    textToHighlight={`Counties: ${mapped}`}
+                                />
+                            </div>
+                        </Fragment>
+                        
                     )}
                 />
             </Card>
@@ -86,20 +107,20 @@ export function DistrictCard (props) {
 export function ElectionCard (props) {
     const {
         district: { number, counties },
+        dates: { election_day },
         id,
         office,
         party,
         type,
         searchQuery
     } = props
-    let electionName = `${type.class} Election for ${elected_office_mappings[office]}`
-    if (party) electionName = `${party_mappings[party]} ${electionName}` 
-    if (number !== -1) electionName = `${electionName} ${number}`
-    let mapped = counties.slice(0, 3).reduce((prev, curr) => `${prev}, ${curr}`)
-    mapped += counties.length > 3 ? "..." : ""
+    let electionName = `${election_type_mappings[type.class]} Election`
+    if (party) electionName = `(${party}) ${electionName}` 
+    let mapped = counties.slice(0, COUNTY_LIMIT).reduce((prev, curr) => `${prev}, ${curr}`)
+    mapped += counties.length > COUNTY_LIMIT ? "..." : ""
     return (
-        <Link to={`/elections/view/${id}`}>
-            <Card>
+        <Link to={`/elections/view/${id}`} target="_blank">
+            <Card className={styles.generalCard}>
                 <Meta 
                     title={(
                         <Highlighter 
@@ -109,12 +130,47 @@ export function ElectionCard (props) {
                         />
                     )}
                     description={(
-                        <Highlighter 
-                            highlightClassName={styles.highlight}
-                            searchWords={[ searchQuery ]}
-                            textToHighlight={`Counties: ${mapped}`}
-                        />
+                        <Fragment>
+                            <div>
+                                <Highlighter 
+                                    highlightClassName={styles.highlight}
+                                    searchWords={[ searchQuery ]}
+                                    textToHighlight={`Held on: ${new Date(election_day).toLocaleDateString("en", {
+                                        month: "long",
+                                        day: "numeric",
+                                        year: "numeric"
+                                    })}`}
+                                />
+                            </div>
+                            <div>
+                                <Highlighter 
+                                    highlightClassName={styles.highlight}
+                                    searchWords={[ searchQuery ]}
+                                    textToHighlight={`${elected_office_mappings[office]} ${number !== -1 ? "District " + number : ""}`}
+                                />
+                            </div>
+                            <div>
+                                <Highlighter 
+                                    highlightClassName={styles.highlight}
+                                    searchWords={[ searchQuery ]}
+                                    textToHighlight={`Counties: ${mapped}`}
+                                />
+                            </div>
+                        </Fragment>
                     )}
+                />
+            </Card>
+        </Link>
+    )
+}
+
+export function MoreResultsCard ({ amount, model, searchQuery }) {
+    return (
+        <Link to={`/${model}s/search?q=${searchQuery}`} target="_blank">
+            <Card className={styles.generalCard}>
+                <Meta 
+                    title={`View more ${model} results here.`}
+                    description={`There are ${amount} results remaining.`}
                 />
             </Card>
         </Link>
