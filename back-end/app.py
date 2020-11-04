@@ -33,7 +33,7 @@ def politicians():
     # Searching
     q = get_query('q', queries)
     if q:
-        pol_query = search_politicians(q, pol_query) # TODO: Figure out why this was turning pol_query into a list
+        pol_query = search_politicians(q, pol_query)
 
     # Filtering
     else:
@@ -49,9 +49,8 @@ def politicians():
     else:
         page = int(page[0])
 
+    count = pol_query.count()
     politicians = pol_query.paginate(page=page)
-
-    count = politicians.total
 
     result = politician_schema.dump(politicians.items, many=True)
 
@@ -97,8 +96,8 @@ def districts():
     else:
         page = int(page[0])
 
+    count = dist_query.count()
     districts = dist_query.paginate(page=page)
-    count = districts.total
 
     result = district_schema.dump(districts.items, many=True)
 
@@ -146,8 +145,8 @@ def elections():
     else:
         page = int(page[0])
 
+    count = elect_query.count()
     elections = elect_query.paginate(page=page)
-    count = elections.total
 
     result = election_schema.dump(elections.items, many=True)
 
