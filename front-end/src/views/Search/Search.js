@@ -13,9 +13,11 @@ const { Title, Paragraph } = Typography
 const SEARCH_PATHS = ["politician", "district", "election"]
 const SEARCH_LIMIT = 10
 
+// General search page
 export default function GeneralSearch (props) {
     const location = useLocation()
     const history = useHistory()
+    // State variables
     const [ loaded, setLoaded ] = useState(false)
     const [ searchQ, setSearchQ ] = useState("")
     const [ results, setResults ] = useState({
@@ -24,29 +26,38 @@ export default function GeneralSearch (props) {
         "election": []
     })
 
+    // Get url params into a map-like object
     const queries = new URLSearchParams(location.search)
 
+    // Handler for textChange on GeneralSearchBar
     const handleSearchChange = (event) => {
         setSearchQ(event.target.value)
     }
 
+    // Handler for search on GeneralSearchBar
     const handleSearch = (value) => {
         history.push(`/search?q=${value}`)
         setSearchQ(value)
         search(value)
     }
 
+    // Asynchronous function that searches all three models
     const search = async (q) => {
         setLoaded(false)
+        // creates an array of promises that will return the results for each model search
         const promises = SEARCH_PATHS.map((model) => {
             return getAPI({ model: model, params: { q } })
         })
+        // resolves the promises
         const resolved = await Promise.all(promises)
         const all = {}
+        // add the results to our state
         resolved.forEach((data, i) => {
             const { page, count } = data
+            // limit to SEARCH_LIMIT
             all[SEARCH_PATHS[i]] = page.slice(0, SEARCH_LIMIT)
             if (count > SEARCH_LIMIT) {
+                // add an eor object that will map to a link for more results
                 all[SEARCH_PATHS[i]].push({
                     eor: true,
                     model: SEARCH_PATHS[i],
@@ -58,6 +69,7 @@ export default function GeneralSearch (props) {
         setLoaded(true)
     }
 
+    // Called on componentMount
     useEffect(() => {
         const q = queries.get("q")
         setSearchQ(q)

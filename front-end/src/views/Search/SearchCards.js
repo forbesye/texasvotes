@@ -12,6 +12,7 @@ const COUNTY_LIMIT = 5
 const { Paragraph } = Typography
 const { Meta } = Card
 
+// Card used to display a politician result on the general search page. Takes in a search query and the politician model body 
 export function PoliticianCard (props) {
     let { 
         district: { counties }, 
@@ -56,6 +57,7 @@ export function PoliticianCard (props) {
     )
 }
 
+// Card used to display a district result on the general search page. Takes in a search query and the district model body 
 export function DistrictCard (props) {
     const { elected_officials, number, id, party, counties, searchQuery } = props
     let mapped = counties.slice(0, COUNTY_LIMIT).reduce((prev, curr) => `${prev}, ${curr}`)
@@ -104,6 +106,7 @@ export function DistrictCard (props) {
     )
 }
 
+// Card used to display a election result on the general search page. Takes in a search query and the election model body 
 export function ElectionCard (props) {
     const {
         district: { number, counties },
@@ -164,6 +167,7 @@ export function ElectionCard (props) {
     )
 }
 
+// Card that links the rest of the results on the general search page. 
 export function MoreResultsCard ({ amount, model, searchQuery }) {
     return (
         <Link to={`/${model}s/search?q=${searchQuery}`} target="_blank">

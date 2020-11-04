@@ -5,6 +5,7 @@ import styles from "./Search.module.css"
 const { Title, Paragraph } = Typography
 const { Search } = Input
 
+// This component is used on both the splash and search pages. 
 export default function GeneralSearchBar ({ showTitle = true, value, onSearch, onChange }) {
     return (
         <div className={styles.searchBarContainer}>
