@@ -43,6 +43,17 @@ class TestElections(unittest.TestCase):
         element = self.driver.find_element_by_tag_name('h1')
         assert element.text == 'Texas Elections'
 
+    def testSearch(self):
+        try:
+            a = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.ID, 'rc-tabs-2-tab-search'))
+            )
+        except Exception as ex:
+            return
+        self.driver.find_element_by_id("rc-tabs-2-tab-search").click()
+        currentURL = self.driver.current_url
+        assert currentURL == "https://stage.texasvotes.me/elections/search"
+
 if __name__ == "__main__":
     PATH = sys.argv[1]
     unittest.main(argv=['first-arg-is-ignored'])
