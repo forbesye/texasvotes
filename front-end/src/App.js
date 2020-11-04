@@ -9,7 +9,7 @@ import { Switch, Route } from "react-router-dom"
 import routes from "./Routes"
 import { Layout } from "antd"
 import "./App.css"
-import ErrorPage from "./ErrorPage"
+import ErrorPage from "./views/Error/ErrorPage"
 
 const { Header, Footer, Content } = Layout // Ant Design Layout for structure
 

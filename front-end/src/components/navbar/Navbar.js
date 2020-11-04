@@ -1,3 +1,7 @@
+/*
+    This file defines a the navbar displayed on all pages
+*/
+
 import React, { useState } from "react"
 import { Drawer, Button } from "antd"
 import Icon, { MenuOutlined } from "@ant-design/icons"
@@ -7,9 +11,10 @@ import { Link } from "react-router-dom"
 import styles from "./Navbar.module.css"
 
 const Navbar = () => {
-	const [open, setOpen] = useState(false)
+	const [open, setOpen] = useState(false) // for hamburger menu on mobile
 	return (
 		<nav className={styles.nav}>
+            {/* Site logo that links to home page */}
 			<Link to="/" className={styles.leftNav}>
 				<img
 					src={TexasVotesLogo}
@@ -17,9 +22,11 @@ const Navbar = () => {
 					className={styles.logo}
 				/>
 			</Link>
+            {/* Main links to different pages  */}
 			<div className={styles.centerNav}>
 				<NavContent />
 			</div>
+            {/* Hamburger menu button for mobile */}
 			<div className={styles.rightNav}>
 				<Button
 					className={styles.hamburger}
@@ -29,6 +36,7 @@ const Navbar = () => {
 					<Icon component={MenuOutlined} />
 				</Button>
 			</div>
+            {/* Links within hamburger menu for mobile */}
 			<Drawer
 				placement="right"
 				closable={false}
