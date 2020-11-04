@@ -7,8 +7,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import sys
 
-# PATH = "chromedriver.exe"
-PATH = "./front-end/gui_tests/chromedriver.exe"
+PATH = "chromedriver.exe"
+# PATH = "./front-end/gui_tests/chromedriver.exe"
 URL = "https://stage.texasvotes.me/districts/view/"
 # URL = "https://www.texasvotes.me/districts/view/"
 class TestDistricts(unittest.TestCase):
@@ -41,6 +41,18 @@ class TestDistricts(unittest.TestCase):
         self.driver.back()
         element = self.driver.find_element_by_tag_name('h1')
         assert element.text == 'Texas Districts'
+
+    def testSearch(self):
+        try:
+            a = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.ID, 'rc-tabs-0-tab-search'))
+            )
+        except Exception as ex:
+            print(ex)
+            return
+        self.driver.find_element_by_id("rc-tabs-0-tab-search").click()
+        currentURL = self.driver.current_url
+        assert currentURL == "https://stage.texasvotes.me/districts/search"
 
 if __name__ == "__main__":
     PATH = sys.argv[1]

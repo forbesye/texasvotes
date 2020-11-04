@@ -54,10 +54,11 @@ class TestPoliticians(unittest.TestCase):
 
         self.driver.find_elements_by_class_name('ant-card')[0].click()
         time.sleep(2)
-        element = self.driver.find_element_by_tag_name('h2')
-        assert element.text == 'General Information'
+        heading = self.driver.find_element_by_class_name('ant-page-header-heading-title')
+        element = heading.find_element_by_class_name('ant-typography')
+        assert element.text == 'Aaron Hermes'
 
-        self.driver.find_element_by_partial_link_text(' Election').click()
+        self.driver.find_element_by_partial_link_text(' Primary').click()
         time.sleep(2)
         element = self.driver.find_element_by_tag_name('h3')
         assert element.text == 'Election Dates'
@@ -66,6 +67,17 @@ class TestPoliticians(unittest.TestCase):
         self.driver.back()
         element = self.driver.find_element_by_tag_name('h1')
         assert element.text == 'Texas Politicians'
+    
+    def testSearch(self):
+        try:
+            a = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.ID, 'rc-tabs-1-tab-search'))
+            )
+        except Exception as ex:
+            return
+        self.driver.find_element_by_id("rc-tabs-1-tab-search").click()
+        currentURL = self.driver.current_url
+        assert currentURL == "https://stage.texasvotes.me/politicians/search"
 
 if __name__ == "__main__":
     PATH = sys.argv[1]
