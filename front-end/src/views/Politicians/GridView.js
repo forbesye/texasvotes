@@ -19,6 +19,7 @@ const { Meta } = Card
 const { Option } = Select
 
 export default function GridView() {
+	const history = useHistory()
 	const [loading, setLoading] = useState(true)
 	const [gridData, setGridData] = useState([])
 	const [currPage, setCurrPage] = useState(1)
@@ -40,28 +41,32 @@ export default function GridView() {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			setLoading(true)
-			let params = { page: currPage }
-			if (districtFilter) {
-				params.number = districtFilter
-			}
-			if (countiesFilter) {
-				params.counties = countiesFilter
-			}
-			if (partyFilter) {
-				params.party = partyFilter
-			}
-			if (officeFilter) {
-				params.office = officeFilter
-			}
-			params.sort = sortVal
-			const { page, count } = await getAPI({
-				model: "politician",
-				params: params,
-			})
-			setTotal(count)
-			setGridData(page)
-			setLoading(false)
+            try {
+                setLoading(true)
+                let params = { page: currPage }
+                if (districtFilter) {
+                    params.number = districtFilter
+                }
+                if (countiesFilter) {
+                    params.counties = countiesFilter
+                }
+                if (partyFilter) {
+                    params.party = partyFilter
+                }
+                if (officeFilter) {
+                    params.office = officeFilter
+                }
+                params.sort = sortVal
+                const { page, count } = await getAPI({
+                    model: "politician",
+                    params: params,
+                })
+                setTotal(count)
+                setGridData(page)
+                setLoading(false)
+            } catch (err) {
+				history.push("/error")
+            }
 		}
 		fetchData()
 	}, [
