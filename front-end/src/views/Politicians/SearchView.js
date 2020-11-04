@@ -6,60 +6,11 @@ import styles from "./Politicians.module.css"
 
 import { getAPI } from "../../library/APIClient"
 import Spinner from "../../components/ui/Spinner"
-import { districtName } from "../../library/Functions"
 import { description } from "./Lib"
+import { mostAlike, getMatchIndices } from "../../library/searchFunctions"
 
 const { Search } = Input
 const { Title, Text, Paragraph } = Typography
-
-// Very naive algorithm that assigns a like-ness score through char counts
-function mostAlike(str1, str2) {
-	const m1 = new Map()
-	const m2 = new Map()
-	for (const c of str1) {
-		m1.set(c, (m1.get(c) || 0) + 1)
-	}
-	for (const c of str2) {
-		m2.set(c, (m2.get(c) || 0) + 1)
-	}
-	let inCommon = 0
-	let different = 0
-	// Roughly count common chars and penalize for different chars
-	for (const [k, v] of m1) {
-		const other = m2.get(k)
-		if (other) {
-			inCommon += Math.min(v, other)
-			different += Math.max(v, other) - inCommon
-		} else {
-			different += v
-		}
-	}
-	return inCommon - different
-}
-
-function getMatchIndices(str, toMatch) {
-	str = str.toLowerCase()
-	toMatch = toMatch.toLowerCase()
-	let bestStart = 0,
-		bestEnd = -1
-	for (let i = 0; i < str.length; i++) {
-		// Find matching stuff
-		let start = i,
-			end = i
-		while (
-			end < str.length &&
-			end - start < toMatch.length &&
-			str[end] == toMatch[end - start]
-		) {
-			end++
-		}
-		if (end - start > bestEnd - bestStart) {
-			bestStart = start
-			bestEnd = end
-		}
-	}
-	return [bestStart, bestEnd]
-}
 
 export default function SearchView (props) {
     const [searchVal, setSearchVal] = useState("")
@@ -118,7 +69,7 @@ export default function SearchView (props) {
                 <Typography.Title level={3}>Search</Typography.Title>
                 <Typography.Paragraph>Search our database for a Texas elected official or political challenger. </Typography.Paragraph>
                 <Search 
-                    size="large" l
+                    size="large"
                     loading={loading} 
                     onSearch={(val) => handleSearch(val)} 
                     value={searchVal}
@@ -159,14 +110,14 @@ export function PoliticianResult(props) {
                     <Title level={3}>{
                         <Highlighter 
                             highlightClassName={styles.searchHighlight}
-                            searchWords={[searchQuery]}
+                            searchWords={searchQuery.split(' ')}
                             textToHighlight={props.name}
                         />
                     } ({props.party})</Title>
                     <Paragraph>
                         <Highlighter 
                             highlightClassName={styles.searchHighlight}
-                            searchWords={[searchQuery]}
+                            searchWords={searchQuery.split(' ')}
                             textToHighlight={description(props)}
                         />
                     </Paragraph>
@@ -174,7 +125,7 @@ export function PoliticianResult(props) {
                         <Text strong>Counties: </Text> 
                         <Highlighter 
                             highlightClassName={styles.searchHighlight} 
-                            searchWords={[searchQuery]}
+                            searchWords={searchQuery.split(' ')}
                             textToHighlight={displayedCounties}
                         />
                     </Paragraph>

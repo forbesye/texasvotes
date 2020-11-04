@@ -27,7 +27,6 @@ const monthDayYearParse = (d) => {
 
 const changeFilter = (setFunc) => {
 	const output = (value) => {
-		console.log(value)
 		setFunc(value)
 	}
 	return output
@@ -52,11 +51,12 @@ const formatAsMoney = (num) => {
 	return `$` + numberStringWithCommas(num.toFixed(2))
 }
 
+
 export {
 	percentageString,
 	numberStringWithCommas,
 	monthDayYearParse,
 	changeFilter,
 	districtName,
-	formatAsMoney,
+    formatAsMoney
 }

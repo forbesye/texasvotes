@@ -6,8 +6,8 @@ import Spinner from "components/ui/Spinner"
 import styles from "./Elections.module.css"
 import {
 	monthDayYearParse,
-	numberStringWithCommas,
-	districtName,
+    numberStringWithCommas,
+    districtName
 } from "library/Functions"
 import { election_date_mappings, party_mappings } from "library/Mappings"
 import { getAPI } from "library/APIClient"
@@ -56,7 +56,7 @@ const resultColumns = [
 	},
 ]
 
-const title = (election) => {
+const electionTitle = (election) => {
 	const { dates, office, district, type, party } = election
 	const { number, id } = district
 	const { election_day } = dates
@@ -134,7 +134,7 @@ const Details = () => {
 	if (loaded) {
 		content = (
 			<Fragment>
-				<PageHeader title={title(election)} onBack={handleBack} />
+				<PageHeader title={electionTitle(election)} onBack={handleBack} />
 				<Divider />
 
 				<div className={styles.electionDescription}>
