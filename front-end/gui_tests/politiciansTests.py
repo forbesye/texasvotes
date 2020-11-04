@@ -81,6 +81,9 @@ class TestPoliticians(unittest.TestCase):
         self.driver.find_element_by_id("rc-tabs-1-tab-search").click()
         currentURL = self.driver.current_url
         assert currentURL == "https://stage.texasvotes.me/politicians/search"
+        self.driver.back()
+        element = self.driver.find_element_by_tag_name('h1')
+        assert element.text == 'Texas Politicians'
 
     def testSort1(self):
         try:
@@ -95,6 +98,8 @@ class TestPoliticians(unittest.TestCase):
         selections.find_elements_by_class_name('ant-select')[0].click()
         time.sleep(2)
         self.actions.send_keys(Keys.DOWN, Keys.DOWN, Keys.RETURN).perform()
+        time.sleep(2)
+        
         try:
             a = WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.CLASS_NAME, 'ant-card'))
@@ -126,6 +131,8 @@ class TestPoliticians(unittest.TestCase):
         selections.find_elements_by_class_name('ant-select')[1].click()
         time.sleep(1)
         self.actions.send_keys(Keys.RETURN, Keys.ESCAPE).perform()
+        time.sleep(2)
+
         try:
             a = WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.CLASS_NAME, 'ant-card'))
