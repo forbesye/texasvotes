@@ -1,491 +1,886 @@
 {
-    "info":{
+   "info":{
        "_postman_id":"27cd3787-ed19-46da-9eca-8ed18207e423",
        "name":"Tester",
        "schema":"https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
-    },
-    "item":[
+   },
+   "item":[
        {
-          "name":"politician",
-          "item":[
-             {
-                "name":"A page of politicians",
-                "event":[
-                   {
-                      "listen":"test",
-                      "script":{
-                         "type":"text\/javascript",
-                         "exec":[
-                            "pm.test(\"https:\/\/api.texasvotes.me\/politician test\", function () {\r",
-                            "    pm.response.to.have.status(200);\r",
-                            "    pm.response.to.be.ok;\r",
-                            "    pm.response.to.be.json;\r",
-                            "});"
-                         ]
-                      }
-                   }
-                ],
-                "_postman_id":"5b31acf5-cc63-4f89-84b6-94fb7e3f4c3b",
-                "request":{
-                   "method":"GET",
-                   "header":[
-                      
+           "name":"politician",
+           "item":[
+               {
+                   "name":"A page of politicians",
+                   "event":[
+                       {
+                           "listen":"test",
+                           "script":{
+                               "type":"text\/javascript",
+                               "exec":[
+                                   "pm.test(\"https:\/\/api.texasvotes.me\/politician test\", function () {\r",
+                                   "    pm.response.to.have.status(200);\r",
+                                   "    pm.response.to.be.ok;\r",
+                                   "    pm.response.to.be.json;\r",
+                                   "});"
+                               ]
+                           }
+                       }
                    ],
-                   "url":{
-                      "raw":"{{baseUrl}}\/politician?page=2",
-                      "host":[
-                         "{{baseUrl}}"
-                      ],
-                      "path":[
-                         "politician"
-                      ],
-                      "query":[
-                         {
-                            "key":"page",
-                            "value":"2",
-                            "description":"Desired page number"
-                         }
-                      ]
-                   }
-                },
-                "response":[
-                   {
-                      "id":"b2aee4dd-3cfb-42a6-8142-635fd38c0ac4",
-                      "name":"Get a page of politicians by page number",
-                      "originalRequest":{
-                         "method":"GET",
-                         "header":[
-                            
-                         ],
-                         "url":{
-                            "raw":"{{baseUrl}}\/politician?page=<int32>",
-                            "host":[
+                   "_postman_id":"5b31acf5-cc63-4f89-84b6-94fb7e3f4c3b",
+                   "request":{
+                       "method":"GET",
+                       "header":[
+                           
+                       ],
+                       "url":{
+                           "raw":"{{baseUrl}}\/politician?page=2",
+                           "host":[
                                "{{baseUrl}}"
-                            ],
-                            "path":[
+                           ],
+                           "path":[
                                "politician"
-                            ],
-                            "query":[
+                           ],
+                           "query":[
                                {
-                                  "key":"page",
-                                  "value":"<int32>"
+                                   "key":"page",
+                                   "value":"2",
+                                   "description":"Desired page number"
                                }
-                            ]
-                         }
-                      },
-                      "status":"OK",
-                      "code":200,
-                      "_postman_previewlanguage":"json",
-                      "header":[
-                         {
-                            "key":"Content-Type",
-                            "value":"application\/json"
-                         }
-                      ],
-                      "cookie":[
-                         
-                      ],
-                      "body":"{\n \"count\": 2,\n \"page\": [\n  {\n   \"id\": 1,\n   \"name\": \"Abel Herrero\",\n   \"incumbent\": true,\n   \"party\": \"D\",\n   \"current\": \"tx_house\",\n   \"image\": \"http:\/\/www.house.state.tx.us\/photos\/members\/3140.jpg\",\n   \"contact\": {\n    \"website\": \"https:\/\/house.texas.gov\/members\/member-page\/?district=34\",\n    \"social_media\": [\n     {\n      \"type\": \"facebook\",\n      \"id\": \"abelherrero34\"\n     },\n     {\n      \"type\": \"twitter\",\n      \"id\": \"RepAbelHerrero\"\n     }\n    ],\n    \"phone\": \"(361) 884-2277)\"\n   },\n   \"district\": {\n    \"id\": 79,\n    \"ocd_id\": \"ocd-division\/country:us\/state:tx\/sldl:34\",\n    \"type\": \"tx_house\",\n    \"number\": 34,\n    \"party\": \"D\",\n    \"counties\": [\n     \"Nueces\"\n    ]\n   },\n   \"election\": {\n    \"id\": 79,\n    \"type\": {\n     \"class\": \"general\"\n    },\n    \"office\": \"tx_house\",\n    \"district\": {\n     \"number\": 34,\n     \"type\": \"tx_house\"\n    },\n    \"dates\": {\n     \"election_day\": \"2020-11-03T06:00:00.000Z\",\n     \"early_start\": \"2020-10-13T06:00:00.000Z\",\n     \"early_end\": \"2020-10-30T06:00:00.000Z\"\n    }\n   }\n  },\n  {\n   \"contact\": {\n    \"phone\": \"(202) 224-2934\",\n    \"social_media\": [\n     {\n      \"id\": \"Sen.JohnCornyn\",\n      \"type\": \"facebook\"\n     },\n     {\n      \"id\": \"JohnCornyn\",\n      \"type\": \"twitter\"\n     },\n     {\n      \"id\": \"SenJohnCornyn\",\n      \"type\": \"youtube\"\n     }\n    ],\n    \"website\": \"https:\/\/www.cornyn.senate.gov\/\"\n   },\n   \"current\": \"us_senate\",\n   \"district\": {\n    \"counties\": [\n     \"Bowie\",\n     \"Franklin\",\n     \"Red River\",\n     \"Lamar\",\n     \"Henderson\",\n     \"Ellis\",\n     \"Dallas\",\n     \"Tarrant\",\n     \"Denton\",\n     \"Rusk\",\n     \"Nacogdoches\",\n     \"Cherokee\",\n     \"Bexar\",\n     \"Falls\",\n     \"Limestone\",\n     \"Roberts\",\n     \"McLennan\",\n     \"Robertson\",\n     \"Brazos\",\n     \"Harris\",\n     \"Colorado\",\n     \"Fayette\",\n     \"Burleson\",\n     \"Lavaca\",\n     \"Grimes\",\n     \"Washington\",\n     \"Austin\",\n     \"Williamson\",\n     \"Montgomery\",\n     \"Karnes\",\n     \"Caldwell\",\n     \"Lee\",\n     \"Gonzales\",\n     \"Bastrop\",\n     \"Walker\",\n     \"San Jacinto\",\n     \"Liberty\",\n     \"Newton\",\n     \"Polk\",\n     \"Hardin\",\n     \"Tyler\",\n     \"Jasper\",\n     \"Van Zandt\",\n     \"Hopkins\",\n     \"Hunt\",\n     \"Milam\",\n     \"Burnet\",\n     \"Orange\",\n     \"Jefferson\",\n     \"Galveston\",\n     \"Chambers\",\n     \"Brazoria\",\n     \"Matagorda\",\n     \"Fort Bend\",\n     \"Waller\",\n     \"Goliad\",\n     \"Calhoun\",\n     \"Aransas\",\n     \"Refugio\",\n     \"Victoria\",\n     \"Willacy\",\n     \"McMullen\",\n     \"Atascosa\",\n     \"Duval\",\n     \"Brooks\",\n     \"La Salle\",\n     \"Kenedy\",\n     \"Live Oak\",\n     \"Starr\",\n     \"Jim Hogg\",\n     \"Nueces\",\n     \"Collin\",\n     \"Rockwall\",\n     \"Hidalgo\",\n     \"Cameron\",\n     \"Kaufman\",\n     \"Webb\",\n     \"Jim Wells\",\n     \"Bee\",\n     \"Kleberg\",\n     \"San Patricio\",\n     \"Guadalupe\",\n     \"Wilson\",\n     \"Blanco\",\n     \"Hays\",\n     \"Travis\",\n     \"Camp\",\n     \"Rains\",\n     \"Wood\",\n     \"Titus\",\n     \"Morris\",\n     \"Smith\",\n     \"Crockett\",\n     \"Bandera\",\n     \"Real\",\n     \"Schleicher\",\n     \"Llano\",\n     \"Mason\",\n     \"Edwards\",\n     \"Kerr\",\n     \"Menard\",\n     \"Kimble\",\n     \"Medina\",\n     \"Sutton\",\n     \"Lampasas\",\n     \"Bell\",\n     \"Madison\",\n     \"San Augustine\",\n     \"Trinity\",\n     \"Leon\",\n     \"Houston\",\n     \"Angelina\",\n     \"Bosque\",\n     \"Johnson\",\n     \"Coryell\",\n     \"Comanche\",\n     \"McCulloch\",\n     \"Mills\",\n     \"Somervell\",\n     \"Erath\",\n     \"Hamilton\",\n     \"San Saba\",\n     \"Brown\",\n     \"Shackelford\",\n     \"Coleman\",\n     \"Callahan\",\n     \"Stephens\",\n     \"Hood\",\n     \"Eastland\",\n     \"Palo Pinto\",\n     \"Parker\",\n     \"Wise\",\n     \"Delta\",\n     \"Fannin\",\n     \"Grayson\",\n     \"Gray\",\n     \"Collingsworth\",\n     \"Fisher\",\n     \"Young\",\n     \"Crosby\",\n     \"Wheeler\",\n     \"Jack\",\n     \"Throckmorton\",\n     \"Motley\",\n     \"Montague\",\n     \"Cooke\",\n     \"Garza\",\n     \"Kent\",\n     \"Floyd\",\n     \"Wilbarger\",\n     \"Haskell\",\n     \"Cottle\",\n     \"Stonewall\",\n     \"King\",\n     \"Hall\",\n     \"Hardeman\",\n     \"Dickens\",\n     \"Childress\",\n     \"Clay\",\n     \"Foard\",\n     \"Baylor\",\n     \"Archer\",\n     \"Wichita\",\n     \"Knox\",\n     \"Upshur\",\n     \"Gregg\",\n     \"Jones\",\n     \"Nolan\",\n     \"Taylor\",\n     \"Sterling\",\n     \"Runnels\",\n     \"Reagan\",\n     \"Concho\",\n     \"Howard\",\n     \"Tom Green\",\n     \"Irion\",\n     \"Coke\",\n     \"Glasscock\",\n     \"Gillespie\",\n     \"Comal\",\n     \"Kendall\",\n     \"Val Verde\",\n     \"Kinney\",\n     \"Terrell\",\n     \"Culberson\",\n     \"Jeff Davis\",\n     \"Loving\",\n     \"Maverick\",\n     \"Reeves\",\n     \"Pecos\",\n     \"Presidio\",\n     \"Hudspeth\",\n     \"Brewster\",\n     \"El Paso\",\n     \"Anderson\",\n     \"Freestone\",\n     \"Hill\",\n     \"Navarro\",\n     \"Dimmit\",\n     \"Zavala\",\n     \"Frio\",\n     \"Zapata\",\n     \"Uvalde\",\n     \"Ward\",\n     \"Andrews\",\n     \"Winkler\",\n     \"Ector\",\n     \"Dawson\",\n     \"Midland\",\n     \"Upton\",\n     \"Crane\",\n     \"Martin\",\n     \"Lubbock\",\n     \"Lynn\",\n     \"Borden\",\n     \"Scurry\",\n     \"Gaines\",\n     \"Terry\",\n     \"Mitchell\",\n     \"Jackson\",\n     \"Wharton\",\n     \"Randall\",\n     \"Oldham\",\n     \"Dallam\",\n     \"Parmer\",\n     \"Deaf Smith\",\n     \"Hartley\",\n     \"Hutchinson\",\n     \"Carson\",\n     \"Moore\",\n     \"Sherman\",\n     \"Potter\",\n     \"Briscoe\",\n     \"Ochiltree\",\n     \"Cochran\",\n     \"Castro\",\n     \"Lamb\",\n     \"Hansford\",\n     \"Donley\",\n     \"Hemphill\",\n     \"Bailey\",\n     \"Lipscomb\",\n     \"Hale\",\n     \"Yoakum\",\n     \"Hockley\",\n     \"Swisher\",\n     \"Armstrong\",\n     \"Shelby\",\n     \"Harrison\",\n     \"Cass\",\n     \"Panola\",\n     \"Sabine\",\n     \"Marion\",\n     \"DeWitt\"\n    ],\n    \"id\": 218,\n    \"number\": -1,\n    \"ocd_id\": \"ocd-division\/country:us\/state:tx\",\n    \"party\": \"R\",\n    \"type\": \"us_senate\"\n   },\n   \"election\": {\n    \"dates\": {\n     \"early_end\": \"2020-10-30T06:00:00.000Z\",\n     \"early_start\": \"2020-10-13T06:00:00.000Z\",\n     \"election_day\": \"2020-11-03T06:00:00.000Z\"\n    },\n    \"district\": {\n     \"number\": -1,\n     \"type\": \"us_senate\"\n    },\n    \"id\": 203,\n    \"office\": \"us_senate\",\n    \"type\": {\n     \"class\": \"general\"\n    }\n   },\n   \"fundraising\": {\n    \"contributors\": [\n     {\n      \"individual\": 110450,\n      \"name\": \"Apollo Global Management\",\n      \"pacs\": 2500,\n      \"total\": 112950\n     },\n     {\n      \"individual\": 93475,\n      \"name\": \"KKR & Co\",\n      \"pacs\": 1000,\n      \"total\": 94475\n     },\n     {\n      \"individual\": 41887,\n      \"name\": \"United Airlines Holdings\",\n      \"pacs\": 6000,\n      \"total\": 47887\n     },\n     {\n      \"individual\": 39175,\n      \"name\": \"SoftBank Corp\",\n      \"pacs\": 0,\n      \"total\": 39175\n     },\n     {\n      \"individual\": 32165,\n      \"name\": \"Berkshire Hathaway\",\n      \"pacs\": 5000,\n      \"total\": 37165\n     },\n     {\n      \"individual\": 34600,\n      \"name\": \"Citizens for Prosperity in America Today\",\n      \"pacs\": 0,\n      \"total\": 34600\n     },\n     {\n      \"individual\": 23675,\n      \"name\": \"FMR Corp\",\n      \"pacs\": 10000,\n      \"total\": 33675\n     },\n     {\n      \"individual\": 33600,\n      \"name\": \"Duty Free Americas\",\n      \"pacs\": 0,\n      \"total\": 33600\n     },\n     {\n      \"individual\": 28600,\n      \"name\": \"GEO Group\",\n      \"pacs\": 5000,\n      \"total\": 33600\n     },\n     {\n      \"individual\": 33205,\n      \"name\": \"Blackstone Group\",\n      \"pacs\": 0,\n      \"total\": 33205\n     }\n    ],\n    \"debt\": 0,\n    \"industries\": [\n     {\n      \"individual\": 3378278,\n      \"pacs\": 0,\n      \"total\": 3378278,\n      \"type\": \"Retired\"\n     },\n     {\n      \"individual\": 1235235,\n      \"pacs\": 122250,\n      \"total\": 1357485,\n      \"type\": \"Securities & Investment\"\n     },\n     {\n      \"individual\": 910294,\n      \"pacs\": 224600,\n      \"total\": 1134894,\n      \"type\": \"Oil & Gas\"\n     },\n     {\n      \"individual\": 1003019,\n      \"pacs\": 72000,\n      \"total\": 1075019,\n      \"type\": \"Real Estate\"\n     },\n     {\n      \"individual\": 844557,\n      \"pacs\": 133638,\n      \"total\": 978195,\n      \"type\": \"Lawyers\/Law Firms\"\n     },\n     {\n      \"individual\": 649961,\n      \"pacs\": 60200,\n      \"total\": 710161,\n      \"type\": \"Misc Finance\"\n     },\n     {\n      \"individual\": 445924,\n      \"pacs\": 116403,\n      \"total\": 562327,\n      \"type\": \"Health Professionals\"\n     },\n     {\n      \"individual\": 270290,\n      \"pacs\": 240500,\n      \"total\": 510790,\n      \"type\": \"Insurance\"\n     },\n     {\n      \"individual\": 35167,\n      \"pacs\": 431900,\n      \"total\": 467067,\n      \"type\": \"Leadership PACs\"\n     },\n     {\n      \"individual\": 368119,\n      \"pacs\": 11600,\n      \"total\": 379719,\n      \"type\": \"Republican\/Conservative\"\n     }\n    ],\n    \"raised\": 22246647,\n    \"remaining_cash\": 14510320,\n    \"spent\": 10648108\n   },\n   \"id\": 203,\n   \"image\": \"http:\/\/bioguide.congress.gov\/bioguide\/photo\/C\/C001056.jpg\",\n   \"incumbent\": true,\n   \"name\": \"John Cornyn\",\n   \"party\": \"R\"\n  }\n ]\n}"
-                   }
-                ]
-             },
-             {
-                "name":"The politician with the given id",
-                "event":[
-                   {
-                      "listen":"test",
-                      "script":{
-                         "type":"text\/javascript",
-                         "exec":[
-                            "pm.test(\"https:\/\/api.texasvotes.me\/politician test\", function () {\r",
-                            "    pm.response.to.have.status(200);\r",
-                            "    pm.response.to.be.ok;\r",
-                            "    pm.response.to.be.json;\r",
-                            "});"
-                         ]
-                      }
-                   }
-                ],
-                "_postman_id":"453e34a5-5321-42aa-bb2e-93dc9abed775",
-                "request":{
-                   "method":"GET",
-                   "header":[
-                      
+                           ]
+                       }
+                   },
+                   "response":[
+                       {
+                           "id":"b2aee4dd-3cfb-42a6-8142-635fd38c0ac4",
+                           "name":"Get a page of politicians by page number",
+                           "originalRequest":{
+                               "method":"GET",
+                               "header":[
+                                   
+                               ],
+                               "url":{
+                                   "raw":"{{baseUrl}}\/politician?page=<int32>",
+                                   "host":[
+                                       "{{baseUrl}}"
+                                   ],
+                                   "path":[
+                                       "politician"
+                                   ],
+                                   "query":[
+                                       {
+                                           "key":"page",
+                                           "value":"<int32>"
+                                       }
+                                   ]
+                               }
+                           },
+                           "status":"OK",
+                           "code":200,
+                           "_postman_previewlanguage":"json",
+                           "header":[
+                               {
+                                   "key":"Content-Type",
+                                   "value":"application\/json"
+                               }
+                           ],
+                           "cookie":[
+                               
+                           ],
+                           "body":"{\n \"count\": 2,\n \"page\": [\n  {\n   \"id\": 1,\n   \"name\": \"Abel Herrero\",\n   \"incumbent\": true,\n   \"party\": \"D\",\n   \"current\": \"tx_house\",\n   \"image\": \"http:\/\/www.house.state.tx.us\/photos\/members\/3140.jpg\",\n   \"contact\": {\n    \"website\": \"https:\/\/house.texas.gov\/members\/member-page\/?district=34\",\n    \"social_media\": [\n     {\n      \"type\": \"facebook\",\n      \"id\": \"abelherrero34\"\n     },\n     {\n      \"type\": \"twitter\",\n      \"id\": \"RepAbelHerrero\"\n     }\n    ],\n    \"phone\": \"(361) 884-2277)\"\n   },\n   \"district\": {\n    \"id\": 79,\n    \"ocd_id\": \"ocd-division\/country:us\/state:tx\/sldl:34\",\n    \"type\": \"tx_house\",\n    \"number\": 34,\n    \"party\": \"D\",\n    \"counties\": [\n     \"Nueces\"\n    ]\n   },\n   \"election\": {\n    \"id\": 79,\n    \"type\": {\n     \"class\": \"general\"\n    },\n    \"office\": \"tx_house\",\n    \"district\": {\n     \"number\": 34,\n     \"type\": \"tx_house\"\n    },\n    \"dates\": {\n     \"election_day\": \"2020-11-03T06:00:00.000Z\",\n     \"early_start\": \"2020-10-13T06:00:00.000Z\",\n     \"early_end\": \"2020-10-30T06:00:00.000Z\"\n    }\n   }\n  },\n  {\n   \"contact\": {\n    \"phone\": \"(202) 224-2934\",\n    \"social_media\": [\n     {\n      \"id\": \"Sen.JohnCornyn\",\n      \"type\": \"facebook\"\n     },\n     {\n      \"id\": \"JohnCornyn\",\n      \"type\": \"twitter\"\n     },\n     {\n      \"id\": \"SenJohnCornyn\",\n      \"type\": \"youtube\"\n     }\n    ],\n    \"website\": \"https:\/\/www.cornyn.senate.gov\/\"\n   },\n   \"current\": \"us_senate\",\n   \"district\": {\n    \"counties\": [\n     \"Bowie\",\n     \"Franklin\",\n     \"Red River\",\n     \"Lamar\",\n     \"Henderson\",\n     \"Ellis\",\n     \"Dallas\",\n     \"Tarrant\",\n     \"Denton\",\n     \"Rusk\",\n     \"Nacogdoches\",\n     \"Cherokee\",\n     \"Bexar\",\n     \"Falls\",\n     \"Limestone\",\n     \"Roberts\",\n     \"McLennan\",\n     \"Robertson\",\n     \"Brazos\",\n     \"Harris\",\n     \"Colorado\",\n     \"Fayette\",\n     \"Burleson\",\n     \"Lavaca\",\n     \"Grimes\",\n     \"Washington\",\n     \"Austin\",\n     \"Williamson\",\n     \"Montgomery\",\n     \"Karnes\",\n     \"Caldwell\",\n     \"Lee\",\n     \"Gonzales\",\n     \"Bastrop\",\n     \"Walker\",\n     \"San Jacinto\",\n     \"Liberty\",\n     \"Newton\",\n     \"Polk\",\n     \"Hardin\",\n     \"Tyler\",\n     \"Jasper\",\n     \"Van Zandt\",\n     \"Hopkins\",\n     \"Hunt\",\n     \"Milam\",\n     \"Burnet\",\n     \"Orange\",\n     \"Jefferson\",\n     \"Galveston\",\n     \"Chambers\",\n     \"Brazoria\",\n     \"Matagorda\",\n     \"Fort Bend\",\n     \"Waller\",\n     \"Goliad\",\n     \"Calhoun\",\n     \"Aransas\",\n     \"Refugio\",\n     \"Victoria\",\n     \"Willacy\",\n     \"McMullen\",\n     \"Atascosa\",\n     \"Duval\",\n     \"Brooks\",\n     \"La Salle\",\n     \"Kenedy\",\n     \"Live Oak\",\n     \"Starr\",\n     \"Jim Hogg\",\n     \"Nueces\",\n     \"Collin\",\n     \"Rockwall\",\n     \"Hidalgo\",\n     \"Cameron\",\n     \"Kaufman\",\n     \"Webb\",\n     \"Jim Wells\",\n     \"Bee\",\n     \"Kleberg\",\n     \"San Patricio\",\n     \"Guadalupe\",\n     \"Wilson\",\n     \"Blanco\",\n     \"Hays\",\n     \"Travis\",\n     \"Camp\",\n     \"Rains\",\n     \"Wood\",\n     \"Titus\",\n     \"Morris\",\n     \"Smith\",\n     \"Crockett\",\n     \"Bandera\",\n     \"Real\",\n     \"Schleicher\",\n     \"Llano\",\n     \"Mason\",\n     \"Edwards\",\n     \"Kerr\",\n     \"Menard\",\n     \"Kimble\",\n     \"Medina\",\n     \"Sutton\",\n     \"Lampasas\",\n     \"Bell\",\n     \"Madison\",\n     \"San Augustine\",\n     \"Trinity\",\n     \"Leon\",\n     \"Houston\",\n     \"Angelina\",\n     \"Bosque\",\n     \"Johnson\",\n     \"Coryell\",\n     \"Comanche\",\n     \"McCulloch\",\n     \"Mills\",\n     \"Somervell\",\n     \"Erath\",\n     \"Hamilton\",\n     \"San Saba\",\n     \"Brown\",\n     \"Shackelford\",\n     \"Coleman\",\n     \"Callahan\",\n     \"Stephens\",\n     \"Hood\",\n     \"Eastland\",\n     \"Palo Pinto\",\n     \"Parker\",\n     \"Wise\",\n     \"Delta\",\n     \"Fannin\",\n     \"Grayson\",\n     \"Gray\",\n     \"Collingsworth\",\n     \"Fisher\",\n     \"Young\",\n     \"Crosby\",\n     \"Wheeler\",\n     \"Jack\",\n     \"Throckmorton\",\n     \"Motley\",\n     \"Montague\",\n     \"Cooke\",\n     \"Garza\",\n     \"Kent\",\n     \"Floyd\",\n     \"Wilbarger\",\n     \"Haskell\",\n     \"Cottle\",\n     \"Stonewall\",\n     \"King\",\n     \"Hall\",\n     \"Hardeman\",\n     \"Dickens\",\n     \"Childress\",\n     \"Clay\",\n     \"Foard\",\n     \"Baylor\",\n     \"Archer\",\n     \"Wichita\",\n     \"Knox\",\n     \"Upshur\",\n     \"Gregg\",\n     \"Jones\",\n     \"Nolan\",\n     \"Taylor\",\n     \"Sterling\",\n     \"Runnels\",\n     \"Reagan\",\n     \"Concho\",\n     \"Howard\",\n     \"Tom Green\",\n     \"Irion\",\n     \"Coke\",\n     \"Glasscock\",\n     \"Gillespie\",\n     \"Comal\",\n     \"Kendall\",\n     \"Val Verde\",\n     \"Kinney\",\n     \"Terrell\",\n     \"Culberson\",\n     \"Jeff Davis\",\n     \"Loving\",\n     \"Maverick\",\n     \"Reeves\",\n     \"Pecos\",\n     \"Presidio\",\n     \"Hudspeth\",\n     \"Brewster\",\n     \"El Paso\",\n     \"Anderson\",\n     \"Freestone\",\n     \"Hill\",\n     \"Navarro\",\n     \"Dimmit\",\n     \"Zavala\",\n     \"Frio\",\n     \"Zapata\",\n     \"Uvalde\",\n     \"Ward\",\n     \"Andrews\",\n     \"Winkler\",\n     \"Ector\",\n     \"Dawson\",\n     \"Midland\",\n     \"Upton\",\n     \"Crane\",\n     \"Martin\",\n     \"Lubbock\",\n     \"Lynn\",\n     \"Borden\",\n     \"Scurry\",\n     \"Gaines\",\n     \"Terry\",\n     \"Mitchell\",\n     \"Jackson\",\n     \"Wharton\",\n     \"Randall\",\n     \"Oldham\",\n     \"Dallam\",\n     \"Parmer\",\n     \"Deaf Smith\",\n     \"Hartley\",\n     \"Hutchinson\",\n     \"Carson\",\n     \"Moore\",\n     \"Sherman\",\n     \"Potter\",\n     \"Briscoe\",\n     \"Ochiltree\",\n     \"Cochran\",\n     \"Castro\",\n     \"Lamb\",\n     \"Hansford\",\n     \"Donley\",\n     \"Hemphill\",\n     \"Bailey\",\n     \"Lipscomb\",\n     \"Hale\",\n     \"Yoakum\",\n     \"Hockley\",\n     \"Swisher\",\n     \"Armstrong\",\n     \"Shelby\",\n     \"Harrison\",\n     \"Cass\",\n     \"Panola\",\n     \"Sabine\",\n     \"Marion\",\n     \"DeWitt\"\n    ],\n    \"id\": 218,\n    \"number\": -1,\n    \"ocd_id\": \"ocd-division\/country:us\/state:tx\",\n    \"party\": \"R\",\n    \"type\": \"us_senate\"\n   },\n   \"election\": {\n    \"dates\": {\n     \"early_end\": \"2020-10-30T06:00:00.000Z\",\n     \"early_start\": \"2020-10-13T06:00:00.000Z\",\n     \"election_day\": \"2020-11-03T06:00:00.000Z\"\n    },\n    \"district\": {\n     \"number\": -1,\n     \"type\": \"us_senate\"\n    },\n    \"id\": 203,\n    \"office\": \"us_senate\",\n    \"type\": {\n     \"class\": \"general\"\n    }\n   },\n   \"fundraising\": {\n    \"contributors\": [\n     {\n      \"individual\": 110450,\n      \"name\": \"Apollo Global Management\",\n      \"pacs\": 2500,\n      \"total\": 112950\n     },\n     {\n      \"individual\": 93475,\n      \"name\": \"KKR & Co\",\n      \"pacs\": 1000,\n      \"total\": 94475\n     },\n     {\n      \"individual\": 41887,\n      \"name\": \"United Airlines Holdings\",\n      \"pacs\": 6000,\n      \"total\": 47887\n     },\n     {\n      \"individual\": 39175,\n      \"name\": \"SoftBank Corp\",\n      \"pacs\": 0,\n      \"total\": 39175\n     },\n     {\n      \"individual\": 32165,\n      \"name\": \"Berkshire Hathaway\",\n      \"pacs\": 5000,\n      \"total\": 37165\n     },\n     {\n      \"individual\": 34600,\n      \"name\": \"Citizens for Prosperity in America Today\",\n      \"pacs\": 0,\n      \"total\": 34600\n     },\n     {\n      \"individual\": 23675,\n      \"name\": \"FMR Corp\",\n      \"pacs\": 10000,\n      \"total\": 33675\n     },\n     {\n      \"individual\": 33600,\n      \"name\": \"Duty Free Americas\",\n      \"pacs\": 0,\n      \"total\": 33600\n     },\n     {\n      \"individual\": 28600,\n      \"name\": \"GEO Group\",\n      \"pacs\": 5000,\n      \"total\": 33600\n     },\n     {\n      \"individual\": 33205,\n      \"name\": \"Blackstone Group\",\n      \"pacs\": 0,\n      \"total\": 33205\n     }\n    ],\n    \"debt\": 0,\n    \"industries\": [\n     {\n      \"individual\": 3378278,\n      \"pacs\": 0,\n      \"total\": 3378278,\n      \"type\": \"Retired\"\n     },\n     {\n      \"individual\": 1235235,\n      \"pacs\": 122250,\n      \"total\": 1357485,\n      \"type\": \"Securities & Investment\"\n     },\n     {\n      \"individual\": 910294,\n      \"pacs\": 224600,\n      \"total\": 1134894,\n      \"type\": \"Oil & Gas\"\n     },\n     {\n      \"individual\": 1003019,\n      \"pacs\": 72000,\n      \"total\": 1075019,\n      \"type\": \"Real Estate\"\n     },\n     {\n      \"individual\": 844557,\n      \"pacs\": 133638,\n      \"total\": 978195,\n      \"type\": \"Lawyers\/Law Firms\"\n     },\n     {\n      \"individual\": 649961,\n      \"pacs\": 60200,\n      \"total\": 710161,\n      \"type\": \"Misc Finance\"\n     },\n     {\n      \"individual\": 445924,\n      \"pacs\": 116403,\n      \"total\": 562327,\n      \"type\": \"Health Professionals\"\n     },\n     {\n      \"individual\": 270290,\n      \"pacs\": 240500,\n      \"total\": 510790,\n      \"type\": \"Insurance\"\n     },\n     {\n      \"individual\": 35167,\n      \"pacs\": 431900,\n      \"total\": 467067,\n      \"type\": \"Leadership PACs\"\n     },\n     {\n      \"individual\": 368119,\n      \"pacs\": 11600,\n      \"total\": 379719,\n      \"type\": \"Republican\/Conservative\"\n     }\n    ],\n    \"raised\": 22246647,\n    \"remaining_cash\": 14510320,\n    \"spent\": 10648108\n   },\n   \"id\": 203,\n   \"image\": \"http:\/\/bioguide.congress.gov\/bioguide\/photo\/C\/C001056.jpg\",\n   \"incumbent\": true,\n   \"name\": \"John Cornyn\",\n   \"party\": \"R\"\n  }\n ]\n}"
+                       }
+                   ]
+               },
+               {
+                   "name":"The politician with the given id",
+                   "event":[
+                       {
+                           "listen":"test",
+                           "script":{
+                               "type":"text\/javascript",
+                               "exec":[
+                                   "pm.test(\"https:\/\/api.texasvotes.me\/politician test\", function () {\r",
+                                   "    pm.response.to.have.status(200);\r",
+                                   "    pm.response.to.be.ok;\r",
+                                   "    pm.response.to.be.json;\r",
+                                   "});"
+                               ]
+                           }
+                       }
                    ],
-                   "url":"{{baseUrl}}\/politician\/1"
-                },
-                "response":[
-                   {
-                      "id":"f7668061-fca4-4e69-ad3d-005957d8bd3d",
-                      "name":"Details about politician given an id",
-                      "originalRequest":{
-                         "method":"GET",
-                         "header":[
-                            
-                         ],
-                         "url":{
-                            "raw":"{{baseUrl}}\/politician\/:id\/",
-                            "host":[
-                               "{{baseUrl}}"
-                            ],
-                            "path":[
-                               "politician",
-                               ":id",
-                               ""
-                            ],
-                            "variable":[
-                               {
-                                  "key":"id"
+                   "_postman_id":"453e34a5-5321-42aa-bb2e-93dc9abed775",
+                   "request":{
+                       "method":"GET",
+                       "header":[
+                           
+                       ],
+                       "url":"{{baseUrl}}\/politician\/1"
+                   },
+                   "response":[
+                       {
+                           "id":"f7668061-fca4-4e69-ad3d-005957d8bd3d",
+                           "name":"Details about politician given an id",
+                           "originalRequest":{
+                               "method":"GET",
+                               "header":[
+                                   
+                               ],
+                               "url":{
+                                   "raw":"{{baseUrl}}\/politician\/:id\/",
+                                   "host":[
+                                       "{{baseUrl}}"
+                                   ],
+                                   "path":[
+                                       "politician",
+                                       ":id",
+                                       ""
+                                   ],
+                                   "variable":[
+                                       {
+                                           "key":"id"
+                                       }
+                                   ]
                                }
-                            ]
-                         }
-                      },
-                      "status":"OK",
-                      "code":200,
-                      "_postman_previewlanguage":"json",
-                      "header":[
-                         {
-                            "key":"Content-Type",
-                            "value":"application\/json"
-                         }
-                      ],
-                      "cookie":[
-                         
-                      ],
-                      "body":"{\n \"contact\": {\n  \"phone\": \"(361) 884-2277\",\n  \"social_media\": [\n   {\n    \"id\": \"abelherrero34\",\n    \"type\": \"facebook\"\n   },\n   {\n    \"id\": \"RepAbelHerrero\",\n    \"type\": \"twitter\"\n   }\n  ],\n  \"website\": \"https:\/\/house.texas.gov\/members\/member-page\/?district=34\"\n },\n \"current\": \"tx_house\",\n \"district\": {\n  \"counties\": [\n   \"Nueces\"\n  ],\n  \"id\": 79,\n  \"number\": 34,\n  \"ocd_id\": \"ocd-division\/country:us\/state:tx\/sldl:34\",\n  \"party\": \"D\",\n  \"type\": \"tx_house\"\n },\n \"election\": {\n  \"dates\": {\n   \"early_end\": \"2020-10-30T06:00:00.000Z\",\n   \"early_start\": \"2020-10-13T06:00:00.000Z\",\n   \"election_day\": \"2020-11-03T06:00:00.000Z\"\n  },\n  \"district\": {\n   \"number\": 34,\n   \"type\": \"tx_house\"\n  },\n  \"id\": 79,\n  \"office\": \"tx_house\",\n  \"type\": {\n   \"class\": \"general\"\n  }\n },\n \"id\": 1,\n \"image\": \"http:\/\/www.house.state.tx.us\/photos\/members\/3140.jpg\",\n \"incumbent\": true,\n \"name\": \"Abel Herrero\",\n \"party\": \"D\"\n}"
-                   }
-                ]
-             }
-          ],
-          "_postman_id":"63b8ad82-ee4b-4b22-8976-6aceac66241c",
-          "protocolProfileBehavior":{
-             
-          }
+                           },
+                           "status":"OK",
+                           "code":200,
+                           "_postman_previewlanguage":"json",
+                           "header":[
+                               {
+                                   "key":"Content-Type",
+                                   "value":"application\/json"
+                               }
+                           ],
+                           "cookie":[
+                               
+                           ],
+                           "body":"{\n \"contact\": {\n  \"phone\": \"(361) 884-2277\",\n  \"social_media\": [\n   {\n    \"id\": \"abelherrero34\",\n    \"type\": \"facebook\"\n   },\n   {\n    \"id\": \"RepAbelHerrero\",\n    \"type\": \"twitter\"\n   }\n  ],\n  \"website\": \"https:\/\/house.texas.gov\/members\/member-page\/?district=34\"\n },\n \"current\": \"tx_house\",\n \"district\": {\n  \"counties\": [\n   \"Nueces\"\n  ],\n  \"id\": 79,\n  \"number\": 34,\n  \"ocd_id\": \"ocd-division\/country:us\/state:tx\/sldl:34\",\n  \"party\": \"D\",\n  \"type\": \"tx_house\"\n },\n \"election\": {\n  \"dates\": {\n   \"early_end\": \"2020-10-30T06:00:00.000Z\",\n   \"early_start\": \"2020-10-13T06:00:00.000Z\",\n   \"election_day\": \"2020-11-03T06:00:00.000Z\"\n  },\n  \"district\": {\n   \"number\": 34,\n   \"type\": \"tx_house\"\n  },\n  \"id\": 79,\n  \"office\": \"tx_house\",\n  \"type\": {\n   \"class\": \"general\"\n  }\n },\n \"id\": 1,\n \"image\": \"http:\/\/www.house.state.tx.us\/photos\/members\/3140.jpg\",\n \"incumbent\": true,\n \"name\": \"Abel Herrero\",\n \"party\": \"D\"\n}"
+                       }
+                   ]
+               },
+               {
+                   "name":"Sort Politican by Name",
+                   "event":[
+                       {
+                           "listen":"test",
+                           "script":{
+                               "type":"text\/javascript",
+                               "exec":[
+                                   "pm.test(\"https:\/\/api.texasvotes.me\/politician sort test\", function () {\r",
+                                   "    pm.response.to.have.status(200);\r",
+                                   "    pm.response.to.be.ok;\r",
+                                   "    pm.response.to.be.json;\r",
+                                   "});"
+                               ]
+                           }
+                       }
+                   ],
+                   "_postman_id":"d96d82e9-0e47-422e-af31-a825224289a5",
+                   "request":{
+                       "method":"GET",
+                       "header":[
+                           
+                       ],
+                       "url":{
+                           "raw":"{{baseUrl}}\/politician?sort=name",
+                           "host":[
+                               "{{baseUrl}}"
+                           ],
+                           "path":[
+                               "politician"
+                           ],
+                           "query":[
+                               {
+                                   "key":"sort",
+                                   "value":"name"
+                               }
+                           ]
+                       },
+                       "description":"Query our API to sort Politicans by name"
+                   },
+                   "response":[
+                       
+                   ]
+               },
+               {
+                   "name":"Filter Politican by Party",
+                   "event":[
+                       {
+                           "listen":"test",
+                           "script":{
+                               "type":"text\/javascript",
+                               "exec":[
+                                   "pm.test(\"https:\/\/api.texasvotes.me\/filter_politican_by_party\", function () {\r",
+                                   "    pm.response.to.have.status(200);\r",
+                                   "    pm.response.to.be.ok;\r",
+                                   "    pm.response.to.be.json;\r",
+                                   "});"
+                               ]
+                           }
+                       }
+                   ],
+                   "_postman_id":"a16e5db9-9eef-47be-ace0-b21e38e91c6f",
+                   "request":{
+                       "method":"GET",
+                       "header":[
+                           
+                       ],
+                       "url":{
+                           "raw":"{{baseUrl}}\/politician?party=D",
+                           "host":[
+                               "{{baseUrl}}"
+                           ],
+                           "path":[
+                               "politician"
+                           ],
+                           "query":[
+                               {
+                                   "key":"party",
+                                   "value":"D"
+                               }
+                           ]
+                       }
+                   },
+                   "response":[
+                       
+                   ]
+               },
+               {
+                   "name":"Search Politician by Name",
+                   "event":[
+                       {
+                           "listen":"test",
+                           "script":{
+                               "type":"text\/javascript",
+                               "exec":[
+                                   "pm.test(\"https:\/\/api.texasvotes.me\/politician search ted\", function () {\r",
+                                   "    pm.response.to.have.status(200);\r",
+                                   "    pm.response.to.be.ok;\r",
+                                   "    pm.response.to.be.json;\r",
+                                   "\r",
+                                   "});\r",
+                                   "\r",
+                                   "pm.test(\"https:\/\/api.texasvotes.me\/politician contains Ted Cruz\", function () {\r",
+                                   "\r",
+                                   "    pm.expect(pm.response.text()).to.include(\"Ted Cruz\");\r",
+                                   "\r",
+                                   "});"
+                               ]
+                           }
+                       }
+                   ],
+                   "_postman_id":"cd167f11-8a01-4db9-96f9-c5b856b92815",
+                   "request":{
+                       "method":"GET",
+                       "header":[
+                           
+                       ],
+                       "url":{
+                           "raw":"{{baseUrl}}\/politician?q=ted",
+                           "host":[
+                               "{{baseUrl}}"
+                           ],
+                           "path":[
+                               "politician"
+                           ],
+                           "query":[
+                               {
+                                   "key":"q",
+                                   "value":"ted"
+                               }
+                           ]
+                       }
+                   },
+                   "response":[
+                       
+                   ]
+               }
+           ],
+           "_postman_id":"63b8ad82-ee4b-4b22-8976-6aceac66241c",
+           "protocolProfileBehavior":{
+               
+           }
        },
        {
-          "name":"district",
-          "item":[
-             {
-                "name":"A page of districts",
-                "event":[
-                   {
-                      "listen":"test",
-                      "script":{
-                         "type":"text\/javascript",
-                         "exec":[
-                            "pm.test(\"https:\/\/api.texasvotes.me\/politician test\", function () {\r",
-                            "    pm.response.to.have.status(200);\r",
-                            "    pm.response.to.be.ok;\r",
-                            "    pm.response.to.be.json;\r",
-                            "});"
-                         ]
-                      }
-                   }
-                ],
-                "_postman_id":"93b6dfd4-906e-42a0-a262-9a733e0a3722",
-                "request":{
-                   "method":"GET",
-                   "header":[
-                      
+           "name":"district",
+           "item":[
+               {
+                   "name":"A page of districts",
+                   "event":[
+                       {
+                           "listen":"test",
+                           "script":{
+                               "type":"text\/javascript",
+                               "exec":[
+                                   "pm.test(\"https:\/\/api.texasvotes.me\/politician test\", function () {\r",
+                                   "    pm.response.to.have.status(200);\r",
+                                   "    pm.response.to.be.ok;\r",
+                                   "    pm.response.to.be.json;\r",
+                                   "});"
+                               ]
+                           }
+                       }
                    ],
-                   "url":{
-                      "raw":"{{baseUrl}}\/district?page=2",
-                      "host":[
-                         "{{baseUrl}}"
-                      ],
-                      "path":[
-                         "district"
-                      ],
-                      "query":[
-                         {
-                            "key":"page",
-                            "value":"2",
-                            "description":"Get a page of districts by page number"
-                         }
-                      ]
-                   }
-                },
-                "response":[
-                   {
-                      "id":"e23645fb-592c-4054-88bf-61c0731c7305",
-                      "name":"Returns a page of districts",
-                      "originalRequest":{
-                         "method":"GET",
-                         "header":[
-                            
-                         ],
-                         "url":{
-                            "raw":"{{baseUrl}}\/district?page=<int32>",
-                            "host":[
+                   "_postman_id":"93b6dfd4-906e-42a0-a262-9a733e0a3722",
+                   "request":{
+                       "method":"GET",
+                       "header":[
+                           
+                       ],
+                       "url":{
+                           "raw":"{{baseUrl}}\/district?page=2",
+                           "host":[
                                "{{baseUrl}}"
-                            ],
-                            "path":[
+                           ],
+                           "path":[
                                "district"
-                            ],
-                            "query":[
+                           ],
+                           "query":[
                                {
-                                  "key":"page",
-                                  "value":"<int32>"
+                                   "key":"page",
+                                   "value":"2",
+                                   "description":"Get a page of districts by page number"
                                }
-                            ]
-                         }
-                      },
-                      "status":"OK",
-                      "code":200,
-                      "_postman_previewlanguage":"json",
-                      "header":[
-                         {
-                            "key":"Content-Type",
-                            "value":"application\/json"
-                         }
-                      ],
-                      "cookie":[
-                         
-                      ],
-                      "body":"{\n \"count\": 2,\n \"page\": [\n  {\n   \"counties\": [\n    \"Bowie\",\n    \"Franklin\",\n    \"Red River\",\n    \"Lamar\"\n   ],\n   \"demographics\": {\n    \"age\": {\n     \"items\": [\n      {\n       \"end\": 4,\n       \"proportion\": 6.3,\n       \"start\": 0\n      },\n      {\n       \"end\": 17,\n       \"proportion\": 17.2,\n       \"start\": 5\n      },\n      {\n       \"end\": 64,\n       \"proportion\": 58.8,\n       \"start\": 18\n      },\n      {\n       \"proportion\": 17.6,\n       \"start\": 65\n      }\n     ],\n     \"out_of\": 166344\n    },\n    \"education\": {\n     \"attainment\": {\n      \"items\": [\n       {\n        \"level\": \"High School or Less\",\n        \"proportion\": 13.2\n       },\n       {\n        \"level\": \"Bachelors or Higher\",\n        \"proportion\": 18.9\n       }\n      ],\n      \"out_of\": 113229\n     },\n     \"enrollment\": {\n      \"items\": [\n       {\n        \"level\": \"Preschool\",\n        \"proportion\": 6.4\n       },\n       {\n        \"level\": \"K-12\",\n        \"proportion\": 73.3\n       },\n       {\n        \"level\": \"College or Higher\",\n        \"proportion\": 20.3\n       }\n      ],\n      \"out_of\": 38954\n     }\n    },\n    \"income\": {\n     \"items\": [\n      {\n       \"end\": 9999,\n       \"proportion\": 9.8,\n       \"start\": 0\n      },\n      {\n       \"end\": 24999,\n       \"proportion\": 17.8,\n       \"start\": 10000\n      },\n      {\n       \"end\": 49999,\n       \"proportion\": 26,\n       \"start\": 25000\n      },\n      {\n       \"end\": 99999,\n       \"proportion\": 29.3,\n       \"start\": 50000\n      },\n      {\n       \"end\": 199999,\n       \"proportion\": 14.1,\n       \"start\": 10000\n      },\n      {\n       \"proportion\": 3,\n       \"start\": 200000\n      }\n     ],\n     \"out_of\": 61898\n    },\n    \"race\": {\n     \"items\": [\n      {\n       \"proportion\": 68.8,\n       \"race\": \"White (non-Hispanic)\"\n      },\n      {\n       \"proportion\": 8,\n       \"race\": \"Hispanic\"\n      },\n      {\n       \"proportion\": 20.6,\n       \"race\": \"African American (non-Hispanic)\"\n      },\n      {\n       \"proportion\": 1.2,\n       \"race\": \"Asian (non-Hispanic)\"\n      },\n      {\n       \"proportion\": 1.4,\n       \"race\": \"Other\"\n      }\n     ],\n     \"out_of\": 166344\n    },\n    \"total_population\": 166344\n   },\n   \"elected_officials\": [\n    {\n     \"district\": {\n      \"number\": 1,\n      \"type\": \"tx_house\"\n     },\n     \"id\": 135,\n     \"image\": \"http:\/\/www.house.state.tx.us\/photos\/members\/2540.jpg\",\n     \"incumbent\": true,\n     \"name\": \"Gary VanDeaver\",\n     \"party\": \"R\"\n    }\n   ],\n   \"elections\": [\n    {\n     \"dates\": {\n      \"early_end\": \"2020-10-30T06:00:00.000Z\",\n      \"early_start\": \"2020-10-13T06:00:00.000Z\",\n      \"election_day\": \"2020-11-03T06:00:00.000Z\"\n     },\n     \"id\": 1,\n     \"office\": \"tx_house\",\n     \"type\": {\n      \"class\": \"general\"\n     }\n    }\n   ],\n   \"id\": 1,\n   \"number\": 1,\n   \"ocd_id\": \"ocd-division\/country:us\/state:tx\/sldl:1\",\n   \"party\": \"R\",\n   \"type\": \"tx_house\"\n  },\n  {\n   \"counties\": [\n    \"Henderson\",\n    \"Ellis\"\n   ],\n   \"demographics\": {\n    \"age\": {\n     \"items\": [\n      {\n       \"end\": 4,\n       \"proportion\": 6.6,\n       \"start\": 0\n      },\n      {\n       \"end\": 17,\n       \"proportion\": 19.9,\n       \"start\": 5\n      },\n      {\n       \"end\": 64,\n       \"proportion\": 60.2,\n       \"start\": 18\n      },\n      {\n       \"proportion\": 13.3,\n       \"start\": 65\n      }\n     ],\n     \"out_of\": 183179\n    },\n    \"education\": {\n     \"attainment\": {\n      \"items\": [\n       {\n        \"level\": \"High School or Less\",\n        \"proportion\": 15\n       },\n       {\n        \"level\": \"Bachelors or Higher\",\n        \"proportion\": 22.3\n       }\n      ],\n      \"out_of\": 118488\n     },\n     \"enrollment\": {\n      \"items\": [\n       {\n        \"level\": \"Preschool\",\n        \"proportion\": 4.9\n       },\n       {\n        \"level\": \"K-12\",\n        \"proportion\": 74.5\n       },\n       {\n        \"level\": \"College or Higher\",\n        \"proportion\": 20.6\n       }\n      ],\n      \"out_of\": 49118\n     }\n    },\n    \"income\": {\n     \"items\": [\n      {\n       \"end\": 9999,\n       \"proportion\": 4,\n       \"start\": 0\n      },\n      {\n       \"end\": 24999,\n       \"proportion\": 11,\n       \"start\": 10000\n      },\n      {\n       \"end\": 49999,\n       \"proportion\": 20,\n       \"start\": 25000\n      },\n      {\n       \"end\": 99999,\n       \"proportion\": 33.8,\n       \"start\": 50000\n      },\n      {\n       \"end\": 199999,\n       \"proportion\": 25.4,\n       \"start\": 10000\n      },\n      {\n       \"proportion\": 5.8,\n       \"start\": 200000\n      }\n     ],\n     \"out_of\": 61452\n    },\n    \"race\": {\n     \"items\": [\n      {\n       \"proportion\": 62.9,\n       \"race\": \"White (non-Hispanic)\"\n      },\n      {\n       \"proportion\": 24.9,\n       \"race\": \"Hispanic\"\n      },\n      {\n       \"proportion\": 11,\n       \"race\": \"African American (non-Hispanic)\"\n      },\n      {\n       \"proportion\": 1,\n       \"race\": \"Asian (non-Hispanic)\"\n      },\n      {\n       \"proportion\": 0.2,\n       \"race\": \"Other\"\n      }\n     ],\n     \"out_of\": 183179\n    },\n    \"total_population\": 183179\n   },\n   \"elected_officials\": [\n    {\n     \"district\": {\n      \"number\": 10,\n      \"type\": \"tx_house\"\n     },\n     \"id\": 214,\n     \"image\": \"http:\/\/www.house.state.tx.us\/photos\/members\/2890.jpg\",\n     \"incumbent\": true,\n     \"name\": \"John Wray\",\n     \"party\": \"R\"\n    }\n   ],\n   \"elections\": [\n    {\n     \"dates\": {\n      \"early_end\": \"2020-10-30T06:00:00.000Z\",\n      \"early_start\": \"2020-10-13T06:00:00.000Z\",\n      \"election_day\": \"2020-11-03T06:00:00.000Z\"\n     },\n     \"id\": 2,\n     \"office\": \"tx_house\",\n     \"type\": {\n      \"class\": \"general\"\n     }\n    }\n   ],\n   \"id\": 2,\n   \"number\": 10,\n   \"ocd_id\": \"ocd-division\/country:us\/state:tx\/sldl:10\",\n   \"party\": \"R\",\n   \"type\": \"tx_house\"\n  }\n ]\n}"
-                   }
-                ]
-             },
-             {
-                "name":"The district with the given id",
-                "event":[
-                   {
-                      "listen":"test",
-                      "script":{
-                         "type":"text\/javascript",
-                         "exec":[
-                            "pm.test(\"https:\/\/api.texasvotes.me\/politician test\", function () {\r",
-                            "    pm.response.to.have.status(200);\r",
-                            "    pm.response.to.be.ok;\r",
-                            "    pm.response.to.be.json;\r",
-                            "});"
-                         ]
-                      }
-                   }
-                ],
-                "_postman_id":"12d1235a-2167-4eee-8afe-f0a8aefa0936",
-                "request":{
-                   "method":"GET",
-                   "header":[
-                      
+                           ]
+                       }
+                   },
+                   "response":[
+                       {
+                           "id":"e23645fb-592c-4054-88bf-61c0731c7305",
+                           "name":"Returns a page of districts",
+                           "originalRequest":{
+                               "method":"GET",
+                               "header":[
+                                   
+                               ],
+                               "url":{
+                                   "raw":"{{baseUrl}}\/district?page=<int32>",
+                                   "host":[
+                                       "{{baseUrl}}"
+                                   ],
+                                   "path":[
+                                       "district"
+                                   ],
+                                   "query":[
+                                       {
+                                           "key":"page",
+                                           "value":"<int32>"
+                                       }
+                                   ]
+                               }
+                           },
+                           "status":"OK",
+                           "code":200,
+                           "_postman_previewlanguage":"json",
+                           "header":[
+                               {
+                                   "key":"Content-Type",
+                                   "value":"application\/json"
+                               }
+                           ],
+                           "cookie":[
+                               
+                           ],
+                           "body":"{\n \"count\": 2,\n \"page\": [\n  {\n   \"counties\": [\n    \"Bowie\",\n    \"Franklin\",\n    \"Red River\",\n    \"Lamar\"\n   ],\n   \"demographics\": {\n    \"age\": {\n     \"items\": [\n      {\n       \"end\": 4,\n       \"proportion\": 6.3,\n       \"start\": 0\n      },\n      {\n       \"end\": 17,\n       \"proportion\": 17.2,\n       \"start\": 5\n      },\n      {\n       \"end\": 64,\n       \"proportion\": 58.8,\n       \"start\": 18\n      },\n      {\n       \"proportion\": 17.6,\n       \"start\": 65\n      }\n     ],\n     \"out_of\": 166344\n    },\n    \"education\": {\n     \"attainment\": {\n      \"items\": [\n       {\n        \"level\": \"High School or Less\",\n        \"proportion\": 13.2\n       },\n       {\n        \"level\": \"Bachelors or Higher\",\n        \"proportion\": 18.9\n       }\n      ],\n      \"out_of\": 113229\n     },\n     \"enrollment\": {\n      \"items\": [\n       {\n        \"level\": \"Preschool\",\n        \"proportion\": 6.4\n       },\n       {\n        \"level\": \"K-12\",\n        \"proportion\": 73.3\n       },\n       {\n        \"level\": \"College or Higher\",\n        \"proportion\": 20.3\n       }\n      ],\n      \"out_of\": 38954\n     }\n    },\n    \"income\": {\n     \"items\": [\n      {\n       \"end\": 9999,\n       \"proportion\": 9.8,\n       \"start\": 0\n      },\n      {\n       \"end\": 24999,\n       \"proportion\": 17.8,\n       \"start\": 10000\n      },\n      {\n       \"end\": 49999,\n       \"proportion\": 26,\n       \"start\": 25000\n      },\n      {\n       \"end\": 99999,\n       \"proportion\": 29.3,\n       \"start\": 50000\n      },\n      {\n       \"end\": 199999,\n       \"proportion\": 14.1,\n       \"start\": 10000\n      },\n      {\n       \"proportion\": 3,\n       \"start\": 200000\n      }\n     ],\n     \"out_of\": 61898\n    },\n    \"race\": {\n     \"items\": [\n      {\n       \"proportion\": 68.8,\n       \"race\": \"White (non-Hispanic)\"\n      },\n      {\n       \"proportion\": 8,\n       \"race\": \"Hispanic\"\n      },\n      {\n       \"proportion\": 20.6,\n       \"race\": \"African American (non-Hispanic)\"\n      },\n      {\n       \"proportion\": 1.2,\n       \"race\": \"Asian (non-Hispanic)\"\n      },\n      {\n       \"proportion\": 1.4,\n       \"race\": \"Other\"\n      }\n     ],\n     \"out_of\": 166344\n    },\n    \"total_population\": 166344\n   },\n   \"elected_officials\": [\n    {\n     \"district\": {\n      \"number\": 1,\n      \"type\": \"tx_house\"\n     },\n     \"id\": 135,\n     \"image\": \"http:\/\/www.house.state.tx.us\/photos\/members\/2540.jpg\",\n     \"incumbent\": true,\n     \"name\": \"Gary VanDeaver\",\n     \"party\": \"R\"\n    }\n   ],\n   \"elections\": [\n    {\n     \"dates\": {\n      \"early_end\": \"2020-10-30T06:00:00.000Z\",\n      \"early_start\": \"2020-10-13T06:00:00.000Z\",\n      \"election_day\": \"2020-11-03T06:00:00.000Z\"\n     },\n     \"id\": 1,\n     \"office\": \"tx_house\",\n     \"type\": {\n      \"class\": \"general\"\n     }\n    }\n   ],\n   \"id\": 1,\n   \"number\": 1,\n   \"ocd_id\": \"ocd-division\/country:us\/state:tx\/sldl:1\",\n   \"party\": \"R\",\n   \"type\": \"tx_house\"\n  },\n  {\n   \"counties\": [\n    \"Henderson\",\n    \"Ellis\"\n   ],\n   \"demographics\": {\n    \"age\": {\n     \"items\": [\n      {\n       \"end\": 4,\n       \"proportion\": 6.6,\n       \"start\": 0\n      },\n      {\n       \"end\": 17,\n       \"proportion\": 19.9,\n       \"start\": 5\n      },\n      {\n       \"end\": 64,\n       \"proportion\": 60.2,\n       \"start\": 18\n      },\n      {\n       \"proportion\": 13.3,\n       \"start\": 65\n      }\n     ],\n     \"out_of\": 183179\n    },\n    \"education\": {\n     \"attainment\": {\n      \"items\": [\n       {\n        \"level\": \"High School or Less\",\n        \"proportion\": 15\n       },\n       {\n        \"level\": \"Bachelors or Higher\",\n        \"proportion\": 22.3\n       }\n      ],\n      \"out_of\": 118488\n     },\n     \"enrollment\": {\n      \"items\": [\n       {\n        \"level\": \"Preschool\",\n        \"proportion\": 4.9\n       },\n       {\n        \"level\": \"K-12\",\n        \"proportion\": 74.5\n       },\n       {\n        \"level\": \"College or Higher\",\n        \"proportion\": 20.6\n       }\n      ],\n      \"out_of\": 49118\n     }\n    },\n    \"income\": {\n     \"items\": [\n      {\n       \"end\": 9999,\n       \"proportion\": 4,\n       \"start\": 0\n      },\n      {\n       \"end\": 24999,\n       \"proportion\": 11,\n       \"start\": 10000\n      },\n      {\n       \"end\": 49999,\n       \"proportion\": 20,\n       \"start\": 25000\n      },\n      {\n       \"end\": 99999,\n       \"proportion\": 33.8,\n       \"start\": 50000\n      },\n      {\n       \"end\": 199999,\n       \"proportion\": 25.4,\n       \"start\": 10000\n      },\n      {\n       \"proportion\": 5.8,\n       \"start\": 200000\n      }\n     ],\n     \"out_of\": 61452\n    },\n    \"race\": {\n     \"items\": [\n      {\n       \"proportion\": 62.9,\n       \"race\": \"White (non-Hispanic)\"\n      },\n      {\n       \"proportion\": 24.9,\n       \"race\": \"Hispanic\"\n      },\n      {\n       \"proportion\": 11,\n       \"race\": \"African American (non-Hispanic)\"\n      },\n      {\n       \"proportion\": 1,\n       \"race\": \"Asian (non-Hispanic)\"\n      },\n      {\n       \"proportion\": 0.2,\n       \"race\": \"Other\"\n      }\n     ],\n     \"out_of\": 183179\n    },\n    \"total_population\": 183179\n   },\n   \"elected_officials\": [\n    {\n     \"district\": {\n      \"number\": 10,\n      \"type\": \"tx_house\"\n     },\n     \"id\": 214,\n     \"image\": \"http:\/\/www.house.state.tx.us\/photos\/members\/2890.jpg\",\n     \"incumbent\": true,\n     \"name\": \"John Wray\",\n     \"party\": \"R\"\n    }\n   ],\n   \"elections\": [\n    {\n     \"dates\": {\n      \"early_end\": \"2020-10-30T06:00:00.000Z\",\n      \"early_start\": \"2020-10-13T06:00:00.000Z\",\n      \"election_day\": \"2020-11-03T06:00:00.000Z\"\n     },\n     \"id\": 2,\n     \"office\": \"tx_house\",\n     \"type\": {\n      \"class\": \"general\"\n     }\n    }\n   ],\n   \"id\": 2,\n   \"number\": 10,\n   \"ocd_id\": \"ocd-division\/country:us\/state:tx\/sldl:10\",\n   \"party\": \"R\",\n   \"type\": \"tx_house\"\n  }\n ]\n}"
+                       }
+                   ]
+               },
+               {
+                   "name":"The district with the given id",
+                   "event":[
+                       {
+                           "listen":"test",
+                           "script":{
+                               "type":"text\/javascript",
+                               "exec":[
+                                   "pm.test(\"https:\/\/api.texasvotes.me\/politician test\", function () {\r",
+                                   "    pm.response.to.have.status(200);\r",
+                                   "    pm.response.to.be.ok;\r",
+                                   "    pm.response.to.be.json;\r",
+                                   "});"
+                               ]
+                           }
+                       }
                    ],
-                   "url":"{{baseUrl}}\/district\/1"
-                },
-                "response":[
-                   {
-                      "id":"10944664-90d6-4cdb-9da3-38f15ab955d2",
-                      "name":"Details about a district given an id",
-                      "originalRequest":{
-                         "method":"GET",
-                         "header":[
-                            
-                         ],
-                         "url":{
-                            "raw":"{{baseUrl}}\/district\/:id\/",
-                            "host":[
-                               "{{baseUrl}}"
-                            ],
-                            "path":[
-                               "district",
-                               ":id",
-                               ""
-                            ],
-                            "variable":[
-                               {
-                                  "key":"id"
+                   "_postman_id":"12d1235a-2167-4eee-8afe-f0a8aefa0936",
+                   "request":{
+                       "method":"GET",
+                       "header":[
+                           
+                       ],
+                       "url":"{{baseUrl}}\/district\/1"
+                   },
+                   "response":[
+                       {
+                           "id":"10944664-90d6-4cdb-9da3-38f15ab955d2",
+                           "name":"Details about a district given an id",
+                           "originalRequest":{
+                               "method":"GET",
+                               "header":[
+                                   
+                               ],
+                               "url":{
+                                   "raw":"{{baseUrl}}\/district\/:id\/",
+                                   "host":[
+                                       "{{baseUrl}}"
+                                   ],
+                                   "path":[
+                                       "district",
+                                       ":id",
+                                       ""
+                                   ],
+                                   "variable":[
+                                       {
+                                           "key":"id"
+                                       }
+                                   ]
                                }
-                            ]
-                         }
-                      },
-                      "status":"OK",
-                      "code":200,
-                      "_postman_previewlanguage":"json",
-                      "header":[
-                         {
-                            "key":"Content-Type",
-                            "value":"application\/json"
-                         }
-                      ],
-                      "cookie":[
-                         
-                      ],
-                      "body":"{\n \"counties\": [\n  \"Bowie\",\n  \"Franklin\",\n  \"Red River\",\n  \"Lamar\"\n ],\n \"demographics\": {\n  \"age\": {\n   \"items\": [\n    {\n     \"end\": 4,\n     \"proportion\": 6.3,\n     \"start\": 0\n    },\n    {\n     \"end\": 17,\n     \"proportion\": 17.2,\n     \"start\": 5\n    },\n    {\n     \"end\": 64,\n     \"proportion\": 58.8,\n     \"start\": 18\n    },\n    {\n     \"proportion\": 17.6,\n     \"start\": 65\n    }\n   ],\n   \"out_of\": 166344\n  },\n  \"education\": {\n   \"attainment\": {\n    \"items\": [\n     {\n      \"level\": \"High School or Less\",\n      \"proportion\": 13.2\n     },\n     {\n      \"level\": \"Bachelors or Higher\",\n      \"proportion\": 18.9\n     }\n    ],\n    \"out_of\": 113229\n   },\n   \"enrollment\": {\n    \"items\": [\n     {\n      \"level\": \"Preschool\",\n      \"proportion\": 6.4\n     },\n     {\n      \"level\": \"K-12\",\n      \"proportion\": 73.3\n     },\n     {\n      \"level\": \"College or Higher\",\n      \"proportion\": 20.3\n     }\n    ],\n    \"out_of\": 38954\n   }\n  },\n  \"income\": {\n   \"items\": [\n    {\n     \"end\": 9999,\n     \"proportion\": 9.8,\n     \"start\": 0\n    },\n    {\n     \"end\": 24999,\n     \"proportion\": 17.8,\n     \"start\": 10000\n    },\n    {\n     \"end\": 49999,\n     \"proportion\": 26,\n     \"start\": 25000\n    },\n    {\n     \"end\": 99999,\n     \"proportion\": 29.3,\n     \"start\": 50000\n    },\n    {\n     \"end\": 199999,\n     \"proportion\": 14.1,\n     \"start\": 10000\n    },\n    {\n     \"proportion\": 3,\n     \"start\": 200000\n    }\n   ],\n   \"out_of\": 61898\n  },\n  \"race\": {\n   \"items\": [\n    {\n     \"proportion\": 68.8,\n     \"race\": \"White (non-Hispanic)\"\n    },\n    {\n     \"proportion\": 8,\n     \"race\": \"Hispanic\"\n    },\n    {\n     \"proportion\": 20.6,\n     \"race\": \"African American (non-Hispanic)\"\n    },\n    {\n     \"proportion\": 1.2,\n     \"race\": \"Asian (non-Hispanic)\"\n    },\n    {\n     \"proportion\": 1.4,\n     \"race\": \"Other\"\n    }\n   ],\n   \"out_of\": 166344\n  },\n  \"total_population\": 166344\n },\n \"elected_officials\": [\n  {\n   \"district\": {\n    \"number\": 1,\n    \"type\": \"tx_house\"\n   },\n   \"id\": 135,\n   \"image\": \"http:\/\/www.house.state.tx.us\/photos\/members\/2540.jpg\",\n   \"incumbent\": true,\n   \"name\": \"Gary VanDeaver\",\n   \"party\": \"R\"\n  }\n ],\n \"elections\": [\n  {\n   \"dates\": {\n    \"early_end\": \"2020-10-30T06:00:00.000Z\",\n    \"early_start\": \"2020-10-13T06:00:00.000Z\",\n    \"election_day\": \"2020-11-03T06:00:00.000Z\"\n   },\n   \"id\": 1,\n   \"office\": \"tx_house\",\n   \"type\": {\n    \"class\": \"general\"\n   }\n  }\n ],\n \"id\": 1,\n \"number\": 1,\n \"ocd_id\": \"ocd-division\/country:us\/state:tx\/sldl:1\",\n \"party\": \"R\",\n \"type\": \"tx_house\"\n}"
-                   }
-                ]
-             }
-          ],
-          "_postman_id":"8786114b-9fac-422c-bcfe-3781eb5b95df",
-          "protocolProfileBehavior":{
-             
-          }
+                           },
+                           "status":"OK",
+                           "code":200,
+                           "_postman_previewlanguage":"json",
+                           "header":[
+                               {
+                                   "key":"Content-Type",
+                                   "value":"application\/json"
+                               }
+                           ],
+                           "cookie":[
+                               
+                           ],
+                           "body":"{\n \"counties\": [\n  \"Bowie\",\n  \"Franklin\",\n  \"Red River\",\n  \"Lamar\"\n ],\n \"demographics\": {\n  \"age\": {\n   \"items\": [\n    {\n     \"end\": 4,\n     \"proportion\": 6.3,\n     \"start\": 0\n    },\n    {\n     \"end\": 17,\n     \"proportion\": 17.2,\n     \"start\": 5\n    },\n    {\n     \"end\": 64,\n     \"proportion\": 58.8,\n     \"start\": 18\n    },\n    {\n     \"proportion\": 17.6,\n     \"start\": 65\n    }\n   ],\n   \"out_of\": 166344\n  },\n  \"education\": {\n   \"attainment\": {\n    \"items\": [\n     {\n      \"level\": \"High School or Less\",\n      \"proportion\": 13.2\n     },\n     {\n      \"level\": \"Bachelors or Higher\",\n      \"proportion\": 18.9\n     }\n    ],\n    \"out_of\": 113229\n   },\n   \"enrollment\": {\n    \"items\": [\n     {\n      \"level\": \"Preschool\",\n      \"proportion\": 6.4\n     },\n     {\n      \"level\": \"K-12\",\n      \"proportion\": 73.3\n     },\n     {\n      \"level\": \"College or Higher\",\n      \"proportion\": 20.3\n     }\n    ],\n    \"out_of\": 38954\n   }\n  },\n  \"income\": {\n   \"items\": [\n    {\n     \"end\": 9999,\n     \"proportion\": 9.8,\n     \"start\": 0\n    },\n    {\n     \"end\": 24999,\n     \"proportion\": 17.8,\n     \"start\": 10000\n    },\n    {\n     \"end\": 49999,\n     \"proportion\": 26,\n     \"start\": 25000\n    },\n    {\n     \"end\": 99999,\n     \"proportion\": 29.3,\n     \"start\": 50000\n    },\n    {\n     \"end\": 199999,\n     \"proportion\": 14.1,\n     \"start\": 10000\n    },\n    {\n     \"proportion\": 3,\n     \"start\": 200000\n    }\n   ],\n   \"out_of\": 61898\n  },\n  \"race\": {\n   \"items\": [\n    {\n     \"proportion\": 68.8,\n     \"race\": \"White (non-Hispanic)\"\n    },\n    {\n     \"proportion\": 8,\n     \"race\": \"Hispanic\"\n    },\n    {\n     \"proportion\": 20.6,\n     \"race\": \"African American (non-Hispanic)\"\n    },\n    {\n     \"proportion\": 1.2,\n     \"race\": \"Asian (non-Hispanic)\"\n    },\n    {\n     \"proportion\": 1.4,\n     \"race\": \"Other\"\n    }\n   ],\n   \"out_of\": 166344\n  },\n  \"total_population\": 166344\n },\n \"elected_officials\": [\n  {\n   \"district\": {\n    \"number\": 1,\n    \"type\": \"tx_house\"\n   },\n   \"id\": 135,\n   \"image\": \"http:\/\/www.house.state.tx.us\/photos\/members\/2540.jpg\",\n   \"incumbent\": true,\n   \"name\": \"Gary VanDeaver\",\n   \"party\": \"R\"\n  }\n ],\n \"elections\": [\n  {\n   \"dates\": {\n    \"early_end\": \"2020-10-30T06:00:00.000Z\",\n    \"early_start\": \"2020-10-13T06:00:00.000Z\",\n    \"election_day\": \"2020-11-03T06:00:00.000Z\"\n   },\n   \"id\": 1,\n   \"office\": \"tx_house\",\n   \"type\": {\n    \"class\": \"general\"\n   }\n  }\n ],\n \"id\": 1,\n \"number\": 1,\n \"ocd_id\": \"ocd-division\/country:us\/state:tx\/sldl:1\",\n \"party\": \"R\",\n \"type\": \"tx_house\"\n}"
+                       }
+                   ]
+               },
+               {
+                   "name":"Sort District by Population",
+                   "event":[
+                       {
+                           "listen":"test",
+                           "script":{
+                               "type":"text\/javascript",
+                               "exec":[
+                                   "pm.test(\"https:\/\/api.texasvotes.me\/sort_district_by_population\", function () {\r",
+                                   "    pm.response.to.have.status(200);\r",
+                                   "    pm.response.to.be.ok;\r",
+                                   "    pm.response.to.be.json;\r",
+                                   "});"
+                               ]
+                           }
+                       }
+                   ],
+                   "_postman_id":"2446b5f2-f553-4448-8a8a-1e92a0a15a20",
+                   "request":{
+                       "method":"GET",
+                       "header":[
+                           
+                       ],
+                       "url":{
+                           "raw":"{{baseUrl}}\/district?sort=pop",
+                           "host":[
+                               "{{baseUrl}}"
+                           ],
+                           "path":[
+                               "district"
+                           ],
+                           "query":[
+                               {
+                                   "key":"sort",
+                                   "value":"pop"
+                               }
+                           ]
+                       }
+                   },
+                   "response":[
+                       
+                   ]
+               },
+               {
+                   "name":"Filter District by Party",
+                   "event":[
+                       {
+                           "listen":"test",
+                           "script":{
+                               "type":"text\/javascript",
+                               "exec":[
+                                   "pm.test(\"https:\/\/api.texasvotes.me\/filter_district_by_party\", function () {\r",
+                                   "    pm.response.to.have.status(200);\r",
+                                   "    pm.response.to.be.ok;\r",
+                                   "    pm.response.to.be.json;\r",
+                                   "});"
+                               ]
+                           }
+                       }
+                   ],
+                   "_postman_id":"934f1b7f-07ed-4517-bc07-6739814b2ce5",
+                   "request":{
+                       "method":"GET",
+                       "header":[
+                           
+                       ],
+                       "url":{
+                           "raw":"{{baseUrl}}\/district?party=D",
+                           "host":[
+                               "{{baseUrl}}"
+                           ],
+                           "path":[
+                               "district"
+                           ],
+                           "query":[
+                               {
+                                   "key":"party",
+                                   "value":"D"
+                               }
+                           ]
+                       }
+                   },
+                   "response":[
+                       
+                   ]
+               },
+               {
+                   "name":"Search District by Party",
+                   "event":[
+                       {
+                           "listen":"test",
+                           "script":{
+                               "type":"text\/javascript",
+                               "exec":[
+                                   "pm.test(\"https:\/\/api.texasvotes.me\/search_district_by_party\", function () {\r",
+                                   "    pm.response.to.have.status(200);\r",
+                                   "    pm.response.to.be.ok;\r",
+                                   "    pm.response.to.be.json;\r",
+                                   "});"
+                               ]
+                           }
+                       }
+                   ],
+                   "_postman_id":"03a0bfb9-9aea-4b6e-970d-e98240e247b5",
+                   "request":{
+                       "method":"GET",
+                       "header":[
+                           
+                       ],
+                       "url":{
+                           "raw":"{{baseUrl}}\/district?q=D",
+                           "host":[
+                               "{{baseUrl}}"
+                           ],
+                           "path":[
+                               "district"
+                           ],
+                           "query":[
+                               {
+                                   "key":"q",
+                                   "value":"D"
+                               }
+                           ]
+                       }
+                   },
+                   "response":[
+                       
+                   ]
+               }
+           ],
+           "_postman_id":"8786114b-9fac-422c-bcfe-3781eb5b95df",
+           "protocolProfileBehavior":{
+               
+           }
        },
        {
-          "name":"election",
-          "item":[
-             {
-                "name":"A page of elections",
-                "event":[
-                   {
-                      "listen":"test",
-                      "script":{
-                         "type":"text\/javascript",
-                         "exec":[
-                            "pm.test(\"https:\/\/api.texasvotes.me\/politician test\", function () {\r",
-                            "    pm.response.to.have.status(200);\r",
-                            "    pm.response.to.be.ok;\r",
-                            "    pm.response.to.be.json;\r",
-                            "});"
-                         ]
-                      }
-                   }
-                ],
-                "_postman_id":"d71f9897-8a86-4010-a0cb-bf3c0620098e",
-                "request":{
-                   "method":"GET",
-                   "header":[
-                      
+           "name":"election",
+           "item":[
+               {
+                   "name":"A page of elections",
+                   "event":[
+                       {
+                           "listen":"test",
+                           "script":{
+                               "type":"text\/javascript",
+                               "exec":[
+                                   "pm.test(\"https:\/\/api.texasvotes.me\/politician test\", function () {\r",
+                                   "    pm.response.to.have.status(200);\r",
+                                   "    pm.response.to.be.ok;\r",
+                                   "    pm.response.to.be.json;\r",
+                                   "});"
+                               ]
+                           }
+                       }
                    ],
-                   "url":{
-                      "raw":"{{baseUrl}}\/election?page=2",
-                      "host":[
-                         "{{baseUrl}}"
-                      ],
-                      "path":[
-                         "election"
-                      ],
-                      "query":[
-                         {
-                            "key":"page",
-                            "value":"2",
-                            "description":"Get a page of elections by page number"
-                         }
-                      ]
-                   }
-                },
-                "response":[
-                   {
-                      "id":"7837a5f7-7238-4660-9511-f1ae86e4dc0d",
-                      "name":"Details about elections on given page",
-                      "originalRequest":{
-                         "method":"GET",
-                         "header":[
-                            
-                         ],
-                         "url":{
-                            "raw":"{{baseUrl}}\/election?page=<int32>",
-                            "host":[
+                   "_postman_id":"d71f9897-8a86-4010-a0cb-bf3c0620098e",
+                   "request":{
+                       "method":"GET",
+                       "header":[
+                           
+                       ],
+                       "url":{
+                           "raw":"{{baseUrl}}\/election?page=2",
+                           "host":[
                                "{{baseUrl}}"
-                            ],
-                            "path":[
+                           ],
+                           "path":[
                                "election"
-                            ],
-                            "query":[
+                           ],
+                           "query":[
                                {
-                                  "key":"page",
-                                  "value":"<int32>"
+                                   "key":"page",
+                                   "value":"2",
+                                   "description":"Get a page of elections by page number"
                                }
-                            ]
-                         }
-                      },
-                      "status":"OK",
-                      "code":200,
-                      "_postman_previewlanguage":"json",
-                      "header":[
-                         {
-                            "key":"Content-Type",
-                            "value":"application\/json"
-                         }
-                      ],
-                      "cookie":[
-                         
-                      ],
-                      "body":"{\n \"count\": 203,\n \"page\": [\n  {\n   \"candidates\": [\n    {\n     \"district\": {\n      \"number\": 59,\n      \"type\": \"tx_house\"\n     },\n     \"id\": 156,\n     \"image\": \"http:\/\/www.house.state.tx.us\/photos\/members\/2735.jpg\",\n     \"incumbent\": true,\n     \"name\": \"J.D. Sheffield\",\n     \"party\": \"R\"\n    },\n    {\n     \"district\": {\n      \"number\": 59,\n      \"type\": \"tx_house\"\n     },\n     \"id\": 372,\n     \"image\": \"https:\/\/s3.amazonaws.com\/ballotpedia-api4\/files\/thumbs\/200\/300\/ShelbySlawson-min.jpeg\",\n     \"incumbent\": false,\n     \"name\": \"Shelby Slawson\",\n     \"party\": \"R\"\n    }\n   ],\n   \"dates\": {\n    \"early_end\": \"2020-10-30T06:00:00.000Z\",\n    \"early_start\": \"2020-10-13T06:00:00.000Z\",\n    \"election_day\": \"2020-11-03T06:00:00.000Z\"\n   },\n   \"district\": {\n    \"counties\": [\n     \"Coryell\",\n     \"Comanche\",\n     \"McCulloch\",\n     \"Mills\",\n     \"Somervell\",\n     \"Erath\",\n     \"Hamilton\",\n     \"San Saba\"\n    ],\n    \"id\": 106,\n    \"number\": 59,\n    \"ocd_id\": \"ocd-division\/country:us\/state:tx\/sldl:59\",\n    \"party\": \"R\",\n    \"type\": \"tx_house\"\n   },\n   \"id\": 106,\n   \"office\": \"tx_house\",\n   \"type\": {\n    \"class\": \"general\"\n   }\n  },\n  {\n   \"candidates\": [\n    {\n     \"district\": {\n      \"number\": 71,\n      \"type\": \"tx_house\"\n     },\n     \"id\": 356,\n     \"image\": \"https:\/\/smhlancers.org\/wp-content\/uploads\/2016\/06\/profile-placeholder.png\",\n     \"incumbent\": false,\n     \"name\": \"Sam Hatton\",\n     \"party\": \"D\"\n    },\n    {\n     \"district\": {\n      \"number\": 71,\n      \"type\": \"tx_house\"\n     },\n     \"id\": 376,\n     \"image\": \"http:\/\/www.house.state.tx.us\/photos\/members\/3225.jpg\",\n     \"incumbent\": true,\n     \"name\": \"Stan Lambert\",\n     \"party\": \"R\"\n    }\n   ],\n   \"dates\": {\n    \"early_end\": \"2020-10-30T06:00:00.000Z\",\n    \"early_start\": \"2020-10-13T06:00:00.000Z\",\n    \"election_day\": \"2020-11-03T06:00:00.000Z\"\n   },\n   \"district\": {\n    \"counties\": [\n     \"Jones\",\n     \"Nolan\",\n     \"Taylor\"\n    ],\n    \"id\": 120,\n    \"number\": 71,\n    \"ocd_id\": \"ocd-division\/country:us\/state:tx\/sldl:71\",\n    \"party\": \"R\",\n    \"type\": \"tx_house\"\n   },\n   \"id\": 120,\n   \"office\": \"tx_house\",\n   \"type\": {\n    \"class\": \"general\"\n   }\n  }\n ]\n}"
-                   }
-                ]
-             },
-             {
-                "name":"The election with the given id",
-                "event":[
-                   {
-                      "listen":"test",
-                      "script":{
-                         "type":"text\/javascript",
-                         "exec":[
-                            "pm.test(\"https:\/\/api.texasvotes.me\/politician test\", function () {\r",
-                            "    pm.response.to.have.status(200);\r",
-                            "    pm.response.to.be.ok;\r",
-                            "    pm.response.to.be.json;\r",
-                            "});"
-                         ]
-                      }
-                   }
-                ],
-                "_postman_id":"6880976a-186f-4f06-99da-b95d1d735c5b",
-                "request":{
-                   "method":"GET",
-                   "header":[
-                      
+                           ]
+                       }
+                   },
+                   "response":[
+                       {
+                           "id":"7837a5f7-7238-4660-9511-f1ae86e4dc0d",
+                           "name":"Details about elections on given page",
+                           "originalRequest":{
+                               "method":"GET",
+                               "header":[
+                                   
+                               ],
+                               "url":{
+                                   "raw":"{{baseUrl}}\/election?page=<int32>",
+                                   "host":[
+                                       "{{baseUrl}}"
+                                   ],
+                                   "path":[
+                                       "election"
+                                   ],
+                                   "query":[
+                                       {
+                                           "key":"page",
+                                           "value":"<int32>"
+                                       }
+                                   ]
+                               }
+                           },
+                           "status":"OK",
+                           "code":200,
+                           "_postman_previewlanguage":"json",
+                           "header":[
+                               {
+                                   "key":"Content-Type",
+                                   "value":"application\/json"
+                               }
+                           ],
+                           "cookie":[
+                               
+                           ],
+                           "body":"{\n \"count\": 203,\n \"page\": [\n  {\n   \"candidates\": [\n    {\n     \"district\": {\n      \"number\": 59,\n      \"type\": \"tx_house\"\n     },\n     \"id\": 156,\n     \"image\": \"http:\/\/www.house.state.tx.us\/photos\/members\/2735.jpg\",\n     \"incumbent\": true,\n     \"name\": \"J.D. Sheffield\",\n     \"party\": \"R\"\n    },\n    {\n     \"district\": {\n      \"number\": 59,\n      \"type\": \"tx_house\"\n     },\n     \"id\": 372,\n     \"image\": \"https:\/\/s3.amazonaws.com\/ballotpedia-api4\/files\/thumbs\/200\/300\/ShelbySlawson-min.jpeg\",\n     \"incumbent\": false,\n     \"name\": \"Shelby Slawson\",\n     \"party\": \"R\"\n    }\n   ],\n   \"dates\": {\n    \"early_end\": \"2020-10-30T06:00:00.000Z\",\n    \"early_start\": \"2020-10-13T06:00:00.000Z\",\n    \"election_day\": \"2020-11-03T06:00:00.000Z\"\n   },\n   \"district\": {\n    \"counties\": [\n     \"Coryell\",\n     \"Comanche\",\n     \"McCulloch\",\n     \"Mills\",\n     \"Somervell\",\n     \"Erath\",\n     \"Hamilton\",\n     \"San Saba\"\n    ],\n    \"id\": 106,\n    \"number\": 59,\n    \"ocd_id\": \"ocd-division\/country:us\/state:tx\/sldl:59\",\n    \"party\": \"R\",\n    \"type\": \"tx_house\"\n   },\n   \"id\": 106,\n   \"office\": \"tx_house\",\n   \"type\": {\n    \"class\": \"general\"\n   }\n  },\n  {\n   \"candidates\": [\n    {\n     \"district\": {\n      \"number\": 71,\n      \"type\": \"tx_house\"\n     },\n     \"id\": 356,\n     \"image\": \"https:\/\/smhlancers.org\/wp-content\/uploads\/2016\/06\/profile-placeholder.png\",\n     \"incumbent\": false,\n     \"name\": \"Sam Hatton\",\n     \"party\": \"D\"\n    },\n    {\n     \"district\": {\n      \"number\": 71,\n      \"type\": \"tx_house\"\n     },\n     \"id\": 376,\n     \"image\": \"http:\/\/www.house.state.tx.us\/photos\/members\/3225.jpg\",\n     \"incumbent\": true,\n     \"name\": \"Stan Lambert\",\n     \"party\": \"R\"\n    }\n   ],\n   \"dates\": {\n    \"early_end\": \"2020-10-30T06:00:00.000Z\",\n    \"early_start\": \"2020-10-13T06:00:00.000Z\",\n    \"election_day\": \"2020-11-03T06:00:00.000Z\"\n   },\n   \"district\": {\n    \"counties\": [\n     \"Jones\",\n     \"Nolan\",\n     \"Taylor\"\n    ],\n    \"id\": 120,\n    \"number\": 71,\n    \"ocd_id\": \"ocd-division\/country:us\/state:tx\/sldl:71\",\n    \"party\": \"R\",\n    \"type\": \"tx_house\"\n   },\n   \"id\": 120,\n   \"office\": \"tx_house\",\n   \"type\": {\n    \"class\": \"general\"\n   }\n  }\n ]\n}"
+                       }
+                   ]
+               },
+               {
+                   "name":"The election with the given id",
+                   "event":[
+                       {
+                           "listen":"test",
+                           "script":{
+                               "type":"text\/javascript",
+                               "exec":[
+                                   "pm.test(\"https:\/\/api.texasvotes.me\/politician test\", function () {\r",
+                                   "    pm.response.to.have.status(200);\r",
+                                   "    pm.response.to.be.ok;\r",
+                                   "    pm.response.to.be.json;\r",
+                                   "});"
+                               ]
+                           }
+                       }
                    ],
-                   "url":"{{baseUrl}}\/election\/1"
-                },
-                "response":[
-                   {
-                      "id":"b9750769-72a5-4d4b-b9fe-9598f0c8ae68",
-                      "name":"Details about an election given an id",
-                      "originalRequest":{
-                         "method":"GET",
-                         "header":[
-                            
-                         ],
-                         "url":{
-                            "raw":"{{baseUrl}}\/election\/:id\/",
-                            "host":[
-                               "{{baseUrl}}"
-                            ],
-                            "path":[
-                               "election",
-                               ":id",
-                               ""
-                            ],
-                            "variable":[
-                               {
-                                  "key":"id"
+                   "_postman_id":"6880976a-186f-4f06-99da-b95d1d735c5b",
+                   "request":{
+                       "method":"GET",
+                       "header":[
+                           
+                       ],
+                       "url":"{{baseUrl}}\/election\/1"
+                   },
+                   "response":[
+                       {
+                           "id":"b9750769-72a5-4d4b-b9fe-9598f0c8ae68",
+                           "name":"Details about an election given an id",
+                           "originalRequest":{
+                               "method":"GET",
+                               "header":[
+                                   
+                               ],
+                               "url":{
+                                   "raw":"{{baseUrl}}\/election\/:id\/",
+                                   "host":[
+                                       "{{baseUrl}}"
+                                   ],
+                                   "path":[
+                                       "election",
+                                       ":id",
+                                       ""
+                                   ],
+                                   "variable":[
+                                       {
+                                           "key":"id"
+                                       }
+                                   ]
                                }
-                            ]
-                         }
-                      },
-                      "status":"OK",
-                      "code":200,
-                      "_postman_previewlanguage":"json",
-                      "header":[
-                         {
-                            "key":"Content-Type",
-                            "value":"application\/json"
-                         }
-                      ],
-                      "cookie":[
-                         
-                      ],
-                      "body":"{\n \"candidates\": [\n  {\n   \"district\": {\n    \"number\": 1,\n    \"type\": \"tx_house\"\n   },\n   \"id\": 135,\n   \"image\": \"http:\/\/www.house.state.tx.us\/photos\/members\/2540.jpg\",\n   \"incumbent\": true,\n   \"name\": \"Gary VanDeaver\",\n   \"party\": \"R\"\n  }\n ],\n \"dates\": {\n  \"early_end\": \"2020-10-30T06:00:00.000Z\",\n  \"early_start\": \"2020-10-13T06:00:00.000Z\",\n  \"election_day\": \"2020-11-03T06:00:00.000Z\"\n },\n \"district\": {\n  \"counties\": [\n   \"Bowie\",\n   \"Franklin\",\n   \"Red River\",\n   \"Lamar\"\n  ],\n  \"id\": 1,\n  \"number\": 1,\n  \"ocd_id\": \"ocd-division\/country:us\/state:tx\/sldl:1\",\n  \"party\": \"R\",\n  \"type\": \"tx_house\"\n },\n \"id\": 1,\n \"office\": \"tx_house\",\n \"type\": {\n  \"class\": \"general\"\n }\n}"
-                   }
-                ]
-             }
-          ],
-          "_postman_id":"951ef34b-f8df-40d1-a507-dc434466a3fd",
-          "protocolProfileBehavior":{
-             
-          }
+                           },
+                           "status":"OK",
+                           "code":200,
+                           "_postman_previewlanguage":"json",
+                           "header":[
+                               {
+                                   "key":"Content-Type",
+                                   "value":"application\/json"
+                               }
+                           ],
+                           "cookie":[
+                               
+                           ],
+                           "body":"{\n \"candidates\": [\n  {\n   \"district\": {\n    \"number\": 1,\n    \"type\": \"tx_house\"\n   },\n   \"id\": 135,\n   \"image\": \"http:\/\/www.house.state.tx.us\/photos\/members\/2540.jpg\",\n   \"incumbent\": true,\n   \"name\": \"Gary VanDeaver\",\n   \"party\": \"R\"\n  }\n ],\n \"dates\": {\n  \"early_end\": \"2020-10-30T06:00:00.000Z\",\n  \"early_start\": \"2020-10-13T06:00:00.000Z\",\n  \"election_day\": \"2020-11-03T06:00:00.000Z\"\n },\n \"district\": {\n  \"counties\": [\n   \"Bowie\",\n   \"Franklin\",\n   \"Red River\",\n   \"Lamar\"\n  ],\n  \"id\": 1,\n  \"number\": 1,\n  \"ocd_id\": \"ocd-division\/country:us\/state:tx\/sldl:1\",\n  \"party\": \"R\",\n  \"type\": \"tx_house\"\n },\n \"id\": 1,\n \"office\": \"tx_house\",\n \"type\": {\n  \"class\": \"general\"\n }\n}"
+                       }
+                   ]
+               },
+               {
+                   "name":"Sort Election by Election Date",
+                   "event":[
+                       {
+                           "listen":"test",
+                           "script":{
+                               "type":"text\/javascript",
+                               "exec":[
+                                   "pm.test(\"https:\/\/api.texasvotes.me\/sort_election_by_date\", function () {\r",
+                                   "    pm.response.to.have.status(200);\r",
+                                   "    pm.response.to.be.ok;\r",
+                                   "    pm.response.to.be.json;\r",
+                                   "});"
+                               ]
+                           }
+                       }
+                   ],
+                   "_postman_id":"e61fb111-2703-4204-bfee-7dc647ad8ae7",
+                   "request":{
+                       "method":"GET",
+                       "header":[
+                           
+                       ],
+                       "url":{
+                           "raw":"{{baseUrl}}\/election?sort=electionDate",
+                           "host":[
+                               "{{baseUrl}}"
+                           ],
+                           "path":[
+                               "election"
+                           ],
+                           "query":[
+                               {
+                                   "key":"sort",
+                                   "value":"electionDate"
+                               }
+                           ]
+                       }
+                   },
+                   "response":[
+                       
+                   ]
+               },
+               {
+                   "name":"Filter Election by Primary",
+                   "event":[
+                       {
+                           "listen":"test",
+                           "script":{
+                               "type":"text\/javascript",
+                               "exec":[
+                                   "pm.test(\"https:\/\/api.texasvotes.me\/filter_election_by_primary\", function () {\r",
+                                   "    pm.response.to.have.status(200);\r",
+                                   "    pm.response.to.be.ok;\r",
+                                   "    pm.response.to.be.json;\r",
+                                   "});"
+                               ]
+                           }
+                       }
+                   ],
+                   "_postman_id":"7b708afc-60f1-4db7-8aa2-6f8b83e51588",
+                   "request":{
+                       "method":"GET",
+                       "header":[
+                           
+                       ],
+                       "url":{
+                           "raw":"{{baseUrl}}\/election?type=primary",
+                           "host":[
+                               "{{baseUrl}}"
+                           ],
+                           "path":[
+                               "election"
+                           ],
+                           "query":[
+                               {
+                                   "key":"type",
+                                   "value":"primary"
+                               }
+                           ]
+                       }
+                   },
+                   "response":[
+                       
+                   ]
+               },
+               {
+                   "name":"Search Election by House",
+                   "event":[
+                       {
+                           "listen":"test",
+                           "script":{
+                               "type":"text\/javascript",
+                               "exec":[
+                                   "pm.test(\"https:\/\/api.texasvotes.me\/search_election_by_office\", function () {\r",
+                                   "    pm.response.to.have.status(200);\r",
+                                   "    pm.response.to.be.ok;\r",
+                                   "    pm.response.to.be.json;\r",
+                                   "});"
+                               ]
+                           }
+                       }
+                   ],
+                   "_postman_id":"3122b286-7fd5-49aa-bbda-21d3d8ed020c",
+                   "request":{
+                       "method":"GET",
+                       "header":[
+                           
+                       ],
+                       "url":{
+                           "raw":"{{baseUrl}}\/election?q=house",
+                           "host":[
+                               "{{baseUrl}}"
+                           ],
+                           "path":[
+                               "election"
+                           ],
+                           "query":[
+                               {
+                                   "key":"q",
+                                   "value":"house"
+                               }
+                           ]
+                       }
+                   },
+                   "response":[
+                       
+                   ]
+               }
+           ],
+           "_postman_id":"951ef34b-f8df-40d1-a507-dc434466a3fd",
+           "protocolProfileBehavior":{
+               
+           }
        }
-    ],
-    "variable":[
+   ],
+   "variable":[
        {
-          "id":"baseUrl",
-          "key":"baseUrl",
-          "value":"https:\/\/api.texasvotes.me",
-          "type":"string"
+           "id":"baseUrl",
+           "key":"baseUrl",
+           "value":"https:\/\/api.texasvotes.me",
+           "type":"string"
        }
-    ],
-    "protocolProfileBehavior":{
+   ],
+   "protocolProfileBehavior":{
        
-    }
- }
+   }
+}
