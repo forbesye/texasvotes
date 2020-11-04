@@ -1,3 +1,7 @@
+/*
+    This file defines the basic structure of our React app.
+*/
+
 import React from "react"
 import Navbar from "components/navbar/Navbar.js"
 import BottomBar from "components/footer/BottomBar.js"
@@ -7,12 +11,13 @@ import { Layout } from "antd"
 import "./App.css"
 import ErrorPage from "./ErrorPage"
 
-const { Header, Footer, Content } = Layout
+const { Header, Footer, Content } = Layout // Ant Design Layout for structure
 
 const App = () => {
 	return (
 		<React.Fragment>
 			<Layout className="layout">
+                {/* Navbar */}
 				<Header className="nav">
 					<Navbar />
 				</Header>
@@ -21,6 +26,7 @@ const App = () => {
 						minHeight: "90vh"
 					}}
 				>
+                    {/* Define routes for router, initial route is Splash */}
 					<Switch>
 						{routes.map(({ exact, path, Component }) => {
 							return (
@@ -41,6 +47,7 @@ const App = () => {
 						<Route title={"Not found"} component={ErrorPage} />
 					</Switch>
 				</Content>
+                {/* Footer */}
 				<Footer className="footer" style={{ padding: "0px" }}>
 					<BottomBar />
 				</Footer>
