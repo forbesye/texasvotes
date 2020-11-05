@@ -58,6 +58,7 @@ class Test(unittest.TestCase):
         assert element.text == 'Texas Politicians'
 
         self.driver.back()
+        self.driver.back()
         currentURL = self.driver.current_url
         assert currentURL == URL
 
@@ -67,6 +68,7 @@ class Test(unittest.TestCase):
         assert element.text == 'Texas Districts'
 
         self.driver.back()
+        self.driver.back()
         currentURL = self.driver.current_url
         assert currentURL == URL
 
@@ -75,6 +77,7 @@ class Test(unittest.TestCase):
         element = self.driver.find_element_by_tag_name('h1')
         assert element.text == 'Texas Elections'
 
+        self.driver.back()
         self.driver.back()
         currentURL = self.driver.current_url
         assert currentURL == URL
