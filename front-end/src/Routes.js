@@ -4,6 +4,7 @@ import Politicians from "./views/Politicians/Politicians"
 import Districts from "./views/Districts/Districts"
 import Elections from "./views/Elections/Elections"
 import VoterFAQ from "./views/VoterFAQ/VoterFAQ"
+import Search from "./views/Search/Search"
 
 const Routes = [
 	{
@@ -11,35 +12,45 @@ const Routes = [
 		path: "/",
 		exact: true,
 		Component: Splash,
+		displayOnNavbar: true
 	},
 	{
 		title: "About",
 		path: "/about",
 		Component: About,
+		displayOnNavbar: true
 	},
 	{
 		title: "Politicians",
 		path: "/politicians",
 		linkPath: "/politicians/view",
 		Component: Politicians,
+		displayOnNavbar: true
 	},
 	{
 		title: "Districts",
 		path: "/districts",
 		linkPath: "/districts/view",
 		Component: Districts,
+		displayOnNavbar: true
 	},
 	{
 		title: "Elections",
 		path: "/elections",
 		linkPath: "/elections/view",
 		Component: Elections,
+		displayOnNavbar: true
 	},
 	{
 		title: "Voting FAQ",
 		path: "/voting",
 		Component: VoterFAQ,
+		displayOnNavbar: true
 	},
+	{
+		path: "/search",
+		Component: Search
+	}
 ]
 
 export default Routes

@@ -10,7 +10,7 @@ import {
 	OfficeFilter,
 	DistrictNumberFilter,
 } from "library/FilterValues"
-import { changeFilter } from "library/Functions"
+import { updateFilter } from "library/Functions"
 import { colorHexMap } from "library/Mappings"
 import Spinner from "components/ui/Spinner"
 
@@ -19,20 +19,26 @@ const { Meta } = Card
 const { Option } = Select
 
 export default function GridView() {
-	const history = useHistory()
+	const URLParams = new URLSearchParams(window.location.search)
 	const [loading, setLoading] = useState(true)
 	const [gridData, setGridData] = useState([])
-	const [currPage, setCurrPage] = useState(1)
 	const [total, setTotal] = useState(20)
-	const [countiesFilter, setCountiesFilter] = useState("")
-	const [partyFilter, setPartyFilter] = useState("")
-	const [officeFilter, setOfficeFilter] = useState("")
-	const [districtFilter, setDistrictFilter] = useState(0)
-	const [sortVal, setSortVal] = useState("name")
+	const [params, setParams] = useState({ 
+		page: URLParams.get("page") ? URLParams.get("page") : 1,
+		sort: URLParams.get("sort") ? URLParams.get("sort") : "name",
+		counties: URLParams.getAll("counties"),
+		office: URLParams.getAll("office"),
+		party: URLParams.getAll("party"),
+		district_num: URLParams.getAll("district_num")
+	})
 	const gridRef = useRef(null)
+	const history = useHistory()
 
 	const handlePaginationChange = (page) => {
-		setCurrPage(page)
+		setParams({
+			...params,
+			page: page
+		})
 		window.scrollTo({
 			top: gridRef.current.offsetTop - 30,
 			behavior: "smooth",
@@ -40,42 +46,41 @@ export default function GridView() {
 	}
 
 	useEffect(() => {
+		const constructURLParams = (params) => {
+			let URLParams = new URLSearchParams()
+			URLParams.append("page", params.page)
+			URLParams.append("sort", params.sort)
+			params.counties.forEach(county => URLParams.append("counties", county))
+			params.party.forEach(county => URLParams.append("party", county))
+			params.office.forEach(office => URLParams.append("office", office))
+			params.district_num.forEach(district_num => URLParams.append("district_num", district_num))
+			history.push({
+				pathname: "/politicians/view",
+				search: "?" + URLParams.toString()
+			})
+			return URLParams
+		}
+
 		const fetchData = async () => {
-            try {
+			try {
                 setLoading(true)
-                let params = { page: currPage }
-                if (districtFilter) {
-                    params.number = districtFilter
-                }
-                if (countiesFilter) {
-                    params.counties = countiesFilter
-                }
-                if (partyFilter) {
-                    params.party = partyFilter
-                }
-                if (officeFilter) {
-                    params.office = officeFilter
-                }
-                params.sort = sortVal
                 const { page, count } = await getAPI({
-                    model: "politician",
-                    params: params,
-                })
+                        model: "politician",
+                        params: constructURLParams(params)
+				})
                 setTotal(count)
-                setGridData(page)
+				setGridData(page)
                 setLoading(false)
-            } catch (err) {
-				history.push("/error")
+            } catch(err) {
+				console.error(err)
+                history.push("/error")
             }
 		}
 		fetchData()
+		console.log(history.location.search)
 	}, [
-		currPage,
-		sortVal,
-		countiesFilter,
-		partyFilter,
-		officeFilter,
-		districtFilter,
+		params,
+		history
 	])
 
 	return (
@@ -93,12 +98,10 @@ export default function GridView() {
 			<Divider />
 			<section className={styles.filterSection}>
 				<Title level={3}>Filter</Title>
-				<CountiesFilter onChange={changeFilter(setCountiesFilter)} />
-				<PartiesFilter onChange={changeFilter(setPartyFilter)} />
-				<OfficeFilter onChange={changeFilter(setOfficeFilter)} />
-				<DistrictNumberFilter
-					onChange={changeFilter(setDistrictFilter)}
-				/>
+				<CountiesFilter onChange={updateFilter("counties", setParams, params)}/>
+				<PartiesFilter onChange={updateFilter("party", setParams, params)}/>
+				<OfficeFilter onChange={updateFilter("office", setParams, params)}/>
+				<DistrictNumberFilter onChange={updateFilter("district_num", setParams, params)}/>
 				<Title level={3}>Sort</Title>
 				<div style={{ marginBottom: 20, textAlign: "center" }}>
 					<Title level={5}>Order</Title>
@@ -106,7 +109,7 @@ export default function GridView() {
 						size="large"
 						defaultValue="name"
 						style={{ width: 150 }}
-						onChange={setSortVal}
+						onChange={updateFilter("sort", setParams, params)}
 					>
 						<Option key={"name"} value="name">
 							Name: A - Z
@@ -168,6 +171,7 @@ export default function GridView() {
 				defaultCurrent={1}
 				defaultPageSize={20}
 				onChange={handlePaginationChange}
+				current={params.page}
 				pageSizeOptions={[]}
 				style={{
 					margin: "16px 0",

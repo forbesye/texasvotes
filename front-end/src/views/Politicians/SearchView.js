@@ -93,7 +93,7 @@ export default function SearchView (props) {
     )
 }
 
-function PoliticianResult(props) {
+export function PoliticianResult(props) {
 
     let { district: { counties }, name, searchQuery } = props
     const [ highlightStart, highlightEnd ] = getMatchIndices(props.name, searchQuery)

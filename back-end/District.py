@@ -10,7 +10,7 @@ from models import (
     election_schema,
 )
 
-from sqlalchemy import and_, or_
+from sqlalchemy import and_, or_, func
 from query_helpers import *
 
 # Filters districts by one of the four supported attributes
@@ -122,7 +122,7 @@ def search_districts(q, dist_query):
             pass
         searches.append(District.type_name.match(term))
         searches.append(District.party.match(term))
-        searches.append(District.counties.any(name=term))
+        searches.append(District.counties.any(func.lower(Counties.name)== term.lower()))
     dist_query = dist_query.filter(or_(*tuple(searches)))
 
     return dist_query
