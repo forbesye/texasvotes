@@ -45,16 +45,16 @@ export default function GridView() {
 		})
 	}
 
-	window.addEventListener("hashchange", (event) => {
-		setParams({ 
-			page: URLParams.get("page") ? URLParams.get("page") : 1,
-			sort: URLParams.get("sort") ? URLParams.get("sort") : "name",
-			counties: URLParams.getAll("counties"),
-			office: URLParams.getAll("office"),
-			party: URLParams.getAll("party"),
-			district_num: URLParams.getAll("district_num")
-		})
-	})
+	// window.addEventListener("popstate", (event) => {
+	// 	setParams({ 
+	// 		page: URLParams.get("page") ? URLParams.get("page") : 1,
+	// 		sort: URLParams.get("sort") ? URLParams.get("sort") : "name",
+	// 		counties: URLParams.getAll("counties"),
+	// 		office: URLParams.getAll("office"),
+	// 		party: URLParams.getAll("party"),
+	// 		district_num: URLParams.getAll("district_num")
+	// 	})
+	// })
 
 	useEffect(() => {
 		const constructURLParams = (params) => {

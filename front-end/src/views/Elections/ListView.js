@@ -48,7 +48,7 @@ const ListView = () => {
 			params.office.forEach(office => URLParams.append("office", office))
 			params.dist.forEach(dist => URLParams.append("dist", dist))
 			history.push({
-				pathname: "/election/view",
+				pathname: "/elections/view",
 				search: "?" + URLParams.toString()
 			})
 			return URLParams
@@ -82,23 +82,23 @@ const ListView = () => {
 				})
 				setTotal(count)
 				setListData(data)
+				setLoading(false)
             } catch (err) {
 				console.error(err)
 				history.push("/error")
             }
 		}
+		console.log("test")
 		fetchData()
-		return (() => { setLoading(false) })
 	}, [
 		params,
 		history
 	])
 
-	const handleTableChange = ({ current, total }) => {
+	const handleTableChange = ({ current }) => {
 		setParams({
 			...params,
-			page: current,
-			total: total
+			page: current
 		})
 		window.scrollTo({
 			top: listRef.current.offsetTop - 30,
