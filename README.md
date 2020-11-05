@@ -62,6 +62,6 @@ https://api.texasvotes.me
 |Jefferson Ye|20|20|
 |Larry Win|15|20|
 |Jennifer Suriadinata|15|25|
-|Sydney Owen|12|15|
-|Ivan Romero|10|14|
-|Kevin Li|10|14|
+|Sydney Owen|15|20|
+|Ivan Romero|15|18|
+|Kevin Li|15|18|
