@@ -32,6 +32,17 @@ const changeFilter = (setFunc) => {
 	return output
 }
 
+const updateFilter = (filter, setParams, params) => {
+	const output = (value) => {
+		setParams({
+			...params,
+			page: 1,
+			[filter]: value
+		})
+	}
+	return output
+}
+
 const districtName = (office, number) => {
 	const OFFICE_NAMES = {
 		us_house: "US Congressional District",
@@ -58,5 +69,6 @@ export {
 	monthDayYearParse,
 	changeFilter,
 	districtName,
-    formatAsMoney
+	formatAsMoney,
+	updateFilter
 }

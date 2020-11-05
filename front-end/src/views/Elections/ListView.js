@@ -16,45 +16,51 @@ import {
 	ElectionTypeFilter,
 	CountiesFilter,
 } from "library/FilterValues"
-import { changeFilter } from "library/Functions"
+import { changeFilter, updateFilter } from "library/Functions"
+import { IeOutlined } from "@ant-design/icons"
 
 const { Title, Paragraph } = Typography
 const { Option } = Select
 
 const ListView = () => {
+	const URLParams = new URLSearchParams(window.location.search)
 	const history = useHistory()
 	const [loading, setLoading] = useState(true)
 	const [listData, setListData] = useState([])
-	const [currPage, setCurrPage] = useState(1)
-	const [countiesFilter, setCountiesFilter] = useState([])
-	const [electionTypeFilter, setElectionTypeFilter] = useState([])
-	const [districtFilter, setDistrictFilter] = useState([])
-	const [officeFilter, setOfficeFilter] = useState([])
+	const [params, setParams] = useState({ 
+		page: URLParams.get("page") ? URLParams.get("page") : 1,
+		sort: URLParams.get("sort") ? URLParams.get("sort") : "-electionDate",
+		counties: URLParams.getAll("counties"),
+		type: URLParams.getAll("type"),
+		office: URLParams.getAll("office"),
+		dist: URLParams.getAll("dist")
+	})
 	const [total, setTotal] = useState(20)
-	const [sortVal, setSortVal] = useState("-electionDate")
 	const listRef = useRef(null)
 
 	useEffect(() => {
+		const constructURLParams = (params) => {
+			let URLParams = new URLSearchParams()
+			URLParams.append("page", params.page)
+			URLParams.append("sort", params.sort)
+			params.counties.forEach(county => URLParams.append("counties", county))
+			params.type.forEach(type => URLParams.append("type", type))
+			params.office.forEach(office => URLParams.append("office", office))
+			params.dist.forEach(dist => URLParams.append("dist", dist))
+			history.push({
+				pathname: "/election/view",
+				search: "?" + URLParams.toString()
+			})
+			return URLParams
+		}
+
 		const fetchData = async () => {
             try {
-                setLoading(true)
-                var params = new URLSearchParams()
-                params.append("page", currPage)
-                params.append("sort", sortVal)
-                districtFilter.forEach((district) =>
-                    params.append("dist", district)
-                )
-                countiesFilter.forEach((county) =>
-                    params.append("counties", county)
-                )
-                officeFilter.forEach((office) => params.append("office", office))
-                electionTypeFilter.forEach((electionType) =>
-                    params.append("type", electionType)
-                )
+				setLoading(true)
                 const { page, count } = await getAPI({
-                    model: "election",
-                    params: params,
-                })
+                        model: "election",
+                        params: constructURLParams(params)
+				})
                 const data = page.map((election) => {
                     return {
                         ...election,
@@ -73,28 +79,27 @@ const ListView = () => {
                         ),
                         early_date: monthDayYearParse(election.dates.early_start),
                     }
-                })
-                setTotal(count)
-                setListData(data)
-                setLoading(false)
+				})
+				setTotal(count)
+				setListData(data)
             } catch (err) {
+				console.error(err)
 				history.push("/error")
             }
 		}
 		fetchData()
+		return (() => { setLoading(false) })
 	}, [
-		currPage,
-		countiesFilter,
-		electionTypeFilter,
-		officeFilter,
-		districtFilter,
-		sortVal,
+		params,
+		history
 	])
 
 	const handleTableChange = ({ current, total }) => {
-		console.log(current)
-		setCurrPage(current)
-		setTotal(total)
+		setParams({
+			...params,
+			page: current,
+			total: total
+		})
 		window.scrollTo({
 			top: listRef.current.offsetTop - 30,
 			behavior: "smooth",
@@ -116,13 +121,13 @@ const ListView = () => {
 			<Divider />
 			<section className={styles.filterSection}>
 				<Title level={3}>Filter</Title>
-				<CountiesFilter onChange={changeFilter(setCountiesFilter)} />
-				<OfficeFilter onChange={changeFilter(setOfficeFilter)} />
+				<CountiesFilter onChange={updateFilter("counties", setParams, params)} />
+				<OfficeFilter onChange={updateFilter("office", setParams, params)} />
 				<DistrictNumberFilter
-					onChange={changeFilter(setDistrictFilter)}
+					onChange={updateFilter("dist", setParams, params)}
 				/>
 				<ElectionTypeFilter
-					onChange={changeFilter(setElectionTypeFilter)}
+					onChange={updateFilter("type", setParams, params)}
 				/>
 				<Title level={3}>Sort</Title>
 				<div style={{ marginBottom: 20, textAlign: "center" }}>
@@ -131,7 +136,7 @@ const ListView = () => {
 						size="large"
 						defaultValue="-electionDate"
 						style={{ width: 150 }}
-						onChange={setSortVal}
+						onChange={updateFilter("sort", setParams, params)}
 					>
 						<Option key={"-electionDate"} value={"-electionDate"}>
 							Date (Newest)
@@ -158,6 +163,7 @@ const ListView = () => {
 					loading={loading}
 					rowClassName={styles.cursor}
 					pagination={{
+						current: params.page,
 						total: total,
 						defaultPageSize: 20,
 						defaultCurrent: 1,
