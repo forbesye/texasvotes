@@ -25,13 +25,6 @@ const monthDayYearParse = (d) => {
 	})
 }
 
-const changeFilter = (setFunc) => {
-	const output = (value) => {
-		setFunc(value)
-	}
-	return output
-}
-
 const updateFilter = (filter, setParams, params) => {
 	const output = (value) => {
 		setParams({
@@ -41,6 +34,12 @@ const updateFilter = (filter, setParams, params) => {
 		})
 	}
 	return output
+}
+
+const convertToPercent = (val, total) => {
+    return Math.round(
+        (val / 100) * total
+    )
 }
 
 const districtName = (office, number) => {
@@ -67,7 +66,7 @@ export {
 	percentageString,
 	numberStringWithCommas,
 	monthDayYearParse,
-	changeFilter,
+	convertToPercent,
 	districtName,
 	formatAsMoney,
 	updateFilter

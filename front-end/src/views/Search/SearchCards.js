@@ -5,11 +5,10 @@ import Highlighter from "react-highlight-words"
 import styles from "./Search.module.css"
 import { description as districtDescription } from "../Politicians/Lib"
 import { districtName } from "../Districts/Lib"
-import { election_type_mappings, elected_office_mappings, party_mappings } from "../../library/Mappings"
+import { election_type_mappings, elected_office_mappings } from "../../library/Mappings"
 
 const COUNTY_LIMIT = 5
 
-const { Paragraph } = Typography
 const { Meta } = Card
 
 // Card used to display a politician result on the general search page. Takes in a search query and the politician model body 

@@ -7,7 +7,7 @@ import Spinner from "components/ui/Spinner"
 import { getAPI } from "library/APIClient"
 import PieChart from "./../../components/charts/PieChart"
 import ReactMapboxGl, { Layer, Source } from "react-mapbox-gl"
-import { formatAsMoney } from "library/Functions"
+import { formatAsMoney, convertToPercent} from "library/Functions"
 import { party_mappings } from "library/Mappings"
 
 const { Title, Text } = Typography
@@ -46,12 +46,6 @@ const electionName = (election, number) => {
 			</div>
 		)
 	}
-}
-
-const convertToPercent = (val, total) => {
-    return Math.round(
-        (val / 100) * total
-    )
 }
 
 const Details = () => {
@@ -104,7 +98,7 @@ const Details = () => {
 			}
 		}
 		fetchData()
-	}, [id, compare])
+	}, [id, compare, history])
 
 	const handleBack = () => {
 		history.push("/districts/view")

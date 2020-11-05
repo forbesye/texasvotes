@@ -77,7 +77,7 @@ export default function Details() {
 			}
 		}
 		fetchData()
-	}, [id])
+	}, [id, history])
 
 	const handleBack = () => {
 		history.push("/politicians/view")
@@ -317,7 +317,6 @@ export default function Details() {
 									bordered
 									dataSource={fundraising.industries}
 									renderItem={(item) => {
-										console.log(item)
 										return (
 											<List.Item>
 												<Text
@@ -366,7 +365,6 @@ export default function Details() {
 									bordered
 									dataSource={fundraising.contributors}
 									renderItem={(item) => {
-										console.log(item)
 										return (
 											<List.Item>
 												<Text

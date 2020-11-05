@@ -77,7 +77,6 @@ export default function GridView() {
             }
 		}
 		fetchData()
-		console.log(history.location.search)
 	}, [
 		params,
 		history

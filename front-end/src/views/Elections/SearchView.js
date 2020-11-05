@@ -14,7 +14,7 @@ const { Title, Text, Paragraph } = Typography
 
 const electionTitle = (election) => {
 	const { dates, office, district, type, party } = election
-	const { number, id } = district
+	const { number } = district
 	const { election_day } = dates
 	const electionYear = new Date(election_day).getFullYear()
 	if (type.class === "general") {
@@ -51,13 +51,6 @@ export default function SearchView(props) {
             }
         })
         const results = data.page
-        const userquery = value.toLowerCase()
-        // results.sort((a, b) => {
-        //     // Sort by best match
-        //     const aname = a.name.toLowerCase()
-        //     const bname = b.name.toLowerCase()
-        //     return mostAlike(bname, userquery) - mostAlike(aname, userquery)
-        // })
         setResults(results)
         setLoading(false)
         setTotal(data.count)
@@ -74,7 +67,7 @@ export default function SearchView(props) {
 			const decoded = decodeURIComponent(q)
 			setSearchVal(decoded)
 			handleSearch(decoded)
-		}
+        }
     }, [])
     
 	return (

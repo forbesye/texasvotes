@@ -55,7 +55,6 @@ export default function SearchView(props) {
     
 	useEffect(() => {
 		const q = new URLSearchParams(location.search).get("q")
-		console.log(q)
 		if (q) {
 			const decoded = decodeURIComponent(q)
 			setSearchVal(decoded)

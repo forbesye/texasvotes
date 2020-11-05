@@ -123,7 +123,7 @@ const Details = () => {
 			}
 		}
 		fetchData()
-	}, [id])
+	}, [id, history])
 
 	const handleBack = () => {
 		history.push("/elections/view")

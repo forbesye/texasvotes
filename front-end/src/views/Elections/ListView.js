@@ -88,7 +88,6 @@ const ListView = () => {
 				history.push("/error")
             }
 		}
-		console.log("test")
 		fetchData()
 	}, [
 		params,
