@@ -5,6 +5,7 @@ import About from "views/About/About"
 import Splash from "views/Splash/Splash"
 import DevBio from "components/cards/DevBio"
 import Spinner from "components/ui/Spinner"
+import Politicians from "views/Politicians/Politicians"
 import { numberStringWithCommas, monthDayYearParse } from "library/Functions"
 
 configure({ adapter: new Adapter() })
@@ -18,6 +19,11 @@ describe("Render views", () => {
 	test("Splash", () => {
 		const splashTest = shallow(<Splash />)
 		expect(splashTest).toMatchSnapshot()
+	})
+
+	test("Politicians", () => {
+		const politicianTest = shallow(<Politicians />)
+		expect(politicianTest).toMatchSnapshot()
 	})
 })
 
