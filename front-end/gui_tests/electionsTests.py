@@ -28,6 +28,7 @@ class TestElections(unittest.TestCase):
         cls.driver.quit()
 
     def testElec(self):
+        self.driver.get(URL)
         try:
             a = WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.CLASS_NAME, 'ant-table-row'))
@@ -46,6 +47,7 @@ class TestElections(unittest.TestCase):
         assert element.text == 'Texas Elections'
 
     def testSearch(self):
+        self.driver.get(URL)
         try:
             a = WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.ID, 'rc-tabs-2-tab-search'))
@@ -61,6 +63,7 @@ class TestElections(unittest.TestCase):
         assert element.text == 'Texas Elections'
 
     def testSort1(self):
+        self.driver.get(URL)
         try:
             a = WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.CLASS_NAME, 'Elections_filterSection__1CnPM'))
@@ -70,7 +73,7 @@ class TestElections(unittest.TestCase):
             return
 
         selections = self.driver.find_element_by_class_name('Elections_filterSection__1CnPM')
-        selections.find_elements_by_class_name('ant-select')[0].click()
+        selections.find_elements_by_class_name('ant-select')[4].click()
         time.sleep(2)
         self.actions.send_keys(Keys.DOWN, Keys.DOWN, Keys.RETURN).perform()
         time.sleep(2)
@@ -93,6 +96,8 @@ class TestElections(unittest.TestCase):
         assert element.text == 'Texas Elections'
 
     def testFilter1(self):
+        self.driver.get(URL)
+        time.sleep(2)
         try:
             a = WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.CLASS_NAME, 'Elections_filterSection__1CnPM'))
@@ -102,7 +107,7 @@ class TestElections(unittest.TestCase):
             return
 
         selections = self.driver.find_element_by_class_name('Elections_filterSection__1CnPM')
-        selections.find_elements_by_class_name('ant-select')[1].click()
+        selections.find_elements_by_class_name('ant-select')[0].click()
         time.sleep(2)
         self.actions.send_keys(Keys.RETURN, Keys.ESCAPE).perform()
         time.sleep(2)

@@ -29,6 +29,7 @@ class TestPoliticians(unittest.TestCase):
         cls.driver.quit()
 
     def testPol(self):
+        self.driver.get(URL)
         try:
             a = WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.CLASS_NAME, 'ant-card'))
@@ -47,6 +48,7 @@ class TestPoliticians(unittest.TestCase):
         assert element.text == 'Texas Politicians'
 
     def testPolToElec(self):
+        self.driver.get(URL)
         try:
             a = WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.CLASS_NAME, 'ant-card'))
@@ -72,13 +74,14 @@ class TestPoliticians(unittest.TestCase):
         assert element.text == 'Texas Politicians'
     
     def testSearch(self):
+        self.driver.get(URL)
         try:
             a = WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located((By.ID, 'rc-tabs-1-tab-search'))
+                EC.presence_of_element_located((By.ID, 'rc-tabs-2-tab-search'))
             )
         except Exception as ex:
             return
-        self.driver.find_element_by_id("rc-tabs-1-tab-search").click()
+        self.driver.find_element_by_id("rc-tabs-2-tab-search").click()
         currentURL = self.driver.current_url
         assert currentURL == "https://stage.texasvotes.me/politicians/search"
         self.driver.back()
@@ -86,6 +89,8 @@ class TestPoliticians(unittest.TestCase):
         assert element.text == 'Texas Politicians'
 
     def testSort1(self):
+        self.driver.get(URL)
+        time.sleep(2)
         try:
             a = WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.CLASS_NAME, 'Politicians_filterSection__2YVkz'))
@@ -95,7 +100,7 @@ class TestPoliticians(unittest.TestCase):
             return
 
         selections = self.driver.find_element_by_class_name('Politicians_filterSection__2YVkz')
-        selections.find_elements_by_class_name('ant-select')[0].click()
+        selections.find_elements_by_class_name('ant-select')[4].click()
         time.sleep(2)
         self.actions.send_keys(Keys.DOWN, Keys.DOWN, Keys.RETURN).perform()
         time.sleep(2)
@@ -119,6 +124,7 @@ class TestPoliticians(unittest.TestCase):
         assert element.text == 'Texas Politicians'
 
     def testFilter1(self):
+        self.driver.get(URL)
         try:
             a = WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.CLASS_NAME, 'Politicians_filterSection__2YVkz'))
@@ -128,7 +134,7 @@ class TestPoliticians(unittest.TestCase):
             return
 
         selections = self.driver.find_element_by_class_name('Politicians_filterSection__2YVkz')
-        selections.find_elements_by_class_name('ant-select')[1].click()
+        selections.find_elements_by_class_name('ant-select')[0].click()
         time.sleep(1)
         self.actions.send_keys(Keys.RETURN, Keys.ESCAPE).perform()
         time.sleep(2)
