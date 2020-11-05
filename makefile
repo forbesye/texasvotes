@@ -13,6 +13,4 @@ front-end-tests:
 	echo "Running Jest and Selenium test suite..."
 	cd front-end/ && npm test
 selenium-tests:
-	(_timeout 100 python3 back-end/app.py) &
-	cd front-end/ && (_timeout 100 npm start) &
 	python3 front-end/guitests.py

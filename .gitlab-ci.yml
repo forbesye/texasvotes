@@ -46,7 +46,7 @@ selenium_tests:
   before_script:
     - pip install -r front-end/gui_tests/requirements.txt
   script:
-    - python3 front-end/guitests.py
+    - make selenium-tests
 
 deploy_development:
   image: python:3.6-stretch
