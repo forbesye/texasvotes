@@ -16,7 +16,7 @@ Phase 1: c8bbdbbcee676cb57f7533beb84f47de784289de
 
 Phase 2: 50dc1dec4de6c0c6ace3081630c56137a069326c
 
-Phase 3:
+Phase 3: 8921a8dee146ff00e66398aaec7fb4229c7df866
 
 ## Project Leader
 Phase 1: Jefferson Ye
