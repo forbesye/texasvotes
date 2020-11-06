@@ -83,7 +83,7 @@ class TestDistricts(unittest.TestCase):
         selections = self.driver.find_element_by_class_name('Districts_filterSection__EFmS3')
         selections.find_elements_by_class_name('ant-select')[5].click()
         time.sleep(2)
-        self.actions.send_keys(Keys.DOWN, Keys.DOWN, Keys.RETURN).perform()
+        self.actions.send_keys(Keys.DOWN, Keys.RETURN).perform()
         time.sleep(2)
         
         try:

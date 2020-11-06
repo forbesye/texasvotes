@@ -108,7 +108,7 @@ class TestPoliticians(unittest.TestCase):
         selections = self.driver.find_element_by_class_name('Politicians_filterSection__2YVkz')
         selections.find_elements_by_class_name('ant-select')[4].click()
         time.sleep(2)
-        self.actions.send_keys(Keys.DOWN, Keys.DOWN, Keys.RETURN).perform()
+        self.actions.send_keys(Keys.DOWN, Keys.RETURN).perform()
         time.sleep(2)
         
         try:
