@@ -2,6 +2,9 @@ import React from "react"
 import { Typography } from "antd"
 import { elected_office_mappings, party_mappings } from "library/Mappings"
 
+/**
+ * Columns for district ListView
+ */
 const columns = [
 	{
 		title: "Name",
@@ -47,6 +50,10 @@ const columns = [
 	},
 ]
 
+/**
+ * Returns full name for district based off type and number
+ * @param {District} district 
+ */
 export function districtName(district) {
 	if (district.type === "tx_house") {
 		return `Texas House District ${district.number}`
@@ -59,6 +66,10 @@ export function districtName(district) {
 	}
 }
 
+/**
+ * Returns full description for district
+ * @param {District} district 
+ */
 export function description(district) {
 	return `${elected_office_mappings[district.type]} ${
 		party_mappings[district.party]

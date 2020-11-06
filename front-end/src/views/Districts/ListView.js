@@ -16,12 +16,16 @@ import { updateFilter } from "library/Functions"
 const { Title, Paragraph } = Typography
 const { Option } = Select
 
+/**
+ * Functional component for list of Districts
+ */
 const ListView = () => {
 	const URLParams = new URLSearchParams(window.location.search)
 	const history = useHistory()
 	const [loading, setLoading] = useState(true)
 	const [listData, setListData] = useState([])
 	const [total, setTotal] = useState(20)
+	// Initial query params based off URL of page
 	const [params, setParams] = useState({ 
 		page: URLParams.get("page") ? URLParams.get("page") : 1,
 		sort: URLParams.get("sort") ? URLParams.get("sort") : "number",
@@ -33,8 +37,16 @@ const ListView = () => {
 	})
 	const listRef = useRef(null)
 
+	/**
+	 * Is called any time there is a change to filter, sort, or page values
+	 */
 	useEffect(() => {
 		const fetchData = async () => {
+			/**
+			 * Creates proper URLSearchParams given current param
+			 * state
+			 * @param {Params} params 
+			 */
 			const constructURLParams = (params) => {
 				let URLParams = new URLSearchParams()
 				URLParams.append("page", params.page)
@@ -59,6 +71,7 @@ const ListView = () => {
 					model: "district",
 					params: constructURLParams(params),
 				})
+				// Modifies API data for front-end use
 				const data = page.map((district) => {
 					var elected_official = district.elected_officials
 						? district.elected_officials[0].name
@@ -93,6 +106,7 @@ const ListView = () => {
 			...params,
 			page: current
 		})
+		// Go to top of list view on page change
 		window.scrollTo({
 			top: listRef.current.offsetTop - 30,
 			behavior: "smooth",
@@ -112,7 +126,7 @@ const ListView = () => {
 				</Paragraph>
 			</section>
 			<Divider />
-
+			{/* Filter and sort*/}
 			<section className={styles.filterSection}>
 				<Title level={3}>Filter</Title>
 				<CountiesFilter onChange={updateFilter("counties", setParams, params)} />
@@ -141,6 +155,7 @@ const ListView = () => {
 				</div>
 			</section>
 
+			{/* Table of district data */}
 			<section ref={listRef}>
 				<Table
 					dataSource={listData}

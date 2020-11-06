@@ -23,6 +23,10 @@ import GoogleDevLogo from "views/About/images/GoogleDevLogo.png"
 import OpenSecretsLogo from "views/About/images/OpenSecretsLogo.png"
 import OpenStatesLogo from "views/About/images/OpenStatesLogo.png"
 
+/**
+ * Static data for About page
+ */
+
 const toolsInfo = [
 	{
 		title: "React",
@@ -147,7 +151,7 @@ const repoAndAPI = [
 	},
 	{
 		img: PostmanLogo,
-		link: "https://documenter.getpostman.com/view/12817007/TVYC8zTg",
+		link: "https://documenter.getpostman.com/view/12817007/TVYPztiN",
 	},
 ]
 
@@ -174,7 +178,7 @@ const teamInfo = [
 			"I’m a third year CS major at UT Austin. I’m from Dallas, Texas and spend my free time playing video games and practicing piano. I definitely spend too much time working on projects and school :(",
 		commits: 0,
 		issues: 0,
-		tests: 9,
+		tests: 14,
 	},
 	{
 		name: "Jefferson Ye",
@@ -186,7 +190,7 @@ const teamInfo = [
 			"I’m a third year CS major at UT Austin. I’m from Dallas, Texas and in my free time I enjoy exercising, cooking, reading, playing video games, and listening to podcasts!",
 		commits: 0,
 		issues: 0,
-		tests: 8,
+		tests: 11,
 	},
 	{
 		name: "Sydney Owen",
@@ -198,7 +202,7 @@ const teamInfo = [
 			"I’m a fourth year CS major at UT Austin. I grew up in a small town called Llano, Texas. I spend my free time reading sci-fi/fantasy novels, playing video games, and spoiling my cat.",
 		commits: 0,
 		issues: 0,
-		tests: 7,
+		tests: 11,
 	},
 	{
 		name: "Ivan Romero",
@@ -210,7 +214,7 @@ const teamInfo = [
 			"I'm a fourth year CS major at UT Austin. I'm from Houston, Texas and I spend most of my time cooking or watching and participating in combat sports like boxing or Brazilian-Jiu-Jitsu.",
 		commits: 0,
 		issues: 0,
-		tests: 7,
+		tests: 10,
 	},
 	{
 		name: "Kevin Li",
@@ -222,7 +226,7 @@ const teamInfo = [
 			"I’m a third year CS major at UT Austin. I’m from Austin, Texas and spend my free time playing chess and camping. I definitely have spent too much time playing Among Us lately.",
 		commits: 0,
 		issues: 0,
-		tests: 0,
+		tests: 8,
 	},
 ]
 

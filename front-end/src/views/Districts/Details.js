@@ -12,6 +12,11 @@ import { party_mappings } from "library/Mappings"
 
 const { Title, Text } = Typography
 
+/**
+ * Returns a link to an associated election with proper text
+ * @param {Election object} election 
+ * @param {Number} number 
+ */
 const electionName = (election, number) => {
 	const { dates, office, type, party, id } = election
 	const { election_day } = dates
@@ -48,6 +53,9 @@ const electionName = (election, number) => {
 	}
 }
 
+/**
+ * Functional component for District detail
+ */
 const Details = () => {
 	const { id } = useParams()
     const [district, setDistrict] = useState({})
@@ -56,6 +64,9 @@ const Details = () => {
     const [compare, setCompare] = useState(false)
 	const history = useHistory()
 
+	/**
+	 * MapBox component and necessary source info
+	 */
 	const Map = ReactMapboxGl({
 		accessToken: process.env.REACT_APP_MAP_KEY,
 	})
@@ -75,6 +86,9 @@ const Details = () => {
 		url: "mapbox://catalystic.1h2pkbbe",
 	}
 
+	/**
+	 * useEffect component that updates on id change to URL
+	 */
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -154,6 +168,7 @@ const Details = () => {
 						}}
 						maxZoom={[4.5]}
 					>
+						{/* MapBox for district boundaries */}
 						{district.type === "tx_house" ? (
 							<div>
 								<Source
@@ -236,6 +251,7 @@ const Details = () => {
 						<Title style={{ textAlign: "center" }} level={3}>
 							District Details
 						</Title>
+						{/* Elected officials in district */}
 						<Row justify="space-around">
 							<Col>
 								<Text strong style={{ fontSize: 18 }}>
@@ -254,6 +270,7 @@ const Details = () => {
 								))}
 							</Col>
 						</Row>
+						{/* Related elections */}
 						<Row justify="space-around" style={{ marginTop: 10 }}>
 							<Col>
 								{elections.length ? (
@@ -276,6 +293,7 @@ const Details = () => {
 							</Col>
 						</Row>
 					</article>
+					{/* Counties in district */}
 					<article className={styles.districtDetails}>
 						<Title style={{ textAlign: "center" }} level={3}>
 							Counties
@@ -290,6 +308,7 @@ const Details = () => {
 							grid={{ gutter: 16, column: 3 }}
 						/>
 					</article>
+					{/* District demographics */}
 					<article className={styles.districtDetails}>
                         {
                             (Object.keys(texasData).length > 0) ?

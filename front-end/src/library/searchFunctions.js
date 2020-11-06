@@ -36,7 +36,7 @@ function getMatchIndices(str, toMatch) {
 		while (
 			end < str.length &&
 			end - start < toMatch.length &&
-			str[end] == toMatch[end - start]
+			str[end] === toMatch[end - start]
 		) {
 			end++
 		}

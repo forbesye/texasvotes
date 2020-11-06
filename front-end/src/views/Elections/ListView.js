@@ -16,17 +16,20 @@ import {
 	ElectionTypeFilter,
 	CountiesFilter,
 } from "library/FilterValues"
-import { changeFilter, updateFilter } from "library/Functions"
-import { IeOutlined } from "@ant-design/icons"
+import { updateFilter } from "library/Functions"
 
 const { Title, Paragraph } = Typography
 const { Option } = Select
 
+/**
+ * Functional component for election list view
+ */
 const ListView = () => {
 	const URLParams = new URLSearchParams(window.location.search)
 	const history = useHistory()
 	const [loading, setLoading] = useState(true)
 	const [listData, setListData] = useState([])
+	// Parse params from URL
 	const [params, setParams] = useState({ 
 		page: URLParams.get("page") ? URLParams.get("page") : 1,
 		sort: URLParams.get("sort") ? URLParams.get("sort") : "-electionDate",
@@ -39,6 +42,11 @@ const ListView = () => {
 	const listRef = useRef(null)
 
 	useEffect(() => {
+		/**
+		 * Constructs URLSearchParams object from given params state and
+		 * changes URL
+		 * @param {Params} params 
+		 */
 		const constructURLParams = (params) => {
 			let URLParams = new URLSearchParams()
 			URLParams.append("page", params.page)
@@ -54,6 +62,9 @@ const ListView = () => {
 			return URLParams
 		}
 
+		/**
+		 * Gets data from API and sets state
+		 */
 		const fetchData = async () => {
             try {
 				setLoading(true)
@@ -99,6 +110,7 @@ const ListView = () => {
 			...params,
 			page: current
 		})
+		// Scrolls to top of table on page change
 		window.scrollTo({
 			top: listRef.current.offsetTop - 30,
 			behavior: "smooth",
@@ -118,6 +130,7 @@ const ListView = () => {
 				</Paragraph>
 			</section>
 			<Divider />
+			{/* Filters */}
 			<section className={styles.filterSection}>
 				<Title level={3}>Filter</Title>
 				<CountiesFilter onChange={updateFilter("counties", setParams, params)} />
@@ -146,7 +159,7 @@ const ListView = () => {
 					</Select>
 				</div>
 			</section>
-
+			{/* Election Table */}
 			<section ref={listRef}>
 				<Table
 					dataSource={listData}

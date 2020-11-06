@@ -25,6 +25,11 @@ export default function SearchView(props) {
 		setSearchVal(event.target.value)
     }
     
+    /**
+     * Data handling part of search
+     * @param {string} query 
+     * @param {Number} page 
+     */
 	const handleSearch = async (value, p=1) => {
         history.push(`/districts/search?q=${encodeURIComponent(value)}&page=${p}`)
         setLoading(true)
@@ -36,13 +41,6 @@ export default function SearchView(props) {
             }
         })
         const results = data.page
-        const userquery = value.toLowerCase()
-        // results.sort((a, b) => {
-        //     // Sort by best match
-        //     const aname = a.name.toLowerCase()
-        //     const bname = b.name.toLowerCase()
-        //     return mostAlike(bname, userquery) - mostAlike(aname, userquery)
-        // })
         setResults(results)
         setLoading(false)
         setTotal(data.count)
@@ -53,6 +51,9 @@ export default function SearchView(props) {
         handleSearch(searchVal, p)
     }
     
+    /**
+     * Calls search logic
+     */
 	useEffect(() => {
 		const q = new URLSearchParams(location.search).get("q")
 		if (q) {
@@ -95,6 +96,10 @@ export default function SearchView(props) {
 	)
 }
 
+/**
+ * Card of district data in search view
+ * @param {List[String], List[Politician], String} props 
+ */
 function DistrictResult(props) {
     let { counties, elected_officials, searchQuery } = props
     
@@ -103,6 +108,7 @@ function DistrictResult(props) {
         officials.push(official.name)
     })
 
+    // If more than 10, need to paginate results
     let displayedCounties = counties.length >= 10 ? counties.slice(0, 10) : counties
     displayedCounties = displayedCounties.reduce((prev, next) => `${prev}, ${next}`)
     displayedCounties += counties.length >= 10 ? "..." : ""

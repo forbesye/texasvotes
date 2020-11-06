@@ -26,7 +26,10 @@ const electionTitle = (election) => {
 	}
 }
 
-export default function SearchView(props) {
+/**
+ * Functional component for election search
+ */
+export default function SearchView() {
 
     const [searchVal, setSearchVal] = useState("")
     const [total, setTotal] = useState(0)
@@ -40,6 +43,11 @@ export default function SearchView(props) {
 		setSearchVal(event.target.value)
     }
     
+    /**
+     * Modifies URL and calls API based on query
+     * @param {String} query
+     * @param {Number} page 
+     */
 	const handleSearch = async (value, p=1) => {
         history.push(`/elections/search?q=${encodeURIComponent(value)}&page=${p}`)
         setLoading(true)
@@ -84,6 +92,7 @@ export default function SearchView(props) {
                         onChange={handleTextChange}
                     />
                 </section>
+                {/* Election cards for search */}
                 <Divider />
                 { loading ? <Spinner /> : (
                     <section className={styles.searchResults}>
@@ -103,6 +112,10 @@ export default function SearchView(props) {
 	)
 }
 
+/**
+ * Election card for search results
+ * @param {Election} election 
+ */
 function ElectionResult(props) {
     let { district: { counties }, candidates, searchQuery} = props
 

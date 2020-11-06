@@ -7,6 +7,9 @@ import SearchView from "./SearchView"
 import Details from "./Details"
 const { TabPane } = Tabs
 
+/**
+ * Functional component for Election page
+ */
 const Elections = () => {
 	const [currKey, setCurrKey] = useState("search")
 	const history = useHistory()
@@ -15,6 +18,8 @@ const Elections = () => {
 		history.push(`/elections/${key}`)
 		setCurrKey(key)
 	}
+
+	// Split page into search and view based on URL
 	useEffect(() => {
 		const path = location.pathname
 		const splitted = path.split("/").filter((el) => el !== "")
@@ -31,15 +36,18 @@ const Elections = () => {
 			<div>
 				<Tabs activeKey={currKey} onChange={handleChange}>
 					<TabPane tab="Search" key="search">
+						{/* Search page */}
 						<Route path="/elections/search">
 							<SearchView />
 						</Route>
 					</TabPane>
 					<TabPane tab="View All" key="view">
 						<Switch>
+							{/* Election list view */}
 							<Route exact path="/elections/view">
 								<ListView />
 							</Route>
+							{/* Election details */}
 							<Route path="/elections/view/:id">
 								<Details />
 							</Route>

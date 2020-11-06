@@ -18,11 +18,15 @@ const { Title, Paragraph, Text } = Typography
 const { Meta } = Card
 const { Option } = Select
 
+/**
+ * Functional component for politician grid view
+ */
 export default function GridView() {
 	const URLParams = new URLSearchParams(window.location.search)
 	const [loading, setLoading] = useState(true)
 	const [gridData, setGridData] = useState([])
 	const [total, setTotal] = useState(20)
+	// Pull params from URL and set state
 	const [params, setParams] = useState({ 
 		page: URLParams.get("page") ? URLParams.get("page") : 1,
 		sort: URLParams.get("sort") ? URLParams.get("sort") : "name",
@@ -34,6 +38,7 @@ export default function GridView() {
 	const gridRef = useRef(null)
 	const history = useHistory()
 
+	// Adjust page
 	const handlePaginationChange = (page) => {
 		setParams({
 			...params,
@@ -45,6 +50,9 @@ export default function GridView() {
 		})
 	}
 
+	/**
+	 * Gets API with filters and sort params, and modifies URL
+	 */
 	useEffect(() => {
 		const constructURLParams = (params) => {
 			let URLParams = new URLSearchParams()
@@ -95,6 +103,7 @@ export default function GridView() {
 				</Paragraph>
 			</section>
 			<Divider />
+			{/* Fitlers and sort */}
 			<section className={styles.filterSection}>
 				<Title level={3}>Filter</Title>
 				<CountiesFilter onChange={updateFilter("counties", setParams, params)}/>
@@ -120,9 +129,9 @@ export default function GridView() {
 				</div>
 			</section>
 			<section className={styles.sortSection}></section>
-
 			{!loading ? (
 				<section className={styles.grid} ref={gridRef}>
+					{/* Render all cards pulled from API */}
 					{gridData.map((item) => (
 						<Link key={item.id} to={`/politicians/view/${item.id}`}>
 							<Card

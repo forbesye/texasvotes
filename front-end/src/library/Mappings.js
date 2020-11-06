@@ -1,3 +1,8 @@
+/**
+ * Various mappings to be used across front-end, creates coherent
+ * reader understandable info from API data
+ */
+
 const age_mappings = {
 	0: "0 - 5",
 	5: "5 - 18",

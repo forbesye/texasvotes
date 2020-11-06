@@ -15,6 +15,10 @@ import confusion from "./confusion.svg"
 
 const { Title } = Typography
 
+/**
+ * Functional component for error page
+ * Appears for 404s and wrong links
+ */
 export default function ErrorPage() {
 	return (
         // Main is box where items are displayed in

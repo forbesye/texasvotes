@@ -15,6 +15,7 @@ import ReactPlayer from "react-player"
 
 const { Title, Text } = Typography
 
+// Candidate columns for Ant Design Table
 const candidateColumns = [
 	{
 		title: "Name",
@@ -31,6 +32,7 @@ const candidateColumns = [
 	},
 ]
 
+// Result columns for Ant Design Table
 const resultColumns = [
 	{
 		title: "Name",
@@ -56,6 +58,10 @@ const resultColumns = [
 	},
 ]
 
+/**
+ * Returns relevant title with link to associated district
+ * @param {Election} election 
+ */
 const electionTitle = (election) => {
 	const { dates, office, district, type, party } = election
 	const { number, id } = district
@@ -91,6 +97,9 @@ const electionTitle = (election) => {
 	}
 }
 
+/**
+ * Functional component for election details
+ */
 const Details = () => {
 	const { id } = useParams()
 	const [election, setElection] = useState({})
@@ -146,6 +155,7 @@ const Details = () => {
 					<Title style={{ textAlign: "center" }} level={3}>
 						Election Dates
 					</Title>
+					{/* Depending on current date, render different timeline */}
 					<Timeline
 						mode={"left"}
 						style={{
@@ -234,14 +244,14 @@ const Details = () => {
 						) : null}
 					</Timeline>
 				</article>
-
+				{/* Election candidates */}
 				<article className={styles.electionDetails}>
 					<Title style={{ textAlign: "center" }} level={3}>
 						Candidates
 					</Title>
 					<Table dataSource={candidates} columns={candidateColumns} />
 				</article>
-
+				{/* Election results if past election */}
 				{results ? (
 					<article className={styles.electionDetails}>
 						<Title style={{ textAlign: "center" }} level={3}>
