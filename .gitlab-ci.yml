@@ -4,7 +4,7 @@ stages:
   - build
   - test
   - deploy
-  
+
 cache:
   paths:
     - front-end/node_modules/
@@ -38,8 +38,16 @@ postman_tests:
     entrypoint: [""]
   script:
     - newman --version
-    - newman run Postman.json 
-    
+    - newman run Postman.json
+
+selenium_tests:
+  stage: test
+  image: forbesye/selenium-ci
+  before_script:
+    - pip install -r front-end/gui_tests/requirements.txt
+  script:
+    - make selenium-tests
+
 deploy_development:
   image: python:3.6-stretch
   only:

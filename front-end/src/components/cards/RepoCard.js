@@ -1,3 +1,8 @@
+/*
+    This file defines a card that displays our Git
+    repository statistics on the About page.
+*/
+
 import React from "react"
 import { Card, Typography } from "antd"
 import {
@@ -8,6 +13,13 @@ import {
 } from "@ant-design/icons"
 import styles from "./Card.module.css"
 
+/*
+    Card to display for Git statistics
+
+    Props:
+        type (string) - commits, issues, or tests
+        number (int) - number of the type
+*/
 const RepoCard = (props) => {
 	const { type, number } = props
 	const iconStyle = {
@@ -15,6 +27,7 @@ const RepoCard = (props) => {
 		margin: 16,
 	}
 
+	// Assign icon to the specified Git statistic
 	let icon
 	switch (type) {
 		case "commits":
@@ -30,6 +43,7 @@ const RepoCard = (props) => {
 			icon = <QuestionOutlined style={iconStyle} />
 	}
 
+	// Card to display Git statistic with icon
 	return (
 		<Card className={styles.card}>
 			{icon}

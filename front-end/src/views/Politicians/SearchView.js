@@ -1,67 +1,24 @@
 import React, { Fragment, useState, useEffect } from "react"
-import { Typography, Input, Divider } from "antd"
+import { Typography, Input, Divider, Pagination } from "antd"
 import { Link, useLocation, useHistory } from "react-router-dom"
+import Highlighter from "react-highlight-words"
 import styles from "./Politicians.module.css"
 
 import { getAPI } from "../../library/APIClient"
 import Spinner from "../../components/ui/Spinner"
-import { districtName } from "../../library/Functions"
 import { description } from "./Lib"
+import { mostAlike, getMatchIndices } from "../../library/searchFunctions"
 
 const { Search } = Input
 const { Title, Text, Paragraph } = Typography
 
-// Very naive algorithm that assigns a like-ness score through char counts
-function mostAlike(str1, str2) {
-	const m1 = new Map()
-	const m2 = new Map()
-	for (const c of str1) {
-		m1.set(c, (m1.get(c) || 0) + 1)
-	}
-	for (const c of str2) {
-		m2.set(c, (m2.get(c) || 0) + 1)
-	}
-	let inCommon = 0
-	let different = 0
-	// Roughly count common chars and penalize for different chars
-	for (const [k, v] of m1) {
-		const other = m2.get(k)
-		if (other) {
-			inCommon += Math.min(v, other)
-			different += Math.max(v, other) - inCommon
-		} else {
-			different += v
-		}
-	}
-	return inCommon - different
-}
-
-function getMatchIndices(str, toMatch) {
-	str = str.toLowerCase()
-	toMatch = toMatch.toLowerCase()
-	let bestStart = 0,
-		bestEnd = -1
-	for (let i = 0; i < str.length; i++) {
-		// Find matching stuff
-		let start = i,
-			end = i
-		while (
-			end < str.length &&
-			end - start < toMatch.length &&
-			str[end] == toMatch[end - start]
-		) {
-			end++
-		}
-		if (end - start > bestEnd - bestStart) {
-			bestStart = start
-			bestEnd = end
-		}
-	}
-	return [bestStart, bestEnd]
-}
-
-export default function SearchView(props) {
+/**
+ * Functional component for politician search view
+ */
+export default function SearchView() {
 	const [searchVal, setSearchVal] = useState("")
+	const [total, setTotal] = useState(0)
+	const [page, setPage] = useState(1)
 	const [results, setResults] = useState([])
 	const [loading, setLoading] = useState(false)
 	const location = useLocation()
@@ -71,13 +28,21 @@ export default function SearchView(props) {
 		setSearchVal(event.target.value)
 	}
 
-	const handleSearch = async (value) => {
-		history.push(`/politicians/search?q=${encodeURIComponent(value)}`)
+	/**
+	 * Modifies URL and calls API based on query
+	 * @param {String} query
+	 * @param {Number} page
+	 */
+	const handleSearch = async (value, p = 1) => {
+		history.push(
+			`/politicians/search?q=${encodeURIComponent(value)}&page=${p}`
+		)
 		setLoading(true)
 		const data = await getAPI({
 			model: "politician",
 			params: {
 				q: value,
+				page: p,
 			},
 		})
 		const results = data.page
@@ -90,11 +55,16 @@ export default function SearchView(props) {
 		})
 		setResults(results)
 		setLoading(false)
+		setTotal(data.count)
+	}
+
+	const handlePageChange = (p) => {
+		setPage(p)
+		handleSearch(searchVal, p)
 	}
 
 	useEffect(() => {
 		const q = new URLSearchParams(location.search).get("q")
-		console.log(q)
 		if (q) {
 			const decoded = decodeURIComponent(q)
 			setSearchVal(decoded)
@@ -103,8 +73,8 @@ export default function SearchView(props) {
 	}, [])
 
 	return (
-		<Fragment>
-			<section className={styles.content}>
+		<section className={styles.content}>
+			<section className={styles.description}>
 				<Typography.Title level={3}>Search</Typography.Title>
 				<Typography.Paragraph>
 					Search our database for a Texas elected official or
@@ -112,9 +82,8 @@ export default function SearchView(props) {
 				</Typography.Paragraph>
 				<Search
 					size="large"
-					l
 					loading={loading}
-					onSearch={handleSearch}
+					onSearch={(val) => handleSearch(val)}
 					value={searchVal}
 					onChange={handleTextChange}
 				/>
@@ -129,26 +98,37 @@ export default function SearchView(props) {
 					))}
 				</section>
 			)}
-		</Fragment>
+			<Pagination
+				current={page}
+				onChange={handlePageChange}
+				pageSize={20}
+				showSizeChanger={false}
+				total={total}
+			/>
+		</section>
 	)
 }
 
-function PoliticianResult(props) {
-	const { name, searchQuery } = props
+/**
+ * Politician search result card component
+ * @param {Politician} props
+ */
+export function PoliticianResult(props) {
+	let {
+		district: { counties },
+		searchQuery,
+	} = props
 	const [highlightStart, highlightEnd] = getMatchIndices(
 		props.name,
 		searchQuery
 	)
 
-	const nameJsx = (
-		<Fragment>
-			<span>{name.substring(0, highlightStart)}</span>
-			<span className={styles.searchHighlight}>
-				{name.substring(highlightStart, highlightEnd)}
-			</span>
-			<span>{name.substring(highlightEnd)}</span>
-		</Fragment>
+	let displayedCounties =
+		counties.length >= 10 ? counties.slice(0, 10) : counties
+	displayedCounties = displayedCounties.reduce(
+		(prev, next) => `${prev}, ${next}`
 	)
+	displayedCounties += counties.length >= 10 ? "..." : ""
 
 	return (
 		<Link to={`/politicians/view/${props.id}`}>
@@ -159,10 +139,34 @@ function PoliticianResult(props) {
 					alt={props.name}
 				/>
 				<div className={styles.politicianSearchDesc}>
+					{/* Name and party */}
 					<Title level={3}>
-						{nameJsx} ({props.party})
+						{
+							<Highlighter
+								highlightClassName={styles.searchHighlight}
+								searchWords={searchQuery.split(" ")}
+								textToHighlight={props.name}
+							/>
+						}{" "}
+						({props.party})
 					</Title>
-					<Text>{description(props)}</Text>
+					{/* Description */}
+					<Paragraph>
+						<Highlighter
+							highlightClassName={styles.searchHighlight}
+							searchWords={searchQuery.split(" ")}
+							textToHighlight={description(props)}
+						/>
+					</Paragraph>
+					<Paragraph>
+						{/* Counties, with bias towards matched */}
+						<Text strong>Counties: </Text>
+						<Highlighter
+							highlightClassName={styles.searchHighlight}
+							searchWords={searchQuery.split(" ")}
+							textToHighlight={displayedCounties}
+						/>
+					</Paragraph>
 				</div>
 			</div>
 		</Link>

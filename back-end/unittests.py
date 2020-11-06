@@ -10,6 +10,7 @@ class UnitTests(TestCase):
     def test_always_right(self):
         self.assertEqual(1, 1)
 
+    # Test formatting of a district in another type of model
     def test_1(self):
         test_schema = {
             "name": "Test",
@@ -24,12 +25,15 @@ class UnitTests(TestCase):
         format_district_in_schema(test_schema)
         self.assertEqual(expected, test_schema)
 
+    # Test formatting of a district in a nother type of model that does not have a district
+    # does not cause errors and does not alter the input
     def test_2(self):
         test_schema = {"name": "Test", "alleyway": "cats"}
         expected = {"name": "Test", "alleyway": "cats"}
         format_district_in_schema(test_schema)
         self.assertEqual(expected, test_schema)
 
+    # Test that formatting of politician contact information works
     def test_3(self):
         test_schema = {
             "name": "Abbey",
@@ -48,18 +52,21 @@ class UnitTests(TestCase):
         format_politician_contact(test_schema)
         self.assertEqual(expected, test_schema)
 
+    # Test reorganization and relabeling of current office of a politician
     def test_4(self):
         test_schema = {"name": "Alison", "current": True, "office": "tx_house"}
         expected = {"name": "Alison", "current": "tx_house"}
         format_politician_office(test_schema)
         self.assertEqual(expected, test_schema)
 
+    # Test reorganization and relabeling of the office a politician is running for
     def test_5(self):
         test_schema = {"name": "Alison", "current": False, "office": "tx_house"}
         expected = {"name": "Alison", "running_for": "tx_house"}
         format_politician_office(test_schema)
         self.assertEqual(expected, test_schema)
 
+    # Test formatting of fundraising information
     def test_6(self):
         test_schema = {
             "name": "Able",
@@ -87,6 +94,8 @@ class UnitTests(TestCase):
         format_politician_fundraising(test_schema)
         self.assertEqual(expected, test_schema)
 
+    # Test that the formatting of a district within a politician ignores miscellaneous
+    # information that are not desired for the politician's displayed districts
     def test_7(self):
         test_schemas = [
             {
@@ -115,6 +124,7 @@ class UnitTests(TestCase):
         format_districts_in_politicians(test_schemas)
         self.assertEqual(expected, test_schemas)
 
+    # Test that only politicians currently serving a district are displayed with the district
     def test_8(self):
         test_schema = {
             "office": "tx_house",
@@ -127,6 +137,7 @@ class UnitTests(TestCase):
         format_district_elected_officials(test_schema)
         self.assertEqual(expected, test_schema)
 
+    # Test that election dates are properly formatted for elections
     def test_9(self):
         test_schema = {
             "office": "tx_house",
@@ -145,6 +156,8 @@ class UnitTests(TestCase):
         format_election_dates(test_schema)
         self.assertEqual(expected, test_schema)
 
+    # Test that districts within election models are formatted to only include
+    # the desired information even in the presence of miscellaneous info
     def test_10(self):
         test_schema = {
             "office": "us_house",
@@ -162,15 +175,17 @@ class UnitTests(TestCase):
         format_election_district(test_schema)
         self.assertEqual(expected, test_schema)
 
+    # Test formatting of a type of election
     def test_11(self):
         test_schema = {"office": "president", "class_name": "tx_house"}
         expected = {"office": "president", "type": {"class": "tx_house"}}
         format_election_type(test_schema)
         self.assertEqual(expected, test_schema)
 
+    # Test the formatting of a district within an politician within an election
     def test_12(self):
         test_schema = {
-            "offce": "secretary",
+            "office": "secretary",
             "candidates": [
                 {
                     "name": "Patty Baker",
@@ -187,7 +202,7 @@ class UnitTests(TestCase):
             ],
         }
         expected = {
-            "offce": "secretary",
+            "office": "secretary",
             "candidates": [
                 {"name": "Patty Baker", "district": {"type": "us_house", "number": 43}},
                 {

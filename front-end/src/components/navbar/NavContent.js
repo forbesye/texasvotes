@@ -5,6 +5,10 @@ import { Link } from "react-router-dom"
 import routes from "../../Routes"
 import styles from "./Navbar.module.css"
 
+/**
+ * Menu items for navbar
+ * @param {string} orientation horizontal or vertical
+ */
 const NavContent = ({ orientation }) => {
 	return (
 		<Menu
@@ -13,20 +17,24 @@ const NavContent = ({ orientation }) => {
 			mode={orientation}
 			selectable={false}
 		>
-			{routes.map(({ linkPath, path, title }, i) => {
-				return (
-					<Menu.Item
-						key={i}
-						className={
-							orientation === "horizontal"
-								? styles.menuItem
-								: undefined
-						}
-					>
-						<Link to={linkPath || path}>{title}</Link>
-					</Menu.Item>
-				)
-			})}
+			{routes.map(
+				({ linkPath, path, title, displayOnNavbar = false }, i) => {
+					if (displayOnNavbar)
+						return (
+							<Menu.Item
+								key={i}
+								className={
+									orientation === "horizontal"
+										? styles.menuItem
+										: undefined
+								}
+							>
+								<Link to={linkPath || path}>{title}</Link>
+							</Menu.Item>
+						)
+					else return null
+				}
+			)}
 		</Menu>
 	)
 }

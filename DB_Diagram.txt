@@ -1,0 +1,74 @@
+Table politician {
+  id int [pk, increment]
+  district_id int [ref: > district.id]
+  name varchar
+  incumbent boolean
+  current boolean
+  office varchar
+  party varchar
+  img_url varchar
+  website varchar
+  facebook varchar
+  twitter varchar
+  youtube varchar
+  phone_number varchar
+  fund_raise int
+  fund_spent int
+  fund_remain int
+  fund_debt int
+  fund_industries JSON
+  fund_contributors JSON
+}
+
+Table district {
+  id int [pk, increment]
+  ocd_id varchar
+  type_name varchar
+  party varchar
+  number int
+  total_population int
+  age_out_of int
+  age_stats JSON
+  race_out_of int
+  race_stats JSON
+  ethnicity_out_of int
+  ethnicity_stats JSON
+  enrollment_out int
+  enrollment_stats JSON
+  attainment_out_of int
+  attainment_stats JSON
+  income_out_of int
+  income_stats JSON
+  max_long float
+  min_long float
+  max_lat float
+  min_lat float
+}
+
+Table election {
+  id int [pk, increment]
+  district_id int [ref: > district.id]
+  class_name varchar
+  party varchar
+  office varchar
+  video_url varchar
+  election_day date
+  early_start date
+  early_end date
+  results JSON
+}
+
+Table counties {
+  id int [pk, increment]
+  name varchar
+}
+
+Table link_politician_election {
+  politician_id int [ref: > politician.id]
+  election_id int [ref: > election.id]
+}
+
+table link_districts_counties {
+  county_id int [ref: > counties.id]
+  district_id int [ref: > district.id]
+}

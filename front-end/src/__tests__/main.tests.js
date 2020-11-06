@@ -5,7 +5,13 @@ import About from "views/About/About"
 import Splash from "views/Splash/Splash"
 import DevBio from "components/cards/DevBio"
 import Spinner from "components/ui/Spinner"
-import { numberStringWithCommas, monthDayYearParse } from "library/Functions"
+import {
+	PoliticianCard,
+	DistrictCard,
+	ElectionCard,
+	MoreResultsCard,
+} from "views/Search/SearchCards"
+import { numberStringWithCommas } from "library/Functions"
 
 configure({ adapter: new Adapter() })
 
@@ -35,6 +41,61 @@ describe("Render components", () => {
 			/>
 		)
 		expect(devCard).toMatchSnapshot()
+	})
+
+	test("MoreResultsCard", () => {
+		const moreResults = shallow(
+			<MoreResultsCard
+				amount={10}
+				model="ayy lmao"
+				searchQuery="ayy lmao"
+			/>
+		)
+		expect(moreResults).toMatchSnapshot()
+	})
+
+	test("PoliticianCard", () => {
+		const politicianCard = shallow(
+			<PoliticianCard
+				image="https://fivethirtyeight.com/wp-content/uploads/2015/07/natesilver2_light.jpg?w=575"
+				name="Nate Silver"
+				party="I"
+				id={420}
+				searchQuery="Nate"
+				district={{
+					counties: ["FiveyFox"],
+				}}
+			/>
+		)
+		expect(politicianCard).toMatchSnapshot()
+	})
+
+	test("DistrictCard", () => {
+		const districtCard = shallow(
+			<DistrictCard
+				elected_officials={[{ name: "Nate Silver", party: "Dank" }]}
+				counties={["Dallas"]}
+				number={123}
+				id={420}
+				searchQuery="Nate"
+			/>
+		)
+		expect(districtCard).toMatchSnapshot()
+	})
+
+	test("ElectionCard", () => {
+		const electionCard = shallow(
+			<ElectionCard
+				dates={{ election_day: "2020-03-03T06:00:00.000Z" }}
+				district={{ number: 420, counties: ["AyyLmao"] }}
+				type="general"
+				office="us_senate"
+				party="I"
+				id={420}
+				searchQuery="Nate"
+			/>
+		)
+		expect(electionCard).toMatchSnapshot()
 	})
 
 	test("Spinner", () => {

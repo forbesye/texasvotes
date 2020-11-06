@@ -41,28 +41,35 @@
 }
 
 .descriptionContainer {
-	width: 90%;
+	width: 95%;
 	max-width: 800px;
 	margin: 32px auto;
 }
 
+.searchBarContainer,
 .cardFlexContainer {
+	width: 95%;
 	max-width: 1200px;
+	margin: 16px auto;
+	text-align: center;
+}
+
+.cardFlexContainer {
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
-	margin: 32px auto 0;
 	flex-direction: column;
 }
 
 .card {
 	margin: 16px !important;
-	width: 100%;
+	width: 95%;
 	max-width: 320px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	flex-grow: 1;
+	/* text-align: center; */
 }
 
 .cardImage {

@@ -9,17 +9,21 @@
 |Jennifer Suriadinata|jgs2966|jsuriadinata|
 |Sydney Owen|seo548|seowen99|
 |Ivan Romero|ir6222|ivanromero1000|
-|Kevin Li|kl29424 |Catalystic|
+|Kevin Li|kl29424|Catalystic|
 
 ## Git SHA
 Phase 1: c8bbdbbcee676cb57f7533beb84f47de784289de
 
 Phase 2: 50dc1dec4de6c0c6ace3081630c56137a069326c
 
+Phase 3:
+
 ## Project Leader
 Phase 1: Jefferson Ye
 
 Phase 2: Larry Win
+
+Phase 3: Jennifer Suriadinata
 
 ## Gitlab Pipelines
 https://gitlab.com/forbesye/fitsbits/-/pipelines
@@ -51,3 +55,13 @@ https://api.texasvotes.me
 |Sydney Owen|15|20|
 |Ivan Romero|15|20|
 |Kevin Li|15|20|
+
+### Phase 3
+| Name | Estimated | Actual |
+|------|-----------|--------|
+|Jefferson Ye|20|20|
+|Larry Win|15|20|
+|Jennifer Suriadinata|15|25|
+|Sydney Owen|15|20|
+|Ivan Romero|15|18|
+|Kevin Li|15|18|

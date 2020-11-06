@@ -16,81 +16,104 @@ import {
 	ElectionTypeFilter,
 	CountiesFilter,
 } from "library/FilterValues"
-import { changeFilter } from "library/Functions"
+import { updateFilter } from "library/Functions"
 
 const { Title, Paragraph } = Typography
 const { Option } = Select
 
+/**
+ * Functional component for election list view
+ */
 const ListView = () => {
+	const URLParams = new URLSearchParams(window.location.search)
 	const history = useHistory()
 	const [loading, setLoading] = useState(true)
 	const [listData, setListData] = useState([])
-	const [currPage, setCurrPage] = useState(1)
-	const [countiesFilter, setCountiesFilter] = useState([])
-	const [electionTypeFilter, setElectionTypeFilter] = useState([])
-	const [districtFilter, setDistrictFilter] = useState([])
-	const [officeFilter, setOfficeFilter] = useState([])
+	// Parse params from URL
+	const [params, setParams] = useState({
+		page: URLParams.get("page") ? URLParams.get("page") : 1,
+		sort: URLParams.get("sort") ? URLParams.get("sort") : "-electionDate",
+		counties: URLParams.getAll("counties"),
+		type: URLParams.getAll("type"),
+		office: URLParams.getAll("office"),
+		dist: URLParams.getAll("dist"),
+	})
 	const [total, setTotal] = useState(20)
-	const [sortVal, setSortVal] = useState("-electionDate")
 	const listRef = useRef(null)
 
 	useEffect(() => {
+		/**
+		 * Constructs URLSearchParams object from given params state and
+		 * changes URL
+		 * @param {Params} params
+		 */
+		const constructURLParams = (params) => {
+			let URLParams = new URLSearchParams()
+			URLParams.append("page", params.page)
+			URLParams.append("sort", params.sort)
+			params.counties.forEach((county) =>
+				URLParams.append("counties", county)
+			)
+			params.type.forEach((type) => URLParams.append("type", type))
+			params.office.forEach((office) =>
+				URLParams.append("office", office)
+			)
+			params.dist.forEach((dist) => URLParams.append("dist", dist))
+			history.push({
+				pathname: "/elections/view",
+				search: "?" + URLParams.toString(),
+			})
+			return URLParams
+		}
+
+		/**
+		 * Gets data from API and sets state
+		 */
 		const fetchData = async () => {
-			setLoading(true)
-			var params = new URLSearchParams()
-			params.append("page", currPage)
-			params.append("sort", sortVal)
-			districtFilter.forEach((district) =>
-				params.append("dist", district)
-			)
-			countiesFilter.forEach((county) =>
-				params.append("counties", county)
-			)
-			officeFilter.forEach((office) => params.append("office", office))
-			electionTypeFilter.forEach((electionType) =>
-				params.append("type", electionType)
-			)
-			const { page, count } = await getAPI({
-				model: "election",
-				params: params,
-			})
-			const data = page.map((election) => {
-				return {
-					...election,
-					key: election.id,
-					district: districtName(election.district),
-					type: election_type_mappings[`${election.type.class}`],
-					office: elected_office_mappings[election.office],
-					winner: election.results
-						? election.results.winner.name
-						: "TBD",
-					totalVoters: election.results
-						? election.results.total_voters
-						: "",
-					election_date: monthDayYearParse(
-						election.dates.election_day
-					),
-					early_date: monthDayYearParse(election.dates.early_start),
-				}
-			})
-			setTotal(count)
-			setListData(data)
-			setLoading(false)
+			try {
+				setLoading(true)
+				const { page, count } = await getAPI({
+					model: "election",
+					params: constructURLParams(params),
+				})
+				const data = page.map((election) => {
+					return {
+						...election,
+						key: election.id,
+						district: districtName(election.district),
+						type: election_type_mappings[`${election.type.class}`],
+						office: elected_office_mappings[election.office],
+						winner: election.results
+							? election.results.winner.name
+							: "TBD",
+						totalVoters: election.results
+							? election.results.total_voters
+							: "",
+						election_date: monthDayYearParse(
+							election.dates.election_day
+						),
+						early_date: monthDayYearParse(
+							election.dates.early_start
+						),
+					}
+				})
+				setTotal(count)
+				setListData(data)
+				setLoading(false)
+			} catch (err) {
+				console.error(err)
+				history.push("/error")
+			}
 		}
 		fetchData()
-	}, [
-		currPage,
-		countiesFilter,
-		electionTypeFilter,
-		officeFilter,
-		districtFilter,
-		sortVal,
-	])
+	}, [params, history])
 
-	const handleTableChange = ({ current, total }) => {
-		console.log(current)
-		setCurrPage(current)
-		setTotal(total)
+	const handleTableChange = ({ current }) => {
+		setParams({
+			...params,
+			page: current,
+		})
+		// Scrolls to top of table on page change
 		window.scrollTo({
 			top: listRef.current.offsetTop - 30,
 			behavior: "smooth",
@@ -110,15 +133,20 @@ const ListView = () => {
 				</Paragraph>
 			</section>
 			<Divider />
+			{/* Filters */}
 			<section className={styles.filterSection}>
 				<Title level={3}>Filter</Title>
-				<CountiesFilter onChange={changeFilter(setCountiesFilter)} />
-				<OfficeFilter onChange={changeFilter(setOfficeFilter)} />
+				<CountiesFilter
+					onChange={updateFilter("counties", setParams, params)}
+				/>
+				<OfficeFilter
+					onChange={updateFilter("office", setParams, params)}
+				/>
 				<DistrictNumberFilter
-					onChange={changeFilter(setDistrictFilter)}
+					onChange={updateFilter("dist", setParams, params)}
 				/>
 				<ElectionTypeFilter
-					onChange={changeFilter(setElectionTypeFilter)}
+					onChange={updateFilter("type", setParams, params)}
 				/>
 				<Title level={3}>Sort</Title>
 				<div style={{ marginBottom: 20, textAlign: "center" }}>
@@ -127,7 +155,7 @@ const ListView = () => {
 						size="large"
 						defaultValue="-electionDate"
 						style={{ width: 150 }}
-						onChange={setSortVal}
+						onChange={updateFilter("sort", setParams, params)}
 					>
 						<Option key={"-electionDate"} value={"-electionDate"}>
 							Date (Newest)
@@ -138,7 +166,7 @@ const ListView = () => {
 					</Select>
 				</div>
 			</section>
-
+			{/* Election Table */}
 			<section ref={listRef}>
 				<Table
 					dataSource={listData}
@@ -154,6 +182,7 @@ const ListView = () => {
 					loading={loading}
 					rowClassName={styles.cursor}
 					pagination={{
+						current: params.page,
 						total: total,
 						defaultPageSize: 20,
 						defaultCurrent: 1,

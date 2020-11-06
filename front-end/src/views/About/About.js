@@ -6,6 +6,9 @@ import Spinner from "components/ui/Spinner"
 import styles from "views/About/About.module.css"
 import { toolsInfo, teamInfo, apiInfo, repoAndAPI } from "./AboutInfo"
 
+/**
+ * Grabs information from GitLab and returns data
+ */
 const getGitlabInfo = async () => {
 	let totalCommitCount = 0,
 		totalIssueCount = 0,
@@ -37,6 +40,7 @@ const getGitlabInfo = async () => {
 		totalCommitCount += commits
 	})
 
+	// More than 100 issues, need to do pagination to get all
 	const issuePaginationLength = 100
 	let page = 1
 	let issuePage = []
@@ -70,6 +74,9 @@ const getGitlabInfo = async () => {
 	}
 }
 
+/**
+ * Functional component for About page
+ */
 const About = () => {
 	const [teamList, setTeamList] = useState([])
 	const [totalCommits, setTotalCommits] = useState(0)
@@ -103,6 +110,7 @@ const About = () => {
 				in order to promote a more democratic society.
 			</p>
 			<h1 className={styles.title}>Our Team</h1>
+			{/* Team member bio cards */}
 			{loaded ? (
 				<div className={`${styles.gridLayout} ${styles.team}`}>
 					{teamList.map((member) => {
@@ -132,12 +140,14 @@ const About = () => {
 			) : (
 				<Spinner />
 			)}
+			{/* Repo statistics */}
 			<h1 className={styles.title}>Repository Statistics</h1>
 			<div className={`${styles.gridLayout} ${styles.repoStats}`}>
 				<RepoCard type="commits" number={totalCommits} />
 				<RepoCard type="issues" number={totalIssues} />
 				<RepoCard type="tests" number={totalTests} />
 			</div>
+			{/* Tool cards */}
 			<h1 className={styles.title}>Tools Utilized</h1>
 			<div className={`${styles.gridLayout} ${styles.devTools}`}>
 				{toolsInfo.map((tool) => {
@@ -154,6 +164,7 @@ const About = () => {
 					)
 				})}
 			</div>
+			{/* API cards */}
 			<h1 className={styles.title}>APIs Utilized</h1>
 			<div className={`${styles.gridLayout} ${styles.devTools}`}>
 				{apiInfo.map((api) => {

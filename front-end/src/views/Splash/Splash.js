@@ -1,6 +1,6 @@
-import React from "react"
-import { Card, Typography } from "antd"
-import { Link } from "react-router-dom"
+import React, { useState } from "react"
+import { Card, Typography, Input } from "antd"
+import { Link, useHistory } from "react-router-dom"
 
 // Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 import texas from "views/Splash/images/texas.svg"
@@ -11,10 +11,13 @@ import politicians from "views/Splash/images/politicians.svg"
 import vote from "views/Splash/images/vote.svg"
 
 import styles from "./Splash.module.css"
+import GeneralSearchBar from "../Search/GeneralSearchBar"
 
 const { Title, Paragraph } = Typography
 
 const Splash = () => {
+	const history = useHistory()
+	const [searchVal, setSearchVal] = useState("")
 	return (
 		<div>
 			<div className={styles.splash}>
@@ -37,6 +40,14 @@ const Splash = () => {
 					></img>
 				</div>
 			</div>
+			<div className={styles.searchBarContainer}>
+				<GeneralSearchBar
+					onSearch={(value) => history.push(`/search?q=${value}`)}
+					onChange={(event) => setSearchVal(event.target.value)}
+					value={searchVal}
+				/>
+			</div>
+
 			<div className={styles.cardFlexContainer}>
 				<Link
 					id="politicianCard"
@@ -55,10 +66,12 @@ const Splash = () => {
 						}
 						hoverable={true}
 					>
-						<Title style={{ textAlign: "center", width: "275px" }}>
+						<Title style={{ textAlign: "center" }}>
 							Politicians
 						</Title>
-						<p>Want to learn more about your politicians?</p>
+						<Paragraph>
+							Want to learn more about your politicians?
+						</Paragraph>
 					</Card>
 				</Link>
 				<Link
@@ -78,13 +91,11 @@ const Splash = () => {
 						}
 						hoverable={true}
 					>
-						<Title style={{ textAlign: "center", width: "275px" }}>
-							Districts
-						</Title>
-						<p style={{ width: "275px" }}>
+						<Title style={{ textAlign: "center" }}>Districts</Title>
+						<Paragraph>
 							Which district are you in? Learn about the different
 							districts across Texas!
-						</p>
+						</Paragraph>
 					</Card>
 				</Link>
 				<Link
@@ -104,13 +115,11 @@ const Splash = () => {
 						}
 						hoverable={true}
 					>
-						<Title style={{ textAlign: "center", width: "275px" }}>
-							Elections
-						</Title>
-						<p style={{ width: "275px" }}>
+						<Title style={{ textAlign: "center" }}>Elections</Title>
+						<Paragraph>
 							What are some of the upcoming elections? Keep track
 							of the elections and mark your calendars to vote!
-						</p>
+						</Paragraph>
 					</Card>
 				</Link>
 			</div>

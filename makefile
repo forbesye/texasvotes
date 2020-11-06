@@ -12,3 +12,5 @@ python-unit-tests:
 front-end-tests:
 	echo "Running Jest and Selenium test suite..."
 	cd front-end/ && npm test
+selenium-tests:
+	python3 front-end/guitests.py

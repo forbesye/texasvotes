@@ -21,7 +21,7 @@
 
 .gridLayout {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 	/* grid-template-rows: repeat(minmax(450px, 1fr)); */
 	gap: 32px;
 	margin: 32px auto;
@@ -40,7 +40,7 @@
 }
 
 .logo {
-	width: 300px;
+	width: 280px;
 	height: 300px;
 	margin: 16px;
 	text-align: center;

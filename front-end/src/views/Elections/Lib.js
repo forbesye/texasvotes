@@ -1,6 +1,9 @@
 import React from "react"
 import { Typography } from "antd"
 
+/**
+ * Column info for election list view
+ */
 const columns = [
 	{
 		title: "Type",

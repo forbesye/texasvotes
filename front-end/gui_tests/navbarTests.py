@@ -5,6 +5,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
+
 import sys
 
 # PATH = "chromedriver.exe"
@@ -17,6 +19,11 @@ class Test(unittest.TestCase):
     # Get drivers and run website before all tests
     @classmethod
     def setUpClass(cls):
+        chrome_options = Options()
+        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--disable-dev-shm-usage')
+        cls.driver = webdriver.Chrome(PATH, options=chrome_options)
         cls.driver = webdriver.Chrome(PATH)
         cls.driver.get(URL)
 
@@ -58,6 +65,7 @@ class Test(unittest.TestCase):
         assert element.text == 'Texas Politicians'
 
         self.driver.back()
+        self.driver.back()
         currentURL = self.driver.current_url
         assert currentURL == URL
 
@@ -67,6 +75,7 @@ class Test(unittest.TestCase):
         assert element.text == 'Texas Districts'
 
         self.driver.back()
+        self.driver.back()
         currentURL = self.driver.current_url
         assert currentURL == URL
 
@@ -75,6 +84,7 @@ class Test(unittest.TestCase):
         element = self.driver.find_element_by_tag_name('h1')
         assert element.text == 'Texas Elections'
 
+        self.driver.back()
         self.driver.back()
         currentURL = self.driver.current_url
         assert currentURL == URL
