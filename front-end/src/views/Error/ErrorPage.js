@@ -21,7 +21,7 @@ const { Title } = Typography
  */
 export default function ErrorPage() {
 	return (
-        // Main is box where items are displayed in
+		// Main is box where items are displayed in
 		<main
 			style={{
 				margin: "32px auto",
@@ -35,7 +35,7 @@ export default function ErrorPage() {
 				alignItems: "center",
 			}}
 		>
-            {/* Basic text for the error page */}
+			{/* Basic text for the error page */}
 			<Title level={1}>Oops.</Title> <br />
 			<p style={{ fontSize: 28 }}>
 				The page you're trying to reach does not exit.
@@ -45,7 +45,7 @@ export default function ErrorPage() {
 				Go back to <Link to="/">texasvotes.me</Link>
 			</p>{" "}
 			<br />
-            {/* Image of confused user */}
+			{/* Image of confused user */}
 			<img
 				style={{ height: "30%", width: "30%" }}
 				alt={"Confused"}

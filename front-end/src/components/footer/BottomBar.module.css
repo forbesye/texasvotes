@@ -12,7 +12,8 @@
 	text-align: center !important;
 }
 
-.footerDataShort, .footerDataLong {
+.footerDataShort,
+.footerDataLong {
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -21,10 +22,16 @@
 	margin: 16px auto;
 }
 
-.footerDataLong { flex: 3; }
-.footerDataShort { flex: 2; }
+.footerDataLong {
+	flex: 3;
+}
+.footerDataShort {
+	flex: 2;
+}
 
-.footerLinkContainer { margin: 4px 0; }
+.footerLinkContainer {
+	margin: 4px 0;
+}
 
 .container {
 	padding-top: 10px;

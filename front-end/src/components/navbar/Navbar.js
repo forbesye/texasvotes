@@ -14,7 +14,7 @@ const Navbar = () => {
 	const [open, setOpen] = useState(false) // for hamburger menu on mobile
 	return (
 		<nav className={styles.nav}>
-            {/* Site logo that links to home page */}
+			{/* Site logo that links to home page */}
 			<Link to="/" className={styles.leftNav}>
 				<img
 					src={TexasVotesLogo}
@@ -22,11 +22,11 @@ const Navbar = () => {
 					className={styles.logo}
 				/>
 			</Link>
-            {/* Main links to different pages  */}
+			{/* Main links to different pages  */}
 			<div className={styles.centerNav}>
 				<NavContent />
 			</div>
-            {/* Hamburger menu button for mobile */}
+			{/* Hamburger menu button for mobile */}
 			<div className={styles.rightNav}>
 				<Button
 					className={styles.hamburger}
@@ -36,7 +36,7 @@ const Navbar = () => {
 					<Icon component={MenuOutlined} />
 				</Button>
 			</div>
-            {/* Links within hamburger menu for mobile */}
+			{/* Links within hamburger menu for mobile */}
 			<Drawer
 				placement="right"
 				closable={false}

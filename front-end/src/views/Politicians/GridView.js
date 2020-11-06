@@ -27,13 +27,13 @@ export default function GridView() {
 	const [gridData, setGridData] = useState([])
 	const [total, setTotal] = useState(20)
 	// Pull params from URL and set state
-	const [params, setParams] = useState({ 
+	const [params, setParams] = useState({
 		page: URLParams.get("page") ? URLParams.get("page") : 1,
 		sort: URLParams.get("sort") ? URLParams.get("sort") : "name",
 		counties: URLParams.getAll("counties"),
 		office: URLParams.getAll("office"),
 		party: URLParams.getAll("party"),
-		district_num: URLParams.getAll("district_num")
+		district_num: URLParams.getAll("district_num"),
 	})
 	const gridRef = useRef(null)
 	const history = useHistory()
@@ -42,7 +42,7 @@ export default function GridView() {
 	const handlePaginationChange = (page) => {
 		setParams({
 			...params,
-			page: page
+			page: page,
 		})
 		window.scrollTo({
 			top: gridRef.current.offsetTop - 30,
@@ -58,37 +58,40 @@ export default function GridView() {
 			let URLParams = new URLSearchParams()
 			URLParams.append("page", params.page)
 			URLParams.append("sort", params.sort)
-			params.counties.forEach(county => URLParams.append("counties", county))
-			params.party.forEach(county => URLParams.append("party", county))
-			params.office.forEach(office => URLParams.append("office", office))
-			params.district_num.forEach(district_num => URLParams.append("district_num", district_num))
+			params.counties.forEach((county) =>
+				URLParams.append("counties", county)
+			)
+			params.party.forEach((county) => URLParams.append("party", county))
+			params.office.forEach((office) =>
+				URLParams.append("office", office)
+			)
+			params.district_num.forEach((district_num) =>
+				URLParams.append("district_num", district_num)
+			)
 			history.push({
 				pathname: "/politicians/view",
-				search: "?" + URLParams.toString()
+				search: "?" + URLParams.toString(),
 			})
 			return URLParams
 		}
 
 		const fetchData = async () => {
 			try {
-                setLoading(true)
-                const { page, count } = await getAPI({
-                        model: "politician",
-                        params: constructURLParams(params)
+				setLoading(true)
+				const { page, count } = await getAPI({
+					model: "politician",
+					params: constructURLParams(params),
 				})
-                setTotal(count)
+				setTotal(count)
 				setGridData(page)
-                setLoading(false)
-            } catch(err) {
+				setLoading(false)
+			} catch (err) {
 				console.error(err)
-                history.push("/error")
-            }
+				history.push("/error")
+			}
 		}
 		fetchData()
-	}, [
-		params,
-		history
-	])
+	}, [params, history])
 
 	return (
 		<Fragment>
@@ -106,10 +109,18 @@ export default function GridView() {
 			{/* Fitlers and sort */}
 			<section className={styles.filterSection}>
 				<Title level={3}>Filter</Title>
-				<CountiesFilter onChange={updateFilter("counties", setParams, params)}/>
-				<PartiesFilter onChange={updateFilter("party", setParams, params)}/>
-				<OfficeFilter onChange={updateFilter("office", setParams, params)}/>
-				<DistrictNumberFilter onChange={updateFilter("district_num", setParams, params)}/>
+				<CountiesFilter
+					onChange={updateFilter("counties", setParams, params)}
+				/>
+				<PartiesFilter
+					onChange={updateFilter("party", setParams, params)}
+				/>
+				<OfficeFilter
+					onChange={updateFilter("office", setParams, params)}
+				/>
+				<DistrictNumberFilter
+					onChange={updateFilter("district_num", setParams, params)}
+				/>
 				<Title level={3}>Sort</Title>
 				<div style={{ marginBottom: 20, textAlign: "center" }}>
 					<Title level={5}>Order</Title>
@@ -135,10 +146,10 @@ export default function GridView() {
 					{gridData.map((item) => (
 						<Link key={item.id} to={`/politicians/view/${item.id}`}>
 							<Card
-                                hoverable
-                                style={{
-                                    height: "100%"
-                                }}
+								hoverable
+								style={{
+									height: "100%",
+								}}
 								cover={
 									<img
 										className={styles.croppedImage}

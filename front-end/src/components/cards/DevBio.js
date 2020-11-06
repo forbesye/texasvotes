@@ -46,14 +46,13 @@ const GitStat = ({ type, n }) => {
         tests (int) - number of Git tests
 */
 const DevBio = (props) => {
-    
-    // Unpack the props
+	// Unpack the props
 	const { name, bio, role, picture_path, commits, issues, tests } = props
 
 	return (
 		<Card
-            bordered={true} 
-            // Top of card; image of developer
+			bordered={true}
+			// Top of card; image of developer
 			cover={
 				<img
 					className={styles.circle_headshot}
@@ -61,8 +60,8 @@ const DevBio = (props) => {
 					src={picture_path}
 				/>
 			}
-            className={styles.card}
-            // Match height of other components
+			className={styles.card}
+			// Match height of other components
 			bodyStyle={{
 				alignItems: "stretch",
 				height: "100%",
@@ -70,11 +69,11 @@ const DevBio = (props) => {
 				flexDirection: "column",
 			}}
 		>
-            {/* Developer's name */}
+			{/* Developer's name */}
 			<Typography.Title level={3}>{name}</Typography.Title>
-            {/* Developer's role and bio*/}
+			{/* Developer's role and bio*/}
 			<Meta title={role} description={bio} className={styles.meta} />
-            {/* Git statistics at bottom of card */}
+			{/* Git statistics at bottom of card */}
 			<div className={styles.gitStats}>
 				<GitStat type="commits" n={commits} />
 				<GitStat type="issues" n={issues} />

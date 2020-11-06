@@ -20,16 +20,16 @@ const monthDayYearParse = (d) => {
 
 /**
  * Returns a function to update the params with the appropriate filter
- * @param {f()} filter 
- * @param {f()} setParams 
- * @param {T} params 
+ * @param {f()} filter
+ * @param {f()} setParams
+ * @param {T} params
  */
 const updateFilter = (filter, setParams, params) => {
 	const output = (value) => {
 		setParams({
 			...params,
 			page: 1,
-			[filter]: value
+			[filter]: value,
 		})
 	}
 	return output
@@ -37,19 +37,17 @@ const updateFilter = (filter, setParams, params) => {
 
 /**
  * Returns a percentage from val and total
- * @param {Number} val 
- * @param {Number} total 
+ * @param {Number} val
+ * @param {Number} total
  */
 const convertToPercent = (val, total) => {
-    return Math.round(
-        (val / 100) * total
-    )
+	return Math.round((val / 100) * total)
 }
 
 /**
  * Returns the appropriate district phrase
- * @param {String} office 
- * @param {Number} number 
+ * @param {String} office
+ * @param {Number} number
  */
 const districtName = (office, number) => {
 	const OFFICE_NAMES = {
@@ -68,12 +66,11 @@ const districtName = (office, number) => {
 
 /**
  * Returns number as string with format $XX.XX
- * @param {Number} num 
+ * @param {Number} num
  */
 const formatAsMoney = (num) => {
 	return `$` + numberStringWithCommas(num.toFixed(2))
 }
-
 
 export {
 	numberStringWithCommas,
@@ -81,5 +78,5 @@ export {
 	convertToPercent,
 	districtName,
 	formatAsMoney,
-	updateFilter
+	updateFilter,
 }

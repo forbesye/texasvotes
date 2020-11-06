@@ -26,7 +26,7 @@ const ListView = () => {
 	const [listData, setListData] = useState([])
 	const [total, setTotal] = useState(20)
 	// Initial query params based off URL of page
-	const [params, setParams] = useState({ 
+	const [params, setParams] = useState({
 		page: URLParams.get("page") ? URLParams.get("page") : 1,
 		sort: URLParams.get("sort") ? URLParams.get("sort") : "number",
 		popRange: URLParams.get("popRange") ? URLParams.get("popRange") : "",
@@ -45,22 +45,28 @@ const ListView = () => {
 			/**
 			 * Creates proper URLSearchParams given current param
 			 * state
-			 * @param {Params} params 
+			 * @param {Params} params
 			 */
 			const constructURLParams = (params) => {
 				let URLParams = new URLSearchParams()
 				URLParams.append("page", params.page)
 				URLParams.append("sort", params.sort)
-				if(params.popRange) {
+				if (params.popRange) {
 					URLParams.append("popRange", params.popRange)
 				}
-				params.counties.forEach(county => URLParams.append("counties", county))
-				params.party.forEach(type => URLParams.append("party", type))
-				params.office.forEach(office => URLParams.append("office", office))
-				params.number.forEach(dist => URLParams.append("number", dist))
+				params.counties.forEach((county) =>
+					URLParams.append("counties", county)
+				)
+				params.party.forEach((type) => URLParams.append("party", type))
+				params.office.forEach((office) =>
+					URLParams.append("office", office)
+				)
+				params.number.forEach((dist) =>
+					URLParams.append("number", dist)
+				)
 				history.push({
 					pathname: "/districts/view",
-					search: "?" + URLParams.toString()
+					search: "?" + URLParams.toString(),
 				})
 				return URLParams
 			}
@@ -96,15 +102,12 @@ const ListView = () => {
 			}
 		}
 		fetchData()
-	}, [
-		history,
-		params
-	])
+	}, [history, params])
 
 	const handleTableChange = ({ current }) => {
 		setParams({
 			...params,
-			page: current
+			page: current,
 		})
 		// Go to top of list view on page change
 		window.scrollTo({
@@ -129,13 +132,21 @@ const ListView = () => {
 			{/* Filter and sort*/}
 			<section className={styles.filterSection}>
 				<Title level={3}>Filter</Title>
-				<CountiesFilter onChange={updateFilter("counties", setParams, params)} />
-				<PartiesFilter onChange={updateFilter("party", setParams, params)} />
-				<OfficeFilter onChange={updateFilter("office", setParams, params)} />
+				<CountiesFilter
+					onChange={updateFilter("counties", setParams, params)}
+				/>
+				<PartiesFilter
+					onChange={updateFilter("party", setParams, params)}
+				/>
+				<OfficeFilter
+					onChange={updateFilter("office", setParams, params)}
+				/>
 				<DistrictNumberFilter
 					onChange={updateFilter("number", setParams, params)}
 				/>
-				<PopulationRange onChange={updateFilter("popRange", setParams, params)} />
+				<PopulationRange
+					onChange={updateFilter("popRange", setParams, params)}
+				/>
 				<Title level={3}>Sort</Title>
 				<div style={{ marginBottom: 20, textAlign: "center" }}>
 					<Title level={5}>Order</Title>

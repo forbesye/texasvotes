@@ -30,13 +30,13 @@ const ListView = () => {
 	const [loading, setLoading] = useState(true)
 	const [listData, setListData] = useState([])
 	// Parse params from URL
-	const [params, setParams] = useState({ 
+	const [params, setParams] = useState({
 		page: URLParams.get("page") ? URLParams.get("page") : 1,
 		sort: URLParams.get("sort") ? URLParams.get("sort") : "-electionDate",
 		counties: URLParams.getAll("counties"),
 		type: URLParams.getAll("type"),
 		office: URLParams.getAll("office"),
-		dist: URLParams.getAll("dist")
+		dist: URLParams.getAll("dist"),
 	})
 	const [total, setTotal] = useState(20)
 	const listRef = useRef(null)
@@ -45,19 +45,23 @@ const ListView = () => {
 		/**
 		 * Constructs URLSearchParams object from given params state and
 		 * changes URL
-		 * @param {Params} params 
+		 * @param {Params} params
 		 */
 		const constructURLParams = (params) => {
 			let URLParams = new URLSearchParams()
 			URLParams.append("page", params.page)
 			URLParams.append("sort", params.sort)
-			params.counties.forEach(county => URLParams.append("counties", county))
-			params.type.forEach(type => URLParams.append("type", type))
-			params.office.forEach(office => URLParams.append("office", office))
-			params.dist.forEach(dist => URLParams.append("dist", dist))
+			params.counties.forEach((county) =>
+				URLParams.append("counties", county)
+			)
+			params.type.forEach((type) => URLParams.append("type", type))
+			params.office.forEach((office) =>
+				URLParams.append("office", office)
+			)
+			params.dist.forEach((dist) => URLParams.append("dist", dist))
 			history.push({
 				pathname: "/elections/view",
-				search: "?" + URLParams.toString()
+				search: "?" + URLParams.toString(),
 			})
 			return URLParams
 		}
@@ -66,49 +70,48 @@ const ListView = () => {
 		 * Gets data from API and sets state
 		 */
 		const fetchData = async () => {
-            try {
+			try {
 				setLoading(true)
-                const { page, count } = await getAPI({
-                        model: "election",
-                        params: constructURLParams(params)
+				const { page, count } = await getAPI({
+					model: "election",
+					params: constructURLParams(params),
 				})
-                const data = page.map((election) => {
-                    return {
-                        ...election,
-                        key: election.id,
-                        district: districtName(election.district),
-                        type: election_type_mappings[`${election.type.class}`],
-                        office: elected_office_mappings[election.office],
-                        winner: election.results
-                            ? election.results.winner.name
-                            : "TBD",
-                        totalVoters: election.results
-                            ? election.results.total_voters
-                            : "",
-                        election_date: monthDayYearParse(
-                            election.dates.election_day
-                        ),
-                        early_date: monthDayYearParse(election.dates.early_start),
-                    }
+				const data = page.map((election) => {
+					return {
+						...election,
+						key: election.id,
+						district: districtName(election.district),
+						type: election_type_mappings[`${election.type.class}`],
+						office: elected_office_mappings[election.office],
+						winner: election.results
+							? election.results.winner.name
+							: "TBD",
+						totalVoters: election.results
+							? election.results.total_voters
+							: "",
+						election_date: monthDayYearParse(
+							election.dates.election_day
+						),
+						early_date: monthDayYearParse(
+							election.dates.early_start
+						),
+					}
 				})
 				setTotal(count)
 				setListData(data)
 				setLoading(false)
-            } catch (err) {
+			} catch (err) {
 				console.error(err)
 				history.push("/error")
-            }
+			}
 		}
 		fetchData()
-	}, [
-		params,
-		history
-	])
+	}, [params, history])
 
 	const handleTableChange = ({ current }) => {
 		setParams({
 			...params,
-			page: current
+			page: current,
 		})
 		// Scrolls to top of table on page change
 		window.scrollTo({
@@ -133,8 +136,12 @@ const ListView = () => {
 			{/* Filters */}
 			<section className={styles.filterSection}>
 				<Title level={3}>Filter</Title>
-				<CountiesFilter onChange={updateFilter("counties", setParams, params)} />
-				<OfficeFilter onChange={updateFilter("office", setParams, params)} />
+				<CountiesFilter
+					onChange={updateFilter("counties", setParams, params)}
+				/>
+				<OfficeFilter
+					onChange={updateFilter("office", setParams, params)}
+				/>
 				<DistrictNumberFilter
 					onChange={updateFilter("dist", setParams, params)}
 				/>

@@ -16,13 +16,13 @@
 }
 
 .content {
-    margin: 8px auto;
-    max-width: 800px;
+	margin: 8px auto;
+	max-width: 800px;
 }
 
 .description {
-    width: 100%;
-    margin: 8px 0;
+	width: 100%;
+	margin: 8px 0;
 }
 
 .grid {
@@ -173,45 +173,44 @@
 }
 
 @media (min-width: 768px) {
-    
-    .grid {
-        justify-content: center;
-        grid-template-columns: repeat(2, 320px);
-    }
+	.grid {
+		justify-content: center;
+		grid-template-columns: repeat(2, 320px);
+	}
 
-    .wrapper {
-        width: 80%;
-    }
+	.wrapper {
+		width: 80%;
+	}
 
-    .politicianSearchCard {
-        flex-direction: row;
-    }
+	.politicianSearchCard {
+		flex-direction: row;
+	}
 
-    .politicianSearchImage {
-        max-width: 120px;
-        height: 150px;
-    }
+	.politicianSearchImage {
+		max-width: 120px;
+		height: 150px;
+	}
 
-    .politicianSearchDesc {
-        text-align: left;
-        flex: 1;
-        padding: 0 16px;
-    }
+	.politicianSearchDesc {
+		text-align: left;
+		flex: 1;
+		padding: 0 16px;
+	}
 
-    .politicianDetails {
-        flex-direction: row;
-        align-items: flex-start;
-        justify-content: space-evenly; 
-        text-align: left;
-    }
-    
-    .filterSection {
-        flex-direction: row;
-    }
+	.politicianDetails {
+		flex-direction: row;
+		align-items: flex-start;
+		justify-content: space-evenly;
+		text-align: left;
+	}
 
-    .sortSection {
-        flex-direction: row;
-    }
+	.filterSection {
+		flex-direction: row;
+	}
+
+	.sortSection {
+		flex-direction: row;
+	}
 }
 
 @media (min-width: 1420px) {

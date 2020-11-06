@@ -46,7 +46,8 @@
 	margin: 32px auto;
 }
 
-.searchBarContainer, .cardFlexContainer {
+.searchBarContainer,
+.cardFlexContainer {
 	width: 95%;
 	max-width: 1200px;
 	margin: 16px auto;
