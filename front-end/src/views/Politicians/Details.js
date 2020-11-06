@@ -54,6 +54,9 @@ const tableTitle = (election, party) => {
 	}
 }
 
+/**
+ * Functional component politician detail
+ */
 export default function Details() {
 	const { id } = useParams()
 	const [politician, setPolitician] = useState({})
@@ -61,6 +64,9 @@ export default function Details() {
 	const history = useHistory()
 	const FB_API_KEY = process.env.REACT_APP_FB_KEY
 
+	/**
+	 * Get data from API and set
+	 */
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -77,7 +83,7 @@ export default function Details() {
 			}
 		}
 		fetchData()
-	}, [id])
+	}, [id, history])
 
 	const handleBack = () => {
 		history.push("/politicians/view")
@@ -125,7 +131,7 @@ export default function Details() {
 						className={styles.politicianImage}
 					/>
 					<Divider />
-
+					{/* Associated parties and district */}
 					<article className={styles.politicianDetails}>
 						<div className={styles.politicianGeneralInfo}>
 							<div>
@@ -154,6 +160,7 @@ export default function Details() {
 								</Fragment>
 							) : null}
 						</div>
+						{/* Social/contact information */}
 						<div className={styles.politicianSocials}>
 							<div>
 								<a
@@ -174,6 +181,7 @@ export default function Details() {
 								</a>
 							</div>
 							{Object.keys(socials).map((type) => {
+								// Facebook account
 								if (type === "facebook") {
 									return (
 										<div key={type}>
@@ -188,6 +196,7 @@ export default function Details() {
 										</div>
 									)
 								} else if (type === "twitter") {
+									// Twitter account
 									return (
 										<div key={type}>
 											<a
@@ -201,6 +210,7 @@ export default function Details() {
 										</div>
 									)
 								} else if (type === "youtube") {
+									// YouTube channel
 									return (
 										<div key={type}>
 											<a
@@ -221,6 +231,7 @@ export default function Details() {
 					</article>
 					<Divider />
 					{Object.keys(socials).includes("twitter") ? (
+						// Twitter feed
 						<Timeline
 							dataSource={{
 								sourceType: "profile",
@@ -228,7 +239,10 @@ export default function Details() {
 							}}
 							options={{ width: "400", height: "600" }}
 						/>
-					) : Object.keys(socials).includes("facebook") ? (
+					) : 
+					Object.keys(socials).includes("facebook") ? 
+					(
+						// Facebook feed
 						<FacebookProvider appId={FB_API_KEY}>
 							<Page
 								href={`https://www.facebook.com/${socials["facebook"]}`}
@@ -242,6 +256,7 @@ export default function Details() {
 					)}
 
 					<Divider />
+					{/* Associated districts and counties */}
 					<article className={styles.districtDetails}>
 						<Title style={{ textAlign: "center" }} level={3}>
 							District Information
@@ -281,6 +296,7 @@ export default function Details() {
 						)}
 					</article>
 					<Divider />
+					{/* Associated elections and funcdraising */}
 					<article className={styles.electionDetails}>
 						<Title style={{ textAlign: "center" }} level={3}>
 							Election Information
@@ -317,7 +333,6 @@ export default function Details() {
 									bordered
 									dataSource={fundraising.industries}
 									renderItem={(item) => {
-										console.log(item)
 										return (
 											<List.Item>
 												<Text
@@ -366,7 +381,6 @@ export default function Details() {
 									bordered
 									dataSource={fundraising.contributors}
 									renderItem={(item) => {
-										console.log(item)
 										return (
 											<List.Item>
 												<Text

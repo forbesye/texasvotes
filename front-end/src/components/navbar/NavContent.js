@@ -5,6 +5,10 @@ import { Link } from "react-router-dom"
 import routes from "../../Routes"
 import styles from "./Navbar.module.css"
 
+/**
+ * Menu items for navbar
+ * @param {string} orientation horizontal or vertical
+ */
 const NavContent = ({ orientation }) => {
 	return (
 		<Menu

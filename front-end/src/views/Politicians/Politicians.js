@@ -8,6 +8,9 @@ import styles from "./Politicians.module.css"
 
 const { TabPane } = Tabs
 
+/**
+ * Functional component for Politicians page
+ */
 export default function Politicians() {
 	const [currKey, setCurrKey] = useState("search")
 	const history = useHistory()
@@ -28,6 +31,7 @@ export default function Politicians() {
 			<header className={styles.header}>
 				<Typography.Title level={1}>Texas Politicians</Typography.Title>
 			</header>
+			{/* Split view between grid and search */}
 			<div>
 				<Tabs activeKey={currKey} onChange={handleChange}>
 					<TabPane tab="Search" key="search">

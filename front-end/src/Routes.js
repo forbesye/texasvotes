@@ -1,3 +1,7 @@
+/*
+    This file defines routes for each of the pages.
+*/
+
 import Splash from "./views/Splash/Splash"
 import About from "./views/About/About"
 import Politicians from "./views/Politicians/Politicians"
@@ -6,6 +10,17 @@ import Elections from "./views/Elections/Elections"
 import VoterFAQ from "./views/VoterFAQ/VoterFAQ"
 import Search from "./views/Search/Search"
 
+/*
+    Routes are defined as so:
+        title (string): name of page
+        path (string): path to display in URL and route to
+        Component (React component): React component that will be displayed
+            for this page
+    
+    Optional:
+        exact (bool): path needs to match exactly
+        displayOnNavbar (bool): display this component on the navigation bar
+*/
 const Routes = [
 	{
 		title: "Home",

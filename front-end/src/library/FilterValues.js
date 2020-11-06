@@ -8,6 +8,11 @@ import {
 const { Option } = Select
 const { Title } = Typography
 
+/**
+ * Filter components to use across our model pages
+ * @param {f()} onChange function to pass to returned component
+ */
+
 const CountiesFilter = ({ onChange }) => {
 	return (
 		<div style={{ marginBottom: 20, textAlign: "center" }}>

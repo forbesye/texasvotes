@@ -12,7 +12,10 @@ import { mostAlike, getMatchIndices } from "../../library/searchFunctions"
 const { Search } = Input
 const { Title, Text, Paragraph } = Typography
 
-export default function SearchView (props) {
+/**
+ * Functional component for politician search view
+ */
+export default function SearchView () {
     const [searchVal, setSearchVal] = useState("")
     const [total, setTotal] = useState(0)
     const [page, setPage] = useState(1)
@@ -25,6 +28,11 @@ export default function SearchView (props) {
 		setSearchVal(event.target.value)
 	}
 
+    /**
+     * Modifies URL and calls API based on query
+     * @param {String} query
+     * @param {Number} page 
+     */
     const handleSearch = async (value, p=1) => {
         history.push(`/politicians/search?q=${encodeURIComponent(value)}&page=${p}`)
         setLoading(true)
@@ -55,7 +63,6 @@ export default function SearchView (props) {
 
 	useEffect(() => {
 		const q = new URLSearchParams(location.search).get("q")
-		console.log(q)
 		if (q) {
 			const decoded = decodeURIComponent(q)
 			setSearchVal(decoded)
@@ -93,9 +100,13 @@ export default function SearchView (props) {
     )
 }
 
+/**
+ * Politician search result card component
+ * @param {Politician} props 
+ */
 export function PoliticianResult(props) {
 
-    let { district: { counties }, name, searchQuery } = props
+    let { district: { counties }, searchQuery } = props
     const [ highlightStart, highlightEnd ] = getMatchIndices(props.name, searchQuery)
 
     let displayedCounties = counties.length >= 10 ? counties.slice(0, 10) : counties
@@ -107,6 +118,7 @@ export function PoliticianResult(props) {
             <div className={styles.politicianSearchCard}>
                 <img className={styles.politicianSearchImage} src={props.image} alt={props.name} />
                 <div className={styles.politicianSearchDesc}>
+                    {/* Name and party */}
                     <Title level={3}>{
                         <Highlighter 
                             highlightClassName={styles.searchHighlight}
@@ -114,6 +126,7 @@ export function PoliticianResult(props) {
                             textToHighlight={props.name}
                         />
                     } ({props.party})</Title>
+                    {/* Description */}
                     <Paragraph>
                         <Highlighter 
                             highlightClassName={styles.searchHighlight}
@@ -122,6 +135,7 @@ export function PoliticianResult(props) {
                         />
                     </Paragraph>
                     <Paragraph>
+                        {/* Counties, with bias towards matched */}
                         <Text strong>Counties: </Text> 
                         <Highlighter 
                             highlightClassName={styles.searchHighlight} 

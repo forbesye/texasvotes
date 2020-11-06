@@ -7,6 +7,9 @@ import SearchView from "./SearchView"
 import Details from "./Details"
 const { TabPane } = Tabs
 
+/**
+ * Functional component for District page
+ */
 const Districts = () => {
 	const [currKey, setCurrKey] = useState("search")
 	const history = useHistory()
@@ -15,6 +18,10 @@ const Districts = () => {
 		history.push(`/districts/${key}`)
 		setCurrKey(key)
 	}
+
+	/**
+	 * Splits page into view and search
+	 */
 	useEffect(() => {
 		const path = location.pathname
 		const splitted = path.split("/").filter((el) => el !== "")
@@ -30,6 +37,8 @@ const Districts = () => {
 			</header>
 			<div>
 				<Tabs activeKey={currKey} onChange={handleChange}>
+					{/* Routes between view and search tabs, renders different
+					components for both */}
 					<TabPane tab="Search" key="search">
 						<Route path="/districts/search">
 							<SearchView />

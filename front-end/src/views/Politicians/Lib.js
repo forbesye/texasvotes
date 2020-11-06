@@ -1,3 +1,4 @@
+// Todo: Refactor using Mappings.js and Functions.js in library
 const ELECTED_OFFICE_NAMES = {
 	tx_house: "State Representative",
 	tx_senate: "State Senator",

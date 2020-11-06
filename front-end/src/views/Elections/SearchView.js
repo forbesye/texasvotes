@@ -14,7 +14,7 @@ const { Title, Text, Paragraph } = Typography
 
 const electionTitle = (election) => {
 	const { dates, office, district, type, party } = election
-	const { number, id } = district
+	const { number } = district
 	const { election_day } = dates
 	const electionYear = new Date(election_day).getFullYear()
 	if (type.class === "general") {
@@ -26,7 +26,10 @@ const electionTitle = (election) => {
 	}
 }
 
-export default function SearchView(props) {
+/**
+ * Functional component for election search
+ */
+export default function SearchView() {
 
     const [searchVal, setSearchVal] = useState("")
     const [total, setTotal] = useState(0)
@@ -40,6 +43,11 @@ export default function SearchView(props) {
 		setSearchVal(event.target.value)
     }
     
+    /**
+     * Modifies URL and calls API based on query
+     * @param {String} query
+     * @param {Number} page 
+     */
 	const handleSearch = async (value, p=1) => {
         history.push(`/elections/search?q=${encodeURIComponent(value)}&page=${p}`)
         setLoading(true)
@@ -51,13 +59,6 @@ export default function SearchView(props) {
             }
         })
         const results = data.page
-        const userquery = value.toLowerCase()
-        // results.sort((a, b) => {
-        //     // Sort by best match
-        //     const aname = a.name.toLowerCase()
-        //     const bname = b.name.toLowerCase()
-        //     return mostAlike(bname, userquery) - mostAlike(aname, userquery)
-        // })
         setResults(results)
         setLoading(false)
         setTotal(data.count)
@@ -74,7 +75,7 @@ export default function SearchView(props) {
 			const decoded = decodeURIComponent(q)
 			setSearchVal(decoded)
 			handleSearch(decoded)
-		}
+        }
     }, [])
     
 	return (
@@ -91,6 +92,7 @@ export default function SearchView(props) {
                         onChange={handleTextChange}
                     />
                 </section>
+                {/* Election cards for search */}
                 <Divider />
                 { loading ? <Spinner /> : (
                     <section className={styles.searchResults}>
@@ -110,6 +112,10 @@ export default function SearchView(props) {
 	)
 }
 
+/**
+ * Election card for search results
+ * @param {Election} election 
+ */
 function ElectionResult(props) {
     let { district: { counties }, candidates, searchQuery} = props
 

@@ -2,6 +2,7 @@ import os
 from sys import platform
 
 if __name__ == "__main__":
+    # Use chromedriver based on OS
     if platform == "win32":
         PATH = "./front-end/gui_tests/chromedriver.exe"
     elif platform == "linux":
@@ -10,6 +11,7 @@ if __name__ == "__main__":
         print("Unsupported OS")
         exit(-1)
 
+    # Run all of the gui tests
     os.system("python3 ./front-end/gui_tests/splashTests.py " + PATH)
     os.system("python3 ./front-end/gui_tests/navbarTests.py " + PATH)
     os.system("python3 ./front-end/gui_tests/politiciansTests.py " + PATH)

@@ -12,6 +12,8 @@ const messages = [
 	"Looking for Beto O'Rourke stumping on some tables",
 	"Trying to stop Ted Cruz from reading 'Green Eggs and Ham' on the Senate Floor",
 	"Searching for the Zodiac Killer",
+	"Stalling the USPS",
+	"Brushing off cheeto dust",
 ]
 
 const styles = {
@@ -19,6 +21,9 @@ const styles = {
 	display: "block",
 }
 
+/**
+ * Returns an Ant Design spinner component with a randomized loading message
+ */
 export default function Spinner() {
 	const message =
 		messages[Math.floor(Math.random() * messages.length)] + "..."
