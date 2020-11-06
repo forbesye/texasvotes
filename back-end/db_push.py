@@ -67,6 +67,7 @@ def push_politician(data):
     politician_db_instance = Politician(**entry)
     db.session.add(politician_db_instance)
 
+
 def populate_districts():
     print("Starting populate_districts...")
     dir_name = "data/Districts"
@@ -206,10 +207,11 @@ def link_elections_districts():
         election.current_district = temp_district
     db.session.commit()
 
+
 def link_district_coordinates():
     county_coordinates = {}
-    with open('data/county_coordinate.csv') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
+    with open("data/county_coordinate.csv") as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=",")
         line_count = 0
         for row in csv_reader:
             if line_count == 0:
@@ -236,7 +238,9 @@ def link_district_coordinates():
         if district.max_lat == district.min_lat:
             district.max_lat = district.max_lat + 0.5
             district.min_lat = district.min_lat - 0.5
-        print(f'{district.number} {district.max_long} {district.max_lat} {district.min_long} {district.min_lat}')
+        print(
+            f"{district.number} {district.max_long} {district.max_lat} {district.min_long} {district.min_lat}"
+        )
     db.session.commit()
 
 

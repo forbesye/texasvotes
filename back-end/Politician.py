@@ -33,35 +33,37 @@ def filter_politician_by(pol_query, filtering, what):
 
     return pol_query
 
+
 # Filters politicians for all four supported attributes
 def filter_politicians(pol_query, queries):
-    party = get_query('party', queries)
-    district_num = get_query('district_num', queries)
+    party = get_query("party", queries)
+    district_num = get_query("district_num", queries)
     counties = get_query("counties", queries)
     office = get_query("office", queries)
 
     if party != None:
-        pol_query = filter_politician_by(pol_query, 'party', party)
+        pol_query = filter_politician_by(pol_query, "party", party)
 
     if district_num != None:
-        pol_query = filter_politician_by(pol_query, 'district_num', district_num)
+        pol_query = filter_politician_by(pol_query, "district_num", district_num)
 
     if counties != None:
-        pol_query = filter_politician_by(pol_query, 'counties', counties)
+        pol_query = filter_politician_by(pol_query, "counties", counties)
 
     if office != None:
-        pol_query = filter_politician_by(pol_query, 'office', office)
-    
+        pol_query = filter_politician_by(pol_query, "office", office)
+
     return pol_query
+
 
 # Sorts politicians by one of the four supported attributes
 # in ascending or descending order
 def sort_politician_by(sorting, pol_query, desc):
     pol = None
 
-    if sorting == 'name':
+    if sorting == "name":
         pol = Politician.name
-    elif sorting == 'dist':
+    elif sorting == "dist":
         pol = Politician.district_number
     else:
         return pol_query
@@ -70,6 +72,7 @@ def sort_politician_by(sorting, pol_query, desc):
         return pol_query.order_by(pol.desc())
     else:
         return pol_query.order_by(pol)
+
 
 # Determines whether attribute will be sorted in ascending or descending order
 # Passes attribute to be sorted to sort_politician_by for sorting
@@ -80,13 +83,14 @@ def sort_politicians(sort, pol_query):
     else:
         sort = sort[0]
 
-    sort = sort.split('-')
+    sort = sort.split("-")
 
     # In descending order
     if len(sort) > 1:
         return sort_politician_by(sort[1], pol_query, True)
     else:
         return sort_politician_by(sort[0], pol_query, False)
+
 
 # Applies filter with an "or" on each attribute
 # District number and counties have to be an exact match
@@ -106,7 +110,9 @@ def search_politicians(q, pol_query):
             searches.append(Politician.district_number.in_([int(term)]))
         except ValueError:
             pass
-        searches.append(District.counties.any(func.lower(Counties.name)== term.lower()))
+        searches.append(
+            District.counties.any(func.lower(Counties.name) == term.lower())
+        )
     pol_query = pol_query.join(District).filter(or_(*tuple(searches)))
 
     return pol_query
