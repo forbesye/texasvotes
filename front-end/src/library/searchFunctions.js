@@ -1,4 +1,3 @@
-
 // Very naive algorithm that assigns a like-ness score through char counts
 function mostAlike(str1, str2) {
 	const m1 = new Map()
@@ -48,7 +47,4 @@ function getMatchIndices(str, toMatch) {
 	return [bestStart, bestEnd]
 }
 
-export {
-    mostAlike,
-    getMatchIndices
-}
+export { mostAlike, getMatchIndices }

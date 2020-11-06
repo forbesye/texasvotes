@@ -9,9 +9,9 @@ import { Link } from "react-router-dom"
 const BottomBar = () => {
 	return (
 		<div className={styles.footer}>
-            {/* Conatiner with 3 columns */}
+			{/* Conatiner with 3 columns */}
 			<div className={styles.container}>
-                {/* Long column with site name and description */}
+				{/* Long column with site name and description */}
 				<div className={styles.footerDataLong}>
 					<h1 className={styles.siteName}>Texas Votes</h1>
 					<div className={styles.siteText}>
@@ -19,22 +19,34 @@ const BottomBar = () => {
 						state and federal elections within the state of Texas!
 					</div>
 				</div>
-                {/* Short column with models */}
+				{/* Short column with models */}
 				<div className={styles.footerDataShort}>
-					<h1 className={styles.modelHeader}>Models</h1> 
-					<div className={styles.footerLinkContainer}><Link to="/politicians">Politicians</Link></div>
-					<div className={styles.footerLinkContainer}><Link to="/districts">Districts</Link></div>
-					<div className={styles.footerLinkContainer}><Link to="/elections">Elections</Link></div>
+					<h1 className={styles.modelHeader}>Models</h1>
+					<div className={styles.footerLinkContainer}>
+						<Link to="/politicians">Politicians</Link>
+					</div>
+					<div className={styles.footerLinkContainer}>
+						<Link to="/districts">Districts</Link>
+					</div>
+					<div className={styles.footerLinkContainer}>
+						<Link to="/elections">Elections</Link>
+					</div>
 				</div>
-                {/* Short column with other links */}
+				{/* Short column with other links */}
 				<div className={styles.footerDataShort}>
 					<h1 className={styles.otherLinksHeader}>Other Links</h1>
-					<div className={styles.footerLinkContainer}><Link to="/">Home</Link></div>
-					<div className={styles.footerLinkContainer}><Link to="/about">About</Link></div>
-					<div className={styles.footerLinkContainer}><Link to="/voting">Voting FAQ</Link></div>
+					<div className={styles.footerLinkContainer}>
+						<Link to="/">Home</Link>
+					</div>
+					<div className={styles.footerLinkContainer}>
+						<Link to="/about">About</Link>
+					</div>
+					<div className={styles.footerLinkContainer}>
+						<Link to="/voting">Voting FAQ</Link>
+					</div>
 				</div>
 			</div>
-            {/* Bottom of footer is copyright of our site */}
+			{/* Bottom of footer is copyright of our site */}
 			<h3 className={styles.copyrightText}>
 				{" "}
 				Copyright © 2020 Texas Votes

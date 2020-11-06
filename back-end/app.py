@@ -10,12 +10,9 @@ from models import (
     election_schema,
 )
 
-from flask import Flask, request, make_response, jsonify
-from sqlalchemy import and_, or_
+from flask import Flask, request, make_response, jsonify, send_from_directory
 from format import *
-import requests
-import json
-import re
+import os
 
 from Politician import *
 from District import *
@@ -24,6 +21,7 @@ from Election import *
 
 # ---------- Policitians ----------
 
+
 @app.route("/politician", methods=["GET"])
 def politicians():
     queries = request.args.to_dict(flat=False)
@@ -31,7 +29,7 @@ def politicians():
     pol_query = db.session.query(Politician)
 
     # Searching
-    q = get_query('q', queries)
+    q = get_query("q", queries)
     if q:
         pol_query = search_politicians(q, pol_query)
 
@@ -40,10 +38,10 @@ def politicians():
         pol_query = filter_politicians(pol_query, queries)
 
     # Sorting
-    sort = get_query('sort', queries)
+    sort = get_query("sort", queries)
     pol_query = sort_politicians(sort, pol_query)
 
-    page = get_query('page', queries)
+    page = get_query("page", queries)
     if page == None:
         page = 1
     else:
@@ -71,6 +69,7 @@ def politician_id(id):
 
 # ---------- Districts ----------
 
+
 @app.route("/district", methods=["GET"])
 def districts():
     queries = request.args.to_dict(flat=False)
@@ -78,7 +77,7 @@ def districts():
     dist_query = db.session.query(District)
 
     # Searching
-    q = get_query('q', queries)
+    q = get_query("q", queries)
     if q:
         dist_query = search_districts(q, dist_query)
 
@@ -87,10 +86,10 @@ def districts():
         dist_query = filter_districts(dist_query, queries)
 
     # Sorting
-    sort = get_query('sort', queries)
+    sort = get_query("sort", queries)
     dist_query = sort_districts(sort, dist_query)
 
-    page = get_query('page', queries)
+    page = get_query("page", queries)
     if page == None:
         page = 1
     else:
@@ -120,6 +119,7 @@ def district_id(id):
 
 # ---------- Elections ----------
 
+
 @app.route("/election", methods=["GET"])
 def elections():
     queries = request.args.to_dict(flat=False)
@@ -127,7 +127,7 @@ def elections():
     elect_query = db.session.query(Election)
 
     # Searching
-    q = get_query('q', queries)
+    q = get_query("q", queries)
     if q:
         elect_query = search_elections(q, elect_query)
 
@@ -136,10 +136,10 @@ def elections():
         elect_query = filter_elections(elect_query, queries)
 
     # Sorting
-    sort = get_query('sort', queries)
+    sort = get_query("sort", queries)
     elect_query = sort_elections(sort, elect_query)
 
-    page = get_query('page', queries)
+    page = get_query("page", queries)
     if page == None:
         page = 1
     else:
@@ -170,6 +170,15 @@ def election_id(id):
 @app.route("/")
 def hello_world():
     return '<img src="https://i.kym-cdn.com/photos/images/original/001/211/814/a1c.jpg" alt="cowboy" />'
+
+
+@app.route("/favicon.ico")
+def favicon():
+    return send_from_directory(
+        os.path.join(app.root_path, "static"),
+        "icon.ico",
+        mimetype="image/vnd.microsoft.icon",
+    )
 
 
 if __name__ == "__main__":

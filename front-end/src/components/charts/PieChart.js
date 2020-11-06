@@ -17,13 +17,13 @@ export default class PieChart extends Component {
 			type: "pie",
 			data: {
 				// Labels for each data point
-                labels: this.props.labels,
-                // Data and their corresponding colors
+				labels: this.props.labels,
+				// Data and their corresponding colors
 				datasets: [
 					{
 						label: "Pie Chart",
-                        data: this.props.data,
-                        // Current maximum number of colors to display is 13
+						data: this.props.data,
+						// Current maximum number of colors to display is 13
 						backgroundColor: [
 							"#0B3C49",
 							"#EB5E55",
@@ -45,24 +45,24 @@ export default class PieChart extends Component {
 			options: {
 				tooltips: {
 					callbacks: {
-                        // When hovering, display number and percentage
+						// When hovering, display number and percentage
 						label: function (tooltipItem, data) {
-                            // Numbers from dataset
+							// Numbers from dataset
 							var dataset =
-                                data.datasets[tooltipItem.datasetIndex]
-                            // Total count in data
+								data.datasets[tooltipItem.datasetIndex]
+							// Total count in data
 							var total = dataset.data.reduce(function (
 								previousValue,
-								currentValue,
+								currentValue
 							) {
 								return previousValue + currentValue
 							})
-                            var currentValue = dataset.data[tooltipItem.index]
-                            // Calculate percentage - add 0.5 for accurate rounding
+							var currentValue = dataset.data[tooltipItem.index]
+							// Calculate percentage - add 0.5 for accurate rounding
 							var percentage = Math.floor(
 								(currentValue / total) * 100 + 0.5
-                            )
-                            // Display when hovering : number (percent%)
+							)
+							// Display when hovering : number (percent%)
 							return (
 								numberStringWithCommas(currentValue) +
 								" (" +
@@ -76,11 +76,15 @@ export default class PieChart extends Component {
 		})
 	}
 
-    // Component under which Chart is displayed. Linked through ref.
+	// Component under which Chart is displayed. Linked through ref.
 	render() {
 		return (
 			<div>
-				<canvas id="myChart" ref={this.chartRef} style={this.props.style}/>
+				<canvas
+					id="myChart"
+					ref={this.chartRef}
+					style={this.props.style}
+				/>
 			</div>
 		)
 	}

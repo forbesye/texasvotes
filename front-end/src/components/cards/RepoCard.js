@@ -27,7 +27,7 @@ const RepoCard = (props) => {
 		margin: 16,
 	}
 
-    // Assign icon to the specified Git statistic
+	// Assign icon to the specified Git statistic
 	let icon
 	switch (type) {
 		case "commits":
@@ -43,7 +43,7 @@ const RepoCard = (props) => {
 			icon = <QuestionOutlined style={iconStyle} />
 	}
 
-    // Card to display Git statistic with icon
+	// Card to display Git statistic with icon
 	return (
 		<Card className={styles.card}>
 			{icon}

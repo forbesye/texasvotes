@@ -132,7 +132,11 @@ class Election(db.Model):
     results = db.Column(db.JSON, nullable=True)
 
     def __repr__(self):
-        return "<Election %s %s %s>" % (self.class_name, self.office, self.district_number)
+        return "<Election %s %s %s>" % (
+            self.class_name,
+            self.office,
+            self.district_number,
+        )
 
 
 class Counties(db.Model):
@@ -217,7 +221,15 @@ class DistrictSchema(BaseSchema):
     )
     elections = fields.Nested(
         "ElectionSchema",
-        only=("id", "office", "class_name", "election_day", "early_start", "early_end", "party"),
+        only=(
+            "id",
+            "office",
+            "class_name",
+            "election_day",
+            "early_start",
+            "early_end",
+            "party",
+        ),
         required=True,
         many=True,
     )

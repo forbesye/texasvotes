@@ -20,11 +20,13 @@ const ToolCard = (props) => {
 	const { title, description, img, link } = props
 
 	return (
-		<a href={link}> {/* Link to site */}
+		<a href={link}>
+			{" "}
+			{/* Link to site */}
 			<Card
 				className={styles.card}
-                hoverable={true} // pointer when hovering
-                // top of card, image of tool logo
+				hoverable={true} // pointer when hovering
+				// top of card, image of tool logo
 				cover={
 					<div className={styles.cardCover}>
 						<img
@@ -35,8 +37,8 @@ const ToolCard = (props) => {
 							margin="16px"
 						/>
 					</div>
-                }
-                // match heights across the page
+				}
+				// match heights across the page
 				bodyStyle={{
 					alignItems: "stretch",
 					height: "100%",
@@ -45,9 +47,9 @@ const ToolCard = (props) => {
 					paddingTop: 0,
 				}}
 			>
-                {/* Tool name */}
+				{/* Tool name */}
 				<Typography.Title level={3}>{title}</Typography.Title>
-                {/* Tool description */}
+				{/* Tool description */}
 				<p>{description}</p>
 			</Card>
 		</a>

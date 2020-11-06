@@ -17,22 +17,24 @@ const NavContent = ({ orientation }) => {
 			mode={orientation}
 			selectable={false}
 		>
-			{routes.map(({ linkPath, path, title, displayOnNavbar = false }, i) => {
-				if (displayOnNavbar)
-					return (
-						<Menu.Item
-							key={i}
-							className={
-								orientation === "horizontal"
-									? styles.menuItem
-									: undefined
-							}
-						>
-							<Link to={linkPath || path}>{title}</Link>
-						</Menu.Item>
-					)
-				else return null
-			})}
+			{routes.map(
+				({ linkPath, path, title, displayOnNavbar = false }, i) => {
+					if (displayOnNavbar)
+						return (
+							<Menu.Item
+								key={i}
+								className={
+									orientation === "horizontal"
+										? styles.menuItem
+										: undefined
+								}
+							>
+								<Link to={linkPath || path}>{title}</Link>
+							</Menu.Item>
+						)
+					else return null
+				}
+			)}
 		</Menu>
 	)
 }

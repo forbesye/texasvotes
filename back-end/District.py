@@ -23,7 +23,12 @@ def filter_district_by(dist_query, filtering, what):
         dist_query = dist_query.filter(District.party.in_(what))
 
     elif filtering == "popul":
-        dist_query = dist_query.filter(and_(District.total_population >= what[0], District.total_population <= what[1]))
+        dist_query = dist_query.filter(
+            and_(
+                District.total_population >= what[0],
+                District.total_population <= what[1],
+            )
+        )
 
     elif filtering == "counties":
         filters = []
@@ -36,48 +41,50 @@ def filter_district_by(dist_query, filtering, what):
 
     return dist_query
 
+
 # Filters districts for all four supported attributes
 def filter_districts(dist_query, queries):
-    office_type = get_query('office', queries)
-    party = get_query('party', queries)
+    office_type = get_query("office", queries)
+    party = get_query("party", queries)
     popRange = get_query("popRange", queries)
     counties = get_query("counties", queries)
     number = get_query("number", queries)
 
     if office_type != None:
-        dist_query = filter_district_by(dist_query, 'office', office_type)
+        dist_query = filter_district_by(dist_query, "office", office_type)
 
     if party != None:
-        dist_query = filter_district_by(dist_query, 'party', party)
+        dist_query = filter_district_by(dist_query, "party", party)
 
     if popRange:
         popRange = popRange[0]
         min_pop = 0
         max_pop = 694200000
         # Only upper bound is given
-        if len(popRange.split('-')) < 2:
+        if len(popRange.split("-")) < 2:
             min_pop = int(popRange)
         # Both lower and upper bound given
         else:
-            min_pop, max_pop = (popRange.split('-'))
-        dist_query = filter_district_by(dist_query, 'popul', [min_pop, max_pop])
+            min_pop, max_pop = popRange.split("-")
+        dist_query = filter_district_by(dist_query, "popul", [min_pop, max_pop])
 
     if counties:
-        dist_query = filter_district_by(dist_query, 'counties', counties)
+        dist_query = filter_district_by(dist_query, "counties", counties)
 
     if number:
-        dist_query = filter_district_by(dist_query, 'number', number)
-    
+        dist_query = filter_district_by(dist_query, "number", number)
+
     return dist_query
+
 
 # Sorts districts by one of the four supported attributes
 # in ascending or descending order
 def sort_district_by(sorting, dist_query, desc):
     dist = None
 
-    if sorting == 'number':
+    if sorting == "number":
         dist = District.number
-    elif sorting == 'pop':
+    elif sorting == "pop":
         dist = District.total_population
     else:
         return dist_query
@@ -86,6 +93,7 @@ def sort_district_by(sorting, dist_query, desc):
         return dist_query.order_by(dist.desc())
     else:
         return dist_query.order_by(dist)
+
 
 # Determines whether attribute will be sorted in ascending or descending order
 # Passes attribute to be sorted to sort_district_by for sorting
@@ -96,13 +104,14 @@ def sort_districts(sort, dist_query):
     else:
         sort = sort[0]
 
-    sort = sort.split('-')
+    sort = sort.split("-")
 
     # In descending order
     if len(sort) > 1:
         return sort_district_by(sort[1], dist_query, True)
     else:
         return sort_district_by(sort[0], dist_query, False)
+
 
 # Applies filter with an "or" on each attribute
 # Number and counties have to be an exact match
@@ -122,7 +131,9 @@ def search_districts(q, dist_query):
             pass
         searches.append(District.type_name.match(term))
         searches.append(District.party.match(term))
-        searches.append(District.counties.any(func.lower(Counties.name)== term.lower()))
+        searches.append(
+            District.counties.any(func.lower(Counties.name) == term.lower())
+        )
     dist_query = dist_query.filter(or_(*tuple(searches)))
 
     return dist_query

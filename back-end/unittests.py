@@ -213,7 +213,7 @@ class UnitTests(TestCase):
         }
         format_election_districts(test_schema)
         self.assertEqual(expected, test_schema)
-        
+
 
 if __name__ == "__main__":
     main()

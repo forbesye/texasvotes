@@ -33,35 +33,37 @@ def filter_election_by(elect_query, filtering, what):
 
     return elect_query
 
+
 # Filters elections for all four supported attributes
 def filter_elections(elect_query, queries):
-    election_type = get_query('type', queries)
-    office_type = get_query('office', queries)
+    election_type = get_query("type", queries)
+    office_type = get_query("office", queries)
     dist_number = get_query("dist", queries)
     counties = get_query("counties", queries)
 
     if election_type:
-        elect_query = filter_election_by(elect_query, 'type', election_type)
+        elect_query = filter_election_by(elect_query, "type", election_type)
 
     if office_type != None:
-        elect_query = filter_election_by(elect_query, 'office', office_type)
+        elect_query = filter_election_by(elect_query, "office", office_type)
 
     if dist_number:
-        elect_query = filter_election_by(elect_query, 'dist', dist_number)
+        elect_query = filter_election_by(elect_query, "dist", dist_number)
 
     if counties:
-        elect_query = filter_election_by(elect_query, 'counties', counties)
-    
+        elect_query = filter_election_by(elect_query, "counties", counties)
+
     return elect_query
+
 
 # Sorts elections by one of the four supported attributes
 # in ascending or descending order
 def sort_election_by(sorting, elect_query, desc):
     elect = None
 
-    if sorting == 'dist':
+    if sorting == "dist":
         elect = Election.district_number
-    elif sorting == 'electionDate':
+    elif sorting == "electionDate":
         elect = Election.election_day
     else:
         return elect_query
@@ -70,6 +72,7 @@ def sort_election_by(sorting, elect_query, desc):
         return elect_query.order_by(elect.desc())
     else:
         return elect_query.order_by(elect)
+
 
 # Determines whether attribute will be sorted in ascending or descending order
 # Passes attribute to be sorted to sort_election_by for sorting
@@ -80,13 +83,14 @@ def sort_elections(sort, elect_query):
     else:
         sort = sort[0]
 
-    sort = sort.split('-')
+    sort = sort.split("-")
 
     # In descending order
     if len(sort) > 1:
         return sort_election_by(sort[1], elect_query, True)
     else:
         return sort_election_by(sort[0], elect_query, False)
+
 
 # Applies filter with an "or" on each attribute
 # District number and counties have to be an exact match
@@ -106,8 +110,10 @@ def search_elections(q, elect_query):
             pass
         searches.append(Election.class_name.match(term))
         searches.append(Election.office.match(term))
-        searches.append(District.counties.any(func.lower(Counties.name)== term.lower()))
-        #searches.append(Politician.name.match(term))
+        searches.append(
+            District.counties.any(func.lower(Counties.name) == term.lower())
+        )
+        # searches.append(Politician.name.match(term))
     elect_query = elect_query.join(District).filter(or_(*tuple(searches)))
 
     return elect_query

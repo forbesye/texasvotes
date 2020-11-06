@@ -239,9 +239,7 @@ export default function Details() {
 							}}
 							options={{ width: "400", height: "600" }}
 						/>
-					) : 
-					Object.keys(socials).includes("facebook") ? 
-					(
+					) : Object.keys(socials).includes("facebook") ? (
 						// Facebook feed
 						<FacebookProvider appId={FB_API_KEY}>
 							<Page

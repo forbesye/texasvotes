@@ -17,7 +17,7 @@ const { Title, Paragraph } = Typography
 
 const Splash = () => {
 	const history = useHistory()
-	const [ searchVal, setSearchVal ] = useState("")
+	const [searchVal, setSearchVal] = useState("")
 	return (
 		<div>
 			<div className={styles.splash}>
@@ -41,13 +41,13 @@ const Splash = () => {
 				</div>
 			</div>
 			<div className={styles.searchBarContainer}>
-				<GeneralSearchBar 
-					onSearch={value => history.push(`/search?q=${value}`)} 
+				<GeneralSearchBar
+					onSearch={(value) => history.push(`/search?q=${value}`)}
 					onChange={(event) => setSearchVal(event.target.value)}
 					value={searchVal}
 				/>
 			</div>
-			
+
 			<div className={styles.cardFlexContainer}>
 				<Link
 					id="politicianCard"
@@ -69,7 +69,9 @@ const Splash = () => {
 						<Title style={{ textAlign: "center" }}>
 							Politicians
 						</Title>
-						<Paragraph>Want to learn more about your politicians?</Paragraph>
+						<Paragraph>
+							Want to learn more about your politicians?
+						</Paragraph>
 					</Card>
 				</Link>
 				<Link
@@ -89,9 +91,7 @@ const Splash = () => {
 						}
 						hoverable={true}
 					>
-						<Title style={{ textAlign: "center" }}>
-							Districts
-						</Title>
+						<Title style={{ textAlign: "center" }}>Districts</Title>
 						<Paragraph>
 							Which district are you in? Learn about the different
 							districts across Texas!
@@ -115,9 +115,7 @@ const Splash = () => {
 						}
 						hoverable={true}
 					>
-						<Title style={{ textAlign: "center" }}>
-							Elections
-						</Title>
+						<Title style={{ textAlign: "center" }}>Elections</Title>
 						<Paragraph>
 							What are some of the upcoming elections? Keep track
 							of the elections and mark your calendars to vote!

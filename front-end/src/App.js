@@ -17,16 +17,16 @@ const App = () => {
 	return (
 		<React.Fragment>
 			<Layout className="layout">
-                {/* Navbar */}
+				{/* Navbar */}
 				<Header className="nav">
 					<Navbar />
 				</Header>
 				<Content
 					style={{
-						minHeight: "90vh"
+						minHeight: "90vh",
 					}}
 				>
-                    {/* Define routes for router, initial route is Splash */}
+					{/* Define routes for router, initial route is Splash */}
 					<Switch>
 						{routes.map(({ exact, path, Component }) => {
 							return (
@@ -47,7 +47,7 @@ const App = () => {
 						<Route title={"Not found"} component={ErrorPage} />
 					</Switch>
 				</Content>
-                {/* Footer */}
+				{/* Footer */}
 				<Footer className="footer" style={{ padding: "0px" }}>
 					<BottomBar />
 				</Footer>

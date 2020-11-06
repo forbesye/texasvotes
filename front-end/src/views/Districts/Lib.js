@@ -52,7 +52,7 @@ const columns = [
 
 /**
  * Returns full name for district based off type and number
- * @param {District} district 
+ * @param {District} district
  */
 export function districtName(district) {
 	if (district.type === "tx_house") {
@@ -68,7 +68,7 @@ export function districtName(district) {
 
 /**
  * Returns full description for district
- * @param {District} district 
+ * @param {District} district
  */
 export function description(district) {
 	return `${elected_office_mappings[district.type]} ${

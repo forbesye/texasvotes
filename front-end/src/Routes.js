@@ -27,45 +27,45 @@ const Routes = [
 		path: "/",
 		exact: true,
 		Component: Splash,
-		displayOnNavbar: true
+		displayOnNavbar: true,
 	},
 	{
 		title: "About",
 		path: "/about",
 		Component: About,
-		displayOnNavbar: true
+		displayOnNavbar: true,
 	},
 	{
 		title: "Politicians",
 		path: "/politicians",
 		linkPath: "/politicians/view",
 		Component: Politicians,
-		displayOnNavbar: true
+		displayOnNavbar: true,
 	},
 	{
 		title: "Districts",
 		path: "/districts",
 		linkPath: "/districts/view",
 		Component: Districts,
-		displayOnNavbar: true
+		displayOnNavbar: true,
 	},
 	{
 		title: "Elections",
 		path: "/elections",
 		linkPath: "/elections/view",
 		Component: Elections,
-		displayOnNavbar: true
+		displayOnNavbar: true,
 	},
 	{
 		title: "Voting FAQ",
 		path: "/voting",
 		Component: VoterFAQ,
-		displayOnNavbar: true
+		displayOnNavbar: true,
 	},
 	{
 		path: "/search",
-		Component: Search
-	}
+		Component: Search,
+	},
 ]
 
 export default Routes

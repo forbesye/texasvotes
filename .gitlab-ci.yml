@@ -4,7 +4,7 @@ stages:
   - build
   - test
   - deploy
-  
+
 cache:
   paths:
     - front-end/node_modules/
@@ -38,7 +38,7 @@ postman_tests:
     entrypoint: [""]
   script:
     - newman --version
-    - newman run Postman.json 
+    - newman run Postman.json
 
 selenium_tests:
   stage: test
