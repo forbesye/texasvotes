@@ -114,9 +114,12 @@ function DistrictResult(props) {
 	let { counties, elected_officials, searchQuery } = props
 
 	let officials = []
-	elected_officials.forEach((official) => {
-		officials.push(official.name)
-	})
+	// That ONE district in Texas that doesn't have an elected official...
+	if(elected_officials) {
+		elected_officials.forEach((official) => {
+			officials.push(official.name)
+		})
+	}
 
 	// If more than 10, need to paginate results
 	let displayedCounties =
@@ -126,7 +129,11 @@ function DistrictResult(props) {
 	)
 	displayedCounties += counties.length >= 10 ? "..." : ""
 
-	let officialNames = officials.reduce((prev, next) => `${prev}, ${next}`)
+	let officialNames = ""
+	// That ONE district in Texas that doesn't have an elected official...
+	if (officials.length > 0) {
+		officialNames = officials.reduce((prev, next) => `${prev}, ${next}`)
+	}
 
 	return (
 		<Link to={`/districts/view/${props.id}`}>

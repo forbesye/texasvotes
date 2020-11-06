@@ -23,13 +23,13 @@ const BottomBar = () => {
 				<div className={styles.footerDataShort}>
 					<h1 className={styles.modelHeader}>Models</h1>
 					<div className={styles.footerLinkContainer}>
-						<Link to="/politicians">Politicians</Link>
+						<Link to="/politicians/view">Politicians</Link>
 					</div>
 					<div className={styles.footerLinkContainer}>
-						<Link to="/districts">Districts</Link>
+						<Link to="/districts/view">Districts</Link>
 					</div>
 					<div className={styles.footerLinkContainer}>
-						<Link to="/elections">Elections</Link>
+						<Link to="/elections/view">Elections</Link>
 					</div>
 				</div>
 				{/* Short column with other links */}
