@@ -12,6 +12,7 @@ import vote from "views/Splash/images/vote.svg"
 
 import styles from "./Splash.module.css"
 import GeneralSearchBar from "../Search/GeneralSearchBar"
+import News from "./News"
 
 const { Title, Paragraph } = Typography
 
@@ -47,7 +48,6 @@ const Splash = () => {
 					value={searchVal}
 				/>
 			</div>
-
 			<div className={styles.cardFlexContainer}>
 				<Link
 					id="politicianCard"
@@ -122,6 +122,9 @@ const Splash = () => {
 						</Paragraph>
 					</Card>
 				</Link>
+			</div>
+			<div className={styles.newsContainer}>
+				<News />
 			</div>
 		</div>
 	)
