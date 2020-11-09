@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { Typography, Input, Divider, Pagination } from "antd"
 import { Link, useLocation, useHistory } from "react-router-dom"
 import Highlighter from "react-highlight-words"
@@ -7,7 +7,7 @@ import styles from "./Politicians.module.css"
 import { getAPI } from "../../library/APIClient"
 import Spinner from "../../components/ui/Spinner"
 import { description } from "./Lib"
-import { mostAlike, getMatchIndices } from "../../library/searchFunctions"
+import { mostAlike } from "../../library/searchFunctions"
 
 const { Search } = Input
 const { Title, Text, Paragraph } = Typography
@@ -118,10 +118,10 @@ export function PoliticianResult(props) {
 		district: { counties },
 		searchQuery,
 	} = props
-	const [highlightStart, highlightEnd] = getMatchIndices(
-		props.name,
-		searchQuery
-	)
+	// const [highlightStart, highlightEnd] = getMatchIndices(
+	// 	props.name,
+	// 	searchQuery
+	// )
 
 	let displayedCounties =
 		counties.length >= 10 ? counties.slice(0, 10) : counties

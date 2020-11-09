@@ -1,5 +1,5 @@
 import React, { Fragment } from "react"
-import { Card, Typography } from "antd"
+import { Card } from "antd"
 import { Link } from "react-router-dom"
 import Highlighter from "react-highlight-words"
 import styles from "./Search.module.css"
@@ -17,6 +17,7 @@ const { Meta } = Card
 // Card used to display a politician result on the general search page. Takes in a search query and the politician model body
 export function PoliticianCard(props) {
 	let {
+		// eslint-disable-next-line
 		district: { counties },
 		image,
 		id,
@@ -59,9 +60,7 @@ export function PoliticianCard(props) {
 export function DistrictCard(props) {
 	const {
 		elected_officials,
-		number,
 		id,
-		party,
 		counties,
 		searchQuery,
 	} = props
