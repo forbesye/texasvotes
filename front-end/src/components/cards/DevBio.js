@@ -47,39 +47,42 @@ const GitStat = ({ type, n }) => {
 */
 const DevBio = (props) => {
 	// Unpack the props
-	const { name, bio, role, picture_path, commits, issues, tests } = props
+	const { name, bio, role, picture_path, commits, issues, tests, linkedin } = props
 
 	return (
-		<Card
-			bordered={true}
-			// Top of card; image of developer
-			cover={
-				<img
-					className={styles.circle_headshot}
-					alt={name}
-					src={picture_path}
-				/>
-			}
-			className={styles.card}
-			// Match height of other components
-			bodyStyle={{
-				alignItems: "stretch",
-				height: "100%",
-				display: "flex",
-				flexDirection: "column",
-			}}
-		>
-			{/* Developer's name */}
-			<Typography.Title level={3}>{name}</Typography.Title>
-			{/* Developer's role and bio*/}
-			<Meta title={role} description={bio} className={styles.meta} />
-			{/* Git statistics at bottom of card */}
-			<div className={styles.gitStats}>
-				<GitStat type="commits" n={commits} />
-				<GitStat type="issues" n={issues} />
-				<GitStat type="tests" n={tests} />
-			</div>
-		</Card>
+		<a href={linkedin}>
+			<Card
+				bordered={true}
+				// Top of card; image of developer
+				cover={
+					<img
+						className={styles.circle_headshot}
+						alt={name}
+						src={picture_path}
+					/>
+				}
+				hoverable={true}
+				className={styles.card}
+				// Match height of other components
+				bodyStyle={{
+					alignItems: "stretch",
+					height: "100%",
+					display: "flex",
+					flexDirection: "column",
+				}}
+			>
+				{/* Developer's name */}
+				<Typography.Title level={3}>{name}</Typography.Title>
+				{/* Developer's role and bio*/}
+				<Meta title={role} description={bio} className={styles.meta} />
+				{/* Git statistics at bottom of card */}
+				<div className={styles.gitStats}>
+					<GitStat type="commits" n={commits} />
+					<GitStat type="issues" n={issues} />
+					<GitStat type="tests" n={tests} />
+				</div>
+			</Card>
+		</a>
 	)
 }
 
