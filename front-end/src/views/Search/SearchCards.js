@@ -16,16 +16,19 @@ const { Meta } = Card
 
 // Card used to display a politician result on the general search page. Takes in a search query and the politician model body
 export function PoliticianCard(props) {
-	let {
-		// eslint-disable-next-line
-		district: { counties },
-		image,
+	const {
+		district: { number },
+		searchQuery,
 		id,
 		name,
+		image,
 		party,
-		searchQuery,
+		current,
+		incumbent,
+		running_for
 	} = props
-	counties = counties.slice(0, 3)
+	// let { counties, number } = district
+	// counties = counties.slice(0, 3)
 	return (
 		<Link to={`/politicians/view/${id}`} target="_blank">
 			<Card
@@ -47,7 +50,7 @@ export function PoliticianCard(props) {
 						<Highlighter
 							highlightClassName={styles.highlight}
 							searchWords={[searchQuery]}
-							textToHighlight={districtDescription(props)}
+							textToHighlight={districtDescription(number, current, running_for, incumbent)}
 						/>
 					}
 				/>
