@@ -88,6 +88,7 @@ export default function SearchView(props) {
 							<DistrictResult
 								{...result}
 								searchQuery={searchVal}
+								key={result.id}
 							/>
 						))}
 					</section>

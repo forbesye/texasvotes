@@ -7,7 +7,7 @@ import Spinner from "components/ui/Spinner"
 import { getAPI } from "library/APIClient"
 import DistrictMap from "components/ui/DistrictMap"
 import PieChart from "components/charts/PieChart"
-// import ReactMapboxGl, { Layer, Source } from "react-mapbox-gl"
+import PoliticianCard from "components/cards/PoliticianCard"
 import { formatAsMoney, convertToPercent } from "library/Functions"
 import { party_mappings } from "library/Mappings"
 
@@ -155,15 +155,21 @@ const Details = () => {
 										? "Elected official"
 										: "Elected officials"}
 								</Text>
-								{elected_officials.map((pol) => (
-									<div>
-										<Link
-											to={`/politicians/view/${pol.id}`}
-										>
-											{pol.name}
-										</Link>
-									</div>
-								))}
+								<div className={styles.grid} >
+									{elected_officials.map((data) => (
+										<PoliticianCard 
+											key={data.id}
+											data={{
+												...data,
+												running_for: type,
+												current: type
+											}}
+											style={{
+												height: 50
+											}}
+										/>
+									))}
+								</div>
 							</Col>
 						</Row>
 						{/* Related elections */}

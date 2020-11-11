@@ -20,7 +20,7 @@ const PoliticianCard = ({ data }) => {
 			<Card
 				hoverable
 				style={{
-					height: "100%",
+					height: "100%"
 				}}
 				cover={
 					<img
