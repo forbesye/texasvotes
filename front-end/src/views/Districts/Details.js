@@ -94,10 +94,6 @@ const Details = () => {
 		fetchData()
 	}, [id, compare, history])
 
-	const handleBack = () => {
-		history.push("/districts/view")
-	}
-
 	const checkboxCompare = () => {
 		setCompare(!compare)
 	}
@@ -124,7 +120,7 @@ const Details = () => {
 				<PageHeader
 					title={districtName(district)}
 					subTitle={description(district)}
-					onBack={handleBack}
+					onBack={() => window.history.back()}
 				/>
 				<Divider />
 				<div className={styles.districtDescription}>

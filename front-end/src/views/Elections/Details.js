@@ -86,9 +86,6 @@ const Details = () => {
 		fetchData()
 	}, [id, history])
 
-	const handleBack = () => {
-		history.push("/elections/view")
-	}
 
 	const { candidates, results, dates, video_url } = election
 	let content = null
@@ -97,7 +94,7 @@ const Details = () => {
 			<Fragment>
 				<PageHeader
 					title={electionTitle(election)}
-					onBack={handleBack}
+					onBack={() => window.history.back()}
 				/>
 				<Divider />
 

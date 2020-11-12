@@ -88,9 +88,8 @@ export default function GridView() {
 				history.push("/error")
 			}
 		}
-		console.log(location.search)
 		fetchData()
-	}, [params, history, location])
+	}, [params, history])
 
 	return (
 		<Fragment>
