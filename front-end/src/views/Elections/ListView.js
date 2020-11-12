@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import { Table, Divider, Typography, Select } from "antd"
 import { useHistory } from "react-router-dom"
-import columns from "./Lib"
+import { electionColumns } from "./Lib"
 import { districtName } from "./../Districts/Lib"
 import { getAPI } from "library/APIClient"
 import styles from "./Elections.module.css"
@@ -170,7 +170,7 @@ const ListView = () => {
 			<section ref={listRef}>
 				<Table
 					dataSource={listData}
-					columns={columns}
+					columns={electionColumns}
 					onRow={(record) => {
 						return {
 							onClick: (event) => {

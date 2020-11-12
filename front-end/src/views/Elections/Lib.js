@@ -1,10 +1,11 @@
 import React from "react"
 import { Typography } from "antd"
+import { numberStringWithCommas } from "library/Functions"
 
 /**
  * Column info for election list view
  */
-const columns = [
+const electionColumns = [
 	{
 		title: "Type",
 		dataIndex: "type",
@@ -61,4 +62,44 @@ const columns = [
 	},
 ]
 
-export default columns
+/**
+ * Result columns for Ant Design Table 
+ */
+const resultColumns = [
+	{
+		title: "Name",
+		dataIndex: "name",
+		key: "name",
+		sorter: (a, b) => {
+			return a.name.localeCompare(b.name)
+		}
+	},
+	{
+		title: "Party",
+		dataIndex: "party",
+		key: "party",
+	},
+	{
+		title: "Vote Total",
+		dataIndex: "vote_total",
+		key: "vote_total",
+		render: (text) => numberStringWithCommas(text),
+		sorter: (a, b) => {
+			return a.vote_total - b.vote_total
+		}
+	},
+	{
+		title: "Vote Percentage",
+		dataIndex: "vote_percentage",
+		key: "vote_percentage",
+		render: (text) => text + "%",
+		sorter: (a, b) => {
+			return a.vote_percentage - b.vote_percentage
+		}
+	},
+]
+
+export {
+	electionColumns,
+	resultColumns
+}
