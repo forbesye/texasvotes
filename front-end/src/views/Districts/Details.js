@@ -148,7 +148,7 @@ const Details = () => {
 							District Details
 						</Title>
 						{/* Elected officials in district */}
-						<Row justify="space-around">
+						{elected_officials && <Row justify="space-around">
 							<Col>
 								<Text strong style={{ fontSize: 18 }}>
 									{elected_officials.length < 2
@@ -164,14 +164,11 @@ const Details = () => {
 												running_for: type,
 												current: type
 											}}
-											style={{
-												height: 50
-											}}
 										/>
 									))}
 								</div>
 							</Col>
-						</Row>
+						</Row>}
 						{/* Related elections */}
 						<Row justify="space-around" style={{ marginTop: 10 }}>
 							<Col>
@@ -180,9 +177,9 @@ const Details = () => {
 										<Text strong style={{ fontSize: 18 }}>
 											Elections
 										</Text>
-										{elections.map((e) => {
-											return electionName(e, number)
-										})}
+										{elections.map((e) => (
+												electionName(e, number)
+											))}
 									</Fragment>
 								) : (
 									<Fragment>

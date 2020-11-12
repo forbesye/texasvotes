@@ -9,6 +9,7 @@ import {
 	numberStringWithCommas,
 	districtName,
 } from "library/Functions"
+import PoliticianCard from "components/cards/PoliticianCard"
 import { election_date_mappings, party_mappings } from "library/Mappings"
 import { getAPI } from "library/APIClient"
 import ReactPlayer from "react-player"
@@ -16,6 +17,7 @@ import ReactPlayer from "react-player"
 const { Title, Text } = Typography
 
 // Candidate columns for Ant Design Table
+// Todo: Refactor
 const candidateColumns = [
 	{
 		title: "Name",
@@ -252,7 +254,19 @@ const Details = () => {
 					<Title style={{ textAlign: "center" }} level={3}>
 						Candidates
 					</Title>
-					<Table dataSource={candidates} columns={candidateColumns} />
+					<div className={styles.grid} >
+						{candidates.map(data => (
+							<PoliticianCard 
+								key={data.id}
+								data={{
+									...data,
+									running_for: data.district.type,
+									current: data.district.type
+								}}
+							/>
+						))}
+					</div>
+					{/* <Table dataSource={candidates} columns={candidateColumns} /> */}
 				</article>
 				{/* Election results if past election */}
 				{results ? (
