@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react"
 import { Typography } from "antd"
-import { Link, useLocation, useHistory } from "react-router-dom"
+import { useLocation, useHistory } from "react-router-dom"
 import { getAPI } from "../../library/APIClient"
 import Spinner from "../../components/ui/Spinner"
 import styles from "./Search.module.css"

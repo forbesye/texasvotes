@@ -3,9 +3,8 @@ import { Typography, Input, Divider, Pagination } from "antd"
 import { Link, useLocation, useHistory } from "react-router-dom"
 import Highlighter from "react-highlight-words"
 import styles from "./Districts.module.css"
-
-import { getAPI } from "../../library/APIClient"
-import Spinner from "../../components/ui/Spinner"
+import { getAPI } from "library/APIClient"
+import Spinner from "components/ui/Spinner"
 import { districtName } from "./Lib"
 
 const { Search } = Input
@@ -89,6 +88,7 @@ export default function SearchView(props) {
 							<DistrictResult
 								{...result}
 								searchQuery={searchVal}
+								key={result.id}
 							/>
 						))}
 					</section>
@@ -108,14 +108,14 @@ export default function SearchView(props) {
 
 /**
  * Card of district data in search view
- * @param {List[String], List[Politician], String} props
+ * @param {District} props
  */
 function DistrictResult(props) {
 	let { counties, elected_officials, searchQuery } = props
 
 	let officials = []
 	// That ONE district in Texas that doesn't have an elected official...
-	if(elected_officials) {
+	if (elected_officials) {
 		elected_officials.forEach((official) => {
 			officials.push(official.name)
 		})

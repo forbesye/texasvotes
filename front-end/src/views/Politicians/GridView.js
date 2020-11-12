@@ -1,8 +1,7 @@
 import React, { useState, useEffect, Fragment, useRef } from "react"
-import { Typography, Divider, Card, Pagination, Select } from "antd"
-import { Link, useHistory } from "react-router-dom"
+import { Typography, Divider, Pagination, Select } from "antd"
+import { useHistory } from "react-router-dom"
 import styles from "./Politicians.module.css"
-import { description } from "./Lib"
 import { getAPI } from "library/APIClient"
 import {
 	CountiesFilter,
@@ -10,12 +9,11 @@ import {
 	OfficeFilter,
 	DistrictNumberFilter,
 } from "library/FilterValues"
+import PoliticianCard from "components/cards/PoliticianCard"
 import { updateFilter } from "library/Functions"
-import { colorHexMap } from "library/Mappings"
 import Spinner from "components/ui/Spinner"
 
-const { Title, Paragraph, Text } = Typography
-const { Meta } = Card
+const { Title, Paragraph } = Typography
 const { Option } = Select
 
 /**
@@ -143,43 +141,8 @@ export default function GridView() {
 			{!loading ? (
 				<section className={styles.grid} ref={gridRef}>
 					{/* Render all cards pulled from API */}
-					{gridData.map((item) => (
-						<Link key={item.id} to={`/politicians/view/${item.id}`}>
-							<Card
-								hoverable
-								style={{
-									height: "100%",
-								}}
-								cover={
-									<img
-										className={styles.croppedImage}
-										alt={item.name}
-										src={item.image}
-									/>
-								}
-							>
-								<div
-									className={styles.circle}
-									style={{
-										background: colorHexMap[item.party],
-									}}
-								>
-									{item.party}
-								</div>
-								<Meta
-									title={
-										<Text style={{ fontSize: 20 }}>
-											{item.name}
-										</Text>
-									}
-									description={
-										<Text style={{ fontSize: 18 }}>
-											{description(item)}{" "}
-										</Text>
-									}
-								/>
-							</Card>
-						</Link>
+					{gridData.map((data) => (
+						<PoliticianCard data={data} />
 					))}
 				</section>
 			) : (

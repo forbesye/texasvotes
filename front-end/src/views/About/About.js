@@ -122,6 +122,7 @@ const About = () => {
 							commits,
 							issues,
 							tests,
+							linkedin,
 						} = member
 						return (
 							<DevBio
@@ -133,6 +134,7 @@ const About = () => {
 								commits={commits}
 								issues={issues}
 								tests={tests}
+								linkedin={linkedin}
 							/>
 						)
 					})}

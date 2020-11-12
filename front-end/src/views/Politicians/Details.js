@@ -85,10 +85,6 @@ export default function Details() {
 		fetchData()
 	}, [id, history])
 
-	const handleBack = () => {
-		history.push("/politicians/view")
-	}
-
 	const {
 		name,
 		party,
@@ -118,7 +114,7 @@ export default function Details() {
 							{subtitle(current || running_for, !running_for)}
 						</Text>
 					}
-					onBack={handleBack}
+					onBack={() => window.history.back()}
 				/>
 				<Divider />
 				<div className={styles.politicianDescription}>

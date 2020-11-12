@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { Typography, Input, Divider, Pagination } from "antd"
 import { Link, useLocation, useHistory } from "react-router-dom"
 import Highlighter from "react-highlight-words"
@@ -7,7 +7,7 @@ import styles from "./Politicians.module.css"
 import { getAPI } from "../../library/APIClient"
 import Spinner from "../../components/ui/Spinner"
 import { description } from "./Lib"
-import { mostAlike, getMatchIndices } from "../../library/searchFunctions"
+import { mostAlike } from "../../library/searchFunctions"
 
 const { Search } = Input
 const { Title, Text, Paragraph } = Typography
@@ -114,14 +114,17 @@ export default function SearchView() {
  * @param {Politician} props
  */
 export function PoliticianResult(props) {
-	let {
-		district: { counties },
+	const {
+		district: { counties, number },
 		searchQuery,
+		id,
+		name,
+		image,
+		party,
+		current,
+		incumbent,
+		running_for,
 	} = props
-	const [highlightStart, highlightEnd] = getMatchIndices(
-		props.name,
-		searchQuery
-	)
 
 	let displayedCounties =
 		counties.length >= 10 ? counties.slice(0, 10) : counties
@@ -131,12 +134,12 @@ export function PoliticianResult(props) {
 	displayedCounties += counties.length >= 10 ? "..." : ""
 
 	return (
-		<Link to={`/politicians/view/${props.id}`}>
+		<Link to={`/politicians/view/${id}`}>
 			<div className={styles.politicianSearchCard}>
 				<img
 					className={styles.politicianSearchImage}
-					src={props.image}
-					alt={props.name}
+					src={image}
+					alt={name}
 				/>
 				<div className={styles.politicianSearchDesc}>
 					{/* Name and party */}
@@ -145,17 +148,22 @@ export function PoliticianResult(props) {
 							<Highlighter
 								highlightClassName={styles.searchHighlight}
 								searchWords={searchQuery.split(" ")}
-								textToHighlight={props.name}
+								textToHighlight={name}
 							/>
 						}{" "}
-						({props.party})
+						({party})
 					</Title>
 					{/* Description */}
 					<Paragraph>
 						<Highlighter
 							highlightClassName={styles.searchHighlight}
 							searchWords={searchQuery.split(" ")}
-							textToHighlight={description(props)}
+							textToHighlight={description(
+								number,
+								current,
+								running_for,
+								incumbent
+							)}
 						/>
 					</Paragraph>
 					<Paragraph>

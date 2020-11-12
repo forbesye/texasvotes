@@ -1,3 +1,5 @@
+import { party_mappings } from "library/Mappings"
+
 /*
  * Returns a string, only use for final output!
  */
@@ -64,6 +66,27 @@ const districtName = (office, number) => {
 	}
 }
 
+const electionTitle = (election) => {
+	const { dates, office, district, type, party } = election
+	const { number } = district
+	const { election_day } = dates
+	const electionYear = new Date(election_day).getFullYear()
+	if (type.class === "general") {
+		return `${electionYear} General Election for ${districtName(
+			office,
+			number
+		)}`
+	} else if (type.class === "runoff") {
+		return `${electionYear} ${
+			party_mappings[party]
+		} Runoff for ${districtName(office, number)}`
+	} else {
+		return `${electionYear} ${
+			party_mappings[party]
+		} Primary for ${districtName(office, number)}`
+	}
+}
+
 /**
  * Returns number as string with format $XX.XX
  * @param {Number} num
@@ -79,4 +102,5 @@ export {
 	districtName,
 	formatAsMoney,
 	updateFilter,
+	electionTitle,
 }
