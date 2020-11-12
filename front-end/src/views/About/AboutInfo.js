@@ -19,6 +19,8 @@ import MarshmallowLogo from "views/About/images/MarshmallowLogo.png"
 import SQLAlchemyLogo from "views/About/images/SQLAlchemyLogo.png"
 import PostgresLogo from "views/About/images/PostgresLogo.png"
 import NamecheapLogo from "views/About/images/NamecheapLogo.png"
+import BlackLogo from "views/About/images/BlackLogo.png"
+import PrettierLogo from "views/About/images/PrettierLogo.png"
 import GoogleDevLogo from "views/About/images/GoogleDevLogo.png"
 import OpenSecretsLogo from "views/About/images/OpenSecretsLogo.png"
 import OpenStatesLogo from "views/About/images/OpenStatesLogo.png"
@@ -63,6 +65,18 @@ const toolsInfo = [
 		img: PostgresLogo,
 		description: "Relational database management system",
 		link: "https://www.postgresql.org/",
+	},
+	{
+		title: "Prettier",
+		img: PrettierLogo,
+		description: "JavaScript code formatter",
+		link: "https://prettier.io/",
+	},
+	{
+		title: "Black",
+		img: BlackLogo,
+		description: "Python code formatter",
+		link: "https://github.com/psf/black",
 	},
 	{
 		title: "Jest",
