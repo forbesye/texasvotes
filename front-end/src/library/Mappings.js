@@ -47,6 +47,7 @@ const elected_office_mappings = {
 	us_senate: "US Senate",
 	tx_house: "Texas House",
 	tx_senate: "Texas Senate",
+	us_president: "US President"
 }
 
 const party_mappings = {

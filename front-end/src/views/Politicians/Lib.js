@@ -5,6 +5,7 @@ const ELECTED_OFFICE_NAMES = {
 	us_house: "US Representative",
 	us_senate: "US Senator",
 	tx_secretary_of_state: "Texas Secretary of State",
+	us_president: "President of the US"
 }
 
 const CHALLENGER_OFFICE_NAMES = {
@@ -12,6 +13,7 @@ const CHALLENGER_OFFICE_NAMES = {
 	tx_senate: "Candidate for State Senate Seat",
 	us_house: "Candidate for US House Seat",
 	us_senate: "Candidate for US Senate Seat",
+	us_president: "Candidate for US President"
 }
 
 export function subtitle(name, elected = true) {
@@ -33,12 +35,12 @@ export function officeName(name) {
  * @param {Boolean} incumbent
  */
 export function description(distNum, current, runningFor, incumbent) {
-	const districtName = distNum === -1 ? "Texas" : `TX-${distNum}`
+	const districtName = distNum < 0 ? "Texas" : `TX-${distNum}`
 	if (incumbent) {
 		return `${ELECTED_OFFICE_NAMES[current]} | ${districtName}`
 	} else {
 		return `${CHALLENGER_OFFICE_NAMES[runningFor]} ${
-			runningFor !== "us_senate" ? distNum : ""
+			!["us_senate", "us_president"].includes(runningFor) ? distNum : ""
 		}`
 	}
 }

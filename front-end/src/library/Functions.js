@@ -54,13 +54,15 @@ const convertToPercent = (val, total) => {
 const districtName = (office, number) => {
 	const OFFICE_NAMES = {
 		us_house: "US Congressional District",
-		us_senate: "US Senate",
+		us_senate: "US Senate Seat for Texas",
 		tx_house: "Texas House of Representatives District",
 		tx_senate: "Texas State Senate District",
+		us_president: "US Presidential Vote in Texas"
+
 	}
 
-	if (office === "us_senate") {
-		return "US Senate Seat for Texas"
+	if (number < 0) {
+		return OFFICE_NAMES[office]
 	} else {
 		return `${OFFICE_NAMES[office]} ${number}`
 	}
