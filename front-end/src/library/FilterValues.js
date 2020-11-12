@@ -13,7 +13,7 @@ const { Title } = Typography
  * @param {f()} onChange function to pass to returned component
  */
 
-const CountiesFilter = ({ onChange }) => {
+const CountiesFilter = ({ onChange, value }) => {
 	return (
 		<div style={{ marginBottom: 20, textAlign: "center" }}>
 			<Title level={5}>Counties</Title>
@@ -24,6 +24,7 @@ const CountiesFilter = ({ onChange }) => {
 				size="large"
 				style={{ width: 150 }}
 				onChange={onChange}
+				value={value}
 			>
 				{counties_list.map((county) => (
 					<Option key={county}>{county}</Option>
@@ -33,7 +34,7 @@ const CountiesFilter = ({ onChange }) => {
 	)
 }
 
-const PartiesFilter = ({ onChange }) => {
+const PartiesFilter = ({ onChange, value }) => {
 	const parties = ["R", "D", "L", "I"]
 	return (
 		<div style={{ marginBottom: 20, textAlign: "center" }}>
@@ -45,6 +46,7 @@ const PartiesFilter = ({ onChange }) => {
 				size="large"
 				style={{ width: 150 }}
 				onChange={onChange}
+				value={value}
 			>
 				{parties.map((party) => (
 					<Option key={party}>{party_mappings[party]}</Option>
@@ -54,8 +56,8 @@ const PartiesFilter = ({ onChange }) => {
 	)
 }
 
-const OfficeFilter = ({ onChange }) => {
-	const offices = ["tx_house", "tx_senate", "us_house", "us_senate"]
+const OfficeFilter = ({ onChange, value }) => {
+	const offices = ["tx_house", "tx_senate", "us_house", "us_senate", "us_president"]
 	return (
 		<div style={{ marginBottom: 20, textAlign: "center" }}>
 			<Title level={5}>Office</Title>
@@ -66,6 +68,7 @@ const OfficeFilter = ({ onChange }) => {
 				size="large"
 				style={{ width: 150 }}
 				onChange={onChange}
+				value={value}
 			>
 				{offices.map((office) => (
 					<Option key={office}>
@@ -77,7 +80,7 @@ const OfficeFilter = ({ onChange }) => {
 	)
 }
 
-const DistrictNumberFilter = ({ onChange }) => {
+const DistrictNumberFilter = ({ onChange, value }) => {
 	const nums = [...Array(150).keys()].map((n) => n + 1)
 	return (
 		<div style={{ marginBottom: 20, textAlign: "center" }}>
@@ -89,6 +92,7 @@ const DistrictNumberFilter = ({ onChange }) => {
 				size="large"
 				style={{ width: 150 }}
 				onChange={onChange}
+				value={value}
 			>
 				{nums.map((n) => (
 					<Option key={n}>{n}</Option>
@@ -98,7 +102,7 @@ const DistrictNumberFilter = ({ onChange }) => {
 	)
 }
 
-const PopulationRange = ({ onChange }) => {
+const PopulationRange = ({ onChange, value }) => {
 	const populationValues = {
 		"100000-150000": "100K - 150K",
 		"150000-200000": "150K - 200K",
@@ -118,6 +122,7 @@ const PopulationRange = ({ onChange }) => {
 				defaultValue=""
 				style={{ width: 150 }}
 				onChange={onChange}
+				value={value}
 			>
 				<Option key={""} value={""}>
 					All
@@ -130,7 +135,7 @@ const PopulationRange = ({ onChange }) => {
 	)
 }
 
-const ElectionTypeFilter = ({ onChange }) => {
+const ElectionTypeFilter = ({ onChange, value }) => {
 	const electionTypes = ["general", "primary", "runoff"]
 	return (
 		<div style={{ marginBottom: 20, textAlign: "center" }}>
@@ -142,6 +147,7 @@ const ElectionTypeFilter = ({ onChange }) => {
 				size="large"
 				style={{ width: 150 }}
 				onChange={onChange}
+				value={value}
 			>
 				{electionTypes.map((n) => (
 					<Option key={n}>

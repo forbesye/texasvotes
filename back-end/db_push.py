@@ -131,8 +131,10 @@ def populate_elections():
     for file_name in os.listdir(dir_name):
         full_path = "%s/%s" % (dir_name, file_name)
         with open(full_path, "r") as fi:
-            election_json = json.load(fi)
-            push_election(election_json)
+            print(file_name)
+            if ".json" in file_name:
+                election_json = json.load(fi)
+                push_election(election_json)
     db.session.commit()
     print("Elections added!")
 
@@ -159,13 +161,16 @@ def push_election(data):
         # Get winner
         winner_name = data["results"]["winner"]["name"]
         winner_pol = db.session.query(Politician).filter_by(name=winner_name).first()
-        data["results"]["winner"]["id"] = winner_pol.id
-        for pol in data["results"]["vote_counts"]:
-            pol_name = pol["name"]
-            pol_orm = db.session.query(Politician).filter_by(name=pol_name).first()
-            if pol_orm:
-                pol["id"] = pol_orm.id
-        entry["results"] = data["results"]
+        if winner_pol:
+            data["results"]["winner"]["id"] = winner_pol.id
+            for pol in data["results"]["vote_counts"]:
+                pol_name = pol["name"]
+                pol_orm = db.session.query(Politician).filter_by(name=pol_name).first()
+                if pol_orm:
+                    pol["id"] = pol_orm.id
+            entry["results"] = data["results"]
+        else:
+            return None
     election_db_instance = Election(**entry)
     # Past election results append politicians to relationship
     if "results" in entry:

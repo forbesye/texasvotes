@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment, useRef } from "react"
+import { ArrayParam, NumberParam, StringParam, useQueryParams, withDefault } from "use-query-params"
 import { Typography, Divider, Pagination, Select } from "antd"
 import { useHistory } from "react-router-dom"
 import styles from "./Politicians.module.css"
@@ -20,27 +21,33 @@ const { Option } = Select
  * Functional component for politician grid view
  */
 export default function GridView() {
-	const URLParams = new URLSearchParams(window.location.search)
 	const [loading, setLoading] = useState(true)
 	const [gridData, setGridData] = useState([])
 	const [total, setTotal] = useState(20)
 	// Pull params from URL and set state
-	const [params, setParams] = useState({
-		page: URLParams.get("page") ? URLParams.get("page") : 1,
-		sort: URLParams.get("sort") ? URLParams.get("sort") : "name",
-		counties: URLParams.getAll("counties"),
-		office: URLParams.getAll("office"),
-		party: URLParams.getAll("party"),
-		district_num: URLParams.getAll("district_num"),
+	const [params, setParams] = useQueryParams({
+		sort: withDefault(StringParam, "name"),
+		page: withDefault(NumberParam, 1),
+		counties: ArrayParam,
+		office: ArrayParam,
+		party: ArrayParam,
+		district_num: ArrayParam
 	})
+	const {
+		sort,
+		counties,
+		office,
+		party,
+		district_num
+	} = params
 	const gridRef = useRef(null)
 	const history = useHistory()
 
 	// Adjust page
 	const handlePaginationChange = (page) => {
-		setParams({
+		setParams({ 
 			...params,
-			page: page,
+			page: page 
 		})
 		window.scrollTo({
 			top: gridRef.current.offsetTop - 30,
@@ -56,20 +63,24 @@ export default function GridView() {
 			let URLParams = new URLSearchParams()
 			URLParams.append("page", params.page)
 			URLParams.append("sort", params.sort)
-			params.counties.forEach((county) =>
-				URLParams.append("counties", county)
-			)
-			params.party.forEach((county) => URLParams.append("party", county))
-			params.office.forEach((office) =>
-				URLParams.append("office", office)
-			)
-			params.district_num.forEach((district_num) =>
-				URLParams.append("district_num", district_num)
-			)
-			history.push({
-				pathname: "/politicians/view",
-				search: "?" + URLParams.toString(),
-			})
+			if(params.counties) {
+				params.counties.forEach((county) =>
+					URLParams.append("counties", county)
+				)
+			}
+			if(params.party) {
+				params.party.forEach((county) => URLParams.append("party", county))
+			}
+			if(params.office) {
+				params.office.forEach((office) =>
+					URLParams.append("office", office)
+				)
+			}			
+			if(params.district_num) {
+				params.district_num.forEach((district_num) =>
+					URLParams.append("district_num", district_num)
+				)
+			}
 			return URLParams
 		}
 
@@ -78,7 +89,7 @@ export default function GridView() {
 				setLoading(true)
 				const { page, count } = await getAPI({
 					model: "politician",
-					params: constructURLParams(params),
+					params: constructURLParams(params)
 				})
 				setTotal(count)
 				setGridData(page)
@@ -109,15 +120,19 @@ export default function GridView() {
 				<Title level={3}>Filter</Title>
 				<CountiesFilter
 					onChange={updateFilter("counties", setParams, params)}
+					value={counties}
 				/>
 				<PartiesFilter
 					onChange={updateFilter("party", setParams, params)}
+					value={party}
 				/>
 				<OfficeFilter
 					onChange={updateFilter("office", setParams, params)}
+					value={office}
 				/>
 				<DistrictNumberFilter
 					onChange={updateFilter("district_num", setParams, params)}
+					value={district_num}
 				/>
 				<Title level={3}>Sort</Title>
 				<div style={{ marginBottom: 20, textAlign: "center" }}>
@@ -127,6 +142,7 @@ export default function GridView() {
 						defaultValue="name"
 						style={{ width: 150 }}
 						onChange={updateFilter("sort", setParams, params)}
+						value={sort}
 					>
 						<Option key={"name"} value="name">
 							Name: A - Z
@@ -141,7 +157,7 @@ export default function GridView() {
 			{!loading ? (
 				<section className={styles.grid} ref={gridRef}>
 					{/* Render all cards pulled from API */}
-					{gridData.map((data) => (
+					{gridData?.map((data) => (
 						<PoliticianCard data={data} />
 					))}
 				</section>
