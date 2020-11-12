@@ -27,8 +27,6 @@ export function PoliticianCard(props) {
 		incumbent,
 		running_for
 	} = props
-	// let { counties, number } = district
-	// counties = counties.slice(0, 3)
 	return (
 		<Link to={`/politicians/view/${id}`} target="_blank">
 			<Card

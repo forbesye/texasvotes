@@ -74,12 +74,9 @@ const Details = () => {
 					path: id,
 					params: {},
 				})
-				data.candidates = data.candidates.map((c) => {
-					return {
-						...c,
-						key: c.id,
-					}
-				})
+				data.candidates = data.candidates.map(c => (
+					{ ...c, key: c.id }
+				))
 				setElection(data)
 				setLoaded(true)
 			} catch (err) {
@@ -133,20 +130,19 @@ const Details = () => {
 							/>
 						))}
 					</div>
-					{/* <Table dataSource={candidates} columns={candidateColumns} /> */}
 				</article>
 				{/* Election results if past election */}
-				{results ? (
+				{results && (
 					<article className={styles.electionDetails}>
 						<Title style={{ textAlign: "center" }} level={3}>
 							Results
 						</Title>
 						<Table
-							dataSource={results.vote_counts}
+							dataSource={results.vote_counts.map(r => ({...r, key: r.id}))}
 							columns={resultColumns}
 						/>
 					</article>
-				) : null}
+				)}
 			</Fragment>
 		)
 	}
