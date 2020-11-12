@@ -63,7 +63,7 @@ const electionColumns = [
 ]
 
 /**
- * Result columns for Ant Design Table 
+ * Result columns for Ant Design Table
  */
 const resultColumns = [
 	{
@@ -72,7 +72,7 @@ const resultColumns = [
 		key: "name",
 		sorter: (a, b) => {
 			return a.name.localeCompare(b.name)
-		}
+		},
 	},
 	{
 		title: "Party",
@@ -86,7 +86,7 @@ const resultColumns = [
 		render: (text) => numberStringWithCommas(text),
 		sorter: (a, b) => {
 			return a.vote_total - b.vote_total
-		}
+		},
 	},
 	{
 		title: "Vote Percentage",
@@ -95,11 +95,8 @@ const resultColumns = [
 		render: (text) => text + "%",
 		sorter: (a, b) => {
 			return a.vote_percentage - b.vote_percentage
-		}
+		},
 	},
 ]
 
-export {
-	electionColumns,
-	resultColumns
-}
+export { electionColumns, resultColumns }

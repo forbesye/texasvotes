@@ -27,22 +27,18 @@ export function officeName(name) {
 
 /**
  * Returns description of politician
- * @param {Number} distNum 
- * @param {Boolean} current 
- * @param {String} runningFor 
- * @param {Boolean} incumbent 
+ * @param {Number} distNum
+ * @param {Boolean} current
+ * @param {String} runningFor
+ * @param {Boolean} incumbent
  */
 export function description(distNum, current, runningFor, incumbent) {
-	const districtName = distNum === -1
-			? "Texas"
-			: `TX-${distNum}`
+	const districtName = distNum === -1 ? "Texas" : `TX-${distNum}`
 	if (incumbent) {
 		return `${ELECTED_OFFICE_NAMES[current]} | ${districtName}`
 	} else {
 		return `${CHALLENGER_OFFICE_NAMES[runningFor]} ${
-			runningFor !== "us_senate"
-				? distNum
-				: ""
+			runningFor !== "us_senate" ? distNum : ""
 		}`
 	}
 }

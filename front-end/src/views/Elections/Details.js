@@ -3,12 +3,8 @@ import { PageHeader, Typography, Divider, Table } from "antd"
 import { useParams, useHistory, Link } from "react-router-dom"
 import Spinner from "components/ui/Spinner"
 import styles from "./Elections.module.css"
-import {
-	districtName,
-} from "library/Functions"
-import {
-	resultColumns
-} from "./Lib"
+import { districtName } from "library/Functions"
+import { resultColumns } from "./Lib"
 import PoliticianCard from "components/cards/PoliticianCard"
 import { party_mappings } from "library/Mappings"
 import ElectionTimeline from "components/ui/Timeline"
@@ -74,9 +70,10 @@ const Details = () => {
 					path: id,
 					params: {},
 				})
-				data.candidates = data.candidates.map(c => (
-					{ ...c, key: c.id }
-				))
+				data.candidates = data.candidates.map((c) => ({
+					...c,
+					key: c.id,
+				}))
 				setElection(data)
 				setLoaded(true)
 			} catch (err) {
@@ -85,7 +82,6 @@ const Details = () => {
 		}
 		fetchData()
 	}, [id, history])
-
 
 	const { candidates, results, dates, video_url } = election
 	let content = null
@@ -108,21 +104,21 @@ const Details = () => {
 						Election Dates
 					</Title>
 					{/* Depending on current date, render different timeline */}
-					<ElectionTimeline dates={dates}/>
+					<ElectionTimeline dates={dates} />
 				</article>
 				{/* Election candidates */}
 				<article className={styles.electionDetails}>
 					<Title style={{ textAlign: "center" }} level={3}>
 						Candidates
 					</Title>
-					<div className={styles.grid} >
-						{candidates.map(data => (
-							<PoliticianCard 
+					<div className={styles.grid}>
+						{candidates.map((data) => (
+							<PoliticianCard
 								key={data.id}
 								data={{
 									...data,
 									running_for: data.district.type,
-									current: data.district.type
+									current: data.district.type,
 								}}
 							/>
 						))}
@@ -135,7 +131,10 @@ const Details = () => {
 							Results
 						</Title>
 						<Table
-							dataSource={results.vote_counts.map(r => ({...r, key: r.id}))}
+							dataSource={results.vote_counts.map((r) => ({
+								...r,
+								key: r.id,
+							}))}
 							columns={resultColumns}
 						/>
 					</article>

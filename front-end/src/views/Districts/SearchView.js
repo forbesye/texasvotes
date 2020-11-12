@@ -111,15 +111,11 @@ export default function SearchView(props) {
  * @param {District} props
  */
 function DistrictResult(props) {
-	let { 
-		counties, 
-		elected_officials, 
-		searchQuery,
-	} = props
+	let { counties, elected_officials, searchQuery } = props
 
 	let officials = []
 	// That ONE district in Texas that doesn't have an elected official...
-	if(elected_officials) {
+	if (elected_officials) {
 		elected_officials.forEach((official) => {
 			officials.push(official.name)
 		})

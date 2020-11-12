@@ -47,7 +47,16 @@ const GitStat = ({ type, n }) => {
 */
 const DevBio = (props) => {
 	// Unpack the props
-	const { name, bio, role, picture_path, commits, issues, tests, linkedin } = props
+	const {
+		name,
+		bio,
+		role,
+		picture_path,
+		commits,
+		issues,
+		tests,
+		linkedin,
+	} = props
 
 	return (
 		<a href={linkedin}>

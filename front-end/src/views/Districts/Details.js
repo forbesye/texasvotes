@@ -127,8 +127,8 @@ const Details = () => {
 					<Title style={{ textAlign: "center" }} level={3}>
 						District Map
 					</Title>
-					<DistrictMap 
-						containerStyle = {{
+					<DistrictMap
+						containerStyle={{
 							height: "50vh",
 							width: "95%",
 						}}
@@ -144,27 +144,29 @@ const Details = () => {
 							District Details
 						</Title>
 						{/* Elected officials in district */}
-						{elected_officials && <Row justify="space-around">
-							<Col>
-								<Text strong style={{ fontSize: 18 }}>
-									{elected_officials.length < 2
-										? "Elected official"
-										: "Elected officials"}
-								</Text>
-								<div className={styles.grid} >
-									{elected_officials.map((data) => (
-										<PoliticianCard 
-											key={data.id}
-											data={{
-												...data,
-												running_for: type,
-												current: type
-											}}
-										/>
-									))}
-								</div>
-							</Col>
-						</Row>}
+						{elected_officials && (
+							<Row justify="space-around">
+								<Col>
+									<Text strong style={{ fontSize: 18 }}>
+										{elected_officials.length < 2
+											? "Elected official"
+											: "Elected officials"}
+									</Text>
+									<div className={styles.grid}>
+										{elected_officials.map((data) => (
+											<PoliticianCard
+												key={data.id}
+												data={{
+													...data,
+													running_for: type,
+													current: type,
+												}}
+											/>
+										))}
+									</div>
+								</Col>
+							</Row>
+						)}
 						{/* Related elections */}
 						<Row justify="space-around" style={{ marginTop: 10 }}>
 							<Col>
@@ -173,9 +175,9 @@ const Details = () => {
 										<Text strong style={{ fontSize: 18 }}>
 											Elections
 										</Text>
-										{elections.map((e) => (
-												electionName(e, number)
-											))}
+										{elections.map((e) =>
+											electionName(e, number)
+										)}
 									</Fragment>
 								) : (
 									<Fragment>

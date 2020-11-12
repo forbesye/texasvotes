@@ -91,7 +91,6 @@
 	align-content: center;
 }
 
-
 @media (min-width: 768px) {
 	.filterSection {
 		flex-direction: row;

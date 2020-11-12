@@ -122,7 +122,7 @@ const About = () => {
 							commits,
 							issues,
 							tests,
-							linkedin
+							linkedin,
 						} = member
 						return (
 							<DevBio

@@ -25,7 +25,7 @@ export function PoliticianCard(props) {
 		party,
 		current,
 		incumbent,
-		running_for
+		running_for,
 	} = props
 	return (
 		<Link to={`/politicians/view/${id}`} target="_blank">
@@ -48,7 +48,12 @@ export function PoliticianCard(props) {
 						<Highlighter
 							highlightClassName={styles.highlight}
 							searchWords={[searchQuery]}
-							textToHighlight={districtDescription(number, current, running_for, incumbent)}
+							textToHighlight={districtDescription(
+								number,
+								current,
+								running_for,
+								incumbent
+							)}
 						/>
 					}
 				/>
@@ -59,12 +64,7 @@ export function PoliticianCard(props) {
 
 // Card used to display a district result on the general search page. Takes in a search query and the district model body
 export function DistrictCard(props) {
-	const {
-		elected_officials,
-		id,
-		counties,
-		searchQuery,
-	} = props
+	const { elected_officials, id, counties, searchQuery } = props
 	let mapped = counties
 		.slice(0, COUNTY_LIMIT)
 		.reduce((prev, curr) => `${prev}, ${curr}`)

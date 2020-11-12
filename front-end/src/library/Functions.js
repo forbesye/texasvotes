@@ -102,5 +102,5 @@ export {
 	districtName,
 	formatAsMoney,
 	updateFilter,
-	electionTitle
+	electionTitle,
 }

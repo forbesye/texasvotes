@@ -123,7 +123,7 @@ export function PoliticianResult(props) {
 		party,
 		current,
 		incumbent,
-		running_for
+		running_for,
 	} = props
 
 	let displayedCounties =
@@ -158,7 +158,12 @@ export function PoliticianResult(props) {
 						<Highlighter
 							highlightClassName={styles.searchHighlight}
 							searchWords={searchQuery.split(" ")}
-							textToHighlight={description(number, current, running_for, incumbent)}
+							textToHighlight={description(
+								number,
+								current,
+								running_for,
+								incumbent
+							)}
 						/>
 					</Paragraph>
 					<Paragraph>
