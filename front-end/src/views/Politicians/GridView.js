@@ -1,5 +1,11 @@
 import React, { useState, useEffect, Fragment, useRef } from "react"
-import { ArrayParam, NumberParam, StringParam, useQueryParams, withDefault } from "use-query-params"
+import {
+	ArrayParam,
+	NumberParam,
+	StringParam,
+	useQueryParams,
+	withDefault,
+} from "use-query-params"
 import { Typography, Divider, Pagination, Select } from "antd"
 import { useHistory } from "react-router-dom"
 import styles from "./Politicians.module.css"
@@ -31,23 +37,17 @@ export default function GridView() {
 		counties: ArrayParam,
 		office: ArrayParam,
 		party: ArrayParam,
-		district_num: ArrayParam
+		district_num: ArrayParam,
 	})
-	const {
-		sort,
-		counties,
-		office,
-		party,
-		district_num
-	} = params
+	const { sort, counties, office, party, district_num } = params
 	const gridRef = useRef(null)
 	const history = useHistory()
 
 	// Adjust page
 	const handlePaginationChange = (page) => {
-		setParams({ 
+		setParams({
 			...params,
-			page: page 
+			page: page,
 		})
 		window.scrollTo({
 			top: gridRef.current.offsetTop - 30,
@@ -63,20 +63,22 @@ export default function GridView() {
 			let URLParams = new URLSearchParams()
 			URLParams.append("page", params.page)
 			URLParams.append("sort", params.sort)
-			if(params.counties) {
+			if (params.counties) {
 				params.counties.forEach((county) =>
 					URLParams.append("counties", county)
 				)
 			}
-			if(params.party) {
-				params.party.forEach((county) => URLParams.append("party", county))
+			if (params.party) {
+				params.party.forEach((county) =>
+					URLParams.append("party", county)
+				)
 			}
-			if(params.office) {
+			if (params.office) {
 				params.office.forEach((office) =>
 					URLParams.append("office", office)
 				)
-			}			
-			if(params.district_num) {
+			}
+			if (params.district_num) {
 				params.district_num.forEach((district_num) =>
 					URLParams.append("district_num", district_num)
 				)
@@ -89,7 +91,7 @@ export default function GridView() {
 				setLoading(true)
 				const { page, count } = await getAPI({
 					model: "politician",
-					params: constructURLParams(params)
+					params: constructURLParams(params),
 				})
 				setTotal(count)
 				setGridData(page)

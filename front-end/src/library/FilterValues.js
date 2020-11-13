@@ -57,7 +57,13 @@ const PartiesFilter = ({ onChange, value }) => {
 }
 
 const OfficeFilter = ({ onChange, value }) => {
-	const offices = ["tx_house", "tx_senate", "us_house", "us_senate", "us_president"]
+	const offices = [
+		"tx_house",
+		"tx_senate",
+		"us_house",
+		"us_senate",
+		"us_president",
+	]
 	return (
 		<div style={{ marginBottom: 20, textAlign: "center" }}>
 			<Title level={5}>Office</Title>

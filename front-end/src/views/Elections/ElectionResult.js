@@ -11,7 +11,6 @@ const { Title, Text, Paragraph } = Typography
  * @param {Election} election
  */
 export default function ElectionResult(props) {
-	console.log(props)
 	let {
 		district: { counties },
 		candidates,

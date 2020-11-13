@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useRef } from "react"
-import { ArrayParam, NumberParam, StringParam, useQueryParams, withDefault } from "use-query-params"
+import {
+	ArrayParam,
+	NumberParam,
+	StringParam,
+	useQueryParams,
+	withDefault,
+} from "use-query-params"
 import { Table, Divider, Typography, Select } from "antd"
 import { useHistory } from "react-router-dom"
 import styles from "./Districts.module.css"
@@ -33,17 +39,10 @@ const ListView = () => {
 		counties: ArrayParam,
 		party: ArrayParam,
 		number: ArrayParam,
-		office: ArrayParam
+		office: ArrayParam,
 	})
 	const listRef = useRef(null)
-	const {
-		sort,
-		popRange,
-		counties,
-		party,
-		number,
-		office
-	} = params
+	const { sort, popRange, counties, party, number, office } = params
 
 	/**
 	 * Is called any time there is a change to filter, sort, or page values
@@ -67,15 +66,17 @@ const ListView = () => {
 						URLParams.append("counties", county)
 					)
 				}
-				if(params.party) {
-					params.party.forEach((type) => URLParams.append("party", type))
+				if (params.party) {
+					params.party.forEach((type) =>
+						URLParams.append("party", type)
+					)
 				}
-				if(params.office) {
+				if (params.office) {
 					params.office.forEach((office) =>
 						URLParams.append("office", office)
 					)
 				}
-				if(params.number) {
+				if (params.number) {
 					params.number.forEach((dist) =>
 						URLParams.append("number", dist)
 					)
@@ -118,7 +119,6 @@ const ListView = () => {
 	}, [history, params])
 
 	const handleTableChange = ({ current }) => {
-		console.log(sort)
 		setParams({
 			...params,
 			page: current,

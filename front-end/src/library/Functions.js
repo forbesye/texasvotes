@@ -27,11 +27,11 @@ const monthDayYearParse = (d) => {
  * @param {T} params
  */
 const updateFilter = (filter, setParams, params) => {
-	return (value) => { 
+	return (value) => {
 		setParams({
 			...params,
 			[filter]: value,
-			page: 1
+			page: 1,
 		})
 	}
 }

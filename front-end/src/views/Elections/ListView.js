@@ -1,7 +1,13 @@
 import React, { useState, useEffect, useRef } from "react"
 import { Table, Divider, Typography, Select } from "antd"
 import { useHistory } from "react-router-dom"
-import { ArrayParam, NumberParam, StringParam, useQueryParams, withDefault } from "use-query-params"
+import {
+	ArrayParam,
+	NumberParam,
+	StringParam,
+	useQueryParams,
+	withDefault,
+} from "use-query-params"
 import { electionColumns } from "./Lib"
 import { districtName } from "./../Districts/Lib"
 import { getAPI } from "library/APIClient"
@@ -36,17 +42,11 @@ const ListView = () => {
 		counties: ArrayParam,
 		type: ArrayParam,
 		office: ArrayParam,
-		dist: ArrayParam
+		dist: ArrayParam,
 	})
 	const [total, setTotal] = useState(20)
 	const listRef = useRef(null)
-	const {
-		sort,
-		counties,
-		type,
-		office,
-		dist
-	} = params
+	const { sort, counties, type, office, dist } = params
 
 	useEffect(() => {
 		/**
@@ -58,20 +58,20 @@ const ListView = () => {
 			let URLParams = new URLSearchParams()
 			URLParams.append("page", params.page)
 			URLParams.append("sort", params.sort)
-			if(params.counties) {
+			if (params.counties) {
 				params.counties.forEach((county) =>
 					URLParams.append("counties", county)
 				)
 			}
-			if(params.type) {
+			if (params.type) {
 				params.type.forEach((type) => URLParams.append("type", type))
 			}
-			if(params.office) {
+			if (params.office) {
 				params.office.forEach((office) =>
 					URLParams.append("office", office)
 				)
 			}
-			if(params.dist) {
+			if (params.dist) {
 				params.dist.forEach((dist) => URLParams.append("dist", dist))
 			}
 			return URLParams
