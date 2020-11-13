@@ -167,7 +167,7 @@ export function ElectionCard(props) {
 									textToHighlight={`${
 										elected_office_mappings[office]
 									} ${
-										number !== -1
+										number > 0
 											? "District " + number
 											: ""
 									}`}
