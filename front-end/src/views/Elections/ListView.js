@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useRef } from "react"
 import { Table, Divider, Typography, Select } from "antd"
 import { useHistory } from "react-router-dom"
+import {
+	ArrayParam,
+	NumberParam,
+	StringParam,
+	useQueryParams,
+	withDefault,
+} from "use-query-params"
 import { electionColumns } from "./Lib"
 import { districtName } from "./../Districts/Lib"
 import { getAPI } from "library/APIClient"
@@ -25,21 +32,21 @@ const { Option } = Select
  * Functional component for election list view
  */
 const ListView = () => {
-	const URLParams = new URLSearchParams(window.location.search)
 	const history = useHistory()
 	const [loading, setLoading] = useState(true)
 	const [listData, setListData] = useState([])
 	// Parse params from URL
-	const [params, setParams] = useState({
-		page: URLParams.get("page") ? URLParams.get("page") : 1,
-		sort: URLParams.get("sort") ? URLParams.get("sort") : "-electionDate",
-		counties: URLParams.getAll("counties"),
-		type: URLParams.getAll("type"),
-		office: URLParams.getAll("office"),
-		dist: URLParams.getAll("dist"),
+	const [params, setParams] = useQueryParams({
+		sort: withDefault(StringParam, "-electionDate"),
+		page: withDefault(NumberParam, 1),
+		counties: ArrayParam,
+		type: ArrayParam,
+		office: ArrayParam,
+		dist: ArrayParam,
 	})
 	const [total, setTotal] = useState(20)
 	const listRef = useRef(null)
+	const { sort, counties, type, office, dist } = params
 
 	useEffect(() => {
 		/**
@@ -51,18 +58,22 @@ const ListView = () => {
 			let URLParams = new URLSearchParams()
 			URLParams.append("page", params.page)
 			URLParams.append("sort", params.sort)
-			params.counties.forEach((county) =>
-				URLParams.append("counties", county)
-			)
-			params.type.forEach((type) => URLParams.append("type", type))
-			params.office.forEach((office) =>
-				URLParams.append("office", office)
-			)
-			params.dist.forEach((dist) => URLParams.append("dist", dist))
-			history.push({
-				pathname: "/elections/view",
-				search: "?" + URLParams.toString(),
-			})
+			if (params.counties) {
+				params.counties.forEach((county) =>
+					URLParams.append("counties", county)
+				)
+			}
+			if (params.type) {
+				params.type.forEach((type) => URLParams.append("type", type))
+			}
+			if (params.office) {
+				params.office.forEach((office) =>
+					URLParams.append("office", office)
+				)
+			}
+			if (params.dist) {
+				params.dist.forEach((dist) => URLParams.append("dist", dist))
+			}
 			return URLParams
 		}
 
@@ -138,15 +149,19 @@ const ListView = () => {
 				<Title level={3}>Filter</Title>
 				<CountiesFilter
 					onChange={updateFilter("counties", setParams, params)}
+					value={counties}
 				/>
 				<OfficeFilter
 					onChange={updateFilter("office", setParams, params)}
+					value={office}
 				/>
 				<DistrictNumberFilter
 					onChange={updateFilter("dist", setParams, params)}
+					value={dist}
 				/>
 				<ElectionTypeFilter
 					onChange={updateFilter("type", setParams, params)}
+					value={type}
 				/>
 				<Title level={3}>Sort</Title>
 				<div style={{ marginBottom: 20, textAlign: "center" }}>
@@ -156,6 +171,7 @@ const ListView = () => {
 						defaultValue="-electionDate"
 						style={{ width: 150 }}
 						onChange={updateFilter("sort", setParams, params)}
+						value={sort}
 					>
 						<Option key={"-electionDate"} value={"-electionDate"}>
 							Date (Newest)

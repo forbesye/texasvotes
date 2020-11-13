@@ -1,4 +1,11 @@
 import React, { useState, useEffect, useRef } from "react"
+import {
+	ArrayParam,
+	NumberParam,
+	StringParam,
+	useQueryParams,
+	withDefault,
+} from "use-query-params"
 import { Table, Divider, Typography, Select } from "antd"
 import { useHistory } from "react-router-dom"
 import styles from "./Districts.module.css"
@@ -20,22 +27,22 @@ const { Option } = Select
  * Functional component for list of Districts
  */
 const ListView = () => {
-	const URLParams = new URLSearchParams(window.location.search)
 	const history = useHistory()
 	const [loading, setLoading] = useState(true)
 	const [listData, setListData] = useState([])
 	const [total, setTotal] = useState(20)
 	// Initial query params based off URL of page
-	const [params, setParams] = useState({
-		page: URLParams.get("page") ? URLParams.get("page") : 1,
-		sort: URLParams.get("sort") ? URLParams.get("sort") : "number",
-		popRange: URLParams.get("popRange") ? URLParams.get("popRange") : "",
-		counties: URLParams.getAll("counties"),
-		party: URLParams.getAll("party"),
-		number: URLParams.getAll("number"),
-		office: URLParams.getAll("office"),
+	const [params, setParams] = useQueryParams({
+		sort: withDefault(StringParam, "number"),
+		page: withDefault(NumberParam, 1),
+		popRange: StringParam,
+		counties: ArrayParam,
+		party: ArrayParam,
+		number: ArrayParam,
+		office: ArrayParam,
 	})
 	const listRef = useRef(null)
+	const { sort, popRange, counties, party, number, office } = params
 
 	/**
 	 * Is called any time there is a change to filter, sort, or page values
@@ -54,20 +61,26 @@ const ListView = () => {
 				if (params.popRange) {
 					URLParams.append("popRange", params.popRange)
 				}
-				params.counties.forEach((county) =>
-					URLParams.append("counties", county)
-				)
-				params.party.forEach((type) => URLParams.append("party", type))
-				params.office.forEach((office) =>
-					URLParams.append("office", office)
-				)
-				params.number.forEach((dist) =>
-					URLParams.append("number", dist)
-				)
-				history.push({
-					pathname: "/districts/view",
-					search: "?" + URLParams.toString(),
-				})
+				if (params.counties) {
+					params.counties.forEach((county) =>
+						URLParams.append("counties", county)
+					)
+				}
+				if (params.party) {
+					params.party.forEach((type) =>
+						URLParams.append("party", type)
+					)
+				}
+				if (params.office) {
+					params.office.forEach((office) =>
+						URLParams.append("office", office)
+					)
+				}
+				if (params.number) {
+					params.number.forEach((dist) =>
+						URLParams.append("number", dist)
+					)
+				}
 				return URLParams
 			}
 
@@ -98,6 +111,7 @@ const ListView = () => {
 				setListData(data)
 				setLoading(false)
 			} catch (err) {
+				console.error(err)
 				history.push("/error")
 			}
 		}
@@ -134,18 +148,23 @@ const ListView = () => {
 				<Title level={3}>Filter</Title>
 				<CountiesFilter
 					onChange={updateFilter("counties", setParams, params)}
+					value={counties}
 				/>
 				<PartiesFilter
 					onChange={updateFilter("party", setParams, params)}
+					value={party}
 				/>
 				<OfficeFilter
 					onChange={updateFilter("office", setParams, params)}
+					value={office}
 				/>
 				<DistrictNumberFilter
 					onChange={updateFilter("number", setParams, params)}
+					value={number}
 				/>
 				<PopulationRange
 					onChange={updateFilter("popRange", setParams, params)}
+					value={popRange}
 				/>
 				<Title level={3}>Sort</Title>
 				<div style={{ marginBottom: 20, textAlign: "center" }}>
@@ -155,6 +174,7 @@ const ListView = () => {
 						defaultValue="number"
 						style={{ width: 150 }}
 						onChange={updateFilter("sort", setParams, params)}
+						value={sort}
 					>
 						<Option key={"number"} value={"number"}>
 							District (Asc.)
