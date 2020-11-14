@@ -9,7 +9,7 @@ import {
 import { Typography, Divider, Pagination, Select } from "antd"
 import { useHistory } from "react-router-dom"
 import styles from "./Politicians.module.css"
-import { getAPI } from "library/APIClient"
+import useAxiosHook from "library/APIClient"
 import {
 	CountiesFilter,
 	PartiesFilter,
@@ -27,7 +27,7 @@ const { Option } = Select
  * Functional component for politician grid view
  */
 export default function GridView() {
-	const [loading, setLoading] = useState(true)
+	// const [loading, setLoading] = useState(true)
 	const [gridData, setGridData] = useState([])
 	const [total, setTotal] = useState(20)
 	// Pull params from URL and set state
@@ -39,6 +39,10 @@ export default function GridView() {
 		party: ArrayParam,
 		district_num: ArrayParam,
 	})
+	const [{data, loading}, refetch] = useAxiosHook({
+		model: "politician",
+		params: params
+	}) 
 	const { sort, counties, office, party, district_num } = params
 	const gridRef = useRef(null)
 	const history = useHistory()
@@ -88,14 +92,16 @@ export default function GridView() {
 
 		const fetchData = async () => {
 			try {
-				setLoading(true)
-				const { page, count } = await getAPI({
-					model: "politician",
-					params: constructURLParams(params),
-				})
-				setTotal(count)
+				// setLoading(true)
+				// const { page, count } = await getAPI({
+				// 	model: "politician",
+				// 	params: constructURLParams(params),
+				// })
+				// setTotal(count)
+				const { data: {page, count }} = await refetch({ params: constructURLParams(params) })
 				setGridData(page)
-				setLoading(false)
+				setTotal(count)
+				// setLoading(false)
 			} catch (err) {
 				console.error(err)
 				history.push("/error")
@@ -160,7 +166,7 @@ export default function GridView() {
 				<section className={styles.grid} ref={gridRef}>
 					{/* Render all cards pulled from API */}
 					{gridData?.map((data) => (
-						<PoliticianCard data={data} />
+						<PoliticianCard key={data.id} data={data} />
 					))}
 				</section>
 			) : (
