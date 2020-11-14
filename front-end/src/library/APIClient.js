@@ -9,37 +9,45 @@ const client = axios.create({
 	? process.env.REACT_APP_API_URL
 	: "https://apidev.texasvotes.me"
 })
-// const apiCache = new cache()
-// const apiCache = new Map()
+
+// LRU cache to store API requests
+const apiCache = new cache()
+
 /**
  * API client from axios, allows modularity across models and is configured to
- * be linked to our back-end API
+ * be linked to our back-end API, now with caching!
  * @param {model, path, params} elements
  */
 const getAPI = async ({ model, path, params }) => {
-	// console.log(apiCache)
-	// const time = new Date().getTime()
 	const url = path ? `/${model}/${path}` : `/${model}`
 	const config = params ? { params: params } : {}
-<<<<<<< HEAD
-	// const hash = `${url}${config?.params.toString()}`
-	// if (apiCache.has(hash)) {
-	// 	const data = apiCache.get(hash)
-	// 	// console.log(new Date().getTime() - time)
-	// 	return data
-	// } else {
-=======
 	const hash = `${url}${config?.params.toString()}`
-	if(apiCache.has(hash)) {
-		return apiCache.get(hash)
+	return (
+		checkCache(hash) || getData(url, config, hash)
+	)
+}
+
+/**
+ * Async function to get data from API, called if no data in cache
+ * @param {String} url 
+ * @param {Axios.config} config 
+ * @param {String} hash 
+ */
+const getData = async (url, config, hash) => {
+	const { data } = await client.get(url, config)
+	apiCache.set(hash, data)
+	return data
+}
+
+/**
+ * Sync function to get data from cache
+ * @param {string} hash 
+ */
+const checkCache = (hash) => {
+	if(!apiCache.has(hash)) {
+		return null
 	}
-	else {
->>>>>>> parent of dc19b28... formatted with prettier
-		const result = await client.get(url, config)
-		const { data } = result
-		// apiCache.set(hash, data)
-		return data
-	// }
+	return apiCache.get(hash)
 }
 
 export { getAPI }
