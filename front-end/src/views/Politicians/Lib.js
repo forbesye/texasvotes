@@ -5,7 +5,7 @@ const ELECTED_OFFICE_NAMES = {
 	us_house: "US Representative",
 	us_senate: "US Senator",
 	tx_secretary_of_state: "Texas Secretary of State",
-	us_president: "President of the US",
+	us_president: "President of the US"
 }
 
 const CHALLENGER_OFFICE_NAMES = {
@@ -13,7 +13,7 @@ const CHALLENGER_OFFICE_NAMES = {
 	tx_senate: "Candidate for State Senate Seat",
 	us_house: "Candidate for US House Seat",
 	us_senate: "Candidate for US Senate Seat",
-	us_president: "Candidate for US President",
+	us_president: "Candidate for US President"
 }
 
 export function subtitle(name, elected = true) {

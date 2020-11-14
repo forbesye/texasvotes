@@ -6,7 +6,7 @@ const messages = [
 	"Waiting for Ken Paxton to stand trial for securities fraud",
 	"Listening to Dennis Bonnen lose his job as Speaker of the House",
 	"The Joe-mentum came guys",
-	'"Kraka-Joe-a"',
+	"\"Kraka-Joe-a\"",
 	"Waiting for Greg Abbott to terrorize liberal cities once more",
 	"Waiting for Dan Patrick to say something stupid again",
 	"Attempting to court the Hispanic vote",
@@ -20,7 +20,7 @@ const messages = [
 	"Standing back and standing by",
 	"Sending in the poll watchers",
 	"Undermining the democratic transfer of power",
-	"Looking for Ted Cruz's spine",
+	"Looking for Ted Cruz's spine"
 ]
 
 const styles = {

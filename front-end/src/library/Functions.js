@@ -56,7 +56,8 @@ const districtName = (office, number) => {
 		us_senate: "US Senate Seat for Texas",
 		tx_house: "Texas House of Representatives District",
 		tx_senate: "Texas State Senate District",
-		us_president: "US Presidential Vote in Texas",
+		us_president: "US Presidential Vote in Texas"
+
 	}
 
 	if (number < 0) {
