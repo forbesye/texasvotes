@@ -19,9 +19,12 @@ import {
 import PoliticianCard from "components/cards/PoliticianCard"
 import { updateFilter } from "library/Functions"
 import Spinner from "components/ui/Spinner"
+import cache from "lru-cache"
 
 const { Title, Paragraph } = Typography
 const { Option } = Select
+
+const apiCache = new cache()
 
 /**
  * Functional component for politician grid view
@@ -39,6 +42,7 @@ export default function GridView() {
 		party: ArrayParam,
 		district_num: ArrayParam,
 	})
+
 	const { sort, counties, office, party, district_num } = params
 	const gridRef = useRef(null)
 	const history = useHistory()
@@ -90,12 +94,21 @@ export default function GridView() {
 			try {
 				setLoading(true)
 				const URLParams = constructURLParams(params)
-				const { count, page } = await getAPI({
-					model: "politician",
-					params: URLParams,
-				})
-				setTotal(count)
-				setGridData(page)
+				const hash = URLParams.toString()
+				if(!apiCache.has(hash)) {
+					const data = await getAPI({
+						model: "politician",
+						params: URLParams,
+					})
+					const { count, page } = data
+					apiCache.set(hash, data)
+					setTotal(count)
+					setGridData(page)
+				} else {
+					const { count, page } = apiCache.get(hash)
+					setTotal(count)
+					setGridData(page)
+				}
 				setLoading(false)
 			} catch (err) {
 				console.error(err)

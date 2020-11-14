@@ -85,11 +85,13 @@ const ListView = () => {
 			}
 
 			try {
+				const time = new Date().getTime()
 				setLoading(true)
 				const { page, count } = await getAPI({
 					model: "district",
 					params: constructURLParams(params),
 				})
+				console.log(new Date().getTime() - time)
 				// Modifies API data for front-end use
 				const data = page.map((district) => {
 					var elected_official = district.elected_officials
@@ -107,15 +109,20 @@ const ListView = () => {
 						name: districtName(district),
 					}
 				})
+				console.log(new Date().getTime() - time)
 				setTotal(count)
 				setListData(data)
 				setLoading(false)
+				console.log(new Date().getTime() - time)
+				// debugger
+				console.log(loading)
 			} catch (err) {
 				console.error(err)
 				history.push("/error")
 			}
 		}
 		fetchData()
+		return () => { setLoading(false) }
 	}, [history, params])
 
 	const handleTableChange = ({ current }) => {
