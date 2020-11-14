@@ -10,10 +10,7 @@ import { Typography, Divider, Pagination } from "antd"
 import { useHistory } from "react-router-dom"
 import styles from "./Politicians.module.css"
 import { getAPI } from "library/APIClient"
-import {
-	Filter,
-	Sort
-} from "components/filters/Filters"
+import { Filter, Sort } from "components/filters/Filters"
 import PoliticianCard from "components/cards/PoliticianCard"
 import Spinner from "components/ui/Spinner"
 
@@ -122,7 +119,7 @@ export default function GridView() {
 						hook={[params, setParams]}
 					/>
 				))}
-				<Sort 
+				<Sort
 					model="Politician"
 					value={params.sort}
 					hook={[params, setParams]}

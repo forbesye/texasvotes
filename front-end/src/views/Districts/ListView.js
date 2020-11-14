@@ -12,10 +12,7 @@ import styles from "./Districts.module.css"
 import columns, { districtName } from "./Lib"
 import { party_mappings, elected_office_mappings } from "library/Mappings"
 import { getAPI } from "library/APIClient"
-import {
-	Filter,
-	Sort
-} from "components/filters/Filters"
+import { Filter, Sort } from "components/filters/Filters"
 const { Title, Paragraph } = Typography
 
 /**
@@ -140,14 +137,16 @@ const ListView = () => {
 			{/* Filter and sort*/}
 			<section className={styles.filterSection}>
 				<Title level={3}>Filter</Title>
-				{["counties", "party", "office", "number", "popRange"].map((name) => (
-					<Filter 
-						name={name}
-						value={params[name]}
-						hook={[params, setParams]}
-					/>
-				))}
-				<Sort 
+				{["counties", "party", "office", "number", "popRange"].map(
+					(name) => (
+						<Filter
+							name={name}
+							value={params[name]}
+							hook={[params, setParams]}
+						/>
+					)
+				)}
+				<Sort
 					model="District"
 					value={params.sort}
 					hook={[params, setParams]}

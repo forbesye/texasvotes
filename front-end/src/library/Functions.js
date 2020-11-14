@@ -56,8 +56,7 @@ const districtName = (office, number) => {
 		us_senate: "US Senate Seat for Texas",
 		tx_house: "Texas House of Representatives District",
 		tx_senate: "Texas State Senate District",
-		us_president: "US Presidential Vote in Texas"
-
+		us_president: "US Presidential Vote in Texas",
 	}
 
 	if (number < 0) {
@@ -99,7 +98,7 @@ const formatAsMoney = (num) => {
 /**
  * Creates an identity object from an array, key maps to value
  * { "a": "a", "b": "b", ... }
- * @param {Array} arr 
+ * @param {Array} arr
  */
 const identityObjectFromArray = (arr) => {
 	console.log(arr)
@@ -117,5 +116,5 @@ export {
 	formatAsMoney,
 	updateFilter,
 	electionTitle,
-	identityObjectFromArray
+	identityObjectFromArray,
 }

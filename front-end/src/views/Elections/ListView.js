@@ -17,10 +17,7 @@ import {
 	elected_office_mappings,
 } from "library/Mappings"
 import { monthDayYearParse } from "library/Functions"
-import {
-	Filter,
-	Sort
-} from "components/filters/Filters"
+import { Filter, Sort } from "components/filters/Filters"
 const { Title, Paragraph } = Typography
 
 /**
@@ -148,7 +145,7 @@ const ListView = () => {
 						hook={[params, setParams]}
 					/>
 				))}
-				<Sort 
+				<Sort
 					model="Election"
 					value={params.sort}
 					hook={[params, setParams]}
