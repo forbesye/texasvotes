@@ -56,8 +56,7 @@ const districtName = (office, number) => {
 		us_senate: "US Senate Seat for Texas",
 		tx_house: "Texas House of Representatives District",
 		tx_senate: "Texas State Senate District",
-		us_president: "US Presidential Vote in Texas"
-
+		us_president: "US Presidential Vote in Texas",
 	}
 
 	if (number < 0) {
@@ -96,6 +95,19 @@ const formatAsMoney = (num) => {
 	return `$` + numberStringWithCommas(num.toFixed(2))
 }
 
+/**
+ * Creates an identity object from an array, key maps to value
+ * { "a": "a", "b": "b", ... }
+ * @param {Array} arr
+ */
+const identityObjectFromArray = (arr) => {
+	console.log(arr)
+	return arr.reduce((obj, cur) => {
+		obj[cur] = cur
+		return obj
+	}, {})
+}
+
 export {
 	numberStringWithCommas,
 	monthDayYearParse,
@@ -104,4 +116,5 @@ export {
 	formatAsMoney,
 	updateFilter,
 	electionTitle,
+	identityObjectFromArray,
 }
