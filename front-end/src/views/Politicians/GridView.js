@@ -89,9 +89,10 @@ export default function GridView() {
 		const fetchData = async () => {
 			try {
 				setLoading(true)
-				const { page, count } = await getAPI({
+				const URLParams = constructURLParams(params)
+				const { count, page } = await getAPI({
 					model: "politician",
-					params: constructURLParams(params),
+					params: URLParams,
 				})
 				setTotal(count)
 				setGridData(page)
