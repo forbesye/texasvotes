@@ -1,0 +1,66 @@
+import {
+	counties_list,
+	party_mappings,
+	elected_office_mappings,
+	election_type_mappings,
+	population_mappings,
+} from "library/Mappings"
+import {
+	identityObjectFromArray
+} from "library/Functions"
+
+const filterOptionsMap = {
+	"Counties": identityObjectFromArray(counties_list),
+	"Party": party_mappings,
+	"Election Type": election_type_mappings,
+	"District #": identityObjectFromArray([...Array(150).keys()].map((n) => n + 1)),
+	"Population Range": population_mappings,
+	"Office": elected_office_mappings
+}
+
+const filterTitlesMap = {
+	"counties": "Counties",
+	"party": "Party",
+	"type": "Election Type",
+	"dist": "District #",
+	"district_num": "District #",
+	"number": "District #",
+	"popRange": "Population Range",
+	"office": "Office"
+}
+
+const sortValuesMap = {
+	"Politician": {
+		optionsMap: {
+			"name": "Name: A-Z",
+			"-name": "Name: Z-A",
+			"number": "District (Asc.)",
+			"-number": "District (Desc.)"
+		},
+		init: "name"
+	},
+	"District": {
+		optionsMap: {
+			"number": "District (Asc.)",
+			"-number": "District (Desc.)",
+			"pop": "Pop. (Asc.)",
+			"-pop": "Pop. (Desc.)"
+		},
+		init: "number"
+	},
+	"Election": {
+		optionsMap: {
+			"-electionDate": "Date (Newest)",
+			"electionDate": "Date (Oldest)",
+			"dist": "District (Asc.)",
+			"-dist": "District (Desc.)"
+		},
+		init: "-electionDate"
+	}
+}
+
+export {
+	filterOptionsMap,
+	sortValuesMap,
+	filterTitlesMap
+}

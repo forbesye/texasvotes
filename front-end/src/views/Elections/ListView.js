@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react"
-import { Table, Divider, Typography, Select } from "antd"
+import { Table, Divider, Typography } from "antd"
 import { useHistory } from "react-router-dom"
 import {
 	ArrayParam,
@@ -18,15 +18,10 @@ import {
 } from "library/Mappings"
 import { monthDayYearParse } from "library/Functions"
 import {
-	OfficeFilter,
-	DistrictNumberFilter,
-	ElectionTypeFilter,
-	CountiesFilter,
-} from "library/FilterValues"
-import { updateFilter } from "library/Functions"
-
+	Filter,
+	Sort
+} from "components/filters/Filters"
 const { Title, Paragraph } = Typography
-const { Option } = Select
 
 /**
  * Functional component for election list view
@@ -46,7 +41,6 @@ const ListView = () => {
 	})
 	const [total, setTotal] = useState(20)
 	const listRef = useRef(null)
-	const { sort, counties, type, office, dist } = params
 
 	useEffect(() => {
 		/**
@@ -144,43 +138,21 @@ const ListView = () => {
 				</Paragraph>
 			</section>
 			<Divider />
-			{/* Filters */}
+			{/* Filter and sort */}
 			<section className={styles.filterSection}>
 				<Title level={3}>Filter</Title>
-				<CountiesFilter
-					onChange={updateFilter("counties", setParams, params)}
-					value={counties}
+				{["counties", "office", "dist", "type"].map((name) => (
+					<Filter
+						name={name}
+						value={params[name]}
+						hook={[params, setParams]}
+					/>
+				))}
+				<Sort 
+					model="Election"
+					value={params.sort}
+					hook={[params, setParams]}
 				/>
-				<OfficeFilter
-					onChange={updateFilter("office", setParams, params)}
-					value={office}
-				/>
-				<DistrictNumberFilter
-					onChange={updateFilter("dist", setParams, params)}
-					value={dist}
-				/>
-				<ElectionTypeFilter
-					onChange={updateFilter("type", setParams, params)}
-					value={type}
-				/>
-				<Title level={3}>Sort</Title>
-				<div style={{ marginBottom: 20, textAlign: "center" }}>
-					<Title level={5}>Order</Title>
-					<Select
-						size="large"
-						defaultValue="-electionDate"
-						style={{ width: 150 }}
-						onChange={updateFilter("sort", setParams, params)}
-						value={sort}
-					>
-						<Option key={"-electionDate"} value={"-electionDate"}>
-							Date (Newest)
-						</Option>
-						<Option key={"electionDate"}>Date (Oldest)</Option>
-						<Option key={"dist"}>District (Asc.)</Option>
-						<Option key={"-dist"}>District (Desc.)</Option>
-					</Select>
-				</div>
 			</section>
 			{/* Election Table */}
 			<section ref={listRef}>

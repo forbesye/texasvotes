@@ -6,22 +6,17 @@ import {
 	useQueryParams,
 	withDefault,
 } from "use-query-params"
-import { Table, Divider, Typography, Select } from "antd"
+import { Table, Divider, Typography } from "antd"
 import { useHistory } from "react-router-dom"
 import styles from "./Districts.module.css"
 import columns, { districtName } from "./Lib"
 import { party_mappings, elected_office_mappings } from "library/Mappings"
 import { getAPI } from "library/APIClient"
 import {
-	CountiesFilter,
-	PartiesFilter,
-	OfficeFilter,
-	PopulationRange,
-	DistrictNumberFilter,
-} from "library/FilterValues"
-import { updateFilter } from "library/Functions"
+	Filter,
+	Sort
+} from "components/filters/Filters"
 const { Title, Paragraph } = Typography
-const { Option } = Select
 
 /**
  * Functional component for list of Districts
@@ -42,7 +37,6 @@ const ListView = () => {
 		office: ArrayParam,
 	})
 	const listRef = useRef(null)
-	const { sort, popRange, counties, party, number, office } = params
 
 	/**
 	 * Is called any time there is a change to filter, sort, or page values
@@ -146,44 +140,18 @@ const ListView = () => {
 			{/* Filter and sort*/}
 			<section className={styles.filterSection}>
 				<Title level={3}>Filter</Title>
-				<CountiesFilter
-					onChange={updateFilter("counties", setParams, params)}
-					value={counties}
+				{["counties", "party", "office", "number", "popRange"].map((name) => (
+					<Filter 
+						name={name}
+						value={params[name]}
+						hook={[params, setParams]}
+					/>
+				))}
+				<Sort 
+					model="District"
+					value={params.sort}
+					hook={[params, setParams]}
 				/>
-				<PartiesFilter
-					onChange={updateFilter("party", setParams, params)}
-					value={party}
-				/>
-				<OfficeFilter
-					onChange={updateFilter("office", setParams, params)}
-					value={office}
-				/>
-				<DistrictNumberFilter
-					onChange={updateFilter("number", setParams, params)}
-					value={number}
-				/>
-				<PopulationRange
-					onChange={updateFilter("popRange", setParams, params)}
-					value={popRange}
-				/>
-				<Title level={3}>Sort</Title>
-				<div style={{ marginBottom: 20, textAlign: "center" }}>
-					<Title level={5}>Order</Title>
-					<Select
-						size="large"
-						defaultValue="number"
-						style={{ width: 150 }}
-						onChange={updateFilter("sort", setParams, params)}
-						value={sort}
-					>
-						<Option key={"number"} value={"number"}>
-							District (Asc.)
-						</Option>
-						<Option key={"-number"}>District (Desc.)</Option>
-						<Option key={"pop"}>Pop. (Asc.)</Option>
-						<Option key={"-pop"}>Pop. (Desc.)</Option>
-					</Select>
-				</div>
 			</section>
 
 			{/* Table of district data */}

@@ -6,22 +6,18 @@ import {
 	useQueryParams,
 	withDefault,
 } from "use-query-params"
-import { Typography, Divider, Pagination, Select } from "antd"
+import { Typography, Divider, Pagination } from "antd"
 import { useHistory } from "react-router-dom"
 import styles from "./Politicians.module.css"
 import { getAPI } from "library/APIClient"
 import {
-	CountiesFilter,
-	PartiesFilter,
-	OfficeFilter,
-	DistrictNumberFilter,
-} from "library/FilterValues"
+	Filter,
+	Sort
+} from "components/filters/Filters"
 import PoliticianCard from "components/cards/PoliticianCard"
-import { updateFilter } from "library/Functions"
 import Spinner from "components/ui/Spinner"
 
 const { Title, Paragraph } = Typography
-const { Option } = Select
 
 /**
  * Functional component for politician grid view
@@ -39,7 +35,6 @@ export default function GridView() {
 		party: ArrayParam,
 		district_num: ArrayParam,
 	})
-	const { sort, counties, office, party, district_num } = params
 	const gridRef = useRef(null)
 	const history = useHistory()
 
@@ -120,40 +115,18 @@ export default function GridView() {
 			{/* Fitlers and sort */}
 			<section className={styles.filterSection}>
 				<Title level={3}>Filter</Title>
-				<CountiesFilter
-					onChange={updateFilter("counties", setParams, params)}
-					value={counties}
+				{["counties", "party", "office", "district_num"].map((name) => (
+					<Filter
+						name={name}
+						value={params[name]}
+						hook={[params, setParams]}
+					/>
+				))}
+				<Sort 
+					model="Politician"
+					value={params.sort}
+					hook={[params, setParams]}
 				/>
-				<PartiesFilter
-					onChange={updateFilter("party", setParams, params)}
-					value={party}
-				/>
-				<OfficeFilter
-					onChange={updateFilter("office", setParams, params)}
-					value={office}
-				/>
-				<DistrictNumberFilter
-					onChange={updateFilter("district_num", setParams, params)}
-					value={district_num}
-				/>
-				<Title level={3}>Sort</Title>
-				<div style={{ marginBottom: 20, textAlign: "center" }}>
-					<Title level={5}>Order</Title>
-					<Select
-						size="large"
-						defaultValue="name"
-						style={{ width: 150 }}
-						onChange={updateFilter("sort", setParams, params)}
-						value={sort}
-					>
-						<Option key={"name"} value="name">
-							Name: A - Z
-						</Option>
-						<Option key={"-name"}>Name: Z - A</Option>
-						<Option key={"number"}>District (Asc.)</Option>
-						<Option key={"-number"}>District (Desc.)</Option>
-					</Select>
-				</div>
 			</section>
 			<section className={styles.sortSection}></section>
 			{!loading ? (
