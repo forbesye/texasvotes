@@ -9,6 +9,8 @@ import Districts from "./views/Districts/Districts"
 import Elections from "./views/Elections/Elections"
 import VoterFAQ from "./views/VoterFAQ/VoterFAQ"
 import Search from "./views/Search/Search"
+import Visualizations from "views/Visualizations/Visualizations"
+import ErrorPage from "./views/Error/ErrorPage"
 
 /*
     Routes are defined as so:
@@ -57,14 +59,27 @@ const Routes = [
 		displayOnNavbar: true,
 	},
 	{
+		title: "Visualizations",
+		path: "/visualizations",
+		Component: Visualizations,
+		displayOnNavbar: true,
+	},
+	{
 		title: "Voting FAQ",
 		path: "/voting",
 		Component: VoterFAQ,
 		displayOnNavbar: true,
 	},
 	{
+		title: "Search",
 		path: "/search",
 		Component: Search,
+		displayOnNavbar: true,
+	},
+	{
+		title: "Error",
+		path: "/error",
+		Component: ErrorPage,
 	},
 ]
 

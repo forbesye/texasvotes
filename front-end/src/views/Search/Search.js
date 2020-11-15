@@ -51,7 +51,7 @@ export default function GeneralSearch(props) {
 		setLoaded(false)
 		// creates an array of promises that will return the results for each model search
 		const promises = SEARCH_PATHS.map((model) => {
-			return getAPI({ model: model, params: { q } })
+			return getAPI({ model: model, params: new URLSearchParams({ q })})
 		})
 		// resolves the promises
 		const resolved = await Promise.all(promises)
@@ -86,7 +86,7 @@ export default function GeneralSearch(props) {
 	return (
 		<section className={styles.content}>
 			<div className={styles.contentHeader}>
-				<Title level={1}>Results for "{queries.get("q")}"</Title>
+				<Title level={1}>Results{queries.get("q") && ` for "${queries.get("q")}"`}</Title>
 				<GeneralSearchBar
 					showTitle={false}
 					onChange={handleSearchChange}
