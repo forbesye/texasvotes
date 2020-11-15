@@ -100,7 +100,6 @@ const formatAsMoney = (num) => {
  * @param {Array} arr
  */
 const identityObjectFromArray = (arr) => {
-	console.log(arr)
 	return arr.reduce((obj, cur) => {
 		obj[cur] = cur
 		return obj

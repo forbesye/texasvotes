@@ -21,7 +21,7 @@ const apiCache = new cache()
 const getAPI = async ({ model, path, params }) => {
 	const url = path ? `/${model}/${path}` : `/${model}`
 	const config = params ? { params: params } : {}
-	const hash = `${url}${config?.params.toString()}`
+	const hash = `${url}${config?.params?.toString()}`
 	return checkCache(hash) || getData(url, config, hash)
 }
 

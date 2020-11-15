@@ -75,19 +75,18 @@ const Details = () => {
 				const data = await getAPI({
 					model: "district",
 					path: id,
-					params: {},
 				})
 				setDistrict(data)
 				if (data.type === "us_house") {
 					const txData = await getAPI({
 						model: "district",
 						path: 218,
-						params: {},
 					})
 					setTexasData(txData)
 				}
 				setLoaded(true)
 			} catch (err) {
+				console.error(err)
 				history.push("/error")
 			}
 		}

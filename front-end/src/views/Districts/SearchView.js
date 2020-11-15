@@ -35,10 +35,10 @@ export default function SearchView(props) {
 		setLoading(true)
 		const data = await getAPI({
 			model: "district",
-			params: {
+			params: new URLSearchParams({
 				q: value,
 				page: p,
-			},
+			}),
 		})
 		const results = data.page
 		setResults(results)

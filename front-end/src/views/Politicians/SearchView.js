@@ -40,10 +40,10 @@ export default function SearchView() {
 		setLoading(true)
 		const data = await getAPI({
 			model: "politician",
-			params: {
+			params: new URLSearchParams({
 				q: value,
 				page: p,
-			},
+			}),
 		})
 		const results = data.page
 		const userquery = value.toLowerCase()
