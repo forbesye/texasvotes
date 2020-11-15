@@ -13,7 +13,6 @@ const Filter = ({ value, name, hook }) => {
 	const [params, setParams] = hook
 	const title = filterTitlesMap[name]
 	const optionsMap = filterOptionsMap[title]
-	console.log(optionsMap)
 	return (
 		<div style={{ marginBottom: 20, textAlign: "center" }}>
 			<Title level={5}>{title}</Title>

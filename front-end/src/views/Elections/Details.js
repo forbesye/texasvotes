@@ -68,7 +68,6 @@ const Details = () => {
 				const data = await getAPI({
 					model: "election",
 					path: id,
-					params: {},
 				})
 				data.candidates = data.candidates.map((c) => ({
 					...c,

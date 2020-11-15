@@ -74,7 +74,6 @@ export default function Details() {
 				const data = await getAPI({
 					model: "politician",
 					path: id,
-					params: {},
 				})
 				setPolitician(data)
 				setLoaded(true)
