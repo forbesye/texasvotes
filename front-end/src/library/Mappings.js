@@ -47,7 +47,7 @@ const elected_office_mappings = {
 	us_senate: "US Senate",
 	tx_house: "Texas House",
 	tx_senate: "Texas Senate",
-	us_president: "US President"
+	us_president: "US President",
 }
 
 const party_mappings = {
@@ -67,6 +67,17 @@ const election_date_mappings = {
 	early_start: "Early Start",
 	early_end: "Early End",
 	election_day: "General Election Day",
+}
+
+const population_mappings = {
+	"100000-150000": "100K - 150K",
+	"150000-200000": "150K - 200K",
+	"200000-250000": "200K - 250K",
+	"800000-850000": "800K - 850K",
+	"850000-900000": "850K - 900K",
+	"900000-950000": "900K - 950K",
+	"950000-1000000": "950K - 1M",
+	1000000: "1M+",
 }
 
 const counties_list = [
@@ -346,4 +357,5 @@ export {
 	election_date_mappings,
 	counties_list,
 	colorHexMap,
+	population_mappings,
 }

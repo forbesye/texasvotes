@@ -94,6 +94,19 @@ const formatAsMoney = (num) => {
 	return `$` + numberStringWithCommas(num.toFixed(2))
 }
 
+/**
+ * Creates an identity object from an array, key maps to value
+ * { "a": "a", "b": "b", ... }
+ * @param {Array} arr
+ */
+const identityObjectFromArray = (arr) => {
+	console.log(arr)
+	return arr.reduce((obj, cur) => {
+		obj[cur] = cur
+		return obj
+	}, {})
+}
+
 export {
 	numberStringWithCommas,
 	monthDayYearParse,
@@ -102,4 +115,5 @@ export {
 	formatAsMoney,
 	updateFilter,
 	electionTitle,
+	identityObjectFromArray,
 }
