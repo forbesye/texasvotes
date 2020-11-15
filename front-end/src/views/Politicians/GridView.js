@@ -9,7 +9,7 @@ import {
 import { Typography, Divider, Pagination, Select } from "antd"
 import { useHistory } from "react-router-dom"
 import styles from "./Politicians.module.css"
-import { getAPI } from "library/APIClient"
+import { getAPI, checkCache } from "library/APIClient"
 import {
 	CountiesFilter,
 	PartiesFilter,
@@ -19,12 +19,9 @@ import {
 import PoliticianCard from "components/cards/PoliticianCard"
 import { updateFilter } from "library/Functions"
 import Spinner from "components/ui/Spinner"
-import cache from "lru-cache"
 
 const { Title, Paragraph } = Typography
 const { Option } = Select
-
-const apiCache = new cache()
 
 /**
  * Functional component for politician grid view
@@ -93,22 +90,17 @@ export default function GridView() {
 		const fetchData = async () => {
 			try {
 				setLoading(true)
-				const URLParams = constructURLParams(params)
-				const hash = URLParams.toString()
-				if(!apiCache.has(hash)) {
-					const data = await getAPI({
-						model: "politician",
-						params: URLParams,
-					})
-					const { count, page } = data
-					apiCache.set(hash, data)
-					setTotal(count)
-					setGridData(page)
-				} else {
-					const { count, page } = apiCache.get(hash)
-					setTotal(count)
-					setGridData(page)
+				const request = {
+					model: "politician",
+					params: constructURLParams(params)
 				}
+				let data = checkCache(request)
+				if(!data) {
+					data = await getAPI(request)
+				}
+				const { count, page } = data
+				setTotal(count)
+				setGridData(page)
 				setLoading(false)
 			} catch (err) {
 				console.error(err)

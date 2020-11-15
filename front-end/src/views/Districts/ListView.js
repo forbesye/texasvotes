@@ -11,7 +11,7 @@ import { useHistory } from "react-router-dom"
 import styles from "./Districts.module.css"
 import columns, { districtName } from "./Lib"
 import { party_mappings, elected_office_mappings } from "library/Mappings"
-import { getAPI } from "library/APIClient"
+import { getAPI, checkCache } from "library/APIClient"
 import {
 	CountiesFilter,
 	PartiesFilter,
@@ -43,7 +43,6 @@ const ListView = () => {
 	})
 	const listRef = useRef(null)
 	const { sort, popRange, counties, party, number, office } = params
-
 	/**
 	 * Is called any time there is a change to filter, sort, or page values
 	 */
@@ -85,15 +84,18 @@ const ListView = () => {
 			}
 
 			try {
-				const time = new Date().getTime()
 				setLoading(true)
-				const { page, count } = await getAPI({
+				const request = {
 					model: "district",
 					params: constructURLParams(params),
-				})
-				console.log(new Date().getTime() - time)
+				}
+				let data = checkCache(request)
+				if(!data) {
+					data = await getAPI(request)
+				}
+				const { page, count } = data
 				// Modifies API data for front-end use
-				const data = page.map((district) => {
+				const districtData = page.map((district) => {
 					var elected_official = district.elected_officials
 						? district.elected_officials[0].name
 						: "N/A"
@@ -109,20 +111,15 @@ const ListView = () => {
 						name: districtName(district),
 					}
 				})
-				console.log(new Date().getTime() - time)
 				setTotal(count)
-				setListData(data)
+				setListData(districtData)
 				setLoading(false)
-				console.log(new Date().getTime() - time)
-				// debugger
-				console.log(loading)
 			} catch (err) {
 				console.error(err)
 				history.push("/error")
 			}
 		}
 		fetchData()
-		return () => { setLoading(false) }
 	}, [history, params])
 
 	const handleTableChange = ({ current }) => {

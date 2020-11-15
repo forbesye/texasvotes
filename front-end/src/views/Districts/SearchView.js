@@ -3,7 +3,7 @@ import { Typography, Input, Divider, Pagination } from "antd"
 import { Link, useLocation, useHistory } from "react-router-dom"
 import Highlighter from "react-highlight-words"
 import styles from "./Districts.module.css"
-import { getAPI } from "library/APIClient"
+import { getAPI, checkCache } from "library/APIClient"
 import Spinner from "components/ui/Spinner"
 import { districtName } from "./Lib"
 
@@ -33,17 +33,21 @@ export default function SearchView(props) {
 			`/districts/search?q=${encodeURIComponent(value)}&page=${p}`
 		)
 		setLoading(true)
-		const data = await getAPI({
+		const request = {
 			model: "district",
 			params: {
 				q: value,
 				page: p,
 			},
-		})
-		const results = data.page
-		setResults(results)
+		}
+		let data = checkCache(request)
+		if(!data) {
+			data = await getAPI(request)
+		}
+		const { page, count } = data
+		setResults(page)
+		setTotal(count)
 		setLoading(false)
-		setTotal(data.count)
 	}
 
 	const handlePageChange = (p) => {

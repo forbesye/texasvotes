@@ -3,7 +3,7 @@ import { Typography, Input, Divider, Pagination } from "antd"
 import { useLocation, useHistory } from "react-router-dom"
 import styles from "./Elections.module.css"
 import ElectionResult from "views/Elections/ElectionResult"
-import { getAPI } from "../../library/APIClient"
+import { getAPI, checkCache } from "../../library/APIClient"
 import Spinner from "../../components/ui/Spinner"
 
 const { Search } = Input
@@ -34,17 +34,21 @@ export default function SearchView() {
 			`/elections/search?q=${encodeURIComponent(value)}&page=${p}`
 		)
 		setLoading(true)
-		const data = await getAPI({
+		const request = {
 			model: "election",
 			params: {
 				q: value,
 				page: p,
 			},
-		})
-		const results = data.page
-		setResults(results)
+		}
+		let data = checkCache(request)
+		if(!data) {
+			data = await getAPI(request)
+		}
+		const { page, count } = data
+		setResults(page)
+		setTotal(count)
 		setLoading(false)
-		setTotal(data.count)
 	}
 
 	const handlePageChange = (p) => {

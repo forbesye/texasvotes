@@ -8,7 +8,7 @@ import { resultColumns } from "./Lib"
 import PoliticianCard from "components/cards/PoliticianCard"
 import { party_mappings } from "library/Mappings"
 import ElectionTimeline from "components/ui/Timeline"
-import { getAPI } from "library/APIClient"
+import { getAPI, checkCache } from "library/APIClient"
 import ReactPlayer from "react-player"
 
 const { Title } = Typography
@@ -65,11 +65,15 @@ const Details = () => {
 		const fetchData = async () => {
 			try {
 				setLoaded(false)
-				const data = await getAPI({
+				const request = {
 					model: "election",
 					path: id,
 					params: {},
-				})
+				}
+				let data = checkCache(request)
+				if(!data) {
+					data = await getAPI(request)
+				}
 				data.candidates = data.candidates.map((c) => ({
 					...c,
 					key: c.id,

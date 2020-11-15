@@ -4,7 +4,7 @@ import { useParams, useHistory, Link } from "react-router-dom"
 import styles from "./Districts.module.css"
 import { districtName, description } from "./Lib"
 import Spinner from "components/ui/Spinner"
-import { getAPI } from "library/APIClient"
+import { getAPI, checkCache } from "library/APIClient"
 import DistrictMap from "components/ui/DistrictMap"
 import PieChart from "components/charts/PieChart"
 import PoliticianCard from "components/cards/PoliticianCard"
@@ -72,18 +72,24 @@ const Details = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const data = await getAPI({
+				const idRequest = {
 					model: "district",
 					path: id,
-					params: {},
-				})
+				}
+				let data = checkCache(idRequest)
+				if(!data) {
+					data = await getAPI(idRequest)
+				}
 				setDistrict(data)
 				if (data.type === "us_house") {
-					const txData = await getAPI({
+					const txRequest = {
 						model: "district",
 						path: 218,
-						params: {},
-					})
+					}
+					let txData = checkCache(txRequest)
+					if(!txData) {
+						txData = await getAPI(txRequest)
+					}
 					setTexasData(txData)
 				}
 				setLoaded(true)

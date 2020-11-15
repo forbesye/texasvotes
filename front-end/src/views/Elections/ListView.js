@@ -10,7 +10,7 @@ import {
 } from "use-query-params"
 import { electionColumns } from "./Lib"
 import { districtName } from "./../Districts/Lib"
-import { getAPI } from "library/APIClient"
+import { getAPI, checkCache } from "library/APIClient"
 import styles from "./Elections.module.css"
 import {
 	election_type_mappings,
@@ -83,11 +83,16 @@ const ListView = () => {
 		const fetchData = async () => {
 			try {
 				setLoading(true)
-				const { page, count } = await getAPI({
+				const request = {
 					model: "election",
 					params: constructURLParams(params),
-				})
-				const data = page.map((election) => {
+				}
+				let data = checkCache(request)
+				if(!data) {
+					data = await getAPI(request)
+				}
+				const { page, count } = data
+				const electionData = page.map((election) => {
 					return {
 						...election,
 						key: election.id,
@@ -109,7 +114,7 @@ const ListView = () => {
 					}
 				})
 				setTotal(count)
-				setListData(data)
+				setListData(electionData)
 				setLoading(false)
 			} catch (err) {
 				console.error(err)

@@ -4,7 +4,7 @@ import { Link, useLocation, useHistory } from "react-router-dom"
 import Highlighter from "react-highlight-words"
 import styles from "./Politicians.module.css"
 
-import { getAPI } from "../../library/APIClient"
+import { getAPI, checkCache } from "../../library/APIClient"
 import Spinner from "../../components/ui/Spinner"
 import { description } from "./Lib"
 import { mostAlike } from "../../library/searchFunctions"
@@ -38,24 +38,28 @@ export default function SearchView() {
 			`/politicians/search?q=${encodeURIComponent(value)}&page=${p}`
 		)
 		setLoading(true)
-		const data = await getAPI({
+		const request = {
 			model: "politician",
 			params: {
 				q: value,
 				page: p,
 			},
-		})
-		const results = data.page
+		}
+		let data = checkCache(request)
+		if(!data) {
+			data = await getAPI()
+		}
+		let { page, count } = data
 		const userquery = value.toLowerCase()
-		results.sort((a, b) => {
+		page.sort((a, b) => {
 			// Sort by best match
 			const aname = a.name.toLowerCase()
 			const bname = b.name.toLowerCase()
 			return mostAlike(bname, userquery) - mostAlike(aname, userquery)
 		})
-		setResults(results)
+		setResults(page)
+		setTotal(count)
 		setLoading(false)
-		setTotal(data.count)
 	}
 
 	const handlePageChange = (p) => {

@@ -12,7 +12,7 @@ import { useParams, useHistory } from "react-router-dom"
 import Spinner from "components/ui/Spinner"
 import styles from "./Politicians.module.css"
 import { subtitle, officeName } from "./Lib"
-import { getAPI } from "library/APIClient"
+import { getAPI, checkCache } from "library/APIClient"
 import { formatAsMoney, districtName } from "library/Functions"
 import { Timeline } from "react-twitter-widgets"
 import { FacebookProvider, Page } from "react-facebook"
@@ -71,11 +71,15 @@ export default function Details() {
 		const fetchData = async () => {
 			try {
 				setLoaded(false)
-				const data = await getAPI({
+				const request = {
 					model: "politician",
 					path: id,
 					params: {},
-				})
+				}
+				let data = checkCache(request)
+				if(!data) {
+					data = await getAPI(request)
+				}
 				setPolitician(data)
 				setLoaded(true)
 			} catch (err) {
