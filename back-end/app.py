@@ -34,8 +34,7 @@ def politicians():
         pol_query = search_politicians(q, pol_query)
 
     # Filtering
-    else:
-        pol_query = filter_politicians(pol_query, queries)
+    pol_query = filter_politicians(pol_query, queries)
 
     # Sorting
     sort = get_query("sort", queries)
@@ -82,8 +81,7 @@ def districts():
         dist_query = search_districts(q, dist_query)
 
     # Filtering
-    else:
-        dist_query = filter_districts(dist_query, queries)
+    dist_query = filter_districts(dist_query, queries)
 
     # Sorting
     sort = get_query("sort", queries)
@@ -132,8 +130,7 @@ def elections():
         elect_query = search_elections(q, elect_query)
 
     # Filtering
-    else:
-        elect_query = filter_elections(elect_query, queries)
+    elect_query = filter_elections(elect_query, queries)
 
     # Sorting
     sort = get_query("sort", queries)

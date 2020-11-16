@@ -104,7 +104,7 @@ def search_politicians(q, pol_query):
 
     searches = []
     for term in terms:
-        searches.append(Politician.name.match(term))
+        searches.append(Politician.name.ilike("%{}%".format(term)))
         searches.append(Politician.office.match(term))
         try:
             searches.append(Politician.district_number.in_([int(term)]))
