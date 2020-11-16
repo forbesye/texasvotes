@@ -13,6 +13,7 @@ import {
     YAxis,
     Tooltip,
 } from "recharts"
+import { colorHexMap } from "library/Mappings"
 import { getAPI } from "library/APIClient"
 
 const PoliticiansChart = () => {
@@ -61,7 +62,7 @@ const ElectionsChart = () => {
                 const { results } = e
                 if(!results) return
                 const { vote_counts } = results
-                let output = {}
+                let output = { total: 0 }
                 vote_counts.forEach((curr) => {
                     const { party, vote_total } = curr
                     if(output[party]) {
@@ -70,9 +71,12 @@ const ElectionsChart = () => {
                     else {
                         output[party] = vote_total
                     }
+                    output.total += vote_total
                 })
+                const year = new Date(e.dates.election_day)
+                output.name = `${year.getFullYear()} US House ${e.district.number}`
                 return output
-            }).filter(r => r)
+            }).filter(r => r).sort((a, b) => b.R / b.total - a.R / a.total)
             console.log(electionPartyResults)
             return electionPartyResults
         }
@@ -94,7 +98,24 @@ const ElectionsChart = () => {
     }, [])
 
     return (
-        <div>test</div>
+        <BarChart
+          width={500}
+          height={300}
+          data={data}
+          margin={{
+            top: 20, right: 30, left: 20, bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" hide={true}/>
+          <YAxis />
+          <Tooltip payload={data}/>
+          <Legend />
+          <Bar dataKey="R" stackId="a" fill={colorHexMap.R} />
+          <Bar dataKey="D" stackId="a" fill={colorHexMap.D} />
+          <Bar dataKey="L" stackId="a" fill={colorHexMap.L} />
+          {/* <Bar dataKey="I" stackId="a" fill={colorHexMap.I} /> */}
+        </BarChart>
     )
 }
 
