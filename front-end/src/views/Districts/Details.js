@@ -151,7 +151,7 @@ const Details = () => {
 											? "Elected official"
 											: "Elected officials"}
 									</Text>
-									<div className={styles.grid}>
+									<div className={elected_officials.length < 2 ? styles.polCard : styles.grid}>
 										{elected_officials.map((data) => (
 											<PoliticianCard
 												key={data.id}
