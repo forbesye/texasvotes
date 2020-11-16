@@ -12,9 +12,12 @@ import {
     XAxis,
     YAxis,
     Tooltip,
+    Radar, RadarChart, PolarGrid,
+    PolarAngleAxis, PolarRadiusAxis,
 } from "recharts"
 import { colorHexMap } from "library/Mappings"
 import { getAPI } from "library/APIClient"
+import { convertToPercent } from "library/Functions"
 
 const PoliticiansChart = () => {
     // const [data, setData] = useState([])
@@ -49,7 +52,75 @@ const PoliticiansChart = () => {
 }
 
 const DistrictsChart = () => {
+    const [data, setData] = useState(null)
+    const [txData, setTxData] = useState([])
+    const [filter, setFilter] = useState("age")
 
+    useEffect(() => {
+        const parseData = (data) => {
+            const districtDemographics = data.map((e) => {
+                const { demographics } = e
+                if(!demographics) return
+                let output = {}
+                
+                Object.entries(demographics).forEach(([key, value]) => {
+                    const { items, out_of } = value
+                    if(key === "age") {
+                        let ageDem = items.map((item) => {
+                            const {end, start, proportion} = item
+                            const dem = {}
+                            dem.name = end ? `${start} - ${end}` : `${start}+`
+                            dem.value = 
+                                convertToPercent(
+                                    proportion,
+                                    out_of
+                                )
+                            return dem
+                        })
+                        output.age = ageDem
+                    }
+                })
+                return output
+            })
+            console.log(districtDemographics)
+            return districtDemographics
+        }
+
+        const getData = async () => {
+            let districtData = await getAPI({
+                model: "district",
+                params: new URLSearchParams({
+                    office: "us_house",
+                })
+            })
+            console.log(districtData)
+
+            let texasData = await getAPI({
+                model: "district",
+                path: 218
+            })
+            console.log(texasData)
+            
+            const { page } = districtData
+            setData(parseData(page))
+        }
+        getData()
+    }, [])
+
+    if (!data) 
+        return null
+
+    return (
+        
+        <RadarChart cx={300} cy={250} outerRadius={150} width={500} height={500} data={data[0][filter]}>
+            <PolarGrid />
+            <PolarAngleAxis dataKey="name"/>
+            <PolarRadiusAxis angle={30} domain={[0, 150]} />
+            <Radar name="Congressional District 1" dataKey="value" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+            {/* <Radar name="Lily" dataKey="B" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} /> */}
+            <Legend />
+        </RadarChart>
+    )
 }
 
 const ElectionsChart = () => {
@@ -77,7 +148,6 @@ const ElectionsChart = () => {
                 output.name = `${year.getFullYear()} US House ${e.district.number}`
                 return output
             }).filter(r => r).sort((a, b) => b.R / b.total - a.R / a.total)
-            console.log(electionPartyResults)
             return electionPartyResults
         }
 
@@ -89,7 +159,6 @@ const ElectionsChart = () => {
                     type: "general",
                 })
             })
-            console.log(electionData)
 
             const { page } = electionData
             setData(parseData(page))

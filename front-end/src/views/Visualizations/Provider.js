@@ -50,7 +50,6 @@ const OrganizationYears = () => {
                 }
                 return { name: key, value: orgCount }
             })
-            console.log(nameValueList)
             return nameValueList
         }
         const getData = async () => {
@@ -114,10 +113,8 @@ const ConservationStatus = () => {
                 }
             })
             const nameValueList = Object.entries(regionStatus).map(([name, value]) =>{
-                console.log(name)
                 return { name, ...value }
             })
-            console.log(nameValueList)
             return nameValueList
         }
         const getData = async () => {
