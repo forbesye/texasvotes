@@ -91,6 +91,24 @@
 	align-content: center;
 }
 
+.polCard {
+	display: grid;
+	grid-template-rows: repeat(auto-fill, minmax(350px, 1fr));
+	grid-template-columns: repeat(1, minmax(270px, 270px));
+	gap: 16px;
+	justify-content: center;
+	align-content: center;
+}
+
+.polCard2 {
+	display: grid;
+	grid-template-rows: repeat(auto-fill, minmax(350px, 1fr));
+	grid-template-columns: repeat(2, minmax(270px, 270px));
+	gap: 16px;
+	justify-content: center;
+	align-content: center;
+}
+
 @media (min-width: 768px) {
 	.filterSection {
 		flex-direction: row;
