@@ -111,7 +111,7 @@ def search_politicians(q, pol_query):
         except ValueError:
             pass
         searches.append(
-            District.counties.any(func.lower(Counties.name) == term.lower())
+            District.counties.any(func.lower(Counties.name).contains(term.lower()))
         )
     pol_query = pol_query.join(District).filter(or_(*tuple(searches)))
 
