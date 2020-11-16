@@ -1,21 +1,21 @@
 import React from "react"
 import { Typography } from "antd"
+import styles from "./Visualizations.module.css"
+import { ConservationStatus, OrganizationYears, CountryOrganization } from "views/Visualizations/Provider"
+import { ElectionsChart } from "views/Visualizations/TexasVotesVisualizations"
 
 const { Title, Paragraph, Link } = Typography
 
 const Visualizations = () => {
     return (
-        <main
-			style={{
-				margin: "32px auto",
-				width: "90%",
-				maxWidth: 800,
-				padding: "32px 16px",
-				background: "#ffffff",
-				borderRadius: 4,
-			}}
-		>
-            <Title level={1}>Visualizations</Title>
+        <main className={styles.wrapper}>
+            <Title level={1} className={styles.header}>Visualizations</Title>
+            <Title level={2}>Our Visualizations</Title>
+            <ElectionsChart />
+            <Title level={2}>Provider Visualizations</Title>
+            <OrganizationYears />
+            <ConservationStatus />
+            <CountryOrganization />
         </main>
     )
 }
