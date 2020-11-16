@@ -4,74 +4,18 @@ import { Card, Typography, Carousel } from "antd"
 import Spinner from "../../components/ui/Spinner"
 import styles from "./Splash.module.css"
 
-const { Title, Text } = Typography
+const { Title, Paragraph } = Typography
 const { Meta } = Card
 
 const KEY = process.env.REACT_APP_NEWS_KEY
 const ENDPOINT = "https://newsapi.org/v2/everything"
 
-export default function News () {
-    const [ articles, setArticles ] = useState([])
-    const [ loading, setLoading ] = useState(true)
-    const [ error, setError ] = useState(false)
-
-    const getNewsArticles = async () => {
-        setLoading(true)
-        const { data } = await axios.get(ENDPOINT, {
-            params: {
-                q: "texas",
-                apiKey: KEY,
-                from: new Date(Date.now() - 168 * 3600_000).toISOString(),
-                sources: [
-                    "abc-news", 
-                    "al-jazeera-english",
-                    "associated-press",
-                    "axios",
-                    "bloomberg",
-                    "cnn",
-                    "fox-news",
-                    "msnbc",
-                    "national-review",
-                    "nbc-news",
-                    "newsweek",
-                    "politico",
-                    "reuters",
-                    "the-hill",
-                    "the-huffington-post",
-                    "the-wall-street-journal",
-                    "the-washington-post",
-                    "time",
-                    "usa-today",
-                    "vice-news"
-                ],
-                pageSize: 10
-            }
-        })
-        return data.articles
-    }
-
-    useEffect(() => {
-        let mounted = true
-        if (mounted) {
-            getNewsArticles()
-            .then(articles => {
-                setArticles(articles)
-                setLoading(false)
-            })
-            .catch(error => {
-                setError(true)
-                setArticles([])
-                setLoading(false)
-            })
-        }
-        return () => mounted = false
-    }, [])
-
+export default function News ({ articles, loading }) {
     if (loading) return <Spinner />
 
     return (
         <div className={styles.news}>
-            { articles.map((article, i) => {
+            { articles.length > 0 ? articles.map((article, i) => {
                     const displayDate = new Date(article.publishedAt).toLocaleString("en-US", {
                         month: "long",
                         day: "numeric",
@@ -85,9 +29,14 @@ export default function News () {
                             rel="noreferrer noopener"
                         >
                             <Card 
-                                style={styles.newsCard}
+                                hoverable
+                                className={styles.newsCard}
                                 cover={
-                                    <img src={article.urlToImage} />
+                                    <img 
+                                        className={styles.newsCardImage}
+                                        src={article.urlToImage} 
+                                        alt={article.title} 
+                                    />
                                 }
                             >
                                 <Meta 
@@ -103,7 +52,7 @@ export default function News () {
                         </a>
                     )
                 })
-            }
+            : <Paragraph>No news articles found.</Paragraph> }
         </div>
     )
 }

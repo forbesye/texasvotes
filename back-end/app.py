@@ -17,6 +17,7 @@ import os
 from Politician import *
 from District import *
 from Election import *
+from news import get_news
 
 
 # ---------- Policitians ----------
@@ -166,6 +167,10 @@ def election_id(id):
 
     return election
 
+@app.route("/news", methods=["GET"])
+def news():
+    ret = get_news()
+    return jsonify(ret)
 
 @app.route("/")
 def hello_world():

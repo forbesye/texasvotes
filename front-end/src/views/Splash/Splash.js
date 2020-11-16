@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Card, Typography } from "antd"
 import { Link, useHistory } from "react-router-dom"
 
@@ -13,12 +13,32 @@ import vote from "views/Splash/images/vote.svg"
 import styles from "./Splash.module.css"
 import GeneralSearchBar from "../Search/GeneralSearchBar"
 import News from "./News"
+import { getAPI } from "library/APIClient"
 
 const { Title, Paragraph } = Typography
 
 const Splash = () => {
 	const history = useHistory()
 	const [searchVal, setSearchVal] = useState("")
+	const [ news, setNews ] = useState({
+		articles: [],
+		loading: false,
+		lastUpdated: null
+	})
+
+	const getNews = async () => {
+		setNews({ ...news, loading: true })
+		const { articles, last_updated } = await getAPI({ model: "news" })
+		console.log(last_updated)
+		setNews({
+			articles: articles,
+			loading: false,
+			lastUpdated: new Date(last_updated)
+		})
+	}
+
+	useEffect(getNews, [])
+
 	return (
 		<div>
 			<div className={styles.splash}>
@@ -124,7 +144,11 @@ const Splash = () => {
 				</Link>
 			</div>
 			<div className={styles.newsContainer}>
-				<News />
+				<Title level={1}>Texas News Articles</Title>
+				<Paragraph style={{
+					textAlign: "center"
+				}}>Last Updated: { news.lastUpdated ? news.lastUpdated.toLocaleString("en-US") : "Never" }</Paragraph>
+				<News {...news} />
 			</div>
 		</div>
 	)
