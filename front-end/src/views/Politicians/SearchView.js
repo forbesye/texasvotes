@@ -28,6 +28,7 @@ export default function SearchView() {
 	const [params, setParams] = useQueryParams({
 		page: withDefault(NumberParam, 1),
 		q: withDefault(StringParam, ""),
+		perPage: withDefault(NumberParam, 20),
 		sort: StringParam,
 		counties: ArrayParam,
 		office: ArrayParam,
@@ -42,10 +43,11 @@ export default function SearchView() {
 		setTempSearch(event.target.value)
 	}
 
-	const handlePageChange = (p) => {
+	const handlePageChange = (page, perPage) => {
 		setParams({
 			...params,
-			page: p
+			page,
+			perPage
 		})
 	}
 
@@ -61,6 +63,7 @@ export default function SearchView() {
 		const constructURLParams = (params) => {
 			let URLParams = new URLSearchParams()
 			URLParams.append("page", params.page)
+			URLParams.append("perPage", params.perPage)
 			if(params.q) {
 				URLParams.append("q", params.q)
 			}
@@ -162,10 +165,15 @@ export default function SearchView() {
 				)}
 				<Pagination
 					current={params.page}
+					pageSize={params.perPage}
 					onChange={handlePageChange}
-					pageSize={20}
-					showSizeChanger={false}
+					pageSizeOptions={[10, 20, 40]}
 					total={total}
+					style={{
+						margin: "16px 0",
+						display: "flex",
+						justifyContent: "flex-end",
+					}}
 				/>
 			</section>
 		</Fragment>
