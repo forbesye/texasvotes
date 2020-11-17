@@ -2,20 +2,17 @@ import React, { useEffect, useState } from "react"
 import {
     Bar,
     BarChart,
-    PieChart,
-    Pie,
-    Cell,
     LineChart,
     Line,
     ScatterChart,
     Scatter,
-    CartesianGrid,
     Legend,
     XAxis,
     YAxis,
+    ZAxis,
     Tooltip,
 } from "recharts"
-// import * as d3 from "d3"
+import { CustomTooltip } from "./Lib"
 
 const OrganizationYears = () => {
     const [data, setData] = useState([])
@@ -167,7 +164,7 @@ const CountryOrganization = () => {
             nationData.forEach((curr) => {
                 let { name, region, longitude, latitude } = curr
                 nationToRegion.set(name, region.replace('"', ""))
-                nationCoor.set(name, {longitude, latitude})
+                nationCoor.set(name, {longitude: parseFloat(longitude), latitude: parseFloat(latitude)})
             })
             organizationData.forEach((curr) => {
                 const { country } = curr
@@ -183,9 +180,21 @@ const CountryOrganization = () => {
                 }
             })
             const nameValueList = Object.entries(countryCount).map(([name, value]) =>{
-                return { name, ...value }
-            }).sort((a, b) => b.count - a.count)
-            return nameValueList
+                return { name, ...value}
+            })
+            const COLORS = ["#E8B64F", "#FFC857", "#E9724C", "#C5283D", "#754461", "#4D5273", "#255F85"]
+            let colorIndex = 0
+            const regionMap = {}
+            nameValueList.forEach((curr) => {
+                const { region } = curr
+                if(regionMap[region]) {
+                    regionMap[region] = { ...regionMap[region], countries: [...regionMap[region].countries, curr] }
+                }
+                else {
+                    regionMap[region] = { color: COLORS[colorIndex++], countries: [curr] }
+                }
+            })
+            return regionMap
         }
         const getData = async () => {
             let organizationData = await fetch("https://api.undangered.ml/api/organizationSearch/")
@@ -198,7 +207,23 @@ const CountryOrganization = () => {
     }, [])
 
     return (
-        <div>test</div>
+        <ScatterChart
+            width={1000}
+            height={500}
+        >
+            <XAxis type="number" dataKey={"longitude"} name="Longitude" domain={[-180, 180]} />
+            <YAxis type="number" dataKey={"latitude"} name="Latitude" domain={[-90, 90]}/>
+            <ZAxis dataKey={"count"} name="Count" range={[50, 500]}/>
+            {
+                Object.entries(data).map(([key, value]) => {
+                    return (
+                        <Scatter name={key} key={key} data={value.countries} fill={value.color} />
+                    )
+                })
+            }
+            <Tooltip content={<CustomTooltip />}/>
+            <Legend />
+        </ScatterChart>
     )
 }
 
