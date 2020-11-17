@@ -15,7 +15,7 @@ export default function News ({ articles, loading }) {
 
     return (
         <div className={styles.news}>
-            { articles.length > 0 ? articles.map((article, i) => {
+            { articles && articles.length > 0 ? articles.map((article, i) => {
                     const displayDate = new Date(article.publishedAt).toLocaleString("en-US", {
                         month: "long",
                         day: "numeric",
