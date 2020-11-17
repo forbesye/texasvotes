@@ -65,6 +65,8 @@ def sort_election_by(sorting, elect_query, desc):
         elect = Election.district_number
     elif sorting == "electionDate":
         elect = Election.election_day
+    elif sorting == "voters":
+        elect = Election.total_voters
     else:
         return elect_query
 

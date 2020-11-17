@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, Fragment } from "react"
 import { Typography, Input, Divider, Pagination } from "antd"
-import { Link, useLocation, useHistory } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import Highlighter from "react-highlight-words"
 import styles from "./Politicians.module.css"
-
+import {
+	StringParam,
+	NumberParam,
+	useQueryParams,
+	ArrayParam,
+	withDefault
+} from "use-query-params"
+import { Filter, Sort } from "components/filters/Filters"
 import { getAPI } from "../../library/APIClient"
 import Spinner from "../../components/ui/Spinner"
 import { description } from "./Lib"
@@ -16,96 +23,153 @@ const { Title, Text, Paragraph } = Typography
  * Functional component for politician search view
  */
 export default function SearchView() {
-	const [searchVal, setSearchVal] = useState("")
+	const [tempSearch, setTempSearch] = useState("")
 	const [total, setTotal] = useState(0)
-	const [page, setPage] = useState(1)
+	const [params, setParams] = useQueryParams({
+		page: withDefault(NumberParam, 1),
+		q: withDefault(StringParam, ""),
+		sort: StringParam,
+		counties: ArrayParam,
+		office: ArrayParam,
+		party: ArrayParam,
+		district_num: ArrayParam,
+	})
 	const [results, setResults] = useState([])
 	const [loading, setLoading] = useState(false)
-	const location = useLocation()
 	const history = useHistory()
 
 	const handleTextChange = (event) => {
-		setSearchVal(event.target.value)
-	}
-
-	/**
-	 * Modifies URL and calls API based on query
-	 * @param {String} query
-	 * @param {Number} page
-	 */
-	const handleSearch = async (value, p = 1) => {
-		history.push(
-			`/politicians/search?q=${encodeURIComponent(value)}&page=${p}`
-		)
-		setLoading(true)
-		const data = await getAPI({
-			model: "politician",
-			params: new URLSearchParams({
-				q: value,
-				page: p,
-			}),
-		})
-		const results = data.page
-		const userquery = value.toLowerCase()
-		results.sort((a, b) => {
-			// Sort by best match
-			const aname = a.name.toLowerCase()
-			const bname = b.name.toLowerCase()
-			return mostAlike(bname, userquery) - mostAlike(aname, userquery)
-		})
-		setResults(results)
-		setLoading(false)
-		setTotal(data.count)
+		setTempSearch(event.target.value)
 	}
 
 	const handlePageChange = (p) => {
-		setPage(p)
-		handleSearch(searchVal, p)
+		setParams({
+			...params,
+			page: p
+		})
 	}
 
+	/**
+	 * Calls search logic
+	 */
 	useEffect(() => {
-		const q = new URLSearchParams(location.search).get("q")
-		if (q) {
-			const decoded = decodeURIComponent(q)
-			setSearchVal(decoded)
-			handleSearch(decoded)
+		/**
+		 * Creates proper URLSearchParams given current param
+		 * state
+		 * @param {Params} params
+		 */
+		const constructURLParams = (params) => {
+			let URLParams = new URLSearchParams()
+			URLParams.append("page", params.page)
+			if(params.q) {
+				URLParams.append("q", params.q)
+			}
+			if(params.sort) {
+				URLParams.append("sort", params.sort)
+			}
+			if (params.counties) {
+				params.counties.forEach((county) =>
+					URLParams.append("counties", county)
+				)
+			}
+			if (params.party) {
+				params.party.forEach((county) =>
+					URLParams.append("party", county)
+				)
+			}
+			if (params.office) {
+				params.office.forEach((office) =>
+					URLParams.append("office", office)
+				)
+			}
+			if (params.district_num) {
+				params.district_num.forEach((district_num) =>
+					URLParams.append("district_num", district_num)
+				)
+			}
+			return URLParams
 		}
-	}, [])
+
+		const fetchData = async () => {
+			try {
+				setLoading(true)
+				const { page, count } = await getAPI({
+					model: "politician",
+					params: constructURLParams(params),
+				})
+				const userquery = params.q.toLowerCase()
+				page.sort((a, b) => {
+					// Sort by best match
+					const aname = a.name.toLowerCase()
+					const bname = b.name.toLowerCase()
+					return mostAlike(bname, userquery) - mostAlike(aname, userquery)
+				})
+				setResults(page)
+				setLoading(false)
+				setTotal(count)
+			} catch (err) {
+				console.error(err)
+				history.push("/error")
+			}
+		}
+		fetchData()
+	}, [params, history])
 
 	return (
-		<section className={styles.content}>
-			<section className={styles.description}>
-				<Typography.Title level={3}>Search</Typography.Title>
-				<Typography.Paragraph>
-					Search our database for a Texas elected official or
-					political challenger.{" "}
-				</Typography.Paragraph>
-				<Search
-					size="large"
-					loading={loading}
-					onSearch={(val) => handleSearch(val)}
-					value={searchVal}
-					onChange={handleTextChange}
+		<Fragment>
+			<section className={styles.content}>
+				<section className={styles.description}>
+					<Typography.Title level={2}>Search</Typography.Title>
+					<Typography.Paragraph style={{ fontSize: 18 }}>
+						Search our database for a Texas elected official or
+						political challenger.{" "}
+					</Typography.Paragraph>
+					{/* Fitlers and sort */}
+					<section className={styles.filterSection}>
+						{["counties", "party", "office", "district_num"].map((name) => (
+							<Filter
+								name={name}
+								value={params[name]}
+								hook={[params, setParams]}
+							/>
+						))}
+						<Sort
+							model="Politician"
+							value={params.sort}
+							hook={[params, setParams]}
+						/>
+					</section>
+					<div style={{marginLeft: "10%", marginRight: "10%"}}>
+						<Search
+							size="large"
+							enterButton="Search"
+							loading={loading}
+							onSearch={(val) => setParams((params) => ({...params, q: val}))}
+							value={tempSearch}
+							onChange={handleTextChange}
+						/>
+					</div>
+				</section>
+				<Divider />
+				{loading ? (
+					<Spinner />
+				) : (
+					<section className={styles.searchResults}>
+						{results.map((result) => (
+							<PoliticianResult {...result} searchQuery={params.q} key={result.id}/>
+						))}
+					</section>
+				)}
+				<Pagination
+					current={params.page}
+					onChange={handlePageChange}
+					pageSize={20}
+					showSizeChanger={false}
+					total={total}
 				/>
 			</section>
-			<Divider />
-			{loading ? (
-				<Spinner />
-			) : (
-				<section className={styles.searchResults}>
-					{results.map((result) => (
-						<PoliticianResult {...result} searchQuery={searchVal} />
-					))}
-				</section>
-			)}
-			<Pagination
-				current={page}
-				onChange={handlePageChange}
-				pageSize={20}
-				showSizeChanger={false}
-				total={total}
-			/>
-		</section>
+		</Fragment>
+		
 	)
 }
 
