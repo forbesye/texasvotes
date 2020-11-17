@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { Card, Typography, Input } from "antd"
+import React, { useState, useEffect } from "react"
+import { Card, Typography } from "antd"
 import { Link, useHistory } from "react-router-dom"
 
 // Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
@@ -12,12 +12,33 @@ import vote from "views/Splash/images/vote.svg"
 
 import styles from "./Splash.module.css"
 import GeneralSearchBar from "../Search/GeneralSearchBar"
+import News from "./News"
+import { getAPI } from "library/APIClient"
 
 const { Title, Paragraph } = Typography
 
 const Splash = () => {
 	const history = useHistory()
 	const [searchVal, setSearchVal] = useState("")
+	const [ news, setNews ] = useState({
+		articles: [],
+		loading: false,
+		lastUpdated: null
+	})
+
+	useEffect(() => {
+		const getNews = async () => {
+			setNews(news => ({ ...news, loading: true }))
+			const { articles, last_updated } = await getAPI({ model: "news" })
+			setNews({
+				articles: articles,
+				loading: false,
+				lastUpdated: new Date(last_updated)
+			})
+		}
+		getNews()
+	}, [])
+
 	return (
 		<div>
 			<div className={styles.splash}>
@@ -47,7 +68,6 @@ const Splash = () => {
 					value={searchVal}
 				/>
 			</div>
-
 			<div className={styles.cardFlexContainer}>
 				<Link
 					id="politicianCard"
@@ -122,6 +142,13 @@ const Splash = () => {
 						</Paragraph>
 					</Card>
 				</Link>
+			</div>
+			<div className={styles.newsContainer}>
+				<Title level={1}>Texas News Articles</Title>
+				<Paragraph style={{
+					textAlign: "center"
+				}}>Last Updated: { news.lastUpdated ? news.lastUpdated.toLocaleString("en-US") : "Never" }</Paragraph>
+				<News {...news} />
 			</div>
 		</div>
 	)

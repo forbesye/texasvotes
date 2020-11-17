@@ -1,39 +1,37 @@
 import React, { useState, useEffect, useRef } from "react"
-import { Table, Divider, Typography, Select } from "antd"
+import {
+	ArrayParam,
+	NumberParam,
+	StringParam,
+	useQueryParams,
+	withDefault,
+} from "use-query-params"
+import { Table, Divider, Typography } from "antd"
 import { useHistory } from "react-router-dom"
 import styles from "./Districts.module.css"
 import columns, { districtName } from "./Lib"
 import { party_mappings, elected_office_mappings } from "library/Mappings"
 import { getAPI } from "library/APIClient"
-import {
-	CountiesFilter,
-	PartiesFilter,
-	OfficeFilter,
-	PopulationRange,
-	DistrictNumberFilter,
-} from "library/FilterValues"
-import { updateFilter } from "library/Functions"
+import { Filter, Sort } from "components/filters/Filters"
 const { Title, Paragraph } = Typography
-const { Option } = Select
 
 /**
  * Functional component for list of Districts
  */
 const ListView = () => {
-	const URLParams = new URLSearchParams(window.location.search)
 	const history = useHistory()
 	const [loading, setLoading] = useState(true)
 	const [listData, setListData] = useState([])
 	const [total, setTotal] = useState(20)
 	// Initial query params based off URL of page
-	const [params, setParams] = useState({
-		page: URLParams.get("page") ? URLParams.get("page") : 1,
-		sort: URLParams.get("sort") ? URLParams.get("sort") : "number",
-		popRange: URLParams.get("popRange") ? URLParams.get("popRange") : "",
-		counties: URLParams.getAll("counties"),
-		party: URLParams.getAll("party"),
-		number: URLParams.getAll("number"),
-		office: URLParams.getAll("office"),
+	const [params, setParams] = useQueryParams({
+		sort: withDefault(StringParam, "number"),
+		page: withDefault(NumberParam, 1),
+		popRange: StringParam,
+		counties: ArrayParam,
+		party: ArrayParam,
+		number: ArrayParam,
+		office: ArrayParam,
 	})
 	const listRef = useRef(null)
 
@@ -54,20 +52,26 @@ const ListView = () => {
 				if (params.popRange) {
 					URLParams.append("popRange", params.popRange)
 				}
-				params.counties.forEach((county) =>
-					URLParams.append("counties", county)
-				)
-				params.party.forEach((type) => URLParams.append("party", type))
-				params.office.forEach((office) =>
-					URLParams.append("office", office)
-				)
-				params.number.forEach((dist) =>
-					URLParams.append("number", dist)
-				)
-				history.push({
-					pathname: "/districts/view",
-					search: "?" + URLParams.toString(),
-				})
+				if (params.counties) {
+					params.counties.forEach((county) =>
+						URLParams.append("counties", county)
+					)
+				}
+				if (params.party) {
+					params.party.forEach((type) =>
+						URLParams.append("party", type)
+					)
+				}
+				if (params.office) {
+					params.office.forEach((office) =>
+						URLParams.append("office", office)
+					)
+				}
+				if (params.number) {
+					params.number.forEach((dist) =>
+						URLParams.append("number", dist)
+					)
+				}
 				return URLParams
 			}
 
@@ -98,6 +102,7 @@ const ListView = () => {
 				setListData(data)
 				setLoading(false)
 			} catch (err) {
+				console.error(err)
 				history.push("/error")
 			}
 		}
@@ -132,38 +137,20 @@ const ListView = () => {
 			{/* Filter and sort*/}
 			<section className={styles.filterSection}>
 				<Title level={3}>Filter</Title>
-				<CountiesFilter
-					onChange={updateFilter("counties", setParams, params)}
+				{["counties", "party", "office", "number", "popRange"].map(
+					(name) => (
+						<Filter
+							name={name}
+							value={params[name]}
+							hook={[params, setParams]}
+						/>
+					)
+				)}
+				<Sort
+					model="District"
+					value={params.sort}
+					hook={[params, setParams]}
 				/>
-				<PartiesFilter
-					onChange={updateFilter("party", setParams, params)}
-				/>
-				<OfficeFilter
-					onChange={updateFilter("office", setParams, params)}
-				/>
-				<DistrictNumberFilter
-					onChange={updateFilter("number", setParams, params)}
-				/>
-				<PopulationRange
-					onChange={updateFilter("popRange", setParams, params)}
-				/>
-				<Title level={3}>Sort</Title>
-				<div style={{ marginBottom: 20, textAlign: "center" }}>
-					<Title level={5}>Order</Title>
-					<Select
-						size="large"
-						defaultValue="number"
-						style={{ width: 150 }}
-						onChange={updateFilter("sort", setParams, params)}
-					>
-						<Option key={"number"} value={"number"}>
-							District (Asc.)
-						</Option>
-						<Option key={"-number"}>District (Desc.)</Option>
-						<Option key={"pop"}>Pop. (Asc.)</Option>
-						<Option key={"-pop"}>Pop. (Desc.)</Option>
-					</Select>
-				</div>
 			</section>
 
 			{/* Table of district data */}

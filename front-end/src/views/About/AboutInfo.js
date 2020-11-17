@@ -19,6 +19,10 @@ import MarshmallowLogo from "views/About/images/MarshmallowLogo.png"
 import SQLAlchemyLogo from "views/About/images/SQLAlchemyLogo.png"
 import PostgresLogo from "views/About/images/PostgresLogo.png"
 import NamecheapLogo from "views/About/images/NamecheapLogo.png"
+import BlackLogo from "views/About/images/BlackLogo.png"
+import PrettierLogo from "views/About/images/PrettierLogo.png"
+import D3Logo from "views/About/images/D3Logo.png"
+import ChartsLogo from "views/About/images/ChartsLogo.svg"
 import GoogleDevLogo from "views/About/images/GoogleDevLogo.png"
 import OpenSecretsLogo from "views/About/images/OpenSecretsLogo.png"
 import OpenStatesLogo from "views/About/images/OpenStatesLogo.png"
@@ -39,6 +43,18 @@ const toolsInfo = [
 		img: AntDesignLogo,
 		description: "React UI design library",
 		link: "https://ant.design/",
+	},
+	{
+		title: "D3",
+		img: D3Logo,
+		description: "JavaScript visualization library",
+		link: "https://d3js.org/",
+	},
+	{
+		title: "Chart.js",
+		img: ChartsLogo,
+		description: "JavaScript charting library",
+		link: "https://www.chartjs.org/",
 	},
 	{
 		title: "Flask",
@@ -63,6 +79,18 @@ const toolsInfo = [
 		img: PostgresLogo,
 		description: "Relational database management system",
 		link: "https://www.postgresql.org/",
+	},
+	{
+		title: "Prettier",
+		img: PrettierLogo,
+		description: "JavaScript code formatter",
+		link: "https://prettier.io/",
+	},
+	{
+		title: "Black",
+		img: BlackLogo,
+		description: "Python code formatter",
+		link: "https://github.com/psf/black",
 	},
 	{
 		title: "Jest",
@@ -159,11 +187,12 @@ const teamInfo = [
 	{
 		name: "Larry Win",
 		username: "lawrencewin",
-		email: "dehunter456@gmail.com",
+		email: "lawrence.j.win@gmail.com",
 		picture_path: LarryWinImg,
 		role: "Front-end",
 		bio:
 			"I’m a third year CS major at UT Austin. I grew up and am currently living in Belton, Texas. In my free time, I cook and maintain a food Instagram, keep up with the 2020 election season, and obsess over the Avatar universe.",
+		linkedin: "https://www.linkedin.com/in/lawrence-win",
 		commits: 0,
 		issues: 0,
 		tests: 0,
@@ -176,6 +205,7 @@ const teamInfo = [
 		role: "Front-end",
 		bio:
 			"I’m a third year CS major at UT Austin. I’m from Dallas, Texas and spend my free time playing video games and practicing piano. I definitely spend too much time working on projects and school :(",
+		linkedin: "https://www.linkedin.com/in/jennifer-suriadinata-990373171",
 		commits: 0,
 		issues: 0,
 		tests: 14,
@@ -188,6 +218,7 @@ const teamInfo = [
 		role: "Front-end",
 		bio:
 			"I’m a third year CS major at UT Austin. I’m from Dallas, Texas and in my free time I enjoy exercising, cooking, reading, playing video games, and listening to podcasts!",
+		linkedin: "https://www.linkedin.com/in/jefferson-ye",
 		commits: 0,
 		issues: 0,
 		tests: 11,
@@ -200,6 +231,7 @@ const teamInfo = [
 		role: "Back-end",
 		bio:
 			"I’m a fourth year CS major at UT Austin. I grew up in a small town called Llano, Texas. I spend my free time reading sci-fi/fantasy novels, playing video games, and spoiling my cat.",
+		linkedin: "https://www.linkedin.com/in/sydney-e-owen",
 		commits: 0,
 		issues: 0,
 		tests: 11,
@@ -212,6 +244,7 @@ const teamInfo = [
 		role: "Back-end",
 		bio:
 			"I'm a fourth year CS major at UT Austin. I'm from Houston, Texas and I spend most of my time cooking or watching and participating in combat sports like boxing or Brazilian-Jiu-Jitsu.",
+		linkedin: "https://www.linkedin.com/in/ivanrome100",
 		commits: 0,
 		issues: 0,
 		tests: 10,
@@ -224,6 +257,7 @@ const teamInfo = [
 		role: "Back-end",
 		bio:
 			"I’m a third year CS major at UT Austin. I’m from Austin, Texas and spend my free time playing chess and camping. I definitely have spent too much time playing Among Us lately.",
+		linkedin: "https://www.linkedin.com/in/kevinli1729",
 		commits: 0,
 		issues: 0,
 		tests: 8,

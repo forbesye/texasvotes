@@ -38,12 +38,6 @@ const App = () => {
 								/>
 							)
 						})}
-						<Route
-							title={"Error"}
-							path={"/error"}
-							key={"Error"}
-							component={ErrorPage}
-						/>
 						<Route title={"Not found"} component={ErrorPage} />
 					</Switch>
 				</Content>

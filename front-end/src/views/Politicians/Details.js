@@ -74,7 +74,6 @@ export default function Details() {
 				const data = await getAPI({
 					model: "politician",
 					path: id,
-					params: {},
 				})
 				setPolitician(data)
 				setLoaded(true)
@@ -84,10 +83,6 @@ export default function Details() {
 		}
 		fetchData()
 	}, [id, history])
-
-	const handleBack = () => {
-		history.push("/politicians/view")
-	}
 
 	const {
 		name,
@@ -118,7 +113,7 @@ export default function Details() {
 							{subtitle(current || running_for, !running_for)}
 						</Text>
 					}
-					onBack={handleBack}
+					onBack={() => window.history.back()}
 				/>
 				<Divider />
 				<div className={styles.politicianDescription}>

@@ -1,62 +1,17 @@
 import React, { useState, useEffect, Fragment } from "react"
-import { PageHeader, Typography, Divider, Table, Timeline } from "antd"
-import { ClockCircleOutlined } from "@ant-design/icons"
+import { PageHeader, Typography, Divider, Table } from "antd"
 import { useParams, useHistory, Link } from "react-router-dom"
 import Spinner from "components/ui/Spinner"
 import styles from "./Elections.module.css"
-import {
-	monthDayYearParse,
-	numberStringWithCommas,
-	districtName,
-} from "library/Functions"
-import { election_date_mappings, party_mappings } from "library/Mappings"
+import { districtName } from "library/Functions"
+import { resultColumns } from "./Lib"
+import PoliticianCard from "components/cards/PoliticianCard"
+import { party_mappings } from "library/Mappings"
+import ElectionTimeline from "components/ui/Timeline"
 import { getAPI } from "library/APIClient"
 import ReactPlayer from "react-player"
 
-const { Title, Text } = Typography
-
-// Candidate columns for Ant Design Table
-const candidateColumns = [
-	{
-		title: "Name",
-		dataIndex: "name",
-		key: "name",
-		render: (text, record) => {
-			return <Link to={`/politicians/view/${record.id}`}>{text}</Link>
-		},
-	},
-	{
-		title: "Party",
-		dataIndex: "party",
-		key: "party",
-	},
-]
-
-// Result columns for Ant Design Table
-const resultColumns = [
-	{
-		title: "Name",
-		dataIndex: "name",
-		key: "name",
-	},
-	{
-		title: "Party",
-		dataIndex: "party",
-		key: "party",
-	},
-	{
-		title: "Vote Total",
-		dataIndex: "vote_total",
-		key: "vote_total",
-		render: (text) => numberStringWithCommas(text),
-	},
-	{
-		title: "Vote Percentage",
-		dataIndex: "vote_percentage",
-		key: "vote_percentage",
-		render: (text) => text + "%",
-	},
-]
+const { Title } = Typography
 
 /**
  * Returns relevant title with link to associated district
@@ -106,10 +61,6 @@ const Details = () => {
 	const [loaded, setLoaded] = useState(false)
 	const history = useHistory()
 
-	const electionDate = ["early_start", "early_end", "election_day"]
-	const todayDate = new Date()
-	var beforeToday = true
-
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -117,14 +68,11 @@ const Details = () => {
 				const data = await getAPI({
 					model: "election",
 					path: id,
-					params: {},
 				})
-				data.candidates = data.candidates.map((c) => {
-					return {
-						...c,
-						key: c.id,
-					}
-				})
+				data.candidates = data.candidates.map((c) => ({
+					...c,
+					key: c.id,
+				}))
 				setElection(data)
 				setLoaded(true)
 			} catch (err) {
@@ -134,10 +82,6 @@ const Details = () => {
 		fetchData()
 	}, [id, history])
 
-	const handleBack = () => {
-		history.push("/elections/view")
-	}
-
 	const { candidates, results, dates, video_url } = election
 	let content = null
 	if (loaded) {
@@ -145,7 +89,7 @@ const Details = () => {
 			<Fragment>
 				<PageHeader
 					title={electionTitle(election)}
-					onBack={handleBack}
+					onBack={() => window.history.back()}
 				/>
 				<Divider />
 
@@ -159,113 +103,43 @@ const Details = () => {
 						Election Dates
 					</Title>
 					{/* Depending on current date, render different timeline */}
-					<Timeline
-						mode={"left"}
-						style={{
-							paddingTop: "20px",
-							width: "95%",
-							margin: "auto",
-							fontSize: 18,
-						}}
-					>
-						{electionDate.map((key) => {
-							var curDate = new Date(dates[key])
-							if (!beforeToday) {
-								return (
-									<Timeline.Item
-										key={key}
-										label={
-											<Text strong>
-												{election_date_mappings[key]}
-											</Text>
-										}
-										color="green"
-									>
-										{monthDayYearParse(dates[key])}
-									</Timeline.Item>
-								)
-							} else if (curDate > todayDate) {
-								beforeToday = false
-								return (
-									<div>
-										<Timeline.Item
-											key={todayDate}
-											label={<Text strong>Today</Text>}
-										>
-											<Text>
-												{monthDayYearParse(todayDate)}
-											</Text>
-										</Timeline.Item>
-
-										<Timeline.Item
-											key={key}
-											dot={
-												<ClockCircleOutlined
-													style={{ fontSize: "16px" }}
-												/>
-											}
-											label={
-												<Text strong>
-													{
-														election_date_mappings[
-															key
-														]
-													}
-												</Text>
-											}
-											color="red"
-										>
-											<Text>
-												{monthDayYearParse(dates[key])}
-											</Text>
-										</Timeline.Item>
-									</div>
-								)
-							} else {
-								return (
-									<Timeline.Item
-										key={key}
-										label={
-											<Text strong>
-												{election_date_mappings[key]}
-											</Text>
-										}
-										color="gray"
-									>
-										<Text>
-											{monthDayYearParse(dates[key])}
-										</Text>
-									</Timeline.Item>
-								)
-							}
-						})}
-						{beforeToday ? (
-							<Timeline.Item>
-								<Text strong>Today </Text>
-								<Text>{monthDayYearParse(todayDate)}</Text>
-							</Timeline.Item>
-						) : null}
-					</Timeline>
+					<ElectionTimeline dates={dates} />
 				</article>
 				{/* Election candidates */}
 				<article className={styles.electionDetails}>
 					<Title style={{ textAlign: "center" }} level={3}>
 						Candidates
 					</Title>
-					<Table dataSource={candidates} columns={candidateColumns} />
+                    <div className={candidates.length === 1 ? styles.polCard : 
+                                    candidates.length === 2 ? styles.polCard2
+                                    : styles.grid}>
+						{candidates.map((data) => (
+							<PoliticianCard
+								key={data.id}
+								data={{
+									...data,
+									running_for: data.district.type,
+									current: data.district.type,
+								}}
+							/>
+						))}
+					</div>
 				</article>
 				{/* Election results if past election */}
-				{results ? (
+				{results && (
 					<article className={styles.electionDetails}>
 						<Title style={{ textAlign: "center" }} level={3}>
 							Results
 						</Title>
 						<Table
-							dataSource={results.vote_counts}
+							dataSource={results.vote_counts.map((r) => ({
+								...r,
+								key: r.id,
+							}))}
 							columns={resultColumns}
 						/>
 					</article>
-				) : null}
+				)}
 			</Fragment>
 		)
 	}

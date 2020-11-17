@@ -1,7 +1,14 @@
 import React, { useState, useEffect, useRef } from "react"
-import { Table, Divider, Typography, Select } from "antd"
+import { Table, Divider, Typography } from "antd"
 import { useHistory } from "react-router-dom"
-import columns from "./Lib"
+import {
+	ArrayParam,
+	NumberParam,
+	StringParam,
+	useQueryParams,
+	withDefault,
+} from "use-query-params"
+import { electionColumns } from "./Lib"
 import { districtName } from "./../Districts/Lib"
 import { getAPI } from "library/APIClient"
 import styles from "./Elections.module.css"
@@ -10,33 +17,24 @@ import {
 	elected_office_mappings,
 } from "library/Mappings"
 import { monthDayYearParse } from "library/Functions"
-import {
-	OfficeFilter,
-	DistrictNumberFilter,
-	ElectionTypeFilter,
-	CountiesFilter,
-} from "library/FilterValues"
-import { updateFilter } from "library/Functions"
-
+import { Filter, Sort } from "components/filters/Filters"
 const { Title, Paragraph } = Typography
-const { Option } = Select
 
 /**
  * Functional component for election list view
  */
 const ListView = () => {
-	const URLParams = new URLSearchParams(window.location.search)
 	const history = useHistory()
 	const [loading, setLoading] = useState(true)
 	const [listData, setListData] = useState([])
 	// Parse params from URL
-	const [params, setParams] = useState({
-		page: URLParams.get("page") ? URLParams.get("page") : 1,
-		sort: URLParams.get("sort") ? URLParams.get("sort") : "-electionDate",
-		counties: URLParams.getAll("counties"),
-		type: URLParams.getAll("type"),
-		office: URLParams.getAll("office"),
-		dist: URLParams.getAll("dist"),
+	const [params, setParams] = useQueryParams({
+		sort: withDefault(StringParam, "-electionDate"),
+		page: withDefault(NumberParam, 1),
+		counties: ArrayParam,
+		type: ArrayParam,
+		office: ArrayParam,
+		dist: ArrayParam,
 	})
 	const [total, setTotal] = useState(20)
 	const listRef = useRef(null)
@@ -51,18 +49,22 @@ const ListView = () => {
 			let URLParams = new URLSearchParams()
 			URLParams.append("page", params.page)
 			URLParams.append("sort", params.sort)
-			params.counties.forEach((county) =>
-				URLParams.append("counties", county)
-			)
-			params.type.forEach((type) => URLParams.append("type", type))
-			params.office.forEach((office) =>
-				URLParams.append("office", office)
-			)
-			params.dist.forEach((dist) => URLParams.append("dist", dist))
-			history.push({
-				pathname: "/elections/view",
-				search: "?" + URLParams.toString(),
-			})
+			if (params.counties) {
+				params.counties.forEach((county) =>
+					URLParams.append("counties", county)
+				)
+			}
+			if (params.type) {
+				params.type.forEach((type) => URLParams.append("type", type))
+			}
+			if (params.office) {
+				params.office.forEach((office) =>
+					URLParams.append("office", office)
+				)
+			}
+			if (params.dist) {
+				params.dist.forEach((dist) => URLParams.append("dist", dist))
+			}
 			return URLParams
 		}
 
@@ -133,44 +135,27 @@ const ListView = () => {
 				</Paragraph>
 			</section>
 			<Divider />
-			{/* Filters */}
+			{/* Filter and sort */}
 			<section className={styles.filterSection}>
 				<Title level={3}>Filter</Title>
-				<CountiesFilter
-					onChange={updateFilter("counties", setParams, params)}
+				{["counties", "office", "dist", "type"].map((name) => (
+					<Filter
+						name={name}
+						value={params[name]}
+						hook={[params, setParams]}
+					/>
+				))}
+				<Sort
+					model="Election"
+					value={params.sort}
+					hook={[params, setParams]}
 				/>
-				<OfficeFilter
-					onChange={updateFilter("office", setParams, params)}
-				/>
-				<DistrictNumberFilter
-					onChange={updateFilter("dist", setParams, params)}
-				/>
-				<ElectionTypeFilter
-					onChange={updateFilter("type", setParams, params)}
-				/>
-				<Title level={3}>Sort</Title>
-				<div style={{ marginBottom: 20, textAlign: "center" }}>
-					<Title level={5}>Order</Title>
-					<Select
-						size="large"
-						defaultValue="-electionDate"
-						style={{ width: 150 }}
-						onChange={updateFilter("sort", setParams, params)}
-					>
-						<Option key={"-electionDate"} value={"-electionDate"}>
-							Date (Newest)
-						</Option>
-						<Option key={"electionDate"}>Date (Oldest)</Option>
-						<Option key={"dist"}>District (Asc.)</Option>
-						<Option key={"-dist"}>District (Desc.)</Option>
-					</Select>
-				</div>
 			</section>
 			{/* Election Table */}
 			<section ref={listRef}>
 				<Table
 					dataSource={listData}
-					columns={columns}
+					columns={electionColumns}
 					onRow={(record) => {
 						return {
 							onClick: (event) => {

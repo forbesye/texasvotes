@@ -1,37 +1,12 @@
 import React, { Fragment, useState, useEffect } from "react"
 import { Typography, Input, Divider, Pagination } from "antd"
-import { Link, useLocation, useHistory } from "react-router-dom"
-import Highlighter from "react-highlight-words"
+import { useLocation, useHistory } from "react-router-dom"
 import styles from "./Elections.module.css"
-
+import ElectionResult from "views/Elections/ElectionResult"
 import { getAPI } from "../../library/APIClient"
 import Spinner from "../../components/ui/Spinner"
-import { districtName } from "library/Functions"
-import { party_mappings } from "library/Mappings"
 
 const { Search } = Input
-const { Title, Text, Paragraph } = Typography
-
-const electionTitle = (election) => {
-	const { dates, office, district, type, party } = election
-	const { number } = district
-	const { election_day } = dates
-	const electionYear = new Date(election_day).getFullYear()
-	if (type.class === "general") {
-		return `${electionYear} General Election for ${districtName(
-			office,
-			number
-		)}`
-	} else if (type.class === "runoff") {
-		return `${electionYear} ${
-			party_mappings[party]
-		} Runoff for ${districtName(office, number)}`
-	} else {
-		return `${electionYear} ${
-			party_mappings[party]
-		} Primary for ${districtName(office, number)}`
-	}
-}
 
 /**
  * Functional component for election search
@@ -61,10 +36,10 @@ export default function SearchView() {
 		setLoading(true)
 		const data = await getAPI({
 			model: "election",
-			params: {
+			params: new URLSearchParams({
 				q: value,
 				page: p,
-			},
+			}),
 		})
 		const results = data.page
 		setResults(results)
@@ -126,72 +101,5 @@ export default function SearchView() {
 			</section>
 			<Divider />
 		</Fragment>
-	)
-}
-
-/**
- * Election card for search results
- * @param {Election} election
- */
-function ElectionResult(props) {
-	let {
-		district: { counties },
-		candidates,
-		searchQuery,
-	} = props
-
-	let candidateNames = []
-	candidates.forEach((candidate) => {
-		candidateNames.push(candidate.name)
-	})
-
-	let displayedCounties =
-		counties.length >= 10 ? counties.slice(0, 10) : counties
-	displayedCounties = displayedCounties.reduce(
-		(prev, next) => `${prev}, ${next}`
-	)
-	displayedCounties += counties.length >= 10 ? "..." : ""
-
-	let displayedCandidates =
-		candidateNames.length >= 10
-			? candidateNames.slice(0, 10)
-			: candidateNames
-	displayedCandidates = displayedCandidates.reduce(
-		(prev, next) => `${prev}, ${next}`
-	)
-	displayedCandidates += candidateNames.length >= 10 ? "..." : ""
-
-	return (
-		<Link to={`/elections/view/${props.id}`}>
-			<div className={styles.electionSearchCard}>
-				<div className={styles.electionSearchDesc}>
-					<Title level={4}>
-						{
-							<Highlighter
-								highlightClassName={styles.searchHighlight}
-								searchWords={searchQuery.split(" ")}
-								textToHighlight={electionTitle(props)}
-							/>
-						}
-					</Title>
-					<Paragraph>
-						<Text strong>Candidates: </Text>
-						<Highlighter
-							highlightClassName={styles.searchHighlight}
-							searchWords={searchQuery.split(" ")}
-							textToHighlight={displayedCandidates}
-						/>
-					</Paragraph>
-					<Paragraph>
-						<Text strong>Counties: </Text>
-						<Highlighter
-							highlightClassName={styles.searchHighlight}
-							searchWords={searchQuery.split(" ")}
-							textToHighlight={displayedCounties}
-						/>
-					</Paragraph>
-				</div>
-			</div>
-		</Link>
 	)
 }

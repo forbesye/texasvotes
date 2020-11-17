@@ -1,5 +1,5 @@
 import React, { Fragment } from "react"
-import { Card, Typography } from "antd"
+import { Card } from "antd"
 import { Link } from "react-router-dom"
 import Highlighter from "react-highlight-words"
 import styles from "./Search.module.css"
@@ -16,15 +16,17 @@ const { Meta } = Card
 
 // Card used to display a politician result on the general search page. Takes in a search query and the politician model body
 export function PoliticianCard(props) {
-	let {
-		district: { counties },
-		image,
+	const {
+		district: { number },
+		searchQuery,
 		id,
 		name,
+		image,
 		party,
-		searchQuery,
+		current,
+		incumbent,
+		running_for,
 	} = props
-	counties = counties.slice(0, 3)
 	return (
 		<Link to={`/politicians/view/${id}`} target="_blank">
 			<Card
@@ -46,7 +48,12 @@ export function PoliticianCard(props) {
 						<Highlighter
 							highlightClassName={styles.highlight}
 							searchWords={[searchQuery]}
-							textToHighlight={districtDescription(props)}
+							textToHighlight={districtDescription(
+								number,
+								current,
+								running_for,
+								incumbent
+							)}
 						/>
 					}
 				/>
@@ -57,14 +64,7 @@ export function PoliticianCard(props) {
 
 // Card used to display a district result on the general search page. Takes in a search query and the district model body
 export function DistrictCard(props) {
-	const {
-		elected_officials,
-		number,
-		id,
-		party,
-		counties,
-		searchQuery,
-	} = props
+	const { elected_officials, id, counties, searchQuery } = props
 	let mapped = counties
 		.slice(0, COUNTY_LIMIT)
 		.reduce((prev, curr) => `${prev}, ${curr}`)
@@ -167,9 +167,7 @@ export function ElectionCard(props) {
 									textToHighlight={`${
 										elected_office_mappings[office]
 									} ${
-										number !== -1
-											? "District " + number
-											: ""
+										number > 0 ? "District " + number : ""
 									}`}
 								/>
 							</div>

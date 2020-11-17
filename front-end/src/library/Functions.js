@@ -1,3 +1,5 @@
+import { party_mappings } from "library/Mappings"
+
 /*
  * Returns a string, only use for final output!
  */
@@ -25,14 +27,13 @@ const monthDayYearParse = (d) => {
  * @param {T} params
  */
 const updateFilter = (filter, setParams, params) => {
-	const output = (value) => {
+	return (value) => {
 		setParams({
 			...params,
-			page: 1,
 			[filter]: value,
+			page: 1,
 		})
 	}
-	return output
 }
 
 /**
@@ -52,15 +53,36 @@ const convertToPercent = (val, total) => {
 const districtName = (office, number) => {
 	const OFFICE_NAMES = {
 		us_house: "US Congressional District",
-		us_senate: "US Senate",
+		us_senate: "US Senate Seat for Texas",
 		tx_house: "Texas House of Representatives District",
 		tx_senate: "Texas State Senate District",
+		us_president: "US Presidential Vote in Texas",
 	}
-
-	if (office === "us_senate") {
-		return "US Senate Seat for Texas"
+	if (number < 0) {
+		return OFFICE_NAMES[office]
 	} else {
 		return `${OFFICE_NAMES[office]} ${number}`
+	}
+}
+
+const electionTitle = (election) => {
+	const { dates, office, district, type, party } = election
+	const { number } = district
+	const { election_day } = dates
+	const electionYear = new Date(election_day).getFullYear()
+	if (type.class === "general") {
+		return `${electionYear} General Election for ${districtName(
+			office,
+			number
+		)}`
+	} else if (type.class === "runoff") {
+		return `${electionYear} ${
+			party_mappings[party]
+		} Runoff for ${districtName(office, number)}`
+	} else {
+		return `${electionYear} ${
+			party_mappings[party]
+		} Primary for ${districtName(office, number)}`
 	}
 }
 
@@ -72,6 +94,18 @@ const formatAsMoney = (num) => {
 	return `$` + numberStringWithCommas(num.toFixed(2))
 }
 
+/**
+ * Creates an identity object from an array, key maps to value
+ * { "a": "a", "b": "b", ... }
+ * @param {Array} arr
+ */
+const identityObjectFromArray = (arr) => {
+	return arr.reduce((obj, cur) => {
+		obj[cur] = cur
+		return obj
+	}, {})
+}
+
 export {
 	numberStringWithCommas,
 	monthDayYearParse,
@@ -79,4 +113,6 @@ export {
 	districtName,
 	formatAsMoney,
 	updateFilter,
+	electionTitle,
+	identityObjectFromArray,
 }

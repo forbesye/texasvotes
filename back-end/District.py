@@ -132,8 +132,10 @@ def search_districts(q, dist_query):
         searches.append(District.type_name.match(term))
         searches.append(District.party.match(term))
         searches.append(
-            District.counties.any(func.lower(Counties.name) == term.lower())
+            District.counties.any(func.lower(Counties.name).contains(term.lower()))
         )
+        searches.append(District.politicians.any(func.lower(Politician.name).contains(term.lower()) & Politician.current == True))
+        searches.append(District.elections.any(Election.election_day.contains(term)))
     dist_query = dist_query.filter(or_(*tuple(searches)))
 
     return dist_query
