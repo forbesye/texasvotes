@@ -1,6 +1,14 @@
 import React, { Fragment, useState, useEffect } from "react"
 import { Typography, Input, Divider, Pagination } from "antd"
-import { Link, useLocation, useHistory } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
+import {
+	StringParam,
+	NumberParam,
+	useQueryParams,
+	ArrayParam,
+	withDefault
+} from "use-query-params"
+import { Filter, Sort } from "components/filters/Filters"
 import Highlighter from "react-highlight-words"
 import styles from "./Districts.module.css"
 import { getAPI } from "library/APIClient"
@@ -10,58 +18,93 @@ import { districtName } from "./Lib"
 const { Search } = Input
 const { Title, Text, Paragraph } = Typography
 
-export default function SearchView(props) {
-	const [searchVal, setSearchVal] = useState("")
+export default function SearchView() {
 	const [total, setTotal] = useState(0)
-	const [page, setPage] = useState(1)
+	const [params, setParams] = useQueryParams({
+		page: withDefault(NumberParam, 1),
+		q: withDefault(StringParam, ""),
+		sort: StringParam,
+		popRange: StringParam,
+		counties: ArrayParam,
+		party: ArrayParam,
+		number: ArrayParam,
+		office: ArrayParam,
+	})
+	const [tempSearch, setTempSearch] = useState("")
 	const [results, setResults] = useState([])
 	const [loading, setLoading] = useState(false)
-	const location = useLocation()
 	const history = useHistory()
 
 	const handleTextChange = (event) => {
-		setSearchVal(event.target.value)
-	}
-
-	/**
-	 * Data handling part of search
-	 * @param {string} query
-	 * @param {Number} page
-	 */
-	const handleSearch = async (value, p = 1) => {
-		history.push(
-			`/districts/search?q=${encodeURIComponent(value)}&page=${p}`
-		)
-		setLoading(true)
-		const data = await getAPI({
-			model: "district",
-			params: new URLSearchParams({
-				q: value,
-				page: p,
-			}),
-		})
-		const results = data.page
-		setResults(results)
-		setLoading(false)
-		setTotal(data.count)
+		setTempSearch(event.target.value)
 	}
 
 	const handlePageChange = (p) => {
-		setPage(p)
-		handleSearch(searchVal, p)
+		setParams({
+			...params,
+			page: p
+		})
 	}
 
 	/**
 	 * Calls search logic
 	 */
 	useEffect(() => {
-		const q = new URLSearchParams(location.search).get("q")
-		if (q) {
-			const decoded = decodeURIComponent(q)
-			setSearchVal(decoded)
-			handleSearch(decoded)
+		/**
+		 * Creates proper URLSearchParams given current param
+		 * state
+		 * @param {Params} params
+		 */
+		const constructURLParams = (params) => {
+			let URLParams = new URLSearchParams()
+			URLParams.append("page", params.page)
+			URLParams.append("q", params.q)
+			if (params.sort) {
+				URLParams.append("sort", params.sort)
+			}
+			if (params.popRange) {
+				URLParams.append("popRange", params.popRange)
+			}
+			if (params.counties) {
+				params.counties.forEach((county) =>
+					URLParams.append("counties", county)
+				)
+			}
+			if (params.party) {
+				params.party.forEach((type) =>
+					URLParams.append("party", type)
+				)
+			}
+			if (params.office) {
+				params.office.forEach((office) =>
+					URLParams.append("office", office)
+				)
+			}
+			if (params.number) {
+				params.number.forEach((dist) =>
+					URLParams.append("number", dist)
+				)
+			}
+			return URLParams
 		}
-	}, [])
+
+		const fetchData = async () => {
+			try {
+				setLoading(true)
+				const { page, count } = await getAPI({
+					model: "district",
+					params: constructURLParams(params),
+				})
+				setResults(page)
+				setLoading(false)
+				setTotal(count)
+			} catch (err) {
+				console.error(err)
+				history.push("/error")
+			}
+		}
+		fetchData()
+	}, [params, history])
 
 	return (
 		<Fragment>
@@ -71,11 +114,29 @@ export default function SearchView(props) {
 					<Typography.Paragraph>
 						Search our database for a Texas district.{" "}
 					</Typography.Paragraph>
+					{/* Filter and sort*/}
+					<section className={styles.filterSection}>
+						<Title level={3}>Filter</Title>
+						{["counties", "party", "office", "number", "popRange"].map(
+							(name) => (
+								<Filter
+									name={name}
+									value={params[name]}
+									hook={[params, setParams]}
+								/>
+							)
+						)}
+						<Sort
+							model="District"
+							value={params.sort}
+							hook={[params, setParams]}
+						/>
+					</section>
 					<Search
 						size="large"
 						loading={loading}
-						onSearch={(val) => handleSearch(val)}
-						value={searchVal}
+						onSearch={(val) => setParams((params) => ({...params, q: val}))}
+						value={tempSearch}
 						onChange={handleTextChange}
 					/>
 				</section>
@@ -87,14 +148,14 @@ export default function SearchView(props) {
 						{results.map((result) => (
 							<DistrictResult
 								{...result}
-								searchQuery={searchVal}
+								searchQuery={params.q}
 								key={result.id}
 							/>
 						))}
 					</section>
 				)}
 				<Pagination
-					current={page}
+					current={params.page}
 					onChange={handlePageChange}
 					pageSize={20}
 					showSizeChanger={false}
