@@ -111,7 +111,6 @@ export default function GridView() {
 			<Divider />
 			{/* Fitlers and sort */}
 			<section className={styles.filterSection}>
-				<Title level={3}>Filter</Title>
 				{["counties", "party", "office", "district_num"].map((name) => (
 					<Filter
 						name={name}

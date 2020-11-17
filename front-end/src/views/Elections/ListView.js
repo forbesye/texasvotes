@@ -137,7 +137,6 @@ const ListView = () => {
 			<Divider />
 			{/* Filter and sort */}
 			<section className={styles.filterSection}>
-				<Title level={3}>Filter</Title>
 				{["counties", "office", "dist", "type"].map((name) => (
 					<Filter
 						name={name}

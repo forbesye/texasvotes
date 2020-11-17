@@ -44,9 +44,8 @@ const Sort = ({ value, model, hook }) => {
 	const { optionsMap, init } = sortVals
 	return (
 		<Fragment>
-			<Title level={3}>Sort</Title>
 			<div style={{ marginBottom: 20, textAlign: "center" }}>
-				<Title level={5}>Order</Title>
+				<Title level={5}>Sort</Title>
 				<Select
 					defaultValue={init}
 					style={{ width: 150 }}

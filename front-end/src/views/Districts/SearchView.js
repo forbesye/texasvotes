@@ -110,13 +110,12 @@ export default function SearchView() {
 		<Fragment>
 			<section className={styles.content}>
 				<section className={styles.description}>
-					<Typography.Title level={3}>Search</Typography.Title>
-					<Typography.Paragraph>
+					<Typography.Title level={2}>Search</Typography.Title>
+					<Typography.Paragraph style={{ fontSize: 18 }}>
 						Search our database for a Texas district.{" "}
 					</Typography.Paragraph>
 					{/* Filter and sort*/}
 					<section className={styles.filterSection}>
-						<Title level={3}>Filter</Title>
 						{["counties", "party", "office", "number", "popRange"].map(
 							(name) => (
 								<Filter

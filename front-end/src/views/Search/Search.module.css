@@ -49,11 +49,23 @@
 	text-align: center;
 }
 
+.filterSection {
+	flex-direction: column;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	/* margin-bottom: 20px; */
+}
+
 @media (min-width: 768px) {
 	.searchItemsPolitician,
 	.searchItemsDistrict,
 	.searchItemsElection {
 		grid-template-columns: repeat(auto-fit, minmax(170px, 288px));
+	}
+
+	.filterSection {
+		flex-direction: row;
 	}
 
 	.searchItemsPolitician {
