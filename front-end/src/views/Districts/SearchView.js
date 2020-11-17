@@ -117,11 +117,13 @@ export default function SearchView() {
 					<Typography.Paragraph style={{ fontSize: 18 }}>
 						Search our database for a Texas district.{" "}
 					</Typography.Paragraph>
+					<Divider />
 					{/* Filter and sort*/}
 					<section className={styles.filterSection}>
 						{["counties", "party", "office", "number", "popRange"].map(
 							(name) => (
 								<Filter
+									key={name}
 									name={name}
 									value={params[name]}
 									hook={[params, setParams]}
@@ -134,16 +136,17 @@ export default function SearchView() {
 							hook={[params, setParams]}
 						/>
 					</section>
-					<Search
-						size="large"
-						enterButton="Search"
-						loading={loading}
-						onSearch={(val) => setParams((params) => ({...params, q: val}))}
-						value={tempSearch}
-						onChange={handleTextChange}
-					/>
+					<div style={{marginLeft: "10%", marginRight: "10%"}}>
+						<Search
+							size="large"
+							enterButton="Search"
+							loading={loading}
+							onSearch={(val) => setParams((params) => ({...params, q: val}))}
+							value={tempSearch}
+							onChange={handleTextChange}
+						/>
+					</div>
 				</section>
-				<Divider />
 				{loading ? (
 					<Spinner />
 				) : (

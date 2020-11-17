@@ -120,7 +120,6 @@ export function electionName(election, number) {
  * @param {array} items
  */
 const chartLabels = (type, items) => {
-    console.log(type)
     if (type === "age") {
         return (
             items.map(

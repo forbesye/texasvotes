@@ -115,6 +115,7 @@ export default function SearchView() {
 					<section className={styles.filterSection}>
 						{["counties", "office", "dist", "type"].map((name) => (
 							<Filter
+								key={name}
 								name={name}
 								value={params[name]}
 								hook={[params, setParams]}
@@ -126,14 +127,16 @@ export default function SearchView() {
 							hook={[params, setParams]}
 						/>
 					</section>
-					<Search
-						size="large"
-						loading={loading}
-						enterButton="Search"
-						onSearch={(val) => setParams((params) => ({...params, q: val}))}
-						value={tempSearch}
-						onChange={handleTextChange}
-					/>
+					<div style={{marginLeft: "10%", marginRight: "10%"}}>
+						<Search
+							size="large"
+							loading={loading}
+							enterButton="Search"
+							onSearch={(val) => setParams((params) => ({...params, q: val}))}
+							value={tempSearch}
+							onChange={handleTextChange}
+						/>
+					</div>
 				</section>
 				{/* Election cards for search */}
 				{loading ? (
@@ -144,6 +147,7 @@ export default function SearchView() {
 							<ElectionResult
 								{...result}
 								searchQuery={params.q}
+								key={result.id}
 							/>
 						))}
 					</section>

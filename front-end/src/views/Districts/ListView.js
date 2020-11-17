@@ -142,6 +142,7 @@ const ListView = () => {
 				{["counties", "party", "office", "number", "popRange"].map(
 					(name) => (
 						<Filter
+							key={name}
 							name={name}
 							value={params[name]}
 							hook={[params, setParams]}
