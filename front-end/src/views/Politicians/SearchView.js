@@ -139,13 +139,16 @@ export default function SearchView() {
 							hook={[params, setParams]}
 						/>
 					</section>
-					<Search
-						size="large"
-						loading={loading}
-						onSearch={(val) => setParams((params) => ({...params, q: val}))}
-						value={tempSearch}
-						onChange={handleTextChange}
-					/>
+					<div style={{marginLeft: "10%", marginRight: "10%"}}>
+						<Search
+							size="large"
+							enterButton="Search"
+							loading={loading}
+							onSearch={(val) => setParams((params) => ({...params, q: val}))}
+							value={tempSearch}
+							onChange={handleTextChange}
+						/>
+					</div>
 				</section>
 				<Divider />
 				{loading ? (

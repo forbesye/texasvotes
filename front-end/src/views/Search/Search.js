@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react"
 import { Typography } from "antd"
-import { useLocation, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import { getAPI } from "../../library/APIClient"
 import Spinner from "../../components/ui/Spinner"
 import styles from "./Search.module.css"
@@ -16,7 +16,7 @@ import {
 	ElectionCard,
 	MoreResultsCard,
 } from "./SearchCards"
-import { Filter, Sort } from "components/filters/Filters"
+import { Filter } from "components/filters/Filters"
 import GeneralSearchBar from "./GeneralSearchBar"
 
 const { Title, Paragraph } = Typography
@@ -26,7 +26,6 @@ const SEARCH_LIMIT = 10
 
 // General search page
 export default function GeneralSearch() {
-	const location = useLocation()
 	const history = useHistory()
 	// State variables
 	const [loaded, setLoaded] = useState(false)
@@ -43,22 +42,10 @@ export default function GeneralSearch() {
 		election: [],
 	})
 
-	// Get url params into a map-like object
-	// const queries = new URLSearchParams(location.search)
-
 	// Handler for textChange on GeneralSearchBar
 	const handleSearchChange = (event) => {
 		setTempSearch(event.target.value)
 	}
-
-	// Handler for search on GeneralSearchBar
-	// const handleSearch = (value) => {
-	// 	// history.push(`/search?q=${value}`)
-	// 	setSearchQ(value)
-	// 	search(value)
-	// }
-
-	// Asynchronous function that searches all three models
 	
 	// Called on componentMount
 	useEffect(() => {
@@ -90,6 +77,7 @@ export default function GeneralSearch() {
 			return URLParams
 		}
 
+		// Asynchronous function that searches all three models
 		const fetchData = async () => {
 			try {
 				setLoaded(false)

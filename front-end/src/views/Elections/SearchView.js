@@ -126,6 +126,7 @@ export default function SearchView() {
 					<Search
 						size="large"
 						loading={loading}
+						enterButton="Search"
 						onSearch={(val) => setParams((params) => ({...params, q: val}))}
 						value={tempSearch}
 						onChange={handleTextChange}

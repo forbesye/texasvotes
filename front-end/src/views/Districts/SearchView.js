@@ -133,6 +133,7 @@ export default function SearchView() {
 					</section>
 					<Search
 						size="large"
+						enterButton="Search"
 						loading={loading}
 						onSearch={(val) => setParams((params) => ({...params, q: val}))}
 						value={tempSearch}
