@@ -36,19 +36,17 @@ def politicians():
         # Convert the given page number into an int
         page = int(page[0])
 
-    if page != -1:
+    # Searching
+    q = get_query("q", queries)
+    if q:
+        pol_query = search_politicians(q, pol_query)
 
-        # Searching
-        q = get_query("q", queries)
-        if q:
-            pol_query = search_politicians(q, pol_query)
+    # Filtering
+    pol_query = filter_politicians(pol_query, queries)
 
-        # Filtering
-        pol_query = filter_politicians(pol_query, queries)
-
-        # Sorting
-        sort = get_query("sort", queries)
-        pol_query = sort_politicians(sort, pol_query)
+    # Sorting
+    sort = get_query("sort", queries)
+    pol_query = sort_politicians(sort, pol_query)
 
     count = pol_query.count()
 
@@ -90,19 +88,17 @@ def districts():
         # Convert the given page number into an int
         page = int(page[0])
 
-    if page != -1:
+    # Searching
+    q = get_query("q", queries)
+    if q:
+        dist_query = search_districts(q, dist_query)
 
-        # Searching
-        q = get_query("q", queries)
-        if q:
-            dist_query = search_districts(q, dist_query)
+    # Filtering
+    dist_query = filter_districts(dist_query, queries)
 
-        # Filtering
-        dist_query = filter_districts(dist_query, queries)
-
-        # Sorting
-        sort = get_query("sort", queries)
-        dist_query = sort_districts(sort, dist_query)
+    # Sorting
+    sort = get_query("sort", queries)
+    dist_query = sort_districts(sort, dist_query)
 
     count = dist_query.count()
 
@@ -146,19 +142,17 @@ def elections():
         # Convert the given page number into an int
         page = int(page[0])
 
-    if page != -1:
+    # Searching
+    q = get_query("q", queries)
+    if q:
+        elect_query = search_elections(q, elect_query)
 
-        # Searching
-        q = get_query("q", queries)
-        if q:
-            elect_query = search_elections(q, elect_query)
+    # Filtering
+    elect_query = filter_elections(elect_query, queries)
 
-        # Filtering
-        elect_query = filter_elections(elect_query, queries)
-
-        # Sorting
-        sort = get_query("sort", queries)
-        elect_query = sort_elections(sort, elect_query)
+    # Sorting
+    sort = get_query("sort", queries)
+    elect_query = sort_elections(sort, elect_query)
 
     count = elect_query.count()
 
