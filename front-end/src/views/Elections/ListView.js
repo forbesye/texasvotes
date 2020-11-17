@@ -31,6 +31,7 @@ const ListView = () => {
 	const [params, setParams] = useQueryParams({
 		sort: withDefault(StringParam, "-electionDate"),
 		page: withDefault(NumberParam, 1),
+		perPage: withDefault(NumberParam, 20),
 		counties: ArrayParam,
 		type: ArrayParam,
 		office: ArrayParam,
@@ -49,6 +50,7 @@ const ListView = () => {
 			let URLParams = new URLSearchParams()
 			URLParams.append("page", params.page)
 			URLParams.append("sort", params.sort)
+			URLParams.append("perPage", params.perPage)
 			if (params.counties) {
 				params.counties.forEach((county) =>
 					URLParams.append("counties", county)
@@ -110,10 +112,11 @@ const ListView = () => {
 		fetchData()
 	}, [params, history])
 
-	const handleTableChange = ({ current }) => {
+	const handleTableChange = ({ current, pageSize }) => {
 		setParams({
 			...params,
 			page: current,
+			perPage: pageSize
 		})
 		// Scrolls to top of table on page change
 		window.scrollTo({
@@ -167,10 +170,12 @@ const ListView = () => {
 					rowClassName={styles.cursor}
 					pagination={{
 						current: params.page,
+						pageSize: params.perPage,
 						total: total,
 						defaultPageSize: 20,
 						defaultCurrent: 1,
-						pageSizeOptions: [],
+						pageSizeOptions: [10, 20, 40],
+						showTotal: total => `Total ${total} items`
 					}}
 					onChange={handleTableChange}
 					scroll={{ x: true }}

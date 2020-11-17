@@ -51,7 +51,8 @@ def politicians():
     count = pol_query.count()
 
     if page != -1:
-        politicians = pol_query.paginate(page=page)
+        per_page = int(get_query("perPage", queries).pop()) if get_query("perPage", queries) else 20
+        politicians = pol_query.paginate(page=page, per_page=per_page)
 
         result = politician_schema.dump(politicians.items, many=True)
     else:
@@ -103,7 +104,8 @@ def districts():
     count = dist_query.count()
 
     if page != -1:
-        districts = dist_query.paginate(page=page)
+        per_page = int(get_query("perPage", queries).pop()) if get_query("perPage", queries) else 20
+        districts = dist_query.paginate(page=page, per_page=per_page)
 
         result = district_schema.dump(districts.items, many=True)
     else:
@@ -157,7 +159,8 @@ def elections():
     count = elect_query.count()
 
     if page != -1:
-        elections = elect_query.paginate(page=page)
+        per_page = int(get_query("perPage", queries).pop()) if get_query("perPage", queries) else 20
+        elections = elect_query.paginate(page=page, per_page=per_page)
 
         result = election_schema.dump(elections.items, many=True)
     else:
