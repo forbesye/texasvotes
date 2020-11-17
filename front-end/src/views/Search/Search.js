@@ -144,16 +144,16 @@ export default function GeneralSearch() {
 								if (p.eor === true)
 									return (
 										<MoreResultsCard
+											key={p.id}
 											{...p}
 											searchQuery={params.q}
-											key={p.id}
 										/>
 									)
 								return (
 									<PoliticianCard
+										key={p.id}
 										{...p}
 										searchQuery={params.q}
-										key={p.id}
 									/>
 								)
 							})}
