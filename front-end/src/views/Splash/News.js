@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
-import { Card, Typography, Carousel } from "antd"
+import React from "react"
+import { Card, Typography } from "antd"
 import Spinner from "../../components/ui/Spinner"
 import styles from "./Splash.module.css"
 
-const { Title, Paragraph } = Typography
+const { Paragraph } = Typography
 const { Meta } = Card
-
-const KEY = process.env.REACT_APP_NEWS_KEY
-const ENDPOINT = "https://newsapi.org/v2/everything"
 
 export default function News ({ articles, loading }) {
     if (loading) return <Spinner />

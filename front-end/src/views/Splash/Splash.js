@@ -26,18 +26,18 @@ const Splash = () => {
 		lastUpdated: null
 	})
 
-	const getNews = async () => {
-		setNews({ ...news, loading: true })
-		const { articles, last_updated } = await getAPI({ model: "news" })
-		console.log(last_updated)
-		setNews({
-			articles: articles,
-			loading: false,
-			lastUpdated: new Date(last_updated)
-		})
-	}
-
-	useEffect(getNews, [])
+	useEffect(() => {
+		const getNews = async () => {
+			setNews(news => ({ ...news, loading: true }))
+			const { articles, last_updated } = await getAPI({ model: "news" })
+			setNews({
+				articles: articles,
+				loading: false,
+				lastUpdated: new Date(last_updated)
+			})
+		}
+		getNews()
+	}, [])
 
 	return (
 		<div>
