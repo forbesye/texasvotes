@@ -126,6 +126,7 @@ export default function GeneralSearch() {
 					{["counties", "party", "office"].map(
 						(name) => (
 							<Filter
+								key={name}
 								name={name}
 								value={params[name]}
 								hook={[params, setParams]}
@@ -145,12 +146,14 @@ export default function GeneralSearch() {
 										<MoreResultsCard
 											{...p}
 											searchQuery={params.q}
+											key={p.id}
 										/>
 									)
 								return (
 									<PoliticianCard
 										{...p}
 										searchQuery={params.q}
+										key={p.id}
 									/>
 								)
 							})}
@@ -168,12 +171,14 @@ export default function GeneralSearch() {
 										<MoreResultsCard
 											{...d}
 											searchQuery={params.q}
+											key={d.id}
 										/>
 									)
 								return (
 									<DistrictCard
 										{...d}
 										searchQuery={params.q}
+										key={d.id}
 									/>
 								)
 							})}
@@ -191,12 +196,14 @@ export default function GeneralSearch() {
 										<MoreResultsCard
 											{...e}
 											searchQuery={params.q}
+											key={e.id}
 										/>
 									)
 								return (
 									<ElectionCard
 										{...e}
 										searchQuery={params.q}
+										key={e.id}
 									/>
 								)
 							})}

@@ -142,6 +142,7 @@ const ListView = () => {
 			<section className={styles.filterSection}>
 				{["counties", "office", "dist", "type"].map((name) => (
 					<Filter
+						key={name}
 						name={name}
 						value={params[name]}
 						hook={[params, setParams]}
