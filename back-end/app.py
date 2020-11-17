@@ -29,29 +29,35 @@ def politicians():
 
     pol_query = db.session.query(Politician)
 
-    # Searching
-    q = get_query("q", queries)
-    if q:
-        pol_query = search_politicians(q, pol_query)
-
-    # Filtering
-    else:
-        pol_query = filter_politicians(pol_query, queries)
-
-    # Sorting
-    sort = get_query("sort", queries)
-    pol_query = sort_politicians(sort, pol_query)
-
     page = get_query("page", queries)
     if page == None:
         page = 1
     else:
+        # Convert the given page number into an int
         page = int(page[0])
 
-    count = pol_query.count()
-    politicians = pol_query.paginate(page=page)
+    if page != -1:
 
-    result = politician_schema.dump(politicians.items, many=True)
+        # Searching
+        q = get_query("q", queries)
+        if q:
+            pol_query = search_politicians(q, pol_query)
+
+        # Filtering
+        pol_query = filter_politicians(pol_query, queries)
+
+        # Sorting
+        sort = get_query("sort", queries)
+        pol_query = sort_politicians(sort, pol_query)
+
+    count = pol_query.count()
+
+    if page != -1:
+        politicians = pol_query.paginate(page=page)
+
+        result = politician_schema.dump(politicians.items, many=True)
+    else:
+        result = politician_schema.dump(pol_query, many=True)
 
     for r in result:
         format_politician(r)
@@ -77,29 +83,35 @@ def districts():
 
     dist_query = db.session.query(District)
 
-    # Searching
-    q = get_query("q", queries)
-    if q:
-        dist_query = search_districts(q, dist_query)
-
-    # Filtering
-    else:
-        dist_query = filter_districts(dist_query, queries)
-
-    # Sorting
-    sort = get_query("sort", queries)
-    dist_query = sort_districts(sort, dist_query)
-
     page = get_query("page", queries)
     if page == None:
         page = 1
     else:
+        # Convert the given page number into an int
         page = int(page[0])
 
-    count = dist_query.count()
-    districts = dist_query.paginate(page=page)
+    if page != -1:
 
-    result = district_schema.dump(districts.items, many=True)
+        # Searching
+        q = get_query("q", queries)
+        if q:
+            dist_query = search_districts(q, dist_query)
+
+        # Filtering
+        dist_query = filter_districts(dist_query, queries)
+
+        # Sorting
+        sort = get_query("sort", queries)
+        dist_query = sort_districts(sort, dist_query)
+
+    count = dist_query.count()
+
+    if page != -1:
+        districts = dist_query.paginate(page=page)
+
+        result = district_schema.dump(districts.items, many=True)
+    else:
+        result = district_schema.dump(dist_query, many=True)
 
     for r in result:
         format_district(r)
@@ -127,29 +139,35 @@ def elections():
 
     elect_query = db.session.query(Election)
 
-    # Searching
-    q = get_query("q", queries)
-    if q:
-        elect_query = search_elections(q, elect_query)
-
-    # Filtering
-    else:
-        elect_query = filter_elections(elect_query, queries)
-
-    # Sorting
-    sort = get_query("sort", queries)
-    elect_query = sort_elections(sort, elect_query)
-
     page = get_query("page", queries)
     if page == None:
         page = 1
     else:
+        # Convert the given page number into an int
         page = int(page[0])
 
-    count = elect_query.count()
-    elections = elect_query.paginate(page=page)
+    if page != -1:
 
-    result = election_schema.dump(elections.items, many=True)
+        # Searching
+        q = get_query("q", queries)
+        if q:
+            elect_query = search_elections(q, elect_query)
+
+        # Filtering
+        elect_query = filter_elections(elect_query, queries)
+
+        # Sorting
+        sort = get_query("sort", queries)
+        elect_query = sort_elections(sort, elect_query)
+
+    count = elect_query.count()
+
+    if page != -1:
+        elections = elect_query.paginate(page=page)
+
+        result = election_schema.dump(elections.items, many=True)
+    else:
+        result = election_schema.dump(elect_query, many=True)
 
     for r in result:
         format_election(r)
