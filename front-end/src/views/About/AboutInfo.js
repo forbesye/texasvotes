@@ -21,6 +21,8 @@ import PostgresLogo from "views/About/images/PostgresLogo.png"
 import NamecheapLogo from "views/About/images/NamecheapLogo.png"
 import BlackLogo from "views/About/images/BlackLogo.png"
 import PrettierLogo from "views/About/images/PrettierLogo.png"
+import D3Logo from "views/About/images/D3Logo.png"
+import ChartsLogo from "views/About/images/ChartsLogo.svg"
 import GoogleDevLogo from "views/About/images/GoogleDevLogo.png"
 import OpenSecretsLogo from "views/About/images/OpenSecretsLogo.png"
 import OpenStatesLogo from "views/About/images/OpenStatesLogo.png"
@@ -41,6 +43,18 @@ const toolsInfo = [
 		img: AntDesignLogo,
 		description: "React UI design library",
 		link: "https://ant.design/",
+	},
+	{
+		title: "D3",
+		img: D3Logo,
+		description: "JavaScript visualization library",
+		link: "https://d3js.org/",
+	},
+	{
+		title: "Chart.js",
+		img: ChartsLogo,
+		description: "JavaScript charting library",
+		link: "https://www.chartjs.org/",
 	},
 	{
 		title: "Flask",
