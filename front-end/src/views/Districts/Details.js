@@ -153,7 +153,7 @@ const Details = () => {
 							Counties
 						</Title>
 						<List
-							dataSource={counties}
+							dataSource={counties.sort()}
 							renderItem={(item) => (
 								<List.Item>
 									<Text>{item}</Text>
