@@ -54,11 +54,6 @@ const VisFilter = ({ value, name, hook }) => {
 				onChange={(value) => setParams(value)}
 				value={value}
 			>
-				{/* {name === "popRange" && (
-					<Option key="" value="">
-						All
-					</Option>
-				)} */}
 				{Object.keys(optionsMap).map((key) => (
 					<Option key={key}>{optionsMap[key]}</Option>
 				))}

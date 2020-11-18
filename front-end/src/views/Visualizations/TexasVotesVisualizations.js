@@ -102,31 +102,23 @@ const DistrictsChart = () => {
     const [txData, setTxData] = useState([])
     const [filter, setFilter] = useState("race")
     const [district, setDistrict] = useState(1)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         const parseData = (data, texasData) => {
             const texasDemographics = {}
             
             Object.entries(texasData.demographics).forEach(([key, value]) => {
-                var dem = {}
                 if(key === "age"  || key === "income" || key === "race") {
                     const { items } = value
-                    dem = items.map((item) => {
-                        const {proportion} = item
-                        return proportion
-                    })
+                    const dem = items.map((item) => item.proportion)
                     texasDemographics[key] = dem
                 } else if (key === "education") {
-                    
                     ["attainment", "enrollment"].forEach((e) => {
                         const { items } = value[e]
-                        dem = items.map((item) => {
-                            const {proportion} = item
-                            return proportion
-                        })
+                        const dem = items.map((item) => item.proportion)
                         texasDemographics[e] = dem
                     })
-
                 }
             })
 
@@ -136,7 +128,7 @@ const DistrictsChart = () => {
                 let output = {}
                 
                 Object.entries(demographics).forEach(([key, value]) => {
-                    const { items, out_of } = value
+                    const { items } = value
                     if (key === "education") {
                         ["attainment", "enrollment"].forEach((e) => {
                             const { items } = value[e]
@@ -202,6 +194,7 @@ const DistrictsChart = () => {
         }
 
         const getData = async () => {
+            setLoading(true)
             let districtData = await getAPI({
                 model: "district",
                 params: new URLSearchParams({
@@ -216,12 +209,16 @@ const DistrictsChart = () => {
             
             const { page } = districtData
             setData(parseData(page, texasData))
+            setLoading(false)
         }
         getData()
     }, [])
 
-    if (!data) 
-        return null
+    if(loading || !data) {
+        return (
+            <Spinner />
+        )
+    }
 
     return (
         <div>

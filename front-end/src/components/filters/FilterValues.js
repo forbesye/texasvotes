@@ -3,7 +3,8 @@ import {
 	party_mappings,
 	elected_office_mappings,
 	election_type_mappings,
-	population_mappings,
+    population_mappings,
+    demographic_mappings
 } from "library/Mappings"
 import { identityObjectFromArray } from "library/Functions"
 
@@ -19,9 +20,7 @@ const filterOptionsMap = {
 	),
 	"Population Range": population_mappings,
 	Office: elected_office_mappings,
-	"Demographics": identityObjectFromArray(
-		["age", "race", "education_attainment", "education_enrollment", "income"]
-	),
+	"Demographics": demographic_mappings,
 }
 
 const filterTitlesMap = {
