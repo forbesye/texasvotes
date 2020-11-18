@@ -33,6 +33,14 @@ const PoliticiansChart = () => {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        /**
+        * Parses API data and returns formatted data for visualization
+        * @param {List[Politicians]} data 
+        * @return {
+            * name: String (Demogrpaphics name),
+            * value: <Value> (Demographics value)
+            * }
+        */
         const parseData = (data) => {
             const output = data.map((pol) => {
                 const { name, fundraising: { raised } , party } = pol
@@ -107,6 +115,15 @@ const DistrictsChart = () => {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        /**
+        * Parses API data and returns formatted data for visualization
+        * @param {List[Demographics]} data 
+        * @param {Demographics} texasData 
+        * @return {
+            * name: String (Demogrpaphics name),
+            * value: <Value> (Demographics value)
+            * }
+        */
         const parseData = (data, texasData) => {
             const texasDemographics = {}
             
@@ -200,6 +217,7 @@ const DistrictsChart = () => {
                 model: "district",
                 params: new URLSearchParams({
                     office: "us_house",
+                    page: -1
                 })
             })
 
