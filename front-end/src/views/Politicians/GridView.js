@@ -116,6 +116,7 @@ export default function GridView() {
 			<section className={styles.filterSection}>
 				{["counties", "party", "office", "district_num"].map((name) => (
 					<Filter
+						key={name}
 						name={name}
 						value={params[name]}
 						hook={[params, setParams]}
@@ -132,7 +133,7 @@ export default function GridView() {
 				<section className={styles.grid} ref={gridRef}>
 					{/* Render all cards pulled from API */}
 					{gridData?.map((data) => (
-						<PoliticianCard data={data} />
+						<PoliticianCard data={data} key={data.id}/>
 					))}
 				</section>
 			) : (

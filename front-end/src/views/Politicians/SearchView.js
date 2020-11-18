@@ -127,10 +127,12 @@ export default function SearchView() {
 						Search our database for a Texas elected official or
 						political challenger.{" "}
 					</Typography.Paragraph>
+					<Divider />
 					{/* Fitlers and sort */}
 					<section className={styles.filterSection}>
 						{["counties", "party", "office", "district_num"].map((name) => (
 							<Filter
+								key={name}
 								name={name}
 								value={params[name]}
 								hook={[params, setParams]}
@@ -153,7 +155,6 @@ export default function SearchView() {
 						/>
 					</div>
 				</section>
-				<Divider />
 				{loading ? (
 					<Spinner />
 				) : (
