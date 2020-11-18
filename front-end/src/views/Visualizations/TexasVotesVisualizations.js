@@ -38,8 +38,8 @@ const PoliticiansChart = () => {
 
     useEffect(() => {
         const parseData = (data) => {
-            const output =  data.map((pol) => {
-                const { name, fundraising: { raised } , party, id } = pol
+            const output = data.map((pol) => {
+                const { name, fundraising: { raised } , party } = pol
                 return { label: name, value: raised, color: colorHexMap[party]}
             })
             return output
@@ -56,7 +56,6 @@ const PoliticiansChart = () => {
             let { page } = politicianData
             page = page.filter(pol => pol.fundraising)
             page.forEach((pol) => {polID.set(pol.name, pol.id)})
-            console.log(polID)
             setData(parseData(page))
             setLoading(false)
         }
@@ -248,25 +247,23 @@ const DistrictsChart = () => {
 const ElectionsChart = () => {
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(false)
+    const history = useHistory()
 
     useEffect(() => {
         const parseData = (data) => {
             const electionPartyResults = data.filter(e => e.results).map((e) => {
-                const { results } = e
+                const { results, id } = e
                 const { vote_counts } = results
-                let output = { total: 0 }
+                let output = { total: 0, "R": 0, "D": 0, "L": 0, id }
                 vote_counts.forEach((curr) => {
                     const { party, vote_total } = curr
-                    if(output[party]) {
+                    if(output[party] !== undefined) {
                         output[party] = output[party] + vote_total
-                    }
-                    else {
-                        output[party] = vote_total
                     }
                     output.total += vote_total
                 })
                 const year = new Date(e.dates.election_day)
-                output.name = `${year.getFullYear()} US House ${e.district.number}`
+                output.name = `${year.getFullYear()} General US House ${e.district.number}`
                 return output
             }).filter(r => r).sort((a, b) => b.R / b.total - a.R / a.total)
             return electionPartyResults
@@ -303,6 +300,12 @@ const ElectionsChart = () => {
           margin={{
             top: 20, right: 30, left: 20, bottom: 5,
           }}
+          onClick={({activePayload}) => {
+                const id = activePayload?.pop().payload.id
+                if(id) {
+                    history.push(`elections/view/${id}`)}
+                }
+            }
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" hide={true}/>
