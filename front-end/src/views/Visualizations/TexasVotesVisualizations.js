@@ -15,40 +15,42 @@ import {
     Radar, RadarChart, PolarGrid,
     PolarAngleAxis, PolarRadiusAxis,
 } from "recharts"
+import * as d3 from "d3"
 import { colorHexMap } from "library/Mappings"
 import { getAPI } from "library/APIClient"
 import { convertToPercent } from "library/Functions"
 
 const PoliticiansChart = () => {
-    // const [data, setData] = useState([])
+    const [data, setData] = useState([])
 
-    // useEffect(() => {
-    //     const getPartyData = (data) => {
-    //         let partyFreq = new Map()
-    //         data.forEach((pol) => {
-    //             const { party, district } = pol
-    //             if(partyFreq.has(party)) {
-    //                 partyFreq.set(party, partyFreq.get(party) + 1)
-    //             } 
-    //             else {
-    //                 partyFreq.set(party, 1)
-    //             }
+    useEffect(() => {
+        const parseData = (data) => {
+            const output =  data.map((pol) => {
+                const { name, fundraising: { raised } , party } = pol
+                return { name, raised, party }
+            })
+            console.log(output)
+            return output
+        }
 
-    //         })
-    //     }
+        const getData = async () => {
+            const params = new URLSearchParams({ page: -1 })
+            params.append("office", "us_senate")
+            params.append("office", "us_house")
+            const politicianData = await getAPI({
+                model: "politician",
+                params: params
+            })
+            let { page } = politicianData
+            page = page.filter(pol => pol.fundraising)
+            setData(parseData(page))
+        }
+        getData()
+    }, [])
 
-    //     const getOfficeData = () => {
-
-    //     }
-
-    //     const getData = async () => {
-    //         let politicianData = await fetch("https://api.undangered.ml/api/organizationSearch/")
-    //         politicianData = await politicianData.json()
-    //         const { page } = politicianData
-    //         setData(parseData(page))
-    //     }
-    //     getData()
-    // }, [])
+    return (
+        <div></div>
+    )
 }
 
 const DistrictsChart = () => {
@@ -82,7 +84,6 @@ const DistrictsChart = () => {
                 })
                 return output
             })
-            console.log(districtDemographics)
             return districtDemographics
         }
 
@@ -93,13 +94,11 @@ const DistrictsChart = () => {
                     office: "us_house",
                 })
             })
-            console.log(districtData)
 
             let texasData = await getAPI({
                 model: "district",
                 path: 218
             })
-            console.log(texasData)
             
             const { page } = districtData
             setData(parseData(page))
@@ -129,9 +128,8 @@ const ElectionsChart = () => {
     useEffect(() => {
         const parseData = (data) => {
             
-            const electionPartyResults = data.map((e) => {
+            const electionPartyResults = data.filter(e => e.results).map((e) => {
                 const { results } = e
-                if(!results) return
                 const { vote_counts } = results
                 let output = { total: 0 }
                 vote_counts.forEach((curr) => {
@@ -156,6 +154,7 @@ const ElectionsChart = () => {
                 model: "election",
                 params: new URLSearchParams({
                     office: "us_house",
+                    page: -1,
                     type: "general",
                 })
             })
@@ -168,8 +167,8 @@ const ElectionsChart = () => {
 
     return (
         <BarChart
-          width={500}
-          height={300}
+          width={1000}
+          height={500}
           data={data}
           margin={{
             top: 20, right: 30, left: 20, bottom: 5,
