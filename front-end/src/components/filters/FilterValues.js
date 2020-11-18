@@ -20,7 +20,7 @@ const filterOptionsMap = {
 	"Population Range": population_mappings,
 	Office: elected_office_mappings,
 	"Demographics": identityObjectFromArray(
-		["age", "race", "education_enrollment", "education_attainment", "ethnicity", "income"]
+		["age", "race", "education_attainment", "education_enrollment", "income"]
 	),
 }
 
