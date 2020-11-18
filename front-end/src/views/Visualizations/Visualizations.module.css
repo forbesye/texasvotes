@@ -8,6 +8,17 @@
 	padding: 32px 0;
 }
 
+.chart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filters {
+    display: flex;
+    justify-content: space-around;
+}
+
 @media (min-width: 768px) {
 	.wrapper {
 		width: 80%;

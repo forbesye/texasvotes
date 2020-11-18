@@ -4,6 +4,7 @@ import {
     BarChart,
     LineChart,
     Line,
+    CartesianGrid,
     ScatterChart,
     Scatter,
     Legend,
@@ -11,9 +12,14 @@ import {
     YAxis,
     ZAxis,
     Tooltip,
+    Label
 } from "recharts"
+import { Typography } from "antd"
 import Spinner from "components/ui/Spinner"
 import { CustomTooltip } from "./Lib"
+import styles from "./Visualizations.module.css"
+
+const { Title } = Typography
 
 const OrganizationYears = () => {
     const [data, setData] = useState([])
@@ -68,16 +74,27 @@ const OrganizationYears = () => {
     }
 
     return (
-        <LineChart
-            data={data}
-            width={1000}
-            height={300}
-        >
-            <XAxis dataKey="name" />
-            <YAxis dataKey="value"/>
-            <Tooltip />
-            <Line type="monotone" dataKey="value" dot={false}/>
-        </LineChart>
+        <>  
+            <Title level={3}>
+                Number of Organizations by Year
+            </Title>
+            <div className={styles.chart}>
+                <LineChart
+                    data={data}
+                    width={1000}
+                    height={500}
+                >
+                    <XAxis dataKey="name" >
+                        <Label value='Year' position='insideBottom' offset={0} style={{textAnchor: 'middle'}} />
+                    </XAxis>
+                    <YAxis dataKey="value" >
+                        <Label angle={-90} value='Number of Organizations' position='insideLeft' style={{textAnchor: 'middle'}} />
+                    </YAxis>
+                    <Tooltip />
+                    <Line type="monotone" dataKey="value" dot={false}/>
+                </LineChart>
+            </div>
+        </>
     )
 }
 
@@ -144,19 +161,31 @@ const ConservationStatus = () => {
     }
 
     return (
-        <BarChart
-            data={data}
-            width={1000}
-            height={500}
-        >
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Legend />
-            <Bar dataKey="Endangered" fill="#0088FE" />
-            <Bar dataKey="Threatened" fill="#00C49F" />
-            <Bar dataKey="Extinct" fill="#FFBB28" />
-            <Tooltip />
-        </BarChart>
+        <>  
+            <Title level={3}>
+                Conservation Status by Country
+            </Title>
+            <div className={styles.chart}>
+                <BarChart
+                    data={data}
+                    width={1000}
+                    height={500}
+                >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" >
+                        <Label value='Country' position='insideBottom' offset={0} style={{textAnchor: 'middle'}} />
+                    </XAxis>
+                    <YAxis >
+                        <Label angle={-90} value='Number of Animals' position='insideLeft' style={{textAnchor: 'middle'}} />
+                    </YAxis>
+                    <Tooltip payload={data}/>
+                    <Legend verticalAlign="top" />
+                    <Bar dataKey="Endangered" stackId="a" fill="#0088FE" />
+                    <Bar dataKey="Threatened" stackId="b" fill="#00C49F" />
+                    <Bar dataKey="Extinct" stackId="c" fill="#FFBB28" />
+                </BarChart>
+            </div>
+        </>
     )
 }
 
@@ -235,23 +264,34 @@ const CountryOrganization = () => {
     }
 
     return (
-        <ScatterChart
-            width={1000}
-            height={500}
-        >
-            <XAxis type="number" dataKey={"longitude"} name="Longitude" domain={[-180, 180]} />
-            <YAxis type="number" dataKey={"latitude"} name="Latitude" domain={[-90, 90]}/>
-            <ZAxis dataKey={"count"} name="Count" range={[50, 500]}/>
-            {
-                Object.entries(data).map(([key, value]) => {
-                    return (
-                        <Scatter name={key} key={key} data={value.countries} fill={value.color} />
-                    )
-                })
-            }
-            <Tooltip content={<CustomTooltip />}/>
-            <Legend />
-        </ScatterChart>
+        <>
+            <Title level={3}>
+                Organizations by Country
+            </Title>
+            <div className={styles.chart}>
+                <ScatterChart
+                    width={1000}
+                    height={500}
+                >
+                    <XAxis type="number" dataKey={"longitude"} name="Longitude" domain={[-180, 180]} >
+                        <Label value='Longitude' position='insideBottom' style={{ marginTop: 10}} />
+                    </XAxis>
+                    <YAxis type="number" dataKey={"latitude"} name="Latitude" domain={[-90, 90]}>
+                        <Label angle={-90} value='Latitude' position='insideLeft' style={{textAnchor: 'middle'}} />
+                    </YAxis>
+                    <ZAxis dataKey={"count"} name="Count" range={[50, 500]}/>
+                    {
+                        Object.entries(data).map(([key, value]) => {
+                            return (
+                                <Scatter name={key} key={key} data={value.countries} fill={value.color} />
+                            )
+                        })
+                    }
+                    <Tooltip content={<CustomTooltip />}/>
+                    <Legend verticalAlign="top" />
+                </ScatterChart>
+            </div>
+        </>
     )
 }
 

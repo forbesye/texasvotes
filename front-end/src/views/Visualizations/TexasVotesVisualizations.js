@@ -2,33 +2,29 @@ import React, { useEffect, useState } from "react"
 import {
     Bar,
     BarChart,
-    PieChart,
-    Pie,
-    Cell,
-    ScatterChart,
-    Scatter,
     CartesianGrid,
     Legend,
     XAxis,
     YAxis,
     Tooltip,
-    Radar, RadarChart, PolarGrid,
-    PolarAngleAxis, PolarRadiusAxis,
+    Radar, 
+    RadarChart, 
+    PolarGrid,
+    PolarAngleAxis, 
+    PolarRadiusAxis,
+    Label
 } from "recharts"
+import { Typography } from "antd"
 import { useHistory } from "react-router-dom"
 import BubbleChart from '@weknow/react-bubble-chart-d3'
 import { colorHexMap } from "library/Mappings"
 import { getAPI } from "library/APIClient"
-import { convertToPercent } from "library/Functions"
 import Spinner from "components/ui/Spinner"
-
 import { VisFilter } from "components/filters/Filters"
-import {
-	NumberParam,
-	useQueryParams,
-	withDefault,
-} from "use-query-params"
-import {formatAsMoney} from "library/Functions"
+import { formatAsMoney } from "library/Functions"
+import styles from "./Visualizations.module.css"
+
+const { Title } = Typography
 
 const PoliticiansChart = () => {
     const [data, setData] = useState([])
@@ -69,37 +65,44 @@ const PoliticiansChart = () => {
     }
 
     return (
-        <BubbleChart 
-            graph= {{
-                zoom: 0.7,
-                offsetX: 0.10,
-                offsetY: 0.0,
-            }}
-            showLegend={false}
-            width={1000}
-            height={800}
-            valueFont={{
-                family: 'Arial',
-                size: 12,
-                color: '#fff',
-                weight: 'bold',
-            }}
-            labelFont={{
-                family: 'Arial',
-                size: 16,
-                color: '#fff',
-                weight: 'bold',
-            }}
-            data={data}
-            bubbleClickFun={(val) => {history.push(`/politicians/view/${polID.get(val)}`)}}
-        />
+        <>
+            <Title level={3}>
+                Politician Fundraising
+            </Title>
+            <div className={styles.chart}>
+                <BubbleChart 
+                    graph= {{
+                        zoom: 0.7,
+                        offsetX: 0.10,
+                        offsetY: 0.0,
+                    }}
+                    showLegend={false}
+                    width={1000}
+                    height={800}
+                    valueFont={{
+                        family: 'Arial',
+                        size: 12,
+                        color: '#fff',
+                        weight: 'bold',
+                    }}
+                    labelFont={{
+                        family: 'Arial',
+                        size: 16,
+                        color: '#fff',
+                        weight: 'bold',
+                    }}
+                    data={data}
+                    bubbleClickFun={(val) => {history.push(`/politicians/view/${polID.get(val)}`)}}
+                />
+            </div>
+        </>
+        
     )
 }
 
 const DistrictsChart = () => {
     const [data, setData] = useState(null)
-    const [txData, setTxData] = useState([])
-    const [filter, setFilter] = useState("race")
+    const [filter, setFilter] = useState("age")
     const [district, setDistrict] = useState(1)
     const [loading, setLoading] = useState(false)
 
@@ -134,7 +137,6 @@ const DistrictsChart = () => {
                             let educationDem = items.map((item, index) => {
                                 const {level, proportion} = item
                                 const dem = {}
-                                console.log(item)
                                 dem.name = level
                                 dem.value = proportion
                                 dem.texasVal = texasDemographics[e][index]
@@ -220,27 +222,35 @@ const DistrictsChart = () => {
     }
 
     return (
-        <div>
-			<VisFilter
-				name={"district"}
-				value={district}
-				hook={[district, setDistrict]}
-			/>
-            <VisFilter
-				name={"demographics"}
-				value={filter}
-				hook={[filter, setFilter]}
-			/>
-                    
-            <RadarChart cx={300} cy={250} outerRadius={150} width={500} height={500} data={data[district][filter]}>
-                <PolarGrid />
-                <PolarAngleAxis dataKey="name"/>
-                <PolarRadiusAxis angle={30} domain={[0, 100]} />
-                <Radar name="Texas" dataKey="texasVal" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-                <Radar name="Congressional District" dataKey="value" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} />
-                <Legend />
-            </RadarChart>
-        </div>
+        <>
+            <Title level={3}>
+                Demographics of Congressional Districts
+            </Title>
+            <div className={styles.filters}>
+                <VisFilter
+			    	name={"district"}
+			    	value={district}
+			    	hook={[district, setDistrict]}
+			    />
+                <VisFilter
+			    	name={"demographics"}
+			    	value={filter}
+			    	hook={[filter, setFilter]}
+			    />
+            </div>
+			
+            <div className={styles.chart}>
+                <RadarChart outerRadius={150} width={1000} height={500} data={data[district][filter]}>
+                    <PolarGrid />
+                    <PolarAngleAxis dataKey="name"/>
+                    <PolarRadiusAxis angle={30} domain={[0, 100]} />
+                    <Radar name="Texas" dataKey="texasVal" stroke="#8884d8" fill="#8884d8" fillOpacity={0.8} />
+                    <Radar name="Congressional District" dataKey="value" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.3} />
+                    <Legend verticalAlign="top" />
+                </RadarChart>
+            </div>
+            
+        </>
     )
 }
 
@@ -293,29 +303,34 @@ const ElectionsChart = () => {
     }
 
     return (
-        <BarChart
-          width={1000}
-          height={500}
-          data={data}
-          margin={{
-            top: 20, right: 30, left: 20, bottom: 5,
-          }}
-          onClick={({activePayload}) => {
-                const id = activePayload?.pop().payload.id
-                if(id) {
-                    history.push(`elections/view/${id}`)}
-                }
-            }
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" hide={true}/>
-          <YAxis />
-          <Tooltip payload={data}/>
-          <Legend />
-          <Bar dataKey="R" stackId="a" fill={colorHexMap.R} />
-          <Bar dataKey="D" stackId="a" fill={colorHexMap.D} />
-          <Bar dataKey="L" stackId="a" fill={colorHexMap.L} />
-        </BarChart>
+        <>
+            <Title level={3}>
+                Election Results
+            </Title>
+            <div className={styles.chart}>
+                <BarChart
+                    width={1000}
+                    height={500}
+                    data={data}
+                    margin={{
+                      top: 20, right: 30, left: 20, bottom: 5,
+                    }}
+                >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" tick={false}>
+                        <Label value='Election' position='insideBottom' style={{textAnchor: 'middle'}} />
+                    </XAxis>
+                    <YAxis>
+                        <Label angle={-90} value='Number of Votes' position='insideLeft' style={{textAnchor: 'middle'}} />
+                    </YAxis>
+                    <Tooltip payload={data}/>
+                    <Legend verticalAlign="top" />
+                    <Bar dataKey="R" stackId="a" fill={colorHexMap.R} />
+                    <Bar dataKey="D" stackId="a" fill={colorHexMap.D} />
+                    <Bar dataKey="L" stackId="a" fill={colorHexMap.L} />
+                </BarChart>
+            </div>
+        </>
     )
 }
 
