@@ -67,7 +67,7 @@ const Splash = () => {
 					<DownOutlined 
 					className={styles.downButtonIcon} 
 					onClick={() => {
-						console.log(ref)
+						(ref)
 						window.scrollTo({
 							top: ref.current.offsetTop,
 							behavior: "smooth"
