@@ -15,25 +15,30 @@ import {
     Radar, RadarChart, PolarGrid,
     PolarAngleAxis, PolarRadiusAxis,
 } from "recharts"
-import * as d3 from "d3"
+import { useHistory } from "react-router-dom"
+import BubbleChart from '@weknow/react-bubble-chart-d3'
 import { colorHexMap } from "library/Mappings"
 import { getAPI } from "library/APIClient"
 import { convertToPercent } from "library/Functions"
+import Spinner from "components/ui/Spinner"
+
 
 const PoliticiansChart = () => {
     const [data, setData] = useState([])
+    const history = useHistory()
+    const [polID] = useState(new Map())
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         const parseData = (data) => {
             const output =  data.map((pol) => {
-                const { name, fundraising: { raised } , party } = pol
-                return { name, raised, party }
+                const { name, fundraising: { raised } , party, id } = pol
+                return { label: name, value: raised, color: colorHexMap[party]}
             })
-            console.log(output)
             return output
         }
-
         const getData = async () => {
+            setLoading(true)
             const params = new URLSearchParams({ page: -1 })
             params.append("office", "us_senate")
             params.append("office", "us_house")
@@ -43,13 +48,45 @@ const PoliticiansChart = () => {
             })
             let { page } = politicianData
             page = page.filter(pol => pol.fundraising)
+            page.forEach((pol) => {polID.set(pol.name, pol.id)})
+            console.log(polID)
             setData(parseData(page))
+            setLoading(false)
         }
         getData()
-    }, [])
+    }, [polID])
+
+    if(loading) {
+        return (
+            <Spinner />
+        )
+    }
 
     return (
-        <div></div>
+        <BubbleChart 
+            graph= {{
+                zoom: 0.7,
+                offsetX: 0.10,
+                offsetY: 0.0,
+            }}
+            showLegend={false}
+            width={1000}
+            height={800}
+            valueFont={{
+                family: 'Arial',
+                size: 12,
+                color: '#fff',
+                weight: 'bold',
+            }}
+            labelFont={{
+                family: 'Arial',
+                size: 16,
+                color: '#fff',
+                weight: 'bold',
+            }}
+            data={data}
+            bubbleClickFun={(val) => {history.push(`/politicians/view/${polID.get(val)}`)}}
+        />
     )
 }
 
@@ -124,10 +161,10 @@ const DistrictsChart = () => {
 
 const ElectionsChart = () => {
     const [data, setData] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         const parseData = (data) => {
-            
             const electionPartyResults = data.filter(e => e.results).map((e) => {
                 const { results } = e
                 const { vote_counts } = results
@@ -150,6 +187,7 @@ const ElectionsChart = () => {
         }
 
         const getData = async () => {
+            setLoading(true)
             let electionData = await getAPI({
                 model: "election",
                 params: new URLSearchParams({
@@ -158,12 +196,18 @@ const ElectionsChart = () => {
                     type: "general",
                 })
             })
-
             const { page } = electionData
             setData(parseData(page))
+            setLoading(false)
         }
         getData()
     }, [])
+
+    if(loading) {
+        return (
+            <Spinner />
+        )
+    }
 
     return (
         <BarChart
@@ -182,7 +226,6 @@ const ElectionsChart = () => {
           <Bar dataKey="R" stackId="a" fill={colorHexMap.R} />
           <Bar dataKey="D" stackId="a" fill={colorHexMap.D} />
           <Bar dataKey="L" stackId="a" fill={colorHexMap.L} />
-          {/* <Bar dataKey="I" stackId="a" fill={colorHexMap.I} /> */}
         </BarChart>
     )
 }

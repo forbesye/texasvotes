@@ -12,10 +12,12 @@ import {
     ZAxis,
     Tooltip,
 } from "recharts"
+import Spinner from "components/ui/Spinner"
 import { CustomTooltip } from "./Lib"
 
 const OrganizationYears = () => {
     const [data, setData] = useState([])
+    const [loading, setLoading] = useState(false)
 
     /**
     * Parses API data and returns formatted data for visualization
@@ -50,12 +52,20 @@ const OrganizationYears = () => {
             return nameValueList
         }
         const getData = async () => {
+            setLoading(true)
             let organizationData = await fetch("https://api.undangered.ml/api/organizationSearch/")
             organizationData = await organizationData.json()
             setData(parseData(organizationData))
+            setLoading(false)
         }
         getData()
     }, [])
+
+    if(loading) {
+        return (
+            <Spinner />
+        )
+    }
 
     return (
         <LineChart
@@ -73,6 +83,7 @@ const OrganizationYears = () => {
 
 const ConservationStatus = () => {
     const [data, setData] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         /**
@@ -115,14 +126,22 @@ const ConservationStatus = () => {
             return nameValueList
         }
         const getData = async () => {
+            setLoading(true)
             let animalData = await fetch("https://api.undangered.ml/api/animalSearch")
             let nationData = await fetch("https://api.undangered.ml/api/nationSearch/")
             animalData = await animalData.json()
             nationData = await nationData.json()
             setData(parseData(animalData, nationData))
+            setLoading(false)
         }
         getData()
     }, [])
+
+    if(loading) {
+        return (
+            <Spinner />
+        )
+    }
 
     return (
         <BarChart
@@ -143,6 +162,7 @@ const ConservationStatus = () => {
 
 const CountryOrganization = () => {
     const [data, setData] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         /**
@@ -197,14 +217,22 @@ const CountryOrganization = () => {
             return regionMap
         }
         const getData = async () => {
+            setLoading(true)
             let organizationData = await fetch("https://api.undangered.ml/api/organizationSearch/")
             let nationData = await fetch("https://api.undangered.ml/api/nationSearch/")
             organizationData = await organizationData.json()
             nationData = await nationData.json()
             setData(parseData(organizationData, nationData))
+            setLoading(false)
         }
         getData()
     }, [])
+
+    if(loading) {
+        return (
+            <Spinner />
+        )
+    }
 
     return (
         <ScatterChart
