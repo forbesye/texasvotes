@@ -28,6 +28,7 @@ import {
 	useQueryParams,
 	withDefault,
 } from "use-query-params"
+import {formatAsMoney} from "library/Functions"
 
 const PoliticiansChart = () => {
     const [data, setData] = useState([])
@@ -108,7 +109,7 @@ const DistrictsChart = () => {
             
             Object.entries(texasData.demographics).forEach(([key, value]) => {
                 var dem = {}
-                if(key === "age"  || key === "ethnicity" || key === "income" || key === "race") {
+                if(key === "age"  || key === "income" || key === "race") {
                     const { items } = value
                     dem = items.map((item) => {
                         const {proportion} = item
@@ -136,7 +137,29 @@ const DistrictsChart = () => {
                 
                 Object.entries(demographics).forEach(([key, value]) => {
                     const { items, out_of } = value
-                    if(key === "age") {
+                    if (key === "education") {
+                        ["attainment", "enrollment"].forEach((e) => {
+                            const { items } = value[e]
+                            let educationDem = items.map((item, index) => {
+                                const {level, proportion} = item
+                                const dem = {}
+                                console.log(item)
+                                dem.name = level
+                                dem.value = proportion
+                                dem.texasVal = texasDemographics[e][index]
+    
+                                return dem
+                            })
+                            
+                            if (e === "attainment") {
+                                output.education_attainment = educationDem
+                            }
+                            else if (e === "enrollment") {
+                                output.education_enrollment = educationDem
+                            }
+                        })
+                    }
+                    else if (key === "age") {
                         let ageDem = items.map((item, index) => {
                             const {end, start, proportion} = item
                             const dem = {}
@@ -160,17 +183,17 @@ const DistrictsChart = () => {
                         })
                         output.race = raceDem
                     }
-                    else if (key === "ethnicity") {
-                        let ethnicityDem = items.map((item, index) => {
-                            const {ethnicity, proportion} = item
+                    else if (key === "income") {
+                        let incomeDem = items.map((item, index) => {
+                            const {end, start, proportion} = item
                             const dem = {}
-                            dem.name = ethnicity
+                            dem.name = (end) ? `${formatAsMoney(start)} - ${formatAsMoney(end)}` : `${formatAsMoney(start)}+`
                             dem.value = proportion
                             dem.texasVal = texasDemographics[key][index]
 
                             return dem
                         })
-                        output.ethnicity = ethnicityDem
+                        output.income = incomeDem
                     }
                 })
                 return output
