@@ -5,7 +5,7 @@
 import React from "react"
 import Navbar from "components/navbar/Navbar.js"
 import BottomBar from "components/footer/BottomBar.js"
-import { Switch, Route } from "react-router-dom"
+import { Switch, Route, useLocation } from "react-router-dom"
 import routes from "./Routes"
 import { Layout } from "antd"
 import "./App.css"
@@ -14,11 +14,13 @@ import ErrorPage from "./views/Error/ErrorPage"
 const { Header, Footer, Content } = Layout // Ant Design Layout for structure
 
 const App = () => {
+	const location = useLocation()
+	const headerStyles = location.pathname === "/" ? { background: "none" } : {}
 	return (
 		<React.Fragment>
 			<Layout className="layout">
 				{/* Navbar */}
-				<Header className="nav">
+				<Header className="nav" style={headerStyles}>
 					<Navbar />
 				</Header>
 				<Content

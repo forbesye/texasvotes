@@ -19,7 +19,9 @@
 }
 
 .logo {
-	width: 192px;
+	width: 168px;
+	position: relative;
+	z-index: 1;
 }
 
 .menu {
