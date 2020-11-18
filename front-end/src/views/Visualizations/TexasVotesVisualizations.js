@@ -20,17 +20,14 @@ import BubbleChart from '@weknow/react-bubble-chart-d3'
 import { colorHexMap } from "library/Mappings"
 import { getAPI } from "library/APIClient"
 import { convertToPercent } from "library/Functions"
-<<<<<<< Updated upstream
 import Spinner from "components/ui/Spinner"
 
-=======
 import { VisFilter } from "components/filters/Filters"
 import {
 	NumberParam,
 	useQueryParams,
 	withDefault,
 } from "use-query-params"
->>>>>>> Stashed changes
 
 const PoliticiansChart = () => {
     const [data, setData] = useState([])
