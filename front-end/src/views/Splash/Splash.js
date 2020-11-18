@@ -15,7 +15,7 @@ import GeneralSearchBar from "../Search/GeneralSearchBar"
 import News from "./News"
 import { getAPI } from "library/APIClient"
 
-const { Title, Text, Paragraph } = Typography
+const { Title, Paragraph } = Typography
 
 const Splash = () => {
 	const history = useHistory()
@@ -67,7 +67,7 @@ const Splash = () => {
 					<DownOutlined 
 					className={styles.downButtonIcon} 
 					onClick={() => {
-						(ref)
+						// (ref)
 						window.scrollTo({
 							top: ref.current.offsetTop,
 							behavior: "smooth"
