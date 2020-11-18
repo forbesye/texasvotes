@@ -20,8 +20,17 @@ import BubbleChart from '@weknow/react-bubble-chart-d3'
 import { colorHexMap } from "library/Mappings"
 import { getAPI } from "library/APIClient"
 import { convertToPercent } from "library/Functions"
+<<<<<<< Updated upstream
 import Spinner from "components/ui/Spinner"
 
+=======
+import { VisFilter } from "components/filters/Filters"
+import {
+	NumberParam,
+	useQueryParams,
+	withDefault,
+} from "use-query-params"
+>>>>>>> Stashed changes
 
 const PoliticiansChart = () => {
     const [data, setData] = useState([])
@@ -93,10 +102,36 @@ const PoliticiansChart = () => {
 const DistrictsChart = () => {
     const [data, setData] = useState(null)
     const [txData, setTxData] = useState([])
-    const [filter, setFilter] = useState("age")
+    const [filter, setFilter] = useState("race")
+    const [district, setDistrict] = useState(1)
 
     useEffect(() => {
-        const parseData = (data) => {
+        const parseData = (data, texasData) => {
+            const texasDemographics = {}
+            
+            Object.entries(texasData.demographics).forEach(([key, value]) => {
+                var dem = {}
+                if(key === "age"  || key === "ethnicity" || key === "income" || key === "race") {
+                    const { items } = value
+                    dem = items.map((item) => {
+                        const {proportion} = item
+                        return proportion
+                    })
+                    texasDemographics[key] = dem
+                } else if (key === "education") {
+                    
+                    ["attainment", "enrollment"].forEach((e) => {
+                        const { items } = value[e]
+                        dem = items.map((item) => {
+                            const {proportion} = item
+                            return proportion
+                        })
+                        texasDemographics[e] = dem
+                    })
+
+                }
+            })
+
             const districtDemographics = data.map((e) => {
                 const { demographics } = e
                 if(!demographics) return
@@ -105,18 +140,28 @@ const DistrictsChart = () => {
                 Object.entries(demographics).forEach(([key, value]) => {
                     const { items, out_of } = value
                     if(key === "age") {
-                        let ageDem = items.map((item) => {
+                        let ageDem = items.map((item, index) => {
                             const {end, start, proportion} = item
                             const dem = {}
                             dem.name = end ? `${start} - ${end}` : `${start}+`
-                            dem.value = 
-                                convertToPercent(
-                                    proportion,
-                                    out_of
-                                )
+                            dem.value = proportion
+                            dem.texasVal = texasDemographics[key][index]
+
                             return dem
                         })
                         output.age = ageDem
+                    }
+                    else if (key === "race") {
+                        let raceDem = items.map((item, index) => {
+                            const {race, proportion} = item
+                            const dem = {}
+                            dem.name = race
+                            dem.value = proportion
+                            dem.texasVal = texasDemographics[key][index]
+
+                            return dem
+                        })
+                        output.race = raceDem
                     }
                 })
                 return output
@@ -138,7 +183,7 @@ const DistrictsChart = () => {
             })
             
             const { page } = districtData
-            setData(parseData(page))
+            setData(parseData(page, texasData))
         }
         getData()
     }, [])
@@ -147,15 +192,22 @@ const DistrictsChart = () => {
         return null
 
     return (
-        
-        <RadarChart cx={300} cy={250} outerRadius={150} width={500} height={500} data={data[0][filter]}>
-            <PolarGrid />
-            <PolarAngleAxis dataKey="name"/>
-            <PolarRadiusAxis angle={30} domain={[0, 150]} />
-            <Radar name="Congressional District 1" dataKey="value" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-            {/* <Radar name="Lily" dataKey="B" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} /> */}
-            <Legend />
-        </RadarChart>
+        <div>
+			<VisFilter
+				name={"district"}
+				value={district}
+				hook={[district, setDistrict]}
+			/>
+                    
+            <RadarChart cx={300} cy={250} outerRadius={150} width={500} height={500} data={data[district][filter]}>
+                <PolarGrid />
+                <PolarAngleAxis dataKey="name"/>
+                <PolarRadiusAxis angle={30} domain={[0, 100]} />
+                <Radar name="Texas" dataKey="texasVal" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+                <Radar name="Congressional District" dataKey="value" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} />
+                <Legend />
+            </RadarChart>
+        </div>
     )
 }
 

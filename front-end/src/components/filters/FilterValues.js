@@ -14,6 +14,9 @@ const filterOptionsMap = {
 	"District #": identityObjectFromArray(
 		[...Array(150).keys()].map((n) => n + 1)
 	),
+	"Congressional District #": identityObjectFromArray(
+		[...Array(36).keys()].map((n) => n + 1)
+	),
 	"Population Range": population_mappings,
 	Office: elected_office_mappings,
 }
@@ -25,6 +28,7 @@ const filterTitlesMap = {
 	dist: "District #",
 	district_num: "District #",
 	number: "District #",
+	district: "Congressional District #",
 	popRange: "Population Range",
 	office: "Office",
 }
