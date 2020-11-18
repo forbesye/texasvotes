@@ -18,7 +18,7 @@ from Politician import *
 from District import *
 from Election import *
 from news import get_news
-
+from address import get_ocd_ids, RequestFailedException
 
 # ---------- Policitians ----------
 
@@ -182,10 +182,56 @@ def election_id(id):
 
     return election
 
+# ---------- News ----------
+
 @app.route("/news", methods=["GET"])
 def news():
     ret = get_news()
     return jsonify(ret)
+
+# ---------- Search By Address ----------
+@app.route("/address", methods=["GET"])
+def address():
+    queries = request.args.to_dict(flat=False)
+    error = None
+    try: 
+        address = queries["address"]
+        ocd_ids = get_ocd_ids(address)
+        # get districts by ocd_ids
+        dist_query = db.session.query(District).filter(District.ocd_id.in_(ocd_ids))
+        districts = district_schema.dump(dist_query, many=True)
+        # Format and get corresponding politician and elections ids
+        pol_ids = []
+        el_ids = []
+        for district in districts: 
+            format_district(district)
+            pol_ids += [ pol["id"] for pol in district["elected_officials"] ]
+            el_ids += [ el["id"] for el in district["elections"] ]
+        # Get politician by given ids
+        pol_query = db.session.query(Politician)
+        pol_query = pol_query.filter(Politician.id.in_(pol_ids))
+        # Get elections that occured in 2020 and whose ids are in el_ids
+        el_query = db.session.query(Election)
+        el_query = el_query.filter(Election.id.in_(el_ids))
+        el_query = el_query.filter(Election.election_day.contains("2020"))
+        el_query = el_query.order_by(Election.election_day.desc())
+        # Run queries
+        politicians = politician_schema.dump(pol_query, many=True)
+        elections = election_schema.dump(el_query, many=True)
+        for politician in politicians:
+            format_politician(politician)
+        for election in elections:
+            format_election(election)
+        return jsonify({
+            "politicians": politicians,
+            "districts": districts,
+            "elections": elections
+        })
+    except KeyError:
+        error = "No address provided"
+    except RequestFailedException:
+        error = "Unable to make request to external API"
+    return jsonify({ "error": error })
 
 @app.route("/")
 def hello_world():
