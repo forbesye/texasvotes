@@ -65,6 +65,8 @@ def sort_election_by(sorting, elect_query, desc):
         elect = Election.district_number
     elif sorting == "electionDate":
         elect = Election.election_day
+    elif sorting == "voters":
+        elect = Election.total_voters
     else:
         return elect_query
 
@@ -115,6 +117,6 @@ def search_elections(q, elect_query):
         )
         searches.append(Election.politicians.any(Politician.name.ilike("%{}%".format(term))))
         searches.append(Election.election_day.match(term))
-    elect_query = elect_query.join(District).filter(or_(*tuple(searches)))
+    elect_query = elect_query.filter(or_(*tuple(searches)))
 
     return elect_query

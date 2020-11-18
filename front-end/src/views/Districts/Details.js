@@ -131,7 +131,7 @@ const Details = () => {
 											Elections
 										</Text>
 										{elections.map((e) =>
-				                            <Link to={`/elections/view/${e.id}`}>
+				                            <Link to={`/elections/view/${e.id}`} key={e.id} >
 											    {electionName(e, number)}
                                             </Link>
 										)}
@@ -153,7 +153,7 @@ const Details = () => {
 							Counties
 						</Title>
 						<List
-							dataSource={counties}
+							dataSource={counties.sort()}
 							renderItem={(item) => (
 								<List.Item>
 									<Text>{item}</Text>

@@ -9,14 +9,16 @@ import styles from "./Navbar.module.css"
  * Menu items for navbar
  * @param {string} orientation horizontal or vertical
  */
-const NavContent = ({ orientation }) => {
+const NavContent = ({ orientation, noBackground }) => {
+	const props = {
+		className: orientation === "horizontal" ? styles.menu : "",
+		theme: orientation === "horizontal" ? "dark" : "light",
+		mode: orientation,
+		selectable: false,
+		style: noBackground ? { background: "none" } : {}
+	}
 	return (
-		<Menu
-			className={orientation === "horizontal" ? styles.menu : undefined}
-			theme={orientation === "horizontal" ? "dark" : "light"}
-			mode={orientation}
-			selectable={false}
-		>
+		<Menu {...props} >
 			{routes.map(
 				({ linkPath, path, title, displayOnNavbar = false }, i) => {
 					if (displayOnNavbar)
