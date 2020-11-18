@@ -19,6 +19,9 @@ const filterOptionsMap = {
 	),
 	"Population Range": population_mappings,
 	Office: elected_office_mappings,
+	"Demographics": identityObjectFromArray(
+		["age", "race", "education_enrollment", "education_attainment", "ethnicity", "income"]
+	),
 }
 
 const filterTitlesMap = {
@@ -31,6 +34,7 @@ const filterTitlesMap = {
 	district: "Congressional District #",
 	popRange: "Population Range",
 	office: "Office",
+	demographics: "Demographics",
 }
 
 const sortValuesMap = {

@@ -160,6 +160,18 @@ const DistrictsChart = () => {
                         })
                         output.race = raceDem
                     }
+                    else if (key === "ethnicity") {
+                        let ethnicityDem = items.map((item, index) => {
+                            const {ethnicity, proportion} = item
+                            const dem = {}
+                            dem.name = ethnicity
+                            dem.value = proportion
+                            dem.texasVal = texasDemographics[key][index]
+
+                            return dem
+                        })
+                        output.ethnicity = ethnicityDem
+                    }
                 })
                 return output
             })
@@ -194,6 +206,11 @@ const DistrictsChart = () => {
 				name={"district"}
 				value={district}
 				hook={[district, setDistrict]}
+			/>
+            <VisFilter
+				name={"demographics"}
+				value={filter}
+				hook={[filter, setFilter]}
 			/>
                     
             <RadarChart cx={300} cy={250} outerRadius={150} width={500} height={500} data={data[district][filter]}>

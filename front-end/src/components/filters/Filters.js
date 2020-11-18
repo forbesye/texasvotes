@@ -46,7 +46,7 @@ const VisFilter = ({ value, name, hook }) => {
 		<div style={{ marginBottom: 20, textAlign: "center" }}>
 			<Title level={5}>{title}</Title>
 			<Select
-				mode={name !== "district" ? "multiple" : ""}
+				mode=""
 				maxTagCount={1}
 				defaultValue={name === "popRange" ? "" : undefined}
 				showArrow={true}
@@ -54,11 +54,11 @@ const VisFilter = ({ value, name, hook }) => {
 				onChange={(value) => setParams(value)}
 				value={value}
 			>
-				{name === "popRange" && (
+				{/* {name === "popRange" && (
 					<Option key="" value="">
 						All
 					</Option>
-				)}
+				)} */}
 				{Object.keys(optionsMap).map((key) => (
 					<Option key={key}>{optionsMap[key]}</Option>
 				))}
