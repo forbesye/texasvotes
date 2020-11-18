@@ -243,7 +243,7 @@ const DistrictsChart = () => {
                 <RadarChart outerRadius={150} width={1000} height={500} data={data[district][filter]}>
                     <PolarGrid />
                     <PolarAngleAxis dataKey="name"/>
-                    <PolarRadiusAxis angle={30} domain={[0, 100]} />
+                    <PolarRadiusAxis angle={30}/>
                     <Radar name="Texas" dataKey="texasVal" stroke="#8884d8" fill="#8884d8" fillOpacity={0.8} />
                     <Radar name="Congressional District" dataKey="value" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.3} />
                     <Legend verticalAlign="top" />
