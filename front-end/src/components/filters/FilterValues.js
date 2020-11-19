@@ -4,6 +4,7 @@ import {
 	elected_office_mappings,
 	election_type_mappings,
 	population_mappings,
+	demographic_mappings,
 } from "library/Mappings"
 import { identityObjectFromArray } from "library/Functions"
 
@@ -14,8 +15,12 @@ const filterOptionsMap = {
 	"District #": identityObjectFromArray(
 		[...Array(150).keys()].map((n) => n + 1)
 	),
+	"Congressional District #": identityObjectFromArray(
+		[...Array(36).keys()].map((n) => n + 1)
+	),
 	"Population Range": population_mappings,
 	Office: elected_office_mappings,
+	Demographics: demographic_mappings,
 }
 
 const filterTitlesMap = {
@@ -25,8 +30,10 @@ const filterTitlesMap = {
 	dist: "District #",
 	district_num: "District #",
 	number: "District #",
+	district: "Congressional District #",
 	popRange: "Population Range",
 	office: "Office",
+	demographics: "Demographics",
 }
 
 const sortValuesMap = {
