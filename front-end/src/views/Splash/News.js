@@ -6,8 +6,8 @@ import styles from "./Splash.module.css"
 const { Paragraph } = Typography
 const { Meta } = Card
 
-export default function News ({ articles, loading }) {
-    if (loading) return <Spinner />
+export default function News({ articles, loading }) {
+	if (loading) return <Spinner />
 
     return (
         <div className={styles.news}>

@@ -8,7 +8,7 @@ import {
 	StringParam,
 	useQueryParams,
 	ArrayParam,
-	withDefault
+	withDefault,
 } from "use-query-params"
 import {
 	PoliticianCard,
@@ -46,7 +46,7 @@ export default function GeneralSearch({ byAddress }) {
 	const handleSearchChange = (text) => {
 		setTempSearch(text)
 	}
-	
+
 	// Called on componentMount
 	useEffect(() => {
 		if (params.q) {
@@ -59,7 +59,7 @@ export default function GeneralSearch({ byAddress }) {
 		 */
 		const constructURLParams = (params) => {
 			let URLParams = new URLSearchParams()
-			if(params.q) {
+			if (params.q) {
 				URLParams.append("q", params.q)
 			}
 			if (params.counties) {
@@ -86,7 +86,10 @@ export default function GeneralSearch({ byAddress }) {
 				setLoaded(false)
 				// creates an array of promises that will return the results for each model search
 				const promises = SEARCH_PATHS.map((model) => {
-					return getAPI({ model: model, params: constructURLParams(params)})
+					return getAPI({
+						model: model,
+						params: constructURLParams(params),
+					})
 				})
 				// resolves the promises
 				const resolved = await Promise.all(promises)

@@ -26,17 +26,17 @@ const Splash = () => {
 	const [ news, setNews ] = useState({
 		articles: [],
 		loading: false,
-		lastUpdated: null
+		lastUpdated: null,
 	})
 
 	useEffect(() => {
 		const getNews = async () => {
-			setNews(news => ({ ...news, loading: true }))
+			setNews((news) => ({ ...news, loading: true }))
 			const { articles, last_updated } = await getAPI({ model: "news" })
 			setNews({
 				articles: articles,
 				loading: false,
-				lastUpdated: new Date(last_updated)
+				lastUpdated: new Date(last_updated),
 			})
 		}
 		getNews()
@@ -51,9 +51,9 @@ const Splash = () => {
 							Texas Votes
 						</Title>
 						<Paragraph className={styles.about}>
-							Become informed about Texas politics today. Search for 
-							information about a politician, a district, or an election 
-							below.
+							Become informed about Texas politics today. Search
+							for information about a politician, a district, or
+							an election below.
 						</Paragraph>
 					</div>
 					<div className={styles.searchSelectButtons}>
@@ -86,19 +86,21 @@ const Splash = () => {
 					}
 				</div>
 				<div className={styles.downButton}>
-					<DownOutlined 
-					className={styles.downButtonIcon} 
-					onClick={() => {
-						window.scrollTo({
-							top: ref.current.offsetTop,
-							behavior: "smooth"
-						})
-					}}
-				/>
+					<DownOutlined
+						className={styles.downButtonIcon}
+						onClick={() => {
+							window.scrollTo({
+								top: ref.current.offsetTop,
+								behavior: "smooth",
+							})
+						}}
+					/>
 				</div>
 			</div>
 			<div className={styles.modelCards} ref={ref}>
-			<Title level={1} style={{ textAlign: "center" }}>Model Pages</Title>
+				<Title level={1} style={{ textAlign: "center" }}>
+					Model Pages
+				</Title>
 				<div className={styles.cardFlexContainer}>
 					<Link
 						id="politicianCard"
@@ -142,10 +144,12 @@ const Splash = () => {
 							}
 							hoverable={true}
 						>
-							<Title style={{ textAlign: "center" }}>Districts</Title>
+							<Title style={{ textAlign: "center" }}>
+								Districts
+							</Title>
 							<Paragraph>
-								Which district are you in? Learn about the different
-								districts across Texas!
+								Which district are you in? Learn about the
+								different districts across Texas!
 							</Paragraph>
 						</Card>
 					</Link>
@@ -166,10 +170,13 @@ const Splash = () => {
 							}
 							hoverable={true}
 						>
-							<Title style={{ textAlign: "center" }}>Elections</Title>
+							<Title style={{ textAlign: "center" }}>
+								Elections
+							</Title>
 							<Paragraph>
-								What are some of the upcoming elections? Keep track
-								of the elections and mark your calendars to vote!
+								What are some of the upcoming elections? Keep
+								track of the elections and mark your calendars
+								to vote!
 							</Paragraph>
 						</Card>
 					</Link>
@@ -177,9 +184,16 @@ const Splash = () => {
 			</div>
 			<div className={styles.newsContainer}>
 				<Title level={1}>Texas News Articles</Title>
-				<Paragraph style={{
-					textAlign: "center"
-				}}>Last Updated: { news.lastUpdated ? news.lastUpdated.toLocaleString("en-US") : "Never" }</Paragraph>
+				<Paragraph
+					style={{
+						textAlign: "center",
+					}}
+				>
+					Last Updated:{" "}
+					{news.lastUpdated
+						? news.lastUpdated.toLocaleString("en-US")
+						: "Never"}
+				</Paragraph>
 				<News {...news} />
 			</div>
 		</div>

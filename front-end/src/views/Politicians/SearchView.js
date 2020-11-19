@@ -8,7 +8,7 @@ import {
 	NumberParam,
 	useQueryParams,
 	ArrayParam,
-	withDefault
+	withDefault,
 } from "use-query-params"
 import { Filter, Sort } from "components/filters/Filters"
 import { getAPI } from "../../library/APIClient"
@@ -47,7 +47,7 @@ export default function SearchView() {
 		setParams({
 			...params,
 			page,
-			perPage
+			perPage,
 		})
 	}
 
@@ -64,10 +64,10 @@ export default function SearchView() {
 			let URLParams = new URLSearchParams()
 			URLParams.append("page", params.page)
 			URLParams.append("perPage", params.perPage)
-			if(params.q) {
+			if (params.q) {
 				URLParams.append("q", params.q)
 			}
-			if(params.sort) {
+			if (params.sort) {
 				URLParams.append("sort", params.sort)
 			}
 			if (params.counties) {
@@ -105,7 +105,10 @@ export default function SearchView() {
 					// Sort by best match
 					const aname = a.name.toLowerCase()
 					const bname = b.name.toLowerCase()
-					return mostAlike(bname, userquery) - mostAlike(aname, userquery)
+					return (
+						mostAlike(bname, userquery) -
+						mostAlike(aname, userquery)
+					)
 				})
 				setResults(page)
 				setLoading(false)
@@ -130,26 +133,30 @@ export default function SearchView() {
 					<Divider />
 					{/* Fitlers and sort */}
 					<section className={styles.filterSection}>
-						{["counties", "party", "office", "district_num"].map((name) => (
-							<Filter
-								key={name}
-								name={name}
-								value={params[name]}
-								hook={[params, setParams]}
-							/>
-						))}
+						{["counties", "party", "office", "district_num"].map(
+							(name) => (
+								<Filter
+									key={name}
+									name={name}
+									value={params[name]}
+									hook={[params, setParams]}
+								/>
+							)
+						)}
 						<Sort
 							model="Politician"
 							value={params.sort}
 							hook={[params, setParams]}
 						/>
 					</section>
-					<div style={{marginLeft: "10%", marginRight: "10%"}}>
+					<div style={{ marginLeft: "10%", marginRight: "10%" }}>
 						<Search
 							size="large"
 							enterButton="Search"
 							loading={loading}
-							onSearch={(val) => setParams((params) => ({...params, q: val}))}
+							onSearch={(val) =>
+								setParams((params) => ({ ...params, q: val }))
+							}
 							value={tempSearch}
 							onChange={handleTextChange}
 						/>
@@ -160,7 +167,11 @@ export default function SearchView() {
 				) : (
 					<section className={styles.searchResults}>
 						{results.map((result) => (
-							<PoliticianResult {...result} searchQuery={params.q} key={result.id}/>
+							<PoliticianResult
+								{...result}
+								searchQuery={params.q}
+								key={result.id}
+							/>
 						))}
 					</section>
 				)}
@@ -170,6 +181,7 @@ export default function SearchView() {
 					onChange={handlePageChange}
 					pageSizeOptions={[10, 20, 40]}
 					total={total}
+					showTotal={(total) => `Total ${total} items`}
 					style={{
 						margin: "16px 0",
 						display: "flex",
@@ -178,7 +190,6 @@ export default function SearchView() {
 				/>
 			</section>
 		</Fragment>
-		
 	)
 }
 

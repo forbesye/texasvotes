@@ -1,11 +1,8 @@
 /* Splash */
 
 .splash {
-	background: linear-gradient(
-		rgba(0, 0, 0, 0.4), 
-		rgba(0, 0, 0, 0.4)
-	), 
-	url("./images/splash.jpg");
+	background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+		url("./images/splash.jpg");
 	height: calc(80vh + 64px);
 	background-size: cover;
 	background-position-x: 70%;
@@ -14,7 +11,7 @@
 	/* background-color: red; */
 	padding-top: 30px;
 	padding-bottom: 30px;
-	margin-top: -64px; 
+	margin-top: -64px;
 }
 
 .splashContent {
@@ -67,12 +64,12 @@
 	color: #e0e0e0;
 	font-size: 48px;
 	transform: translateY(0);
-	transition: transform .5s ease, color .25s ease;
+	transition: transform 0.5s ease, color 0.25s ease;
 }
 
 .downButtonIcon:hover {
 	transform: translateY(8px);
-	color: #40A9FF;
+	color: #40a9ff;
 	cursor: pointer;
 }
 
@@ -86,7 +83,9 @@
 	margin: 32px auto;
 }
 
-.searchBarContainer, .modelCards, .newsContainer {
+.searchBarContainer,
+.modelCards,
+.newsContainer {
 	width: 95%;
 	max-width: 1200px;
 	margin: 16px auto;

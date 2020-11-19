@@ -91,7 +91,7 @@ const electionTitle = (election) => {
  * @param {Number} num
  */
 const formatAsMoney = (num) => {
-	return `$` + numberStringWithCommas(num.toFixed(2))
+	return `$` + numberStringWithCommas(num.toFixed(0))
 }
 
 /**

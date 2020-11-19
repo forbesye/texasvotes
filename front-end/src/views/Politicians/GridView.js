@@ -41,7 +41,7 @@ export default function GridView() {
 		setParams({
 			...params,
 			page,
-			perPage
+			perPage,
 		})
 		window.scrollTo({
 			top: gridRef.current.offsetTop - 30,
@@ -133,7 +133,7 @@ export default function GridView() {
 				<section className={styles.grid} ref={gridRef}>
 					{/* Render all cards pulled from API */}
 					{gridData?.map((data) => (
-						<PoliticianCard data={data} key={data.id}/>
+						<PoliticianCard data={data} key={data.id} />
 					))}
 				</section>
 			) : (
@@ -150,6 +150,7 @@ export default function GridView() {
 					display: "flex",
 					justifyContent: "flex-end",
 				}}
+				showTotal={(total) => `Total ${total} items`}
 			/>
 		</Fragment>
 	)

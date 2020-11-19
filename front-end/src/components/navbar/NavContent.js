@@ -15,10 +15,10 @@ const NavContent = ({ orientation, noBackground }) => {
 		theme: orientation === "horizontal" ? "dark" : "light",
 		mode: orientation,
 		selectable: false,
-		style: noBackground ? { background: "none" } : {}
+		style: noBackground ? { background: "none" } : {},
 	}
 	return (
-		<Menu {...props} >
+		<Menu {...props}>
 			{routes.map(
 				({ linkPath, path, title, displayOnNavbar = false }, i) => {
 					if (displayOnNavbar)

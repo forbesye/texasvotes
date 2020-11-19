@@ -6,7 +6,7 @@ import {
 	NumberParam,
 	useQueryParams,
 	ArrayParam,
-	withDefault
+	withDefault,
 } from "use-query-params"
 import { Filter, Sort } from "components/filters/Filters"
 import styles from "./Elections.module.css"
@@ -44,7 +44,7 @@ export default function SearchView() {
 		setParams({
 			...params,
 			page,
-			perPage
+			perPage,
 		})
 	}
 
@@ -62,7 +62,7 @@ export default function SearchView() {
 			URLParams.append("page", params.page)
 			URLParams.append("perPage", params.perPage)
 			URLParams.append("q", params.q)
-			if(params.sort) {
+			if (params.sort) {
 				URLParams.append("sort", params.sort)
 			}
 			if (params.counties) {
@@ -127,12 +127,14 @@ export default function SearchView() {
 							hook={[params, setParams]}
 						/>
 					</section>
-					<div style={{marginLeft: "10%", marginRight: "10%"}}>
+					<div style={{ marginLeft: "10%", marginRight: "10%" }}>
 						<Search
 							size="large"
 							loading={loading}
 							enterButton="Search"
-							onSearch={(val) => setParams((params) => ({...params, q: val}))}
+							onSearch={(val) =>
+								setParams((params) => ({ ...params, q: val }))
+							}
 							value={tempSearch}
 							onChange={handleTextChange}
 						/>
@@ -158,7 +160,7 @@ export default function SearchView() {
 					pageSizeOptions={[10, 20, 40]}
 					onChange={handlePageChange}
 					total={total}
-					showTotal= {total => `Total ${total} items`}
+					showTotal={(total) => `Total ${total} items`}
 					style={{
 						margin: "16px 0",
 						display: "flex",
