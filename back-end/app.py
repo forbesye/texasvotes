@@ -223,9 +223,9 @@ def address():
         for election in elections:
             format_election(election)
         return jsonify({
-            "politicians": politicians,
-            "districts": districts,
-            "elections": elections
+            "politician": politicians,
+            "district": districts,
+            "election": elections
         })
     except KeyError:
         error = "No address provided"

@@ -1,6 +1,7 @@
 /*
     This file defines routes for each of the pages.
 */
+import React from "react"
 
 import Splash from "./views/Splash/Splash"
 import About from "./views/About/About"
@@ -73,8 +74,14 @@ const Routes = [
 	{
 		title: "Search",
 		path: "/search",
+		exact: true,
 		Component: Search,
 		displayOnNavbar: true,
+	},
+	{
+		title: "Search By Address",
+		path: "/search/address",
+		Component: () => <Search byAddress={true} />
 	},
 	{
 		title: "Error",

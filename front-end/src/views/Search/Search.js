@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react"
-import { Typography } from "antd"
+import { Typography, Tabs } from "antd"
 import { useHistory } from "react-router-dom"
-import { getAPI } from "../../library/APIClient"
+import { getAPI, getByAddress } from "../../library/APIClient"
 import Spinner from "../../components/ui/Spinner"
 import styles from "./Search.module.css"
 import {
@@ -17,7 +17,7 @@ import {
 	MoreResultsCard,
 } from "./SearchCards"
 import { Filter } from "components/filters/Filters"
-import GeneralSearchBar from "./GeneralSearchBar"
+import GeneralSearchBar, { AddressSearchBar } from "./GeneralSearchBar"
 
 const { Title, Paragraph } = Typography
 
@@ -25,12 +25,12 @@ const SEARCH_PATHS = ["politician", "district", "election"]
 const SEARCH_LIMIT = 10
 
 // General search page
-export default function GeneralSearch() {
+export default function GeneralSearch({ byAddress }) {
 	const history = useHistory()
 	// State variables
-	const [loaded, setLoaded] = useState(false)
-	const [tempSearch, setTempSearch] = useState("")
-	const [params, setParams] = useQueryParams({
+	const [ loaded, setLoaded ] = useState(false)
+	const [ tempSearch, setTempSearch ] = useState("")
+	const [ params, setParams ] = useQueryParams({
 		q: withDefault(StringParam, ""),
 		counties: ArrayParam,
 		office: ArrayParam,
@@ -43,12 +43,15 @@ export default function GeneralSearch() {
 	})
 
 	// Handler for textChange on GeneralSearchBar
-	const handleSearchChange = (event) => {
-		setTempSearch(event.target.value)
+	const handleSearchChange = (text) => {
+		setTempSearch(text)
 	}
 	
 	// Called on componentMount
 	useEffect(() => {
+		if (params.q) {
+			setTempSearch(params.q)
+		}
 		/**
 		 * Creates proper URLSearchParams given current param
 		 * state
@@ -109,31 +112,89 @@ export default function GeneralSearch() {
 				history.push("/error")
 			}
 		}
-		fetchData()	
+
+		const fetchByAddress = async () => {
+			try {
+				if (params.q) {
+					setLoaded(false)
+					const data = await getByAddress(params.q)
+					setResults(data)
+				}
+				setLoaded(true)
+			} catch (err) {
+				console.error(err)
+				history.push("/error")
+			}
+		}
+
+		if (byAddress) {
+			fetchByAddress()
+		} else {
+			fetchData()	
+		}
 	}, [params, history])
 
 	return (
 		<section className={styles.content}>
 			<div className={styles.contentHeader}>
-				<Title level={1}>{params.q ? `Results for "${params.q}"`: "Search"}</Title>
-				<GeneralSearchBar
-					showTitle={false}
-					onChange={handleSearchChange}
-					onSearch={(val) => setParams((params) => ({...params, q: val}))}
-					value={tempSearch}
-				/>
-				<section className={styles.filterSection} style={{ margin: 20 }}>
-					{["counties", "party", "office"].map(
-						(name) => (
-							<Filter
-								key={name}
-								name={name}
-								value={params[name]}
-								hook={[params, setParams]}
-							/>
-						)
-					)}
-				</section>
+				{ byAddress ? (
+					<Fragment>
+						<Title level={1}>{params.q ? "Results for the address:" : "Search by Address"}</Title>
+						{ params.q && <Title level={3} style={{ marginTop: 0 }}>{params.q}</Title> }
+					</Fragment>
+				) : (
+					<Title level={1}>{params.q ? `Results for "${params.q}"` : "Search"}</Title>
+				)}
+				{/* This tab thing below is super hacky... */}
+				<Tabs 
+					activeKey={byAddress ? "address" : "query"}
+					onChange={(key) => {
+						if (key === "query") {
+							history.push("/search")
+						} else {
+							history.push("/search/address")
+						}
+					}}
+				>
+					<Tabs.TabPane tab="By Query" key="query"></Tabs.TabPane>
+					<Tabs.TabPane tab="By Address" key="address"></Tabs.TabPane>
+				</Tabs>
+				<Paragraph>
+					{ byAddress ? 
+						"Find politicians, districts, and elections based on your address."
+						: "Search for a politician, an district, or an election here." 
+					}
+				</Paragraph>
+				{
+					byAddress ? 
+					<AddressSearchBar 
+						placeholder="Enter address here."
+						onChange={handleSearchChange}
+						onSearch={(val) => setParams((params) => ({...params, q: val}))}
+						onOptionSelect={(val) => setTempSearch(val)}
+						value={tempSearch}
+					/>
+					: <GeneralSearchBar
+						onChange={handleSearchChange}
+						onSearch={(val) => setParams((params) => ({...params, q: val}))}
+						value={tempSearch}
+					/>
+				}
+				
+				{ !byAddress &&
+					<section className={styles.filterSection} style={{ margin: 20 }}>
+						{["counties", "party", "office"].map(
+							(name) => (
+								<Filter
+									key={name}
+									name={name}
+									value={params[name]}
+									hook={[params, setParams]}
+								/>
+							)
+						)}
+					</section>
+				}
 			</div>
 			{loaded ? (
 				<Fragment>

@@ -27,12 +27,12 @@ export default function News ({ articles, loading }) {
                             <Card 
                                 hoverable
                                 className={styles.newsCard}
-                                cover={
+                                cover={ article.urlToImage ?
                                     <img 
                                         className={styles.newsCardImage}
                                         src={article.urlToImage} 
                                         alt={article.title} 
-                                    />
+                                    /> : <div className={styles.newsCardImage}></div>
                                 }
                             >
                                 <Meta 
@@ -40,6 +40,7 @@ export default function News ({ articles, loading }) {
                                     description={(
                                         <div>
                                             <div>By {article.author}</div>
+                                            <div>Published by {article.source.name}</div>
                                             <div>Published on {displayDate}</div>
                                         </div>
                                     )}
