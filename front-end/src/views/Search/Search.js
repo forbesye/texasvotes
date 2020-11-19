@@ -121,7 +121,9 @@ export default function GeneralSearch({ byAddress }) {
 				if (params.q) {
 					setLoaded(false)
 					const data = await getByAddress(params.q)
-					setResults(data)
+					if (!data.error) {
+						setResults(data)
+					}
 				}
 				setLoaded(true)
 			} catch (err) {
