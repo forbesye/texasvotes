@@ -144,73 +144,76 @@ const DistrictsChart = () => {
 				}
 			})
 
-			const districtDemographics = data.map((e) => {
-				const { demographics } = e
-				if (!demographics) return
-				let output = {}
+			const districtDemographics = data
+				.filter((e) => e.demographics)
+				.map((e) => {
+					const { demographics } = e
+					let output = {}
 
-				Object.entries(demographics).forEach(([key, value]) => {
-					const { items } = value
-					if (key === "education") {
-						;["attainment", "enrollment"].forEach((e) => {
-							const { items } = value[e]
-							let educationDem = items.map((item, index) => {
-								const { level, proportion } = item
+					Object.entries(demographics).forEach(([key, value]) => {
+						const { items } = value
+						if (key === "education") {
+							;["attainment", "enrollment"].forEach((e) => {
+								const { items } = value[e]
+								let educationDem = items.map((item, index) => {
+									const { level, proportion } = item
+									const dem = {}
+									dem.name = level
+									dem.value = proportion
+									dem.texasVal = texasDemographics[e][index]
+
+									return dem
+								})
+
+								if (e === "attainment") {
+									output.education_attainment = educationDem
+								} else if (e === "enrollment") {
+									output.education_enrollment = educationDem
+								}
+							})
+						} else if (key === "age") {
+							let ageDem = items.map((item, index) => {
+								const { end, start, proportion } = item
 								const dem = {}
-								dem.name = level
+								dem.name = end
+									? `${start} - ${end}`
+									: `${start}+`
 								dem.value = proportion
-								dem.texasVal = texasDemographics[e][index]
+								dem.texasVal = texasDemographics[key][index]
 
 								return dem
 							})
+							output.age = ageDem
+						} else if (key === "race") {
+							let raceDem = items.map((item, index) => {
+								const { race, proportion } = item
+								const dem = {}
+								dem.name = race
+								dem.value = proportion
+								dem.texasVal = texasDemographics[key][index]
 
-							if (e === "attainment") {
-								output.education_attainment = educationDem
-							} else if (e === "enrollment") {
-								output.education_enrollment = educationDem
-							}
-						})
-					} else if (key === "age") {
-						let ageDem = items.map((item, index) => {
-							const { end, start, proportion } = item
-							const dem = {}
-							dem.name = end ? `${start} - ${end}` : `${start}+`
-							dem.value = proportion
-							dem.texasVal = texasDemographics[key][index]
+								return dem
+							})
+							output.race = raceDem
+						} else if (key === "income") {
+							let incomeDem = items.map((item, index) => {
+								const { end, start, proportion } = item
+								const dem = {}
+								dem.name = end
+									? `${formatAsMoney(
+											start
+									  )} - ${formatAsMoney(end)}`
+									: `${formatAsMoney(start)}+`
+								dem.value = proportion
+								dem.texasVal = texasDemographics[key][index]
 
-							return dem
-						})
-						output.age = ageDem
-					} else if (key === "race") {
-						let raceDem = items.map((item, index) => {
-							const { race, proportion } = item
-							const dem = {}
-							dem.name = race
-							dem.value = proportion
-							dem.texasVal = texasDemographics[key][index]
-
-							return dem
-						})
-						output.race = raceDem
-					} else if (key === "income") {
-						let incomeDem = items.map((item, index) => {
-							const { end, start, proportion } = item
-							const dem = {}
-							dem.name = end
-								? `${formatAsMoney(start)} - ${formatAsMoney(
-										end
-								  )}`
-								: `${formatAsMoney(start)}+`
-							dem.value = proportion
-							dem.texasVal = texasDemographics[key][index]
-
-							return dem
-						})
-						output.income = incomeDem
-					}
+								return dem
+							})
+							output.income = incomeDem
+						}
+					})
+					return output
 				})
-				return output
-			})
 			return districtDemographics
 		}
 
@@ -342,7 +345,7 @@ const ElectionsChart = () => {
 
 	return (
 		<>
-			<Title level={3}>Election Results</Title>
+			<Title level={3}>Election Results by Partisanship</Title>
 			<div className={styles.chart}>
 				<BarChart
 					width={1000}
@@ -353,6 +356,12 @@ const ElectionsChart = () => {
 						right: 30,
 						left: 20,
 						bottom: 5,
+					}}
+					onClick={({ activePayload }) => {
+						const id = activePayload?.pop().payload.id
+						if (id) {
+							history.push(`elections/view/${id}`)
+						}
 					}}
 				>
 					<CartesianGrid strokeDasharray="3 3" />

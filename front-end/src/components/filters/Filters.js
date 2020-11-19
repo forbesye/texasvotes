@@ -41,7 +41,7 @@ const Filter = ({ value, name, hook }) => {
 }
 
 const VisFilter = ({ value, name, hook }) => {
-	const [params, setParams] = hook
+	const [, setParams] = hook
 	const title = filterTitlesMap[name]
 	const optionsMap = filterOptionsMap[title]
 	return (

@@ -116,7 +116,7 @@ const ListView = () => {
 		setParams({
 			...params,
 			page: current,
-			perPage: pageSize
+			perPage: pageSize,
 		})
 		// Scrolls to top of table on page change
 		window.scrollTo({
@@ -176,7 +176,7 @@ const ListView = () => {
 						defaultPageSize: 20,
 						defaultCurrent: 1,
 						pageSizeOptions: [10, 20, 40],
-						showTotal: total => `Total ${total} items`
+						showTotal: (total) => `Total ${total} items`,
 					}}
 					onChange={handleTableChange}
 					scroll={{ x: true }}

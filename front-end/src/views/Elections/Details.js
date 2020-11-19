@@ -110,9 +110,15 @@ const Details = () => {
 					<Title style={{ textAlign: "center" }} level={3}>
 						Candidates
 					</Title>
-                    <div className={candidates.length === 1 ? styles.polCard : 
-                                    candidates.length === 2 ? styles.polCard2
-                                    : styles.grid}>
+					<div
+						className={
+							candidates.length === 1
+								? styles.polCard
+								: candidates.length === 2
+								? styles.polCard2
+								: styles.grid
+						}
+					>
 						{candidates.map((data) => (
 							<PoliticianCard
 								key={data.id}

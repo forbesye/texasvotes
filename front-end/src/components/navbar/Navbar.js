@@ -52,8 +52,8 @@ const Navbar = () => {
 				}}
 				bodyStyle={{ padding: 0 }}
 			>
-				<NavContent 
-					orientation="vertical" 
+				<NavContent
+					orientation="vertical"
 					noBackground={location.pathname === "/"}
 				/>
 			</Drawer>
