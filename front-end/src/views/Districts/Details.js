@@ -10,7 +10,6 @@ import PoliticianCard from "components/cards/PoliticianCard"
 
 const { Title, Text } = Typography
 
-
 /**
  * Functional component for District detail
  */
@@ -107,7 +106,13 @@ const Details = () => {
 											? "Elected official"
 											: "Elected officials"}
 									</Text>
-									<div className={elected_officials.length < 2 ? styles.polCard : styles.grid}>
+									<div
+										className={
+											elected_officials.length < 2
+												? styles.polCard
+												: styles.grid
+										}
+									>
 										{elected_officials.map((data) => (
 											<PoliticianCard
 												key={data.id}
@@ -130,11 +135,14 @@ const Details = () => {
 										<Text strong style={{ fontSize: 18 }}>
 											Elections
 										</Text>
-										{elections.map((e) =>
-				                            <Link to={`/elections/view/${e.id}`} key={e.id} >
-											    {electionName(e, number)}
-                                            </Link>
-										)}
+										{elections.map((e) => (
+											<Link
+												to={`/elections/view/${e.id}`}
+												key={e.id}
+											>
+												{electionName(e, number)}
+											</Link>
+										))}
 									</Fragment>
 								) : (
 									<Fragment>
@@ -196,12 +204,27 @@ const Details = () => {
 							<br />
 							{Object.keys(texasData).length > 0 && compare ? (
 								<>
-                                    {chart("Current District", "age", demographics.age.items, demographics.age.out_of)}
-                                    {chart("Texas", "age", texasDemographics.age.items, texasDemographics.age.out_of)}
+									{chart(
+										"Current District",
+										"age",
+										demographics.age.items,
+										demographics.age.out_of
+									)}
+									{chart(
+										"Texas",
+										"age",
+										texasDemographics.age.items,
+										texasDemographics.age.out_of
+									)}
 								</>
 							) : (
 								<>
-                                    {chart("", "age", demographics.age.items, demographics.age.out_of)}
+									{chart(
+										"",
+										"age",
+										demographics.age.items,
+										demographics.age.out_of
+									)}
 								</>
 							)}
 						</div>
@@ -210,15 +233,30 @@ const Details = () => {
 								Race
 							</Text>
 							<br />
-                            
+
 							{Object.keys(texasData).length > 0 && compare ? (
 								<>
-                                    {chart("Current District", "race", demographics.race.items, demographics.race.out_of)}
-                                    {chart("Texas", "race", texasDemographics.race.items, texasDemographics.race.out_of)}
+									{chart(
+										"Current District",
+										"race",
+										demographics.race.items,
+										demographics.race.out_of
+									)}
+									{chart(
+										"Texas",
+										"race",
+										texasDemographics.race.items,
+										texasDemographics.race.out_of
+									)}
 								</>
 							) : (
 								<>
-                                    {chart("", "race", demographics.race.items, demographics.race.out_of)}
+									{chart(
+										"",
+										"race",
+										demographics.race.items,
+										demographics.race.out_of
+									)}
 								</>
 							)}
 						</div>
@@ -228,16 +266,32 @@ const Details = () => {
 									Ethnicity
 								</Text>
 								<br />
-							    {Object.keys(texasData).length > 0 && compare ? (
-							    	<>
-                                        {chart("Current District", "ethnicity", demographics.ethnicity.items, demographics.ethnicity.out_of)}
-                                        {chart("Texas", "ethnicity", texasDemographics.ethnicity.items, texasDemographics.ethnicity.out_of)}
-							    	</>
-							    ) : (
-							    	<>
-                                        {chart("", "ethnicity", demographics.ethnicity.items, demographics.ethnicity.out_of)}
-							    	</>
-							    )}
+								{Object.keys(texasData).length > 0 &&
+								compare ? (
+									<>
+										{chart(
+											"Current District",
+											"ethnicity",
+											demographics.ethnicity.items,
+											demographics.ethnicity.out_of
+										)}
+										{chart(
+											"Texas",
+											"ethnicity",
+											texasDemographics.ethnicity.items,
+											texasDemographics.ethnicity.out_of
+										)}
+									</>
+								) : (
+									<>
+										{chart(
+											"",
+											"ethnicity",
+											demographics.ethnicity.items,
+											demographics.ethnicity.out_of
+										)}
+									</>
+								)}
 							</div>
 						) : null}
 						<div style={{ marginTop: "40px" }}>
@@ -247,12 +301,29 @@ const Details = () => {
 							<br />
 							{Object.keys(texasData).length > 0 && compare ? (
 								<>
-                                    {chart("Current District", "education", demographics.education.enrollment.items, demographics.education.enrollment.out_of)}
-                                    {chart("Texas", "education", texasDemographics.education.enrollment.items, texasDemographics.education.enrollment.out_of)}
+									{chart(
+										"Current District",
+										"education",
+										demographics.education.enrollment.items,
+										demographics.education.enrollment.out_of
+									)}
+									{chart(
+										"Texas",
+										"education",
+										texasDemographics.education.enrollment
+											.items,
+										texasDemographics.education.enrollment
+											.out_of
+									)}
 								</>
 							) : (
 								<>
-                                    {chart("", "education", demographics.education.enrollment.items, demographics.education.enrollment.out_of)}
+									{chart(
+										"",
+										"education",
+										demographics.education.enrollment.items,
+										demographics.education.enrollment.out_of
+									)}
 								</>
 							)}
 							<br />
@@ -262,12 +333,29 @@ const Details = () => {
 							<br />
 							{Object.keys(texasData).length > 0 && compare ? (
 								<>
-                                    {chart("Current District", "education", demographics.education.attainment.items, demographics.education.attainment.out_of)}
-                                    {chart("Texas", "education", texasDemographics.education.attainment.items, texasDemographics.education.attainment.out_of)}
+									{chart(
+										"Current District",
+										"education",
+										demographics.education.attainment.items,
+										demographics.education.attainment.out_of
+									)}
+									{chart(
+										"Texas",
+										"education",
+										texasDemographics.education.attainment
+											.items,
+										texasDemographics.education.attainment
+											.out_of
+									)}
 								</>
 							) : (
 								<>
-                                    {chart("", "education", demographics.education.attainment.items, demographics.education.attainment.out_of)}
+									{chart(
+										"",
+										"education",
+										demographics.education.attainment.items,
+										demographics.education.attainment.out_of
+									)}
 								</>
 							)}
 						</div>
@@ -278,12 +366,27 @@ const Details = () => {
 							<br />
 							{Object.keys(texasData).length > 0 && compare ? (
 								<>
-                                    {chart("Current District", "income", demographics.income.items, demographics.income.out_of)}
-                                    {chart("Texas", "income", texasDemographics.income.items, texasDemographics.income.out_of)}
+									{chart(
+										"Current District",
+										"income",
+										demographics.income.items,
+										demographics.income.out_of
+									)}
+									{chart(
+										"Texas",
+										"income",
+										texasDemographics.income.items,
+										texasDemographics.income.out_of
+									)}
 								</>
 							) : (
 								<>
-                                    {chart("", "income", demographics.income.items, demographics.income.out_of)}
+									{chart(
+										"",
+										"income",
+										demographics.income.items,
+										demographics.income.out_of
+									)}
 								</>
 							)}
 						</div>

@@ -8,7 +8,7 @@ import {
 	StringParam,
 	useQueryParams,
 	ArrayParam,
-	withDefault
+	withDefault,
 } from "use-query-params"
 import {
 	PoliticianCard,
@@ -46,7 +46,7 @@ export default function GeneralSearch() {
 	const handleSearchChange = (event) => {
 		setTempSearch(event.target.value)
 	}
-	
+
 	// Called on componentMount
 	useEffect(() => {
 		/**
@@ -56,7 +56,7 @@ export default function GeneralSearch() {
 		 */
 		const constructURLParams = (params) => {
 			let URLParams = new URLSearchParams()
-			if(params.q) {
+			if (params.q) {
 				URLParams.append("q", params.q)
 			}
 			if (params.counties) {
@@ -83,7 +83,10 @@ export default function GeneralSearch() {
 				setLoaded(false)
 				// creates an array of promises that will return the results for each model search
 				const promises = SEARCH_PATHS.map((model) => {
-					return getAPI({ model: model, params: constructURLParams(params)})
+					return getAPI({
+						model: model,
+						params: constructURLParams(params),
+					})
 				})
 				// resolves the promises
 				const resolved = await Promise.all(promises)
@@ -109,30 +112,35 @@ export default function GeneralSearch() {
 				history.push("/error")
 			}
 		}
-		fetchData()	
+		fetchData()
 	}, [params, history])
 
 	return (
 		<section className={styles.content}>
 			<div className={styles.contentHeader}>
-				<Title level={1}>{params.q ? `Results for "${params.q}"`: "Search"}</Title>
+				<Title level={1}>
+					{params.q ? `Results for "${params.q}"` : "Search"}
+				</Title>
 				<GeneralSearchBar
 					showTitle={false}
 					onChange={handleSearchChange}
-					onSearch={(val) => setParams((params) => ({...params, q: val}))}
+					onSearch={(val) =>
+						setParams((params) => ({ ...params, q: val }))
+					}
 					value={tempSearch}
 				/>
-				<section className={styles.filterSection} style={{ margin: 20 }}>
-					{["counties", "party", "office"].map(
-						(name) => (
-							<Filter
-								key={name}
-								name={name}
-								value={params[name]}
-								hook={[params, setParams]}
-							/>
-						)
-					)}
+				<section
+					className={styles.filterSection}
+					style={{ margin: 20 }}
+				>
+					{["counties", "party", "office"].map((name) => (
+						<Filter
+							key={name}
+							name={name}
+							value={params[name]}
+							hook={[params, setParams]}
+						/>
+					))}
 				</section>
 			</div>
 			{loaded ? (
