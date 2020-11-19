@@ -61,8 +61,8 @@ const sortValuesMap = {
 			electionDate: "Date (Oldest)",
 			dist: "District (Asc.)",
 			"-dist": "District (Desc.)",
-			"voters": "Voters (Asc.)",
-			"-voters": "Voters (Desc.)"
+			voters: "Voters (Asc.)",
+			"-voters": "Voters (Desc.)",
 		},
 		init: "-electionDate",
 	},

@@ -12,7 +12,7 @@ import {
 	PoliticiansChart,
 } from "views/Visualizations/TexasVotesVisualizations"
 
-const { Title, Paragraph, Link } = Typography
+const { Title } = Typography
 
 const Visualizations = () => {
 	return (

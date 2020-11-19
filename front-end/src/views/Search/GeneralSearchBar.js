@@ -27,15 +27,15 @@ export default function GeneralSearchBar({
 		className += " " + styles.clearSearchContainer
 		props.bordered = false
 	}
-		
+
 	return (
 		<div className={className}>
-			{showTitle && <Title level={1}>Sitewide Search</Title> }
-			{ showText && (
+			{showTitle && <Title level={1}>Sitewide Search</Title>}
+			{showText && (
 				<Paragraph>
 					Search for a politician, an district, or an election here.
 				</Paragraph>
-			) }
+			)}
 			<Search {...props} />
 		</div>
 	)

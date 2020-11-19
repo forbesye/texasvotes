@@ -6,7 +6,7 @@ import {
 	NumberParam,
 	useQueryParams,
 	ArrayParam,
-	withDefault
+	withDefault,
 } from "use-query-params"
 import { Filter, Sort } from "components/filters/Filters"
 import Highlighter from "react-highlight-words"
@@ -44,7 +44,7 @@ export default function SearchView() {
 		setParams({
 			...params,
 			page,
-			perPage
+			perPage,
 		})
 	}
 
@@ -74,9 +74,7 @@ export default function SearchView() {
 				)
 			}
 			if (params.party) {
-				params.party.forEach((type) =>
-					URLParams.append("party", type)
-				)
+				params.party.forEach((type) => URLParams.append("party", type))
 			}
 			if (params.office) {
 				params.office.forEach((office) =>
@@ -120,28 +118,34 @@ export default function SearchView() {
 					<Divider />
 					{/* Filter and sort*/}
 					<section className={styles.filterSection}>
-						{["counties", "party", "office", "number", "popRange"].map(
-							(name) => (
-								<Filter
-									key={name}
-									name={name}
-									value={params[name]}
-									hook={[params, setParams]}
-								/>
-							)
-						)}
+						{[
+							"counties",
+							"party",
+							"office",
+							"number",
+							"popRange",
+						].map((name) => (
+							<Filter
+								key={name}
+								name={name}
+								value={params[name]}
+								hook={[params, setParams]}
+							/>
+						))}
 						<Sort
 							model="District"
 							value={params.sort}
 							hook={[params, setParams]}
 						/>
 					</section>
-					<div style={{marginLeft: "10%", marginRight: "10%"}}>
+					<div style={{ marginLeft: "10%", marginRight: "10%" }}>
 						<Search
 							size="large"
 							enterButton="Search"
 							loading={loading}
-							onSearch={(val) => setParams((params) => ({...params, q: val}))}
+							onSearch={(val) =>
+								setParams((params) => ({ ...params, q: val }))
+							}
 							value={tempSearch}
 							onChange={handleTextChange}
 						/>
@@ -166,7 +170,7 @@ export default function SearchView() {
 					pageSizeOptions={[10, 20, 40]}
 					onChange={handlePageChange}
 					total={total}
-					showTotal= {total => `Total ${total} items`}
+					showTotal={(total) => `Total ${total} items`}
 					style={{
 						margin: "16px 0",
 						display: "flex",
