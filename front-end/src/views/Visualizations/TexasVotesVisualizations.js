@@ -227,7 +227,9 @@ const DistrictsChart = () => {
             })
             
             const { page } = districtData
-            setData(parseData(page, texasData))
+            const parsed = parseData(page, texasData)
+            console.log(parsed)
+            setData(parsed)
             setLoading(false)
         }
         getData()
@@ -258,7 +260,7 @@ const DistrictsChart = () => {
             </div>
 			
             <div className={styles.chart}>
-                <RadarChart outerRadius={150} width={1000} height={500} data={data[district][filter]}>
+                <RadarChart outerRadius={150} width={1000} height={500} data={data[district-1][filter]}>
                     <PolarGrid />
                     <PolarAngleAxis dataKey="name"/>
                     <PolarRadiusAxis angle={30}/>

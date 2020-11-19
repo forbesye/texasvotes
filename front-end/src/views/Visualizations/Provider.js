@@ -163,7 +163,7 @@ const ConservationStatus = () => {
     return (
         <>  
             <Title level={3}>
-                Conservation Status by Country
+                Conservation Status by Region
             </Title>
             <div className={styles.chart}>
                 <BarChart
@@ -172,11 +172,11 @@ const ConservationStatus = () => {
                     height={500}
                 >
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" >
-                        <Label value='Country' position='insideBottom' offset={0} style={{textAnchor: 'middle'}} />
+                    <XAxis dataKey="name" interval={0} allowDataOverflow>
+                        <Label value='Region' position='insideBottom' offset={0} style={{textAnchor: 'middle'}} />
                     </XAxis>
                     <YAxis >
-                        <Label angle={-90} value='Number of Animals' position='insideLeft' style={{textAnchor: 'middle'}} />
+                        <Label angle={-90} value='Number of Species' position='insideLeft' style={{textAnchor: 'middle'}} />
                     </YAxis>
                     <Tooltip payload={data}/>
                     <Legend verticalAlign="top" />
