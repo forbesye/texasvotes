@@ -115,7 +115,9 @@ def search_elections(q, elect_query):
         searches.append(
             District.counties.any(func.lower(Counties.name).contains(term.lower()))
         )
-        searches.append(Election.politicians.any(Politician.name.ilike("%{}%".format(term))))
+        searches.append(
+            Election.politicians.any(Politician.name.ilike("%{}%".format(term)))
+        )
         searches.append(Election.election_day.match(term))
     elect_query = elect_query.filter(or_(*tuple(searches)))
 
