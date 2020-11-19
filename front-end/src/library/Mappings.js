@@ -70,11 +70,11 @@ const election_date_mappings = {
 }
 
 const demographic_mappings = {
-	"age": "Age",
-	"race": "Race",
-	"education_attainment": "Education Attainment",
-	"education_enrollment": "Education Enrollment",
-	"income": "Income",
+	age: "Age",
+	race: "Race",
+	education_attainment: "Education Attainment",
+	education_enrollment: "Education Enrollment",
+	income: "Income",
 }
 
 const population_mappings = {
@@ -365,6 +365,6 @@ export {
 	election_date_mappings,
 	counties_list,
 	colorHexMap,
-    population_mappings,
-    demographic_mappings
+	population_mappings,
+	demographic_mappings,
 }

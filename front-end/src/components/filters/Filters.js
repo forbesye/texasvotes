@@ -17,7 +17,9 @@ const Filter = ({ value, name, hook }) => {
 		<div style={{ marginBottom: 20, textAlign: "center" }}>
 			<Title level={5}>{title}</Title>
 			<Select
-				mode={name !== "popRange" && name !== "district" ? "multiple" : ""}
+				mode={
+					name !== "popRange" && name !== "district" ? "multiple" : ""
+				}
 				maxTagCount={1}
 				defaultValue={name === "popRange" ? "" : undefined}
 				showArrow={true}
