@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react"
-import { Card, Typography } from "antd"
+import { Card, Typography, Button } from "antd"
 import { DownOutlined } from "@ant-design/icons"
 import { Link, useHistory } from "react-router-dom"
 
@@ -11,7 +11,7 @@ import politician from "views/Splash/images/politician.svg"
 import vote from "views/Splash/images/vote.svg"
 
 import styles from "./Splash.module.css"
-import GeneralSearchBar from "../Search/GeneralSearchBar"
+import GeneralSearchBar, { AddressSearchBar } from "../Search/GeneralSearchBar"
 import News from "./News"
 import { getAPI } from "library/APIClient"
 
@@ -20,8 +20,10 @@ const { Title, Paragraph } = Typography
 const Splash = () => {
 	const history = useHistory()
 	const ref = useRef(null)
-	const [searchVal, setSearchVal] = useState("")
-	const [news, setNews] = useState({
+	const [ generalSearch, setGeneralSearch ] = useState(true)
+	const [ searchVal, setSearchVal ] = useState("")
+	const [ address, setAddress ] = useState("")
+	const [ news, setNews ] = useState({
 		articles: [],
 		loading: false,
 		lastUpdated: null,
@@ -54,14 +56,34 @@ const Splash = () => {
 							an election below.
 						</Paragraph>
 					</div>
-					<GeneralSearchBar
-						clear
-						showTitle={false}
-						showText={false}
-						onSearch={(value) => history.push(`/search?q=${value}`)}
-						onChange={(event) => setSearchVal(event.target.value)}
-						value={searchVal}
-					/>
+					<div className={styles.searchSelectButtons}>
+						<Button 
+							ghost
+							className={styles.searchSelectButton}
+							onClick={() => setGeneralSearch(true)}
+						>Search By Query</Button>
+						<Button 
+							ghost
+							className={styles.searchSelectButton}
+							onClick={() => setGeneralSearch(false)}
+						>Search By Address</Button>
+					</div>
+					{ generalSearch ?
+						<GeneralSearchBar
+							clear
+							onSearch={(value) => history.push(`/search?q=${value}`)}
+							onChange={(text) => setSearchVal(text)}
+							value={searchVal}
+						/> :
+						<AddressSearchBar 
+							clear
+							placeholder="Enter address here."
+							onSearch={(value) => history.push(`/search/address?q=${value}`)}
+							onChange={(text) => setAddress(text)}
+							onOptionSelect={(val) => setAddress(val)}
+							value={address}
+						/>
+					}
 				</div>
 				<div className={styles.downButton}>
 					<DownOutlined
