@@ -7,11 +7,12 @@ import { Drawer, Button } from "antd"
 import Icon, { MenuOutlined } from "@ant-design/icons"
 import NavContent from "./NavContent"
 import TexasVotesLogo from "./TexasVotesLogo.png"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import styles from "./Navbar.module.css"
 
 const Navbar = () => {
 	const [open, setOpen] = useState(false) // for hamburger menu on mobile
+	const location = useLocation()
 	return (
 		<nav className={styles.nav}>
 			{/* Site logo that links to home page */}
@@ -24,7 +25,7 @@ const Navbar = () => {
 			</Link>
 			{/* Main links to different pages  */}
 			<div className={styles.centerNav}>
-				<NavContent />
+				<NavContent noBackground={location.pathname === "/"} />
 			</div>
 			{/* Hamburger menu button for mobile */}
 			<div className={styles.rightNav}>
@@ -51,7 +52,10 @@ const Navbar = () => {
 				}}
 				bodyStyle={{ padding: 0 }}
 			>
-				<NavContent orientation="vertical" />
+				<NavContent 
+					orientation="vertical" 
+					noBackground={location.pathname === "/"}
+				/>
 			</Drawer>
 		</nav>
 	)

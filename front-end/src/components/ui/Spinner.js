@@ -17,7 +17,7 @@ const messages = [
 	"Brushing off cheeto dust",
 	"STOPPING THE COUNT",
 	"Searching for widespread voter fraud",
-	"Waiting for Trump condemnation of white supremacy",
+	"Waiting for Trump's condemnation of white supremacy",
 	"Sending in the poll watchers",
 	"Undermining the democratic transfer of power",
 	"Looking for Ted Cruz's spine",

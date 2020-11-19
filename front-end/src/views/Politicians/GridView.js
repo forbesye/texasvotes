@@ -27,6 +27,7 @@ export default function GridView() {
 	const [params, setParams] = useQueryParams({
 		sort: withDefault(StringParam, "name"),
 		page: withDefault(NumberParam, 1),
+		perPage: withDefault(NumberParam, 20),
 		counties: ArrayParam,
 		office: ArrayParam,
 		party: ArrayParam,
@@ -36,10 +37,11 @@ export default function GridView() {
 	const history = useHistory()
 
 	// Adjust page
-	const handlePaginationChange = (page) => {
+	const handlePaginationChange = (page, perPage) => {
 		setParams({
 			...params,
-			page: page,
+			page,
+			perPage
 		})
 		window.scrollTo({
 			top: gridRef.current.offsetTop - 30,
@@ -55,6 +57,7 @@ export default function GridView() {
 			let URLParams = new URLSearchParams()
 			URLParams.append("page", params.page)
 			URLParams.append("sort", params.sort)
+			URLParams.append("perPage", params.perPage)
 			if (params.counties) {
 				params.counties.forEach((county) =>
 					URLParams.append("counties", county)
@@ -111,9 +114,9 @@ export default function GridView() {
 			<Divider />
 			{/* Fitlers and sort */}
 			<section className={styles.filterSection}>
-				<Title level={3}>Filter</Title>
 				{["counties", "party", "office", "district_num"].map((name) => (
 					<Filter
+						key={name}
 						name={name}
 						value={params[name]}
 						hook={[params, setParams]}
@@ -130,7 +133,7 @@ export default function GridView() {
 				<section className={styles.grid} ref={gridRef}>
 					{/* Render all cards pulled from API */}
 					{gridData?.map((data) => (
-						<PoliticianCard data={data} />
+						<PoliticianCard data={data} key={data.id}/>
 					))}
 				</section>
 			) : (
@@ -138,11 +141,10 @@ export default function GridView() {
 			)}
 			<Pagination
 				total={total}
-				defaultCurrent={1}
-				defaultPageSize={20}
+				pageSize={params.perPage}
 				onChange={handlePaginationChange}
 				current={params.page}
-				pageSizeOptions={[]}
+				pageSizeOptions={[10, 20, 40]}
 				style={{
 					margin: "16px 0",
 					display: "flex",

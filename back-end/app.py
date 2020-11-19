@@ -17,6 +17,7 @@ import os
 from Politician import *
 from District import *
 from Election import *
+from news import get_news
 
 
 # ---------- Policitians ----------
@@ -28,29 +29,34 @@ def politicians():
 
     pol_query = db.session.query(Politician)
 
+    page = get_query("page", queries)
+    if page == None:
+        page = 1
+    else:
+        # Convert the given page number into an int
+        page = int(page[0])
+
     # Searching
     q = get_query("q", queries)
     if q:
         pol_query = search_politicians(q, pol_query)
 
     # Filtering
-    else:
-        pol_query = filter_politicians(pol_query, queries)
+    pol_query = filter_politicians(pol_query, queries)
 
     # Sorting
     sort = get_query("sort", queries)
     pol_query = sort_politicians(sort, pol_query)
 
-    page = get_query("page", queries)
-    if page == None:
-        page = 1
-    else:
-        page = int(page[0])
-
     count = pol_query.count()
-    politicians = pol_query.paginate(page=page)
 
-    result = politician_schema.dump(politicians.items, many=True)
+    if page != -1:
+        per_page = int(get_query("perPage", queries).pop()) if get_query("perPage", queries) else 20
+        politicians = pol_query.paginate(page=page, per_page=per_page)
+
+        result = politician_schema.dump(politicians.items, many=True)
+    else:
+        result = politician_schema.dump(pol_query, many=True)
 
     for r in result:
         format_politician(r)
@@ -76,29 +82,34 @@ def districts():
 
     dist_query = db.session.query(District)
 
+    page = get_query("page", queries)
+    if page == None:
+        page = 1
+    else:
+        # Convert the given page number into an int
+        page = int(page[0])
+
     # Searching
     q = get_query("q", queries)
     if q:
         dist_query = search_districts(q, dist_query)
 
     # Filtering
-    else:
-        dist_query = filter_districts(dist_query, queries)
+    dist_query = filter_districts(dist_query, queries)
 
     # Sorting
     sort = get_query("sort", queries)
     dist_query = sort_districts(sort, dist_query)
 
-    page = get_query("page", queries)
-    if page == None:
-        page = 1
-    else:
-        page = int(page[0])
-
     count = dist_query.count()
-    districts = dist_query.paginate(page=page)
 
-    result = district_schema.dump(districts.items, many=True)
+    if page != -1:
+        per_page = int(get_query("perPage", queries).pop()) if get_query("perPage", queries) else 20
+        districts = dist_query.paginate(page=page, per_page=per_page)
+
+        result = district_schema.dump(districts.items, many=True)
+    else:
+        result = district_schema.dump(dist_query, many=True)
 
     for r in result:
         format_district(r)
@@ -126,29 +137,34 @@ def elections():
 
     elect_query = db.session.query(Election)
 
+    page = get_query("page", queries)
+    if page == None:
+        page = 1
+    else:
+        # Convert the given page number into an int
+        page = int(page[0])
+
     # Searching
     q = get_query("q", queries)
     if q:
         elect_query = search_elections(q, elect_query)
 
     # Filtering
-    else:
-        elect_query = filter_elections(elect_query, queries)
+    elect_query = filter_elections(elect_query, queries)
 
     # Sorting
     sort = get_query("sort", queries)
     elect_query = sort_elections(sort, elect_query)
 
-    page = get_query("page", queries)
-    if page == None:
-        page = 1
-    else:
-        page = int(page[0])
-
     count = elect_query.count()
-    elections = elect_query.paginate(page=page)
 
-    result = election_schema.dump(elections.items, many=True)
+    if page != -1:
+        per_page = int(get_query("perPage", queries).pop()) if get_query("perPage", queries) else 20
+        elections = elect_query.paginate(page=page, per_page=per_page)
+
+        result = election_schema.dump(elections.items, many=True)
+    else:
+        result = election_schema.dump(elect_query, many=True)
 
     for r in result:
         format_election(r)
@@ -166,6 +182,10 @@ def election_id(id):
 
     return election
 
+@app.route("/news", methods=["GET"])
+def news():
+    ret = get_news()
+    return jsonify(ret)
 
 @app.route("/")
 def hello_world():

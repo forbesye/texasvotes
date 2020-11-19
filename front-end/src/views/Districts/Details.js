@@ -2,58 +2,14 @@ import React, { useState, useEffect, Fragment } from "react"
 import { PageHeader, Typography, Divider, Row, Col, List, Checkbox } from "antd"
 import { useParams, useHistory, Link } from "react-router-dom"
 import styles from "./Districts.module.css"
-import { districtName, description } from "./Lib"
+import { districtName, description, electionName, chart } from "./Lib"
 import Spinner from "components/ui/Spinner"
 import { getAPI } from "library/APIClient"
 import DistrictMap from "components/ui/DistrictMap"
-import PieChart from "components/charts/PieChart"
 import PoliticianCard from "components/cards/PoliticianCard"
-import { formatAsMoney, convertToPercent } from "library/Functions"
-import { party_mappings } from "library/Mappings"
 
 const { Title, Text } = Typography
 
-/**
- * Returns a link to an associated election with proper text
- * @param {Election object} election
- * @param {Number} number
- * Todo: Refactor
- */
-const electionName = (election, number) => {
-	const { dates, office, type, party, id } = election
-	const { election_day } = dates
-	const electionYear = new Date(election_day).getFullYear()
-	if (type.class === "general") {
-		return (
-			<div>
-				<Link to={`/elections/view/${id}`}>
-					{`${electionYear} General Election for `}{" "}
-					{districtName(office, number)}
-				</Link>
-			</div>
-		)
-	} else if (type.class === "runoff") {
-		return (
-			<div>
-				<Link to={`/elections/view/${id}`}>
-					{`${electionYear} ${
-						party_mappings[party]
-					} Runoff for ${districtName(office, number)}`}
-				</Link>
-			</div>
-		)
-	} else {
-		return (
-			<div>
-				<Link to={`/elections/view/${id}`}>
-					{`${electionYear} ${
-						party_mappings[party]
-					} Primary for ${districtName(office, number)}`}
-				</Link>
-			</div>
-		)
-	}
-}
 
 /**
  * Functional component for District detail
@@ -151,7 +107,7 @@ const Details = () => {
 											? "Elected official"
 											: "Elected officials"}
 									</Text>
-									<div className={styles.grid}>
+									<div className={elected_officials.length < 2 ? styles.polCard : styles.grid}>
 										{elected_officials.map((data) => (
 											<PoliticianCard
 												key={data.id}
@@ -175,7 +131,9 @@ const Details = () => {
 											Elections
 										</Text>
 										{elections.map((e) =>
-											electionName(e, number)
+				                            <Link to={`/elections/view/${e.id}`} key={e.id} >
+											    {electionName(e, number)}
+                                            </Link>
 										)}
 									</Fragment>
 								) : (
@@ -195,7 +153,7 @@ const Details = () => {
 							Counties
 						</Title>
 						<List
-							dataSource={counties}
+							dataSource={counties.sort()}
 							renderItem={(item) => (
 								<List.Item>
 									<Text>{item}</Text>
@@ -238,73 +196,13 @@ const Details = () => {
 							<br />
 							{Object.keys(texasData).length > 0 && compare ? (
 								<>
-									<Text
-										strong
-										style={{ fontSize: 12, marginTop: 20 }}
-									>
-										Current District
-									</Text>
-									<PieChart
-										data={demographics.age.items.map(
-											(item) =>
-												convertToPercent(
-													item.proportion,
-													demographics.age.out_of
-												)
-										)}
-										labels={demographics.age.items.map(
-											(item) => {
-												if (item.end) {
-													return `${item.start} - ${item.end}`
-												} else {
-													return `${item.start}+`
-												}
-											}
-										)}
-									/>
-									<Text
-										strong
-										style={{ fontSize: 12, marginTop: 20 }}
-									>
-										Texas
-									</Text>
-									<PieChart
-										data={texasDemographics.age.items.map(
-											(item) =>
-												convertToPercent(
-													item.proportion,
-													texasDemographics.age.out_of
-												)
-										)}
-										labels={texasDemographics.age.items.map(
-											(item) => {
-												if (item.end) {
-													return `${item.start} - ${item.end}`
-												} else {
-													return `${item.start}+`
-												}
-											}
-										)}
-									/>
+                                    {chart("Current District", "age", demographics.age.items, demographics.age.out_of)}
+                                    {chart("Texas", "age", texasDemographics.age.items, texasDemographics.age.out_of)}
 								</>
 							) : (
-								<PieChart
-									data={demographics.age.items.map((item) =>
-										convertToPercent(
-											item.proportion,
-											demographics.age.out_of
-										)
-									)}
-									labels={demographics.age.items.map(
-										(item) => {
-											if (item.end) {
-												return `${item.start} - ${item.end}`
-											} else {
-												return `${item.start}+`
-											}
-										}
-									)}
-								/>
+								<>
+                                    {chart("", "age", demographics.age.items, demographics.age.out_of)}
+								</>
 							)}
 						</div>
 						<div style={{ marginTop: "40px" }}>
@@ -312,58 +210,16 @@ const Details = () => {
 								Race
 							</Text>
 							<br />
+                            
 							{Object.keys(texasData).length > 0 && compare ? (
 								<>
-									<Text
-										strong
-										style={{ fontSize: 12, marginTop: 20 }}
-									>
-										Current District
-									</Text>
-									<PieChart
-										data={demographics.race.items.map(
-											(item) =>
-												convertToPercent(
-													item.proportion,
-													demographics.race.out_of
-												)
-										)}
-										labels={demographics.race.items.map(
-											(item) => item.race
-										)}
-									/>
-									<Text
-										strong
-										style={{ fontSize: 12, marginTop: 20 }}
-									>
-										Texas
-									</Text>
-									<PieChart
-										data={texasDemographics.race.items.map(
-											(item) =>
-												convertToPercent(
-													item.proportion,
-													texasDemographics.race
-														.out_of
-												)
-										)}
-										labels={texasDemographics.race.items.map(
-											(item) => item.race
-										)}
-									/>
+                                    {chart("Current District", "race", demographics.race.items, demographics.race.out_of)}
+                                    {chart("Texas", "race", texasDemographics.race.items, texasDemographics.race.out_of)}
 								</>
 							) : (
-								<PieChart
-									data={demographics.race.items.map((item) =>
-										convertToPercent(
-											item.proportion,
-											demographics.race.out_of
-										)
-									)}
-									labels={demographics.race.items.map(
-										(item) => item.race
-									)}
-								/>
+								<>
+                                    {chart("", "race", demographics.race.items, demographics.race.out_of)}
+								</>
 							)}
 						</div>
 						{demographics.ethnicity ? (
@@ -372,69 +228,16 @@ const Details = () => {
 									Ethnicity
 								</Text>
 								<br />
-								{Object.keys(texasData).length > 0 &&
-								compare ? (
-									<>
-										<Text
-											strong
-											style={{
-												fontSize: 12,
-												marginTop: 20,
-											}}
-										>
-											Current District
-										</Text>
-										<PieChart
-											data={demographics.ethnicity.items.map(
-												(item) =>
-													convertToPercent(
-														item.proportion,
-														demographics.ethnicity
-															.out_of
-													)
-											)}
-											labels={demographics.ethnicity.items.map(
-												(item) => item.ethnicity
-											)}
-										/>
-										<Text
-											strong
-											style={{
-												fontSize: 12,
-												marginTop: 20,
-											}}
-										>
-											Texas
-										</Text>
-										<PieChart
-											data={texasDemographics.ethnicity.items.map(
-												(item) =>
-													convertToPercent(
-														item.proportion,
-														texasDemographics
-															.ethnicity.out_of
-													)
-											)}
-											labels={texasDemographics.ethnicity.items.map(
-												(item) => item.ethnicity
-											)}
-										/>
-									</>
-								) : (
-									<PieChart
-										data={demographics.ethnicity.items.map(
-											(item) =>
-												convertToPercent(
-													item.proportion,
-													demographics.ethnicity
-														.out_of
-												)
-										)}
-										labels={demographics.ethnicity.items.map(
-											(item) => item.ethnicity
-										)}
-									/>
-								)}
+							    {Object.keys(texasData).length > 0 && compare ? (
+							    	<>
+                                        {chart("Current District", "ethnicity", demographics.ethnicity.items, demographics.ethnicity.out_of)}
+                                        {chart("Texas", "ethnicity", texasDemographics.ethnicity.items, texasDemographics.ethnicity.out_of)}
+							    	</>
+							    ) : (
+							    	<>
+                                        {chart("", "ethnicity", demographics.ethnicity.items, demographics.ethnicity.out_of)}
+							    	</>
+							    )}
 							</div>
 						) : null}
 						<div style={{ marginTop: "40px" }}>
@@ -444,59 +247,13 @@ const Details = () => {
 							<br />
 							{Object.keys(texasData).length > 0 && compare ? (
 								<>
-									<Text
-										strong
-										style={{ fontSize: 12, marginTop: 20 }}
-									>
-										Current District
-									</Text>
-									<PieChart
-										data={demographics.education.enrollment.items.map(
-											(item) =>
-												convertToPercent(
-													item.proportion,
-													demographics.education
-														.enrollment.out_of
-												)
-										)}
-										labels={demographics.education.enrollment.items.map(
-											(item) => item.level
-										)}
-									/>
-									<Text
-										strong
-										style={{ fontSize: 12, marginTop: 20 }}
-									>
-										Texas
-									</Text>
-									<PieChart
-										data={texasDemographics.education.enrollment.items.map(
-											(item) =>
-												convertToPercent(
-													item.proportion,
-													texasDemographics.education
-														.enrollment.out_of
-												)
-										)}
-										labels={texasDemographics.education.enrollment.items.map(
-											(item) => item.level
-										)}
-									/>
+                                    {chart("Current District", "education", demographics.education.enrollment.items, demographics.education.enrollment.out_of)}
+                                    {chart("Texas", "education", texasDemographics.education.enrollment.items, texasDemographics.education.enrollment.out_of)}
 								</>
 							) : (
-								<PieChart
-									data={demographics.education.enrollment.items.map(
-										(item) =>
-											convertToPercent(
-												item.proportion,
-												demographics.education
-													.enrollment.out_of
-											)
-									)}
-									labels={demographics.education.enrollment.items.map(
-										(item) => item.level
-									)}
-								/>
+								<>
+                                    {chart("", "education", demographics.education.enrollment.items, demographics.education.enrollment.out_of)}
+								</>
 							)}
 							<br />
 							<Text strong style={{ fontSize: 18 }}>
@@ -505,59 +262,13 @@ const Details = () => {
 							<br />
 							{Object.keys(texasData).length > 0 && compare ? (
 								<>
-									<Text
-										strong
-										style={{ fontSize: 12, marginTop: 20 }}
-									>
-										Current District
-									</Text>
-									<PieChart
-										data={demographics.education.attainment.items.map(
-											(item) =>
-												convertToPercent(
-													item.proportion,
-													demographics.education
-														.attainment.out_of
-												)
-										)}
-										labels={demographics.education.attainment.items.map(
-											(item) => item.level
-										)}
-									/>
-									<Text
-										strong
-										style={{ fontSize: 12, marginTop: 20 }}
-									>
-										Texas
-									</Text>
-									<PieChart
-										data={texasDemographics.education.attainment.items.map(
-											(item) =>
-												convertToPercent(
-													item.proportion,
-													texasDemographics.education
-														.attainment.out_of
-												)
-										)}
-										labels={texasDemographics.education.attainment.items.map(
-											(item) => item.level
-										)}
-									/>
+                                    {chart("Current District", "education", demographics.education.attainment.items, demographics.education.attainment.out_of)}
+                                    {chart("Texas", "education", texasDemographics.education.attainment.items, texasDemographics.education.attainment.out_of)}
 								</>
 							) : (
-								<PieChart
-									data={demographics.education.attainment.items.map(
-										(item) =>
-											convertToPercent(
-												item.proportion,
-												demographics.education
-													.attainment.out_of
-											)
-									)}
-									labels={demographics.education.attainment.items.map(
-										(item) => item.level
-									)}
-								/>
+								<>
+                                    {chart("", "education", demographics.education.attainment.items, demographics.education.attainment.out_of)}
+								</>
 							)}
 						</div>
 						<div style={{ marginTop: "40px" }}>
@@ -567,91 +278,13 @@ const Details = () => {
 							<br />
 							{Object.keys(texasData).length > 0 && compare ? (
 								<>
-									<Text
-										strong
-										style={{ fontSize: 12, marginTop: 20 }}
-									>
-										Current District
-									</Text>
-									<PieChart
-										data={demographics.income.items.map(
-											(item) =>
-												convertToPercent(
-													item.proportion,
-													demographics.income.out_of
-												)
-										)}
-										labels={demographics.income.items.map(
-											(item) => {
-												if (item.end) {
-													return `${formatAsMoney(
-														item.start
-													)} - ${formatAsMoney(
-														item.end
-													)}`
-												} else {
-													return `${formatAsMoney(
-														item.start
-													)}+`
-												}
-											}
-										)}
-									/>
-									<Text
-										strong
-										style={{ fontSize: 12, marginTop: 20 }}
-									>
-										Texas
-									</Text>
-									<PieChart
-										data={texasDemographics.income.items.map(
-											(item) =>
-												convertToPercent(
-													item.proportion,
-													texasDemographics.income
-														.out_of
-												)
-										)}
-										labels={texasDemographics.income.items.map(
-											(item) => {
-												if (item.end) {
-													return `${formatAsMoney(
-														item.start
-													)} - ${formatAsMoney(
-														item.end
-													)}`
-												} else {
-													return `${formatAsMoney(
-														item.start
-													)}+`
-												}
-											}
-										)}
-									/>
+                                    {chart("Current District", "income", demographics.income.items, demographics.income.out_of)}
+                                    {chart("Texas", "income", texasDemographics.income.items, texasDemographics.income.out_of)}
 								</>
 							) : (
-								<PieChart
-									data={demographics.income.items.map(
-										(item) =>
-											convertToPercent(
-												item.proportion,
-												demographics.income.out_of
-											)
-									)}
-									labels={demographics.income.items.map(
-										(item) => {
-											if (item.end) {
-												return `${formatAsMoney(
-													item.start
-												)} - ${formatAsMoney(item.end)}`
-											} else {
-												return `${formatAsMoney(
-													item.start
-												)}+`
-											}
-										}
-									)}
-								/>
+								<>
+                                    {chart("", "income", demographics.income.items, demographics.income.out_of)}
+								</>
 							)}
 						</div>
 					</article>

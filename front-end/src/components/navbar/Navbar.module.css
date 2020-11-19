@@ -19,7 +19,9 @@
 }
 
 .logo {
-	width: 192px;
+	width: 168px;
+	position: relative;
+	z-index: 1;
 }
 
 .menu {
@@ -31,7 +33,7 @@
 @media (min-width: 576px) {
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
 	.leftNav {
 		flex: 0;
 	}
@@ -50,9 +52,6 @@
 	.hamburger {
 		visibility: hidden;
 	}
-}
-
-@media (min-width: 992px) {
 }
 
 @media (min-width: 1200px) {

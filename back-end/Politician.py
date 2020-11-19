@@ -104,15 +104,16 @@ def search_politicians(q, pol_query):
 
     searches = []
     for term in terms:
-        searches.append(Politician.name.match(term))
+        searches.append(Politician.name.ilike("%{}%".format(term)))
         searches.append(Politician.office.match(term))
         try:
             searches.append(Politician.district_number.in_([int(term)]))
         except ValueError:
             pass
         searches.append(
-            District.counties.any(func.lower(Counties.name) == term.lower())
+            District.counties.any(func.lower(Counties.name).contains(term.lower()))
         )
-    pol_query = pol_query.join(District).filter(or_(*tuple(searches)))
+        searches.append(Politician.elections.any(Election.election_day.contains(term)))
+    pol_query = pol_query.filter(or_(*tuple(searches)))
 
     return pol_query
