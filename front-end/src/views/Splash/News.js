@@ -12,7 +12,7 @@ export default function News({ articles, loading }) {
 	return (
 		<div className={styles.news}>
 			{articles && articles.length > 0 ? (
-				articles.map((article, i) => {
+				articles.map((article) => {
 					const displayDate = new Date(
 						article.publishedAt
 					).toLocaleString("en-US", {
@@ -22,7 +22,7 @@ export default function News({ articles, loading }) {
 					})
 					return (
 						<a
-							key={i}
+							key={article.title}
 							href={article.url}
 							target="_blank"
 							rel="noreferrer noopener"
@@ -31,11 +31,17 @@ export default function News({ articles, loading }) {
 								hoverable
 								className={styles.newsCard}
 								cover={
-									<img
-										className={styles.newsCardImage}
-										src={article.urlToImage}
-										alt={article.title}
-									/>
+									article.urlToImage ? (
+										<img
+											className={styles.newsCardImage}
+											src={article.urlToImage}
+											alt={article.title}
+										/>
+									) : (
+										<div
+											className={styles.newsCardImage}
+										></div>
+									)
 								}
 							>
 								<Meta
@@ -43,6 +49,10 @@ export default function News({ articles, loading }) {
 									description={
 										<div>
 											<div>By {article.author}</div>
+											<div>
+												Published by{" "}
+												{article.source.name}
+											</div>
 											<div>
 												Published on {displayDate}
 											</div>
