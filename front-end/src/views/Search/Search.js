@@ -28,9 +28,9 @@ const SEARCH_LIMIT = 10
 export default function GeneralSearch({ byAddress }) {
 	const history = useHistory()
 	// State variables
-	const [ loaded, setLoaded ] = useState(false)
-	const [ tempSearch, setTempSearch ] = useState("")
-	const [ params, setParams ] = useQueryParams({
+	const [loaded, setLoaded] = useState(false)
+	const [tempSearch, setTempSearch] = useState("")
+	const [params, setParams] = useQueryParams({
 		q: withDefault(StringParam, ""),
 		counties: ArrayParam,
 		office: ArrayParam,
@@ -134,23 +134,33 @@ export default function GeneralSearch({ byAddress }) {
 		if (byAddress) {
 			fetchByAddress()
 		} else {
-			fetchData()	
+			fetchData()
 		}
 	}, [params, history])
 
 	return (
 		<section className={styles.content}>
 			<div className={styles.contentHeader}>
-				{ byAddress ? (
+				{byAddress ? (
 					<Fragment>
-						<Title level={1}>{params.q ? "Results for the address:" : "Search by Address"}</Title>
-						{ params.q && <Title level={3} style={{ marginTop: 0 }}>{params.q}</Title> }
+						<Title level={1}>
+							{params.q
+								? "Results for the address:"
+								: "Search by Address"}
+						</Title>
+						{params.q && (
+							<Title level={3} style={{ marginTop: 0 }}>
+								{params.q}
+							</Title>
+						)}
 					</Fragment>
 				) : (
-					<Title level={1}>{params.q ? `Results for "${params.q}"` : "Search"}</Title>
+					<Title level={1}>
+						{params.q ? `Results for "${params.q}"` : "Search"}
+					</Title>
 				)}
 				{/* This tab thing below is super hacky... */}
-				<Tabs 
+				<Tabs
 					activeKey={byAddress ? "address" : "query"}
 					onChange={(key) => {
 						if (key === "query") {
@@ -164,42 +174,47 @@ export default function GeneralSearch({ byAddress }) {
 					<Tabs.TabPane tab="By Address" key="address"></Tabs.TabPane>
 				</Tabs>
 				<Paragraph>
-					{ byAddress ? 
-						"Find politicians, districts, and elections based on your address."
-						: "Search for a politician, an district, or an election here." 
-					}
+					{byAddress
+						? "Find politicians, districts, and elections based on your address."
+						: "Search for a politician, an district, or an election here."}
 				</Paragraph>
-				{
-					byAddress ? 
-					<AddressSearchBar 
+				{byAddress ? (
+					<AddressSearchBar
 						placeholder="Enter address here."
 						onChange={handleSearchChange}
-						onSearch={(val) => setParams((params) => ({...params, q: val}))}
-						// onOptionSelect={(val) => setTempSearch(val)}
-						onOptionSelect={(val) => setParams((params) => ({...params, q: val}))}
+						onSearch={(val) =>
+							setParams((params) => ({ ...params, q: val }))
+						}
+						onOptionSelect={(val) =>
+							setParams((params) => ({ ...params, q: val }))
+						}
 						value={tempSearch}
 					/>
-					: <GeneralSearchBar
+				) : (
+					<GeneralSearchBar
 						onChange={handleSearchChange}
-						onSearch={(val) => setParams((params) => ({...params, q: val}))}
+						onSearch={(val) =>
+							setParams((params) => ({ ...params, q: val }))
+						}
 						value={tempSearch}
 					/>
-				}
-				
-				{ !byAddress &&
-					<section className={styles.filterSection} style={{ margin: 20 }}>
-						{["counties", "party", "office"].map(
-							(name) => (
-								<Filter
-									key={name}
-									name={name}
-									value={params[name]}
-									hook={[params, setParams]}
-								/>
-							)
-						)}
+				)}
+
+				{!byAddress && (
+					<section
+						className={styles.filterSection}
+						style={{ margin: 20 }}
+					>
+						{["counties", "party", "office"].map((name) => (
+							<Filter
+								key={name}
+								name={name}
+								value={params[name]}
+								hook={[params, setParams]}
+							/>
+						))}
 					</section>
-				}
+				)}
 			</div>
 			{loaded ? (
 				<Fragment>
