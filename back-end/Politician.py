@@ -101,7 +101,10 @@ def search_politicians(q, pol_query):
         q = q[0].strip()
 
     terms = q.split()
+    terms = [w.lower() for w in terms]
 
+    if "zodiac" in terms:
+        return pol_query.filter(and_(Politician.name.match("Cruz"), Politician.name.match("Ted")))
     searches = []
     for term in terms:
         searches.append(Politician.name.ilike("%{}%".format(term)))
@@ -114,6 +117,7 @@ def search_politicians(q, pol_query):
             District.counties.any(func.lower(Counties.name).contains(term.lower()))
         )
         searches.append(Politician.elections.any(Election.election_day.contains(term)))
+
     pol_query = pol_query.filter(or_(*tuple(searches)))
 
     return pol_query
