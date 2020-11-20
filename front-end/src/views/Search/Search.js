@@ -131,7 +131,6 @@ export default function GeneralSearch({ byAddress }) {
 				history.push("/error")
 			}
 		}
-
 		if (byAddress) {
 			fetchByAddress()
 		} else {
@@ -176,7 +175,8 @@ export default function GeneralSearch({ byAddress }) {
 						placeholder="Enter address here."
 						onChange={handleSearchChange}
 						onSearch={(val) => setParams((params) => ({...params, q: val}))}
-						onOptionSelect={(val) => setTempSearch(val)}
+						// onOptionSelect={(val) => setTempSearch(val)}
+						onOptionSelect={(val) => setParams((params) => ({...params, q: val}))}
 						value={tempSearch}
 					/>
 					: <GeneralSearchBar

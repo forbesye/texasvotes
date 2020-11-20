@@ -80,7 +80,9 @@ const Splash = () => {
 							placeholder="Enter address here."
 							onSearch={(value) => history.push(`/search/address?q=${value}`)}
 							onChange={(text) => setAddress(text)}
-							onOptionSelect={(val) => setAddress(val)}
+							onOptionSelect={(value) => {
+								history.push(`/search/address?q=${value}`)
+							}}
 							value={address}
 						/>
 					}

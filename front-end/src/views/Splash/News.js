@@ -11,7 +11,7 @@ export default function News({ articles, loading }) {
 
     return (
         <div className={styles.news}>
-            { articles && articles.length > 0 ? articles.map((article, i) => {
+            { articles && articles.length > 0 ? articles.map((article) => {
                     const displayDate = new Date(article.publishedAt).toLocaleString("en-US", {
                         month: "long",
                         day: "numeric",
@@ -19,7 +19,7 @@ export default function News({ articles, loading }) {
                     })
                     return (
                         <a 
-                            key={i}
+                            key={article.title}
                             href={article.url}
                             target="_blank"
                             rel="noreferrer noopener"
