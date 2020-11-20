@@ -20,10 +20,10 @@ const { Title, Paragraph } = Typography
 const Splash = () => {
 	const history = useHistory()
 	const ref = useRef(null)
-	const [ generalSearch, setGeneralSearch ] = useState(true)
-	const [ searchVal, setSearchVal ] = useState("")
-	const [ address, setAddress ] = useState("")
-	const [ news, setNews ] = useState({
+	const [generalSearch, setGeneralSearch] = useState(true)
+	const [searchVal, setSearchVal] = useState("")
+	const [address, setAddress] = useState("")
+	const [news, setNews] = useState({
 		articles: [],
 		loading: false,
 		lastUpdated: null,
@@ -57,33 +57,44 @@ const Splash = () => {
 						</Paragraph>
 					</div>
 					<div className={styles.searchSelectButtons}>
-						<Button 
+						<Button
 							ghost
 							className={styles.searchSelectButton}
 							onClick={() => setGeneralSearch(true)}
-						>Search By Query</Button>
-						<Button 
+						>
+							Search By Query
+						</Button>
+						<Button
 							ghost
 							className={styles.searchSelectButton}
 							onClick={() => setGeneralSearch(false)}
-						>Search By Address</Button>
+						>
+							Search By Address
+						</Button>
 					</div>
-					{ generalSearch ?
+					{generalSearch ? (
 						<GeneralSearchBar
 							clear
-							onSearch={(value) => history.push(`/search?q=${value}`)}
+							onSearch={(value) =>
+								history.push(`/search?q=${value}`)
+							}
 							onChange={(text) => setSearchVal(text)}
 							value={searchVal}
-						/> :
-						<AddressSearchBar 
+						/>
+					) : (
+						<AddressSearchBar
 							clear
 							placeholder="Enter address here."
-							onSearch={(value) => history.push(`/search/address?q=${value}`)}
+							onSearch={(value) =>
+								history.push(`/search/address?q=${value}`)
+							}
 							onChange={(text) => setAddress(text)}
-							onOptionSelect={(val) => setAddress(val)}
+							onOptionSelect={(value) => {
+								history.push(`/search/address?q=${value}`)
+							}}
 							value={address}
 						/>
-					}
+					)}
 				</div>
 				<div className={styles.downButton}>
 					<DownOutlined
