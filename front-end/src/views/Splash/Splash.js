@@ -3,12 +3,9 @@ import { Card, Typography, Button } from "antd"
 import { DownOutlined } from "@ant-design/icons"
 import { Link, useHistory } from "react-router-dom"
 
-// Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-import texas from "views/Splash/images/texas.svg"
-
-// Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-import politician from "views/Splash/images/politician.svg"
-import vote from "views/Splash/images/vote.svg"
+import Districts from "views/Splash/images/Districts.jpg"
+import Politicians from "views/Splash/images/Politicians.jpg"
+import Elections from "views/Splash/images/Elections.jpg"
 
 import styles from "./Splash.module.css"
 import GeneralSearchBar, { AddressSearchBar } from "../Search/GeneralSearchBar"
@@ -109,7 +106,7 @@ const Splash = () => {
 				</div>
 			</div>
 			<div className={styles.modelCards} ref={ref}>
-				<Title level={1} style={{ textAlign: "center" }}>
+				<Title level={1} style={{ textAlign: "center", marginTop: 32 }}>
 					Model Pages
 				</Title>
 				<div className={styles.cardFlexContainer}>
@@ -125,7 +122,7 @@ const Splash = () => {
 								<img
 									className={styles.cardImage}
 									alt={"Politician"}
-									src={politician}
+									src={Politicians}
 								></img>
 							}
 							hoverable={true}
@@ -150,7 +147,7 @@ const Splash = () => {
 								<img
 									className={styles.cardImage}
 									alt={"Texas"}
-									src={texas}
+									src={Districts}
 								></img>
 							}
 							hoverable={true}
@@ -176,7 +173,7 @@ const Splash = () => {
 								<img
 									className={styles.cardImage}
 									alt={"Vote"}
-									src={vote}
+									src={Elections}
 								></img>
 							}
 							hoverable={true}
