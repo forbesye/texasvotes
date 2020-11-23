@@ -3,12 +3,9 @@ import { Card, Typography, Button } from "antd"
 import { DownOutlined } from "@ant-design/icons"
 import { Link, useHistory } from "react-router-dom"
 
-// Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-import texas from "views/Splash/images/texas.svg"
-
-// Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-import politician from "views/Splash/images/politician.svg"
-import vote from "views/Splash/images/vote.svg"
+import Districts from "views/Splash/images/Districts.jpg"
+import Politicians from "views/Splash/images/Politicians.jpg"
+import Elections from "views/Splash/images/Elections.jpg"
 
 import styles from "./Splash.module.css"
 import GeneralSearchBar, { AddressSearchBar } from "../Search/GeneralSearchBar"
@@ -20,10 +17,10 @@ const { Title, Paragraph } = Typography
 const Splash = () => {
 	const history = useHistory()
 	const ref = useRef(null)
-	const [ generalSearch, setGeneralSearch ] = useState(true)
-	const [ searchVal, setSearchVal ] = useState("")
-	const [ address, setAddress ] = useState("")
-	const [ news, setNews ] = useState({
+	const [generalSearch, setGeneralSearch] = useState(true)
+	const [searchVal, setSearchVal] = useState("")
+	const [address, setAddress] = useState("")
+	const [news, setNews] = useState({
 		articles: [],
 		loading: false,
 		lastUpdated: null,
@@ -57,33 +54,44 @@ const Splash = () => {
 						</Paragraph>
 					</div>
 					<div className={styles.searchSelectButtons}>
-						<Button 
+						<Button
 							ghost
 							className={styles.searchSelectButton}
 							onClick={() => setGeneralSearch(true)}
-						>Search By Query</Button>
-						<Button 
+						>
+							Search By Query
+						</Button>
+						<Button
 							ghost
 							className={styles.searchSelectButton}
 							onClick={() => setGeneralSearch(false)}
-						>Search By Address</Button>
+						>
+							Search By Address
+						</Button>
 					</div>
-					{ generalSearch ?
+					{generalSearch ? (
 						<GeneralSearchBar
 							clear
-							onSearch={(value) => history.push(`/search?q=${value}`)}
+							onSearch={(value) =>
+								history.push(`/search?q=${value}`)
+							}
 							onChange={(text) => setSearchVal(text)}
 							value={searchVal}
-						/> :
-						<AddressSearchBar 
+						/>
+					) : (
+						<AddressSearchBar
 							clear
 							placeholder="Enter address here."
-							onSearch={(value) => history.push(`/search/address?q=${value}`)}
+							onSearch={(value) =>
+								history.push(`/search/address?q=${value}`)
+							}
 							onChange={(text) => setAddress(text)}
-							onOptionSelect={(val) => setAddress(val)}
+							onOptionSelect={(value) => {
+								history.push(`/search/address?q=${value}`)
+							}}
 							value={address}
 						/>
-					}
+					)}
 				</div>
 				<div className={styles.downButton}>
 					<DownOutlined
@@ -98,7 +106,7 @@ const Splash = () => {
 				</div>
 			</div>
 			<div className={styles.modelCards} ref={ref}>
-				<Title level={1} style={{ textAlign: "center" }}>
+				<Title level={1} style={{ textAlign: "center", marginTop: 32 }}>
 					Model Pages
 				</Title>
 				<div className={styles.cardFlexContainer}>
@@ -114,7 +122,7 @@ const Splash = () => {
 								<img
 									className={styles.cardImage}
 									alt={"Politician"}
-									src={politician}
+									src={Politicians}
 								></img>
 							}
 							hoverable={true}
@@ -139,7 +147,7 @@ const Splash = () => {
 								<img
 									className={styles.cardImage}
 									alt={"Texas"}
-									src={texas}
+									src={Districts}
 								></img>
 							}
 							hoverable={true}
@@ -165,7 +173,7 @@ const Splash = () => {
 								<img
 									className={styles.cardImage}
 									alt={"Vote"}
-									src={vote}
+									src={Elections}
 								></img>
 							}
 							hoverable={true}

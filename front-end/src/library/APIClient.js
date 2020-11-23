@@ -26,13 +26,13 @@ const getAPI = async ({ model, path, params }) => {
 }
 
 /**
- * Special route that gets models based on address. Hard to hash and thus hard to 
- * cache results. 
+ * Special route that gets models based on address. Hard to hash and thus hard to
+ * cache results.
  * @param {String} address
  */
 const getByAddress = async (address) => {
 	const res = await client.get("/address", {
-		params: { address: address }
+		params: { address: address },
 	})
 	return res.data
 }
@@ -57,7 +57,6 @@ const checkCache = (hash) => {
 	if (!apiCache.has(hash)) {
 		return null
 	}
-	console.log("got cached")
 	return apiCache.get(hash)
 }
 

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react"
-import { AutoComplete, Typography, Input } from "antd"
+import React, { useState } from "react"
+import { AutoComplete, Input } from "antd"
 import axios from "axios"
 import styles from "./Search.module.css"
 
@@ -25,7 +25,7 @@ export default function GeneralSearchBar({
 		size: "large",
 		enterButton: "Search",
 		placeholder: placeholder || "Enter sitewide search here.",
-		onChange:  onSearchChange,
+		onChange: onSearchChange,
 		onSearch: onSearch,
 		value: value,
 	}
@@ -55,10 +55,11 @@ export default function GeneralSearchBar({
 	}
 }
 
-const ADDRESS_SEARCH_ENDPOINT = "https://autosuggest.search.hereapi.com/v1/autosuggest"
+const ADDRESS_SEARCH_ENDPOINT =
+	"https://autosuggest.search.hereapi.com/v1/autosuggest"
 
-export function AddressSearchBar ({ onChange, ...props }) {
-	const [ results, setResults ] = useState([])
+export function AddressSearchBar({ onChange, ...props }) {
+	const [results, setResults] = useState([])
 
 	const onSearchChange = async (text) => {
 		let searchResults = []
@@ -68,13 +69,21 @@ export function AddressSearchBar ({ onChange, ...props }) {
 					apiKey: process.env.REACT_APP_HERE_KEY,
 					q: text,
 					in: "bbox:-106.835951,26.297369,-93.113504,36.478712",
-					limit: 10
-				}
+					limit: 10,
+				},
 			})
 			if (results.status === 200) {
-				searchResults = results.data.items.map(({ title }) => {
-					return { label: title, value: title }
-				})
+				const addressList = [
+					...new Set(
+						results.data.items
+							.filter((i) => i?.address?.label)
+							.map((i) => i.address.label)
+					),
+				]
+				searchResults = addressList.map((address) => ({
+					label: address,
+					value: address,
+				}))
 			}
 		}
 		setResults(searchResults)
@@ -82,7 +91,7 @@ export function AddressSearchBar ({ onChange, ...props }) {
 	}
 
 	return (
-		<GeneralSearchBar 
+		<GeneralSearchBar
 			{...props}
 			autoComplete
 			onChange={onSearchChange}

@@ -81,7 +81,7 @@ const Routes = [
 	{
 		title: "Search By Address",
 		path: "/search/address",
-		Component: () => <Search byAddress={true} />
+		Component: () => <Search byAddress={true} />,
 	},
 	{
 		title: "Error",
