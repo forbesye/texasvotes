@@ -60,7 +60,7 @@ deploy_development:
   script:
     - $AWS_DEV_DEPLOY
     - cd back-end
-    - /root/.local/bin/eb deploy Texasvotes-dev
+    - /root/.local/bin/eb deploy Texasvotes-prod
 
 deploy_production:
   image: python:3.6-stretch
