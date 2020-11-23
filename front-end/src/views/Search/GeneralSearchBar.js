@@ -3,7 +3,6 @@ import { AutoComplete, Typography, Input } from "antd"
 import axios from "axios"
 import styles from "./Search.module.css"
 
-const { Title, Paragraph } = Typography
 const { Search } = Input
 
 // This component is used on both the splash and search pages.
