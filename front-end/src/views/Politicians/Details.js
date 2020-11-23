@@ -273,7 +273,7 @@ export default function Details() {
 								</Paragraph>
 								<br />
 								<List
-									dataSource={district.counties}
+									dataSource={district.counties.sort()}
 									renderItem={(item) => (
 										<List.Item>
 											<Text>{item}</Text>
