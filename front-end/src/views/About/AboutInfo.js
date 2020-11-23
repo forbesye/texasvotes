@@ -189,7 +189,7 @@ const teamInfo = [
 		username: "lawrencewin",
 		email: "lawrence.j.win@gmail.com",
 		picture_path: LarryWinImg,
-		role: "Front-end",
+		role: "Front-end | Phase II Leader",
 		bio:
 			"I’m a third year CS major at UT Austin. I grew up and am currently living in Belton, Texas. In my free time, I cook and maintain a food Instagram, keep up with the 2020 election season, and obsess over the Avatar universe.",
 		linkedin: "https://www.linkedin.com/in/lawrence-win",
@@ -202,7 +202,7 @@ const teamInfo = [
 		username: "jsuriadinata",
 		email: "jsuriadinata@utexas.edu",
 		picture_path: JenniferSuriadinataImg,
-		role: "Front-end",
+		role: "Front-end | Phase III Leader",
 		bio:
 			"I’m a third year CS major at UT Austin. I’m from Dallas, Texas and spend my free time playing video games and practicing piano. I definitely spend too much time working on projects and school :(",
 		linkedin: "https://www.linkedin.com/in/jennifer-suriadinata-990373171",
@@ -215,7 +215,7 @@ const teamInfo = [
 		username: "forbesye",
 		picture_path: JeffersonYeImg,
 		email: "heroicevil7@gmail.com",
-		role: "Front-end",
+		role: "Front-end | Phase I Leader",
 		bio:
 			"I’m a third year CS major at UT Austin. I’m from Dallas, Texas and in my free time I enjoy exercising, cooking, reading, playing video games, and listening to podcasts!",
 		linkedin: "https://www.linkedin.com/in/jefferson-ye",
@@ -254,7 +254,7 @@ const teamInfo = [
 		username: "Catalystic",
 		picture_path: KevinLiImg,
 		email: "kevin.li1729@utexas.edu",
-		role: "Back-end",
+		role: "Back-end | Phase IV Leader",
 		bio:
 			"I’m a third year CS major at UT Austin. I’m from Austin, Texas and spend my free time playing chess and camping. I definitely have spent too much time playing Among Us lately.",
 		linkedin: "https://www.linkedin.com/in/kevinli1729",

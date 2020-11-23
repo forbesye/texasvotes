@@ -113,7 +113,7 @@ def search_elections(q, elect_query):
         searches.append(Election.class_name.match(term))
         searches.append(Election.office.match(term))
         searches.append(
-            District.counties.any(func.lower(Counties.name).contains(term.lower()))
+            Election.current_district.has(District.counties.any(func.lower(Counties.name).contains(term.lower())))
         )
         searches.append(
             Election.politicians.any(Politician.name.ilike("%{}%".format(term)))

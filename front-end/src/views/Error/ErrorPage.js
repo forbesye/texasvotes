@@ -7,12 +7,6 @@ import React from "react"
 import { Typography } from "antd"
 import { Link } from "react-router-dom"
 
-/* 
-    Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from 
-    <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-*/
-import confusion from "./confusion.svg"
-
 const { Title } = Typography
 
 /**
@@ -49,7 +43,7 @@ export default function ErrorPage() {
 			<img
 				style={{ height: "30%", width: "30%" }}
 				alt={"Confused"}
-				src={confusion}
+				src="https://i.kym-cdn.com/photos/images/original/001/211/814/a1c.jpg"
 			/>
 		</main>
 	)

@@ -112,8 +112,8 @@
 }
 
 .cardImage {
-	width: 200px !important;
-	margin: 40px 0;
+	width: 250px !important;
+	margin: 25px 0;
 	object-fit: contain;
 }
 
