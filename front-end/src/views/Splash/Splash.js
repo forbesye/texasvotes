@@ -127,7 +127,7 @@ const Splash = () => {
 							}
 							hoverable={true}
 						>
-							<Title style={{ textAlign: "center" }}>
+							<Title level={2} style={{ textAlign: "center" }}>
 								Politicians
 							</Title>
 							<Paragraph>
@@ -152,7 +152,7 @@ const Splash = () => {
 							}
 							hoverable={true}
 						>
-							<Title style={{ textAlign: "center" }}>
+							<Title level={2} style={{ textAlign: "center" }}>
 								Districts
 							</Title>
 							<Paragraph>
@@ -178,7 +178,7 @@ const Splash = () => {
 							}
 							hoverable={true}
 						>
-							<Title style={{ textAlign: "center" }}>
+							<Title level={2} style={{ textAlign: "center" }}>
 								Elections
 							</Title>
 							<Paragraph>

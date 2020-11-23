@@ -25,7 +25,11 @@ import D3Logo from "views/About/images/D3Logo.png"
 import ChartsLogo from "views/About/images/ChartsLogo.svg"
 import GoogleDevLogo from "views/About/images/GoogleDevLogo.png"
 import OpenSecretsLogo from "views/About/images/OpenSecretsLogo.png"
-import OpenStatesLogo from "views/About/images/OpenStatesLogo.png"
+import NewsAPILogo from "views/About/images/NewsAPILogo.png"
+import MapboxLogo from "views/About/images/MapboxLogo.png"
+import BallotpediaLogo from "views/About/images/BallotpediaLogo.png"
+import YouTubeLogo from "views/About/images/YouTubeLogo.png"
+import HereLogo from "views/About/images/HereLogo.png"
 
 /**
  * Static data for About page
@@ -164,12 +168,35 @@ const apiInfo = [
 		link: "https://www.opensecrets.org/open-data/api",
 	},
 	{
-		title: "OpenStates API",
-		img: OpenStatesLogo,
-		description:
-			"Used to find information about legislators and voting within state legislatures",
-		link: "https://docs.openstates.org/en/latest/api/v3/",
+		title: "News API",
+		img: NewsAPILogo,
+		description: "Used to find new and updating stories about Texas from a wide range of sources",
+		link: "https://newsapi.org/",
 	},
+	{
+		title: "Mapbox GL JS",
+		img: MapboxLogo,
+		description: "Used to visualize Texas district shapes and locations",
+		link: "https://docs.mapbox.com/mapbox-gl-js/api/"
+	},
+	{
+		title: "HERE Maps API",
+		img: HereLogo,
+		description: "Used to fetch address suggestions for Texas address queries",
+		link: "https://developer.here.com/documentation/geocoder-autocomplete/dev_guide/topics/resource-suggest.html"
+	},
+	{
+		title: "YouTube Data API",
+		img: YouTubeLogo,
+		description: "Used to fetch related videos to elections",
+		link: "https://developers.google.com/youtube/v3/docs/search/list"
+	},
+	{
+		title: "Ballotpedia",
+		img: BallotpediaLogo,
+		description: "Static pages that contain tons of scrapable data on non-elected candidates running in races",
+		link: "https://ballotpedia.org/Main_Page"
+	}
 ]
 
 const repoAndAPI = [

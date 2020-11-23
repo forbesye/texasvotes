@@ -32,7 +32,7 @@ export default function ErrorPage() {
 			{/* Basic text for the error page */}
 			<Title level={1}>Oops.</Title> <br />
 			<p style={{ fontSize: 28 }}>
-				The page you're trying to reach does not exit.
+				The page you're trying to reach does not exist.
 			</p>{" "}
 			<br />
 			<p style={{ fontSize: 28 }}>
