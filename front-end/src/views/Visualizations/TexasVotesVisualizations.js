@@ -66,7 +66,8 @@ const PoliticiansChart = () => {
 			page.forEach((pol) => {
 				polID.set(pol.name, pol.id)
 			})
-			setData(parseData(page))
+			const parsedData = parseData(page)
+			setData(parsedData)
 			setLoading(false)
 		}
 		getData()
@@ -83,7 +84,7 @@ const PoliticiansChart = () => {
 				<BubbleChart
 					graph={{
 						zoom: 0.7,
-						offsetX: 0.1,
+						offsetX: 0.0,
 						offsetY: 0.0,
 					}}
 					showLegend={false}
@@ -333,7 +334,8 @@ const ElectionsChart = () => {
 				}),
 			})
 			const { page } = electionData
-			setData(parseData(page))
+			const parsedData = parseData(page)
+			setData(parseData(parsedData))
 			setLoading(false)
 		}
 		getData()
