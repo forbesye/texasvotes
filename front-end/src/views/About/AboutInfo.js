@@ -25,7 +25,6 @@ import D3Logo from "views/About/images/D3Logo.png"
 import ChartsLogo from "views/About/images/ChartsLogo.svg"
 import GoogleDevLogo from "views/About/images/GoogleDevLogo.png"
 import OpenSecretsLogo from "views/About/images/OpenSecretsLogo.png"
-import OpenStatesLogo from "views/About/images/OpenStatesLogo.png"
 import NewsAPILogo from "views/About/images/NewsAPILogo.png"
 import MapboxLogo from "views/About/images/MapboxLogo.png"
 import BallotpediaLogo from "views/About/images/BallotpediaLogo.png"
@@ -172,7 +171,7 @@ const apiInfo = [
 		title: "News API",
 		img: NewsAPILogo,
 		description: "Used to find new and updating stories about Texas from a wide range of sources",
-		link: "https://docs.openstates.org/en/latest/api/v3/",
+		link: "https://newsapi.org/",
 	},
 	{
 		title: "Mapbox GL JS",
