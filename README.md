@@ -83,7 +83,7 @@ https://api.texasvotes.me
 | Name                 | Estimated | Actual |
 | -------------------- | --------- | ------ |
 | Jefferson Ye         | 15        | 20     |
-| Larry Win            | ??        | ??     |
+| Larry Win            | 15        | 20     |
 | Jennifer Suriadinata | 10        | 10     |
 | Sydney Owen          | 10        | 10     |
 | Ivan Romero          | 10        | 10     |
