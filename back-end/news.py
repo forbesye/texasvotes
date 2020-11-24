@@ -53,7 +53,11 @@ class News:
         )
         if response.ok:
             data = response.json()
-            return sorted(data["articles"], key=lambda article: article["publishedAt"], reverse=True)
+            return sorted(
+                data["articles"],
+                key=lambda article: article["publishedAt"],
+                reverse=True,
+            )
         return None
 
     # Gets results cached within the past 30 minutes or the new body from the News API

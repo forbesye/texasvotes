@@ -22,7 +22,6 @@
 .gridLayout {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-	/* grid-template-rows: repeat(minmax(450px, 1fr)); */
 	gap: 32px;
 	margin: 32px auto;
 }
@@ -44,10 +43,8 @@
 	height: 300px;
 	margin: 16px;
 	text-align: center;
-	/* box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2); */
 	background-color: white;
 	padding: 50px;
-	/* border-radius: 50px; */
 }
 
 .loading {

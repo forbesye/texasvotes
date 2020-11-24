@@ -104,7 +104,9 @@ def search_politicians(q, pol_query):
     terms = [w.lower() for w in terms]
 
     if "zodiac" in terms:
-        return pol_query.filter(and_(Politician.name.match("Cruz"), Politician.name.match("Ted")))
+        return pol_query.filter(
+            and_(Politician.name.match("Cruz"), Politician.name.match("Ted"))
+        )
     searches = []
     for term in terms:
         searches.append(Politician.office.match(term))
@@ -113,7 +115,9 @@ def search_politicians(q, pol_query):
         except ValueError:
             pass
         searches.append(
-            Politician.current_district.has(District.counties.any(func.lower(Counties.name).contains(term.lower())))
+            Politician.current_district.has(
+                District.counties.any(func.lower(Counties.name).contains(term.lower()))
+            )
         )
         searches.append(Politician.elections.any(Election.election_day.contains(term)))
         searches.append(Politician.name.ilike("%{}%".format(term)))

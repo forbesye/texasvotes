@@ -194,18 +194,20 @@ def election_id(id):
 
     return election
 
+
 # ---------- News ----------
 @app.route("/news", methods=["GET"])
 def news():
     ret = get_news()
     return jsonify(ret)
 
+
 # ---------- Search By Address ----------
 @app.route("/address", methods=["GET"])
 def address():
     queries = request.args.to_dict(flat=False)
     error = None
-    try: 
+    try:
         address = queries["address"]
         ocd_ids = get_ocd_ids(address)
         # get districts by ocd_ids
@@ -214,10 +216,10 @@ def address():
         # Format and get corresponding politician and elections ids
         pol_ids = []
         el_ids = []
-        for district in districts: 
+        for district in districts:
             format_district(district)
-            pol_ids += [ pol["id"] for pol in district["elected_officials"] ]
-            el_ids += [ el["id"] for el in district["elections"] ]
+            pol_ids += [pol["id"] for pol in district["elected_officials"]]
+            el_ids += [el["id"] for el in district["elections"]]
         # Get politician by given ids
         pol_query = db.session.query(Politician)
         pol_query = pol_query.filter(Politician.id.in_(pol_ids))
@@ -233,16 +235,15 @@ def address():
             format_politician(politician)
         for election in elections:
             format_election(election)
-        return jsonify({
-            "politician": politicians,
-            "district": districts,
-            "election": elections
-        })
+        return jsonify(
+            {"politician": politicians, "district": districts, "election": elections}
+        )
     except KeyError:
         error = "No address provided"
     except RequestFailedException:
         error = "Unable to make request to external API"
-    return jsonify({ "error": error })
+    return jsonify({"error": error})
+
 
 @app.route("/")
 def hello_world():

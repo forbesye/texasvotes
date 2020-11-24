@@ -7,7 +7,7 @@ import cache from "lru-cache"
 const client = axios.create({
 	baseURL: process.env.REACT_APP_API_URL
 		? process.env.REACT_APP_API_URL
-		: "https://apidev.texasvotes.me",
+		: "https://api.texasvotes.me",
 })
 
 // LRU cache to store API requests
