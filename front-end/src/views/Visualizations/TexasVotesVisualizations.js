@@ -13,6 +13,7 @@ import {
 	PolarAngleAxis,
 	PolarRadiusAxis,
 	Label,
+	ResponsiveContainer
 } from "recharts"
 import { Typography } from "antd"
 import { useHistory } from "react-router-dom"
@@ -220,7 +221,7 @@ const DistrictsChart = () => {
 
 		const getData = async () => {
 			setLoading(true)
-			let districtData = await getAPI({
+			const districtData = await getAPI({
 				model: "district",
 				params: new URLSearchParams({
 					office: "us_house",
@@ -228,14 +229,13 @@ const DistrictsChart = () => {
 				}),
 			})
 
-			let texasData = await getAPI({
+			const texasData = await getAPI({
 				model: "district",
 				path: 218,
 			})
 
 			const { page } = districtData
-			const parsed = parseData(page, texasData)
-			setData(parsed)
+			setData(parseData(page, texasData))
 			setLoading(false)
 		}
 		getData()
@@ -260,33 +260,32 @@ const DistrictsChart = () => {
 					hook={[filter, setFilter]}
 				/>
 			</div>
-
 			<div className={styles.chart}>
-				<RadarChart
-					outerRadius={150}
-					width={1000}
-					height={500}
-					data={data[district - 1][filter]}
-				>
-					<PolarGrid />
-					<PolarAngleAxis dataKey="name" />
-					<PolarRadiusAxis angle={30} />
-					<Radar
-						name="Texas"
-						dataKey="texasVal"
-						stroke="#8884d8"
-						fill="#8884d8"
-						fillOpacity={0.8}
-					/>
-					<Radar
-						name="Congressional District"
-						dataKey="value"
-						stroke="#82ca9d"
-						fill="#82ca9d"
-						fillOpacity={0.3}
-					/>
-					<Legend verticalAlign="top" />
-				</RadarChart>
+				<ResponsiveContainer width="90%" height={500}>
+					<RadarChart
+						outerRadius={150}
+						data={data[district - 1][filter]}
+					>
+						<PolarGrid />
+						<PolarAngleAxis dataKey="name" />
+						<PolarRadiusAxis angle={30} />
+						<Radar
+							name="Texas"
+							dataKey="texasVal"
+							stroke="#8884d8"
+							fill="#8884d8"
+							fillOpacity={0.8}
+						/>
+						<Radar
+							name="Congressional District"
+							dataKey="value"
+							stroke="#82ca9d"
+							fill="#82ca9d"
+							fillOpacity={0.3}
+						/>
+						<Legend verticalAlign="top" />
+					</RadarChart>
+				</ResponsiveContainer>
 			</div>
 		</>
 	)
@@ -325,7 +324,7 @@ const ElectionsChart = () => {
 
 		const getData = async () => {
 			setLoading(true)
-			let electionData = await getAPI({
+			const electionData = await getAPI({
 				model: "election",
 				params: new URLSearchParams({
 					office: "us_house",
@@ -334,8 +333,7 @@ const ElectionsChart = () => {
 				}),
 			})
 			const { page } = electionData
-			const parsedData = parseData(page)
-			setData(parseData(parsedData))
+			setData(parseData(page))
 			setLoading(false)
 		}
 		getData()
@@ -349,45 +347,45 @@ const ElectionsChart = () => {
 		<>
 			<Title level={3}>Election Results by Partisanship</Title>
 			<div className={styles.chart}>
-				<BarChart
-					width={1000}
-					height={500}
-					data={data}
-					margin={{
-						top: 20,
-						right: 30,
-						left: 20,
-						bottom: 5,
-					}}
-					onClick={({ activePayload }) => {
-						const id = activePayload?.pop().payload.id
-						if (id) {
-							history.push(`elections/view/${id}`)
-						}
-					}}
-				>
-					<CartesianGrid strokeDasharray="3 3" />
-					<XAxis dataKey="name" tick={false}>
-						<Label
-							value="Election"
-							position="insideBottom"
-							style={{ textAnchor: "middle" }}
-						/>
-					</XAxis>
-					<YAxis>
-						<Label
-							angle={-90}
-							value="Number of Votes"
-							position="insideLeft"
-							style={{ textAnchor: "middle" }}
-						/>
-					</YAxis>
-					<Tooltip payload={data} />
-					<Legend verticalAlign="top" />
-					<Bar dataKey="R" stackId="a" fill={colorHexMap.R} />
-					<Bar dataKey="D" stackId="a" fill={colorHexMap.D} />
-					<Bar dataKey="L" stackId="a" fill={colorHexMap.L} />
-				</BarChart>
+				<ResponsiveContainer width="90%" height={500}>
+					<BarChart
+						data={data}
+						margin={{
+							top: 20,
+							right: 30,
+							left: 20,
+							bottom: 5,
+						}}
+						onClick={({ activePayload }) => {
+							const id = activePayload?.pop().payload.id
+							if (id) {
+								history.push(`elections/view/${id}`)
+							}
+						}}
+					>
+						<CartesianGrid strokeDasharray="3 3" />
+						<XAxis dataKey="name" tick={false}>
+							<Label
+								value="Election"
+								position="insideBottom"
+								style={{ textAnchor: "middle" }}
+							/>
+						</XAxis>
+						<YAxis>
+							<Label
+								angle={-90}
+								value="Number of Votes"
+								position="insideLeft"
+								style={{ textAnchor: "middle" }}
+							/>
+						</YAxis>
+						<Tooltip payload={data} />
+						<Legend verticalAlign="top" />
+						<Bar dataKey="R" stackId="a" fill={colorHexMap.R} />
+						<Bar dataKey="D" stackId="a" fill={colorHexMap.D} />
+						<Bar dataKey="L" stackId="a" fill={colorHexMap.L} />
+					</BarChart>
+				</ResponsiveContainer>
 			</div>
 		</>
 	)
