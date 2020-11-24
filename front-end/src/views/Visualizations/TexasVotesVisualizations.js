@@ -13,7 +13,7 @@ import {
 	PolarAngleAxis,
 	PolarRadiusAxis,
 	Label,
-	ResponsiveContainer
+	ResponsiveContainer,
 } from "recharts"
 import { Typography } from "antd"
 import { useHistory } from "react-router-dom"

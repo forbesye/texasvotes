@@ -13,7 +13,7 @@ import {
 	ZAxis,
 	Tooltip,
 	Label,
-	ResponsiveContainer
+	ResponsiveContainer,
 } from "recharts"
 import { Typography } from "antd"
 import Spinner from "components/ui/Spinner"
@@ -338,7 +338,11 @@ const CountryOrganization = () => {
 								style={{ textAnchor: "middle" }}
 							/>
 						</YAxis>
-						<ZAxis dataKey={"count"} name="Count" range={[50, 500]} />
+						<ZAxis
+							dataKey={"count"}
+							name="Count"
+							range={[50, 500]}
+						/>
 						{Object.entries(data).map(([key, value]) => {
 							return (
 								<Scatter
